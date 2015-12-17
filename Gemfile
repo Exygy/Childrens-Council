@@ -68,6 +68,15 @@ group :development do
 
   # Remove asset output from server logs
   gem 'quiet_assets'
+
+  # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
+  # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
+  # `guard init livereload` to create Guardfile
+  # `guard -P livereload` to watch files and livereload
+  gem "guard", ">= 2.2.2", :require => false
+  gem "guard-livereload",  :require => false
+  gem "rack-livereload"
+  gem "rb-fsevent",        :require => false
 end
 
 group :production do
