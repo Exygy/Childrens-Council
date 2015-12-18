@@ -1,0 +1,12 @@
+.row
+  .small-12.columns
+    h2 Start Search
+
+form.row ng-submit="submitSearch()"
+  .small-6.columns
+    label
+      | First Name
+      input type="text" ng-model="firstName"
+
+  .small-12.columns
+    input.button type="submit" value="Search"
