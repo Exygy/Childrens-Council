@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe ParentsController, type: :controller do
-  describe "POST #create" do
+RSpec.describe SearchController, type: :controller do
+  describe "POST #search" do
       context "when successfully created" do
         let(:parent_attributes) { FactoryGirl.attributes_for :parent }
         before(:each) do
-          post :create, { parent: parent_attributes }, format: :json
+          post :search, { parent: parent_attributes }, format: :json
         end
 
         it "returns json for new record" do
@@ -19,7 +19,7 @@ RSpec.describe ParentsController, type: :controller do
       context "when not created" do
         before(:each) do
           invalid_parent_attributes = { first_name: 'Jane' } # missing email
-          post :create, { parent: invalid_parent_attributes }, format: :json
+          post :search, { parent: invalid_parent_attributes }, format: :json
         end
 
         it "returns errors" do

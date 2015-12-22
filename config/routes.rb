@@ -56,5 +56,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :parents, only: [:create]
+  post 'search' => 'search#search'
 end

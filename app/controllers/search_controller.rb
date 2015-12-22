@@ -1,5 +1,5 @@
-class ParentsController < ApplicationController
-  def create
+class SearchController < ApplicationController
+  def search
     parent = Parent.new(parent_params)
     if parent.save
       render json: parent, status: 201
