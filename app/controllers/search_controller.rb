@@ -1,8 +1,15 @@
 class SearchController < ApplicationController
   def search
-    parent = Parent.new(parent_params)
-    if parent.save
-      render json: parent, status: 201
+    # Get existing record using email as key
+    if parent = Parent::where({email: params[:parent][:email]}).first
+      status_code = 200
+    else
+      parent = Parent.new
+      status_code = 201
+    end
+
+    if parent.update(parent_params)
+      render json: parent, status: status_code
     else
       render json: { errors: parent.errors }, status: 422
     end
