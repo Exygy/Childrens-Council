@@ -70,6 +70,7 @@ group :development, :test do
 
   # `rails g rspec:install`
   gem 'rspec-rails'
+  gem 'should_not'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'shoulda-matchers'

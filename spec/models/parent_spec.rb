@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Parent, type: :model do
-  before { @parent = FactoryGirl.build(:parent) }
+  let(:parent) { FactoryGirl.build(:parent) }
 
-  subject { @parent }
+  subject { parent }
 
-  it { should validate_presence_of(:email) }
-  it { should validate_uniqueness_of(:email) }
-
-  it { should be_valid }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to be_valid }
 end
