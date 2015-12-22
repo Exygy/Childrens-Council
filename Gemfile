@@ -68,6 +68,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
 
+  # `rails g rspec:install`
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
