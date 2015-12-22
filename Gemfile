@@ -93,10 +93,11 @@ group :development do
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard init livereload` to create Guardfile
   # `guard -P livereload` to watch files and livereload
-  gem "guard", ">= 2.2.2", :require => false
-  gem "guard-livereload",  :require => false
-  gem "rack-livereload"
-  gem "rb-fsevent",        :require => false
+  gem 'guard', '>= 2.2.2', require: false
+  gem 'guard-livereload',  require: false
+  gem 'guard-rspec',       require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent',        require: false
 end
 
 group :production do
