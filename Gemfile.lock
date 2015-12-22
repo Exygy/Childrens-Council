@@ -21,6 +21,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.9.3)
+      activemodel (>= 3.2)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -66,6 +68,13 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.8)
     execjs (2.6.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+    faker (1.6.1)
+      i18n (~> 0.5)
     ffi (1.9.10)
     formatador (0.2.5)
     foundation-rails (5.5.3.2)
@@ -91,9 +100,6 @@ GEM
     hike (1.2.3)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
-    jbuilder (2.3.2)
-      activesupport (>= 3.0.0, < 5)
-      multi_json (~> 1.2)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -136,6 +142,7 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-livereload (0.3.16)
       rack
     rack-test (0.6.3)
@@ -245,15 +252,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   angular-rails-templates
   better_errors
   binding_of_caller
   byebug
   coffee-rails (~> 4.1.0)
+  factory_girl_rails
+  faker
   foundation-rails
   guard (>= 2.2.2)
   guard-livereload
-  jbuilder (~> 2.0)
   jquery-rails
   pg
   pg_search
@@ -262,6 +271,7 @@ DEPENDENCIES
   pry-rails
   puma
   quiet_assets
+  rack-cors
   rack-livereload
   rack-timeout
   rails (= 4.2.5)
