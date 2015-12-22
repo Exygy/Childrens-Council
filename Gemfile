@@ -91,10 +91,11 @@ group :development do
 
   # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
-  # `guard init livereload` to create Guardfile
-  # `guard -P livereload` to watch files and livereload
+  # `guard` to watch files and run tasks
   gem 'guard', '>= 2.2.2', require: false
+  # `guard init livereload` to configure Guardfile
   gem 'guard-livereload',  require: false
+  # `guard init rspec` to configure Guardfile
   gem 'guard-rspec',       require: false
   gem 'rack-livereload'
   gem 'rb-fsevent',        require: false
