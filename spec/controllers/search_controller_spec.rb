@@ -13,7 +13,7 @@ RSpec.describe SearchController, type: :controller do
           expect(parent_response[:email]).to eql parent_attributes[:email]
         end
 
-        it { is_expected.to respond_with 201 }
+        it { is_expected.to respond_with 200 }
       end
 
       context "access existing record" do
