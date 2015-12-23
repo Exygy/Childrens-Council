@@ -42,7 +42,7 @@ RSpec.describe SearchController, type: :controller do
 
       context "when not created" do
         before do
-          invalid_parent_attributes = { first_name: 'Jane' } # missing email
+          invalid_parent_attributes = { first_name: 'Jane' } # missing last_name
           post :search, { parent: invalid_parent_attributes }, format: :json
         end
 
@@ -53,7 +53,7 @@ RSpec.describe SearchController, type: :controller do
 
         it "renders errors with reason" do
           parent_response = JSON.parse(response.body, symbolize_names: true)
-          expect(parent_response[:errors][:email]).to include "can't be blank"
+          expect(parent_response[:errors][:last_name]).to include "can't be blank"
         end
 
         it { is_expected.to respond_with 422 }
