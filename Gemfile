@@ -44,22 +44,13 @@ gem 'pg_search'
 
 # Assets
 gem 'slim-rails'
-gem 'foundation-rails'
 
-# AngularJS
 # NOTE: angular-rails-templates not yet compatible with sprockets >= 3.0
 # https://github.com/pitr/angular-rails-templates/issues/93
 gem 'angular-rails-templates'
 gem 'sprockets', '~> 2.12.4'
 # Forked version of angular-rails-templates that works with sprockets >= 3.0
 # gem 'angular-rails4-templates'
-
-# Include bower packages in asset pipeline
-# https://rails-assets.org/
-source 'https://rails-assets.org' do
-  gem 'rails-assets-angular'
-  gem 'rails-assets-angular-ui-router'
-end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
