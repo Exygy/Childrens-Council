@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SearchController, type: :controller do
+RSpec.describe Api::SearchController, type: :controller do
   describe "POST #search" do
       context "when successfully created" do
         let(:parent_attributes) { FactoryGirl.attributes_for :parent }

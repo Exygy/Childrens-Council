@@ -56,5 +56,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  post 'search' => 'search#search'
+  namespace :api, defaults: { format: :json } do
+    post 'search' => 'search#search'
+  end
 end

@@ -3,7 +3,7 @@ SearchService = ($http) ->
   Service.postSearch = (parent) ->
     $http {
       method: 'POST',
-      url: '/search',
+      url: '/api/search',
       data: {parent: parent}
     }
     .then (response) ->
