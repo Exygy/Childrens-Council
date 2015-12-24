@@ -286,7 +286,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   should_not
-  shoulda-matchers
+  shoulda-matchers (~> 3.0)
   slim-rails
   spring
   sprockets (~> 2.12.4)
