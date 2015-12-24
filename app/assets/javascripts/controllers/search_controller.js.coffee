@@ -1,13 +1,12 @@
-SearchController = ($scope, $state) ->
-  $scope.firstName = 'Grant'
-  $scope.lastName = ''
-  $scope.email = ''
-  $scope.zip = ''
+SearchController = ($scope, $state, SearchService) ->
+  $scope.parent =
+    firstName: ''
+    lastName: ''
+    email: ''
 
   $scope.submitSearch = () ->
-    # if(myForm.$valid) {
-    $state.go('results')
-    # }
+    SearchService.postSearch($scope.parent)
+    # $state.go('results')
 
-SearchController.$inject = ['$scope', '$state']
+SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCReferrals').controller('SearchController', SearchController)

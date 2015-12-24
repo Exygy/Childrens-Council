@@ -1,7 +1,8 @@
-angular.module('CCReferrals', [
+angular.module 'CCReferrals', [
     'templates',
     'ui.router',
-  ])
+  ]
+  .constant '_', window._
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
     $locationProvider.html5Mode(true)
     $stateProvider

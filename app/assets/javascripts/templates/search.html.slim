@@ -2,11 +2,20 @@
   .small-12.columns
     h2 Start Search
 
-form.row ng-submit="submitSearch()"
+form.row name="search" ng-submit="submitSearch()" novalidate=""
   .small-6.columns
     label
       | First Name
-      input type="text" ng-model="firstName"
+      input type="text" name="parent[first_name]" required="" ng-model="parent.firstName"
+  .small-6.columns
+    label
+      | Last Name
+      input type="text" name="parent[last_name]" required="" ng-model="parent.lastName"
+
+  .small-12.columns
+    label
+      | Email
+      input type="email" name="parent[email]" ng-model="parent.email"
 
   .small-12.columns
     input.button type="submit" value="Search"
