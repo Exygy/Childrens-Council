@@ -15,18 +15,19 @@ ActiveRecord::Schema.define(version: 20151221195318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "citext"
 
   create_table "children", force: :cascade do |t|
     t.integer  "age",        null: false
-    t.string   "zip"
+    t.text     "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "parents", force: :cascade do |t|
-    t.string   "first_name", null: false
-    t.string   "last_name",  null: false
-    t.string   "email"
+    t.text     "first_name", null: false
+    t.text     "last_name",  null: false
+    t.citext   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
