@@ -90,7 +90,3 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
-
-# Don't use should in your rspec tests
-# http://betterspecs.org/#should
-require 'should_not/rspec'

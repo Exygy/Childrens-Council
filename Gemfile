@@ -61,10 +61,18 @@ group :development, :test do
 
   # `rails g rspec:install`
   gem 'rspec-rails'
+
+  # `require 'should_not/rspec'` in rails_helper.rb
   gem 'should_not'
+
   gem 'factory_girl_rails'
   gem 'faker'
+
+  # `shoulda_helper.rb` and `require 'shoulda_helper'` in rails_helper.rb
   gem 'shoulda-matchers', '~> 3.0'
+
+  # `rails generate teaspoon:install --coffee`
+  gem "teaspoon-jasmine"
 end
 
 group :development do
@@ -81,16 +89,21 @@ group :development do
   # Remove asset output from server logs
   gem 'quiet_assets'
 
-  # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
-  # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard` to watch files and run tasks
   gem 'guard', '>= 2.2.2', require: false
+
+  # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
+  # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard init livereload` to configure Guardfile
   gem 'guard-livereload',  require: false
-  # `guard init rspec` to configure Guardfile
-  gem 'guard-rspec',       require: false
   gem 'rack-livereload'
   gem 'rb-fsevent',        require: false
+
+  # `guard init rspec` to configure Guardfile
+  gem 'guard-rspec',       require: false
+
+  # `guard init teaspoon`
+  gem "guard-teaspoon"
 end
 
 group :production do
