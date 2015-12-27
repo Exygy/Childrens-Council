@@ -9,7 +9,7 @@ describe 'SearchController', ->
   SearchServiceMock =
     postSearch: ->
 
-  beforeEach module 'CCReferrals'
+  beforeEach module 'CCR'
 
   beforeEach inject ($rootScope, $controller) ->
     $scope = $rootScope.$new()

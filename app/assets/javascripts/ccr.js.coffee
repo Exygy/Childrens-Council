@@ -1,4 +1,4 @@
-angular.module 'CCReferrals', [
+angular.module 'CCR', [
     'templates',
     'ui.router',
   ]

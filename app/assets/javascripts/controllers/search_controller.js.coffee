@@ -9,4 +9,4 @@ SearchController = ($scope, $state, SearchService) ->
     # $state.go('results')
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']
-angular.module('CCReferrals').controller('SearchController', SearchController)
+angular.module('CCR').controller('SearchController', SearchController)

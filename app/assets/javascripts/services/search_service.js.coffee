@@ -14,4 +14,4 @@ SearchService = ($http) ->
   return Service
 
 SearchService.$inject = ['$http']
-angular.module('CCReferrals').service('SearchService', SearchService)
+angular.module('CCR').service('SearchService', SearchService)
