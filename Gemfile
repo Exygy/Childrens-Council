@@ -72,7 +72,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.0'
 
   # `rails generate teaspoon:install --coffee`
-  gem "teaspoon-jasmine"
+  gem 'teaspoon-jasmine'
 end
 
 group :development do
@@ -84,7 +84,7 @@ group :development do
 
   # Error backtraces and interactive console
   gem 'better_errors'
-  gem "binding_of_caller"
+  gem 'binding_of_caller'
 
   # Remove asset output from server logs
   gem 'quiet_assets'
@@ -94,12 +94,18 @@ group :development do
   # `guard` to watch files and run tasks
   gem 'guard', '>= 2.2.2', require: false
 
+  # guard notifications
+  gem 'terminal-notifier-guard'
+
   # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard init livereload`
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
   gem 'rb-fsevent',       require: false
+
+  # `guard init bundler`
+  gem 'guard-bundler', require: false
 
   # `guard init rspec`
   gem 'guard-rspec', require: false
@@ -115,4 +121,3 @@ group :production do
   gem 'rails_12factor'
   gem 'rack-timeout'
 end
-
