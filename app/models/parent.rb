@@ -8,15 +8,15 @@ class Parent < ActiveRecord::Base
   # updating a parent with an email
   def self.find_unique(params)
     if params[:email].present?
-      self.where(email: params[:email])
+      where(email: params[:email])
     else
       # We are sure to return a parent without an email, since this parameter is blank
-      self.where(params)
+      where(params)
     end
   end
 
   def self.first_or_new(params)
-    parent = self.find_unique(params).take
-    parent ? parent : self.new(params)
+    parent = find_unique(params).take
+    parent ? parent : new(params)
   end
 end

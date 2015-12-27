@@ -89,21 +89,26 @@ group :development do
   # Remove asset output from server logs
   gem 'quiet_assets'
 
+  gem 'rubocop', require: false
+
   # `guard` to watch files and run tasks
   gem 'guard', '>= 2.2.2', require: false
 
   # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
-  # `guard init livereload` to configure Guardfile
-  gem 'guard-livereload',  require: false
+  # `guard init livereload`
+  gem 'guard-livereload', require: false
   gem 'rack-livereload'
-  gem 'rb-fsevent',        require: false
+  gem 'rb-fsevent',       require: false
 
-  # `guard init rspec` to configure Guardfile
-  gem 'guard-rspec',       require: false
+  # `guard init rspec`
+  gem 'guard-rspec', require: false
+
+  # `guard init rubocop`
+  gem 'guard-rubocop', require: false
 
   # `guard init teaspoon`
-  gem "guard-teaspoon"
+  gem 'guard-teaspoon', require: false
 end
 
 group :production do

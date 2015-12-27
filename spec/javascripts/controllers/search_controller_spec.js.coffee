@@ -14,6 +14,7 @@ describe 'SearchController', ->
   beforeEach inject ($rootScope, $controller) ->
     $scope = $rootScope.$new()
     $controller 'SearchController', {
+
       $scope: $scope,
       $state: $state,
       SearchService: SearchServiceMock

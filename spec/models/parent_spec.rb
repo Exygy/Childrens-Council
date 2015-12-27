@@ -11,10 +11,10 @@ RSpec.describe Parent, type: :model do
   it { is_expected.to be_valid }
 
   describe '.find_unique' do
-    let(:name) { {first_name: Faker::Name.first_name, last_name: Faker::Name.last_name} }
-    let(:parent_params) { name.merge({email: Faker::Internet.email}) }
-    let(:parent_params_same_name_different_email) { name.merge({email: Faker::Internet.email}) }
-    let(:parent_params_same_name_without_email) { name.merge({email: ''}) }
+    let(:name) { { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name } }
+    let(:parent_params) { name.merge(email: Faker::Internet.email) }
+    let(:parent_params_same_name_different_email) { name.merge(email: Faker::Internet.email) }
+    let(:parent_params_same_name_without_email) { name.merge(email: '') }
     let!(:parent) { Parent.create(parent_params) }
     let!(:parent_same_name_different_email) { Parent.create(parent_params_same_name_different_email) }
     let!(:parent_same_name_without_email) { Parent.create(parent_params_same_name_without_email) }
@@ -40,4 +40,3 @@ RSpec.describe Parent, type: :model do
     end
   end
 end
-
