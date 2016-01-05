@@ -13,11 +13,13 @@ class CreateProviders < ActiveRecord::Migration
       t.text :url
       t.text :address_1
       t.text :address_2
+      t.integer :city_id
       t.text :zip
       t.text :cross_street_1
       t.text :cross_street_2
       t.text :mail_address_1
       t.text :mail_address_2
+      t.integer :mail_city_id
       t.text :mail_zip
       t.text :ssn
       t.text :tax_id

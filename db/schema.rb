@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160105171357) do
   end
 
   create_table "cities", force: :cascade do |t|
-    t.text "city", null: false
+    t.text "name", null: false
   end
 
   create_table "parents", force: :cascade do |t|
@@ -49,11 +49,13 @@ ActiveRecord::Schema.define(version: 20160105171357) do
     t.text     "url"
     t.text     "address_1"
     t.text     "address_2"
+    t.integer  "city_id"
     t.text     "zip"
     t.text     "cross_street_1"
     t.text     "cross_street_2"
     t.text     "mail_address_1"
     t.text     "mail_address_2"
+    t.integer  "mail_city_id"
     t.text     "mail_zip"
     t.text     "ssn"
     t.text     "tax_id"

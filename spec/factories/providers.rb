@@ -4,6 +4,7 @@ FactoryGirl.define do
     alternate_name Faker::Company.name
     contact_name Faker::Name.name
     phone Faker::PhoneNumber.phone_number
+    phone_ext Faker::PhoneNumber.extension
     email Faker::Internet.email
     url Faker::Internet.url
     address_1 Faker::Address.street_address
@@ -16,5 +17,6 @@ FactoryGirl.define do
     mail_zip Faker::Address.zip
     ssn "#{Faker::Number.number(3)}-#{Faker::Number.number(2)}-#{Faker::Number.number(3)}"
     tax_id "#{Faker::Number.number(2)}-#{Faker::Number.number(7)}"
+    # association :city
   end
 end
