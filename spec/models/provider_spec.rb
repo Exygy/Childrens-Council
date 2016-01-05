@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Provider, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:provider) { FactoryGirl.build(:provider) }
+
+  subject { provider }
+
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to be_valid }
 end
