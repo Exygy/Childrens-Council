@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160105203735) do
     t.text     "first_name", null: false
     t.text     "last_name",  null: false
     t.citext   "email"
+    t.text     "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
