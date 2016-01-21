@@ -3,11 +3,11 @@
 <head>
   <title>Children's Council Referrals</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
-  <base href="//childrens-council.herokuapp.com/">
-
-
+  <% if Rails.env.production? %>
+    <base href="//childrens-council.herokuapp.com/">
+  <% else %>
+    <base href="/">
+  <% end %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>

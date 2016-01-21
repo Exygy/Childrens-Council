@@ -59,4 +59,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post 'search' => 'search#search'
   end
+
+  match "*path", to: "pages#not_found", via: :options
 end
