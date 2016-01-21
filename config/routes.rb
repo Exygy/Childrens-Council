@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   end
 
   # just to get rid of annoying sourcemap 404's...
-  match '*path', to: 'search#search', via: :all if Rails.env.development?
+  match '*path', to: 'api::search#search', via: :all if Rails.env.development?
   # route for OPTIONS CORS
-  match '*path', to: 'search#search', via: :options
+  match '*path', to: 'api::search#search', via: :options
 end
