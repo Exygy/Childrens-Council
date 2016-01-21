@@ -1,12 +1,13 @@
 describe 'SearchController', ->
-  emptyParent =
-    firstName: ''
-    lastName: ''
-    email: ''
 
   $scope = null
   $state = null
+
   SearchServiceMock =
+    parent:
+      firstName: ''
+      lastName: ''
+      email: ''
     postSearch: ->
 
   beforeEach module 'CCR'
@@ -22,10 +23,10 @@ describe 'SearchController', ->
 
   describe '$scope.parent', ->
     it 'populates scope with empty parent', ->
-      expect($scope.parent).toEqual(emptyParent)
+      expect($scope.parent).toEqual(SearchServiceMock.parent)
 
   describe '$scope.submitSearch', ->
     it 'submits search to SearchProvider', ->
       spyOn(SearchServiceMock, 'postSearch')
       $scope.submitSearch()
-      expect(SearchServiceMock.postSearch).toHaveBeenCalledWith($scope.parent)
+      expect(SearchServiceMock.postSearch).toHaveBeenCalled()

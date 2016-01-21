@@ -1,4 +1,4 @@
-class Api::SearchController < ApplicationController
+class Api::SearchController < Api::ApiBaseController
   def search
     parent = Parent.first_or_new(parent_params)
 

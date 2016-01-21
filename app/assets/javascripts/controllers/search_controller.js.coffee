@@ -1,11 +1,8 @@
 SearchController = ($scope, $state, SearchService) ->
-  $scope.parent =
-    firstName: ''
-    lastName: ''
-    email: ''
+  $scope.parent = SearchService.parent
 
   $scope.submitSearch = () ->
-    SearchService.postSearch($scope.parent)
+    SearchService.postSearch()
     # $state.go('results')
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']

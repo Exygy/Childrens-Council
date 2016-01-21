@@ -104,6 +104,8 @@ group :development do
   gem 'rack-livereload'
   gem 'rb-fsevent',       require: false
 
+  gem 'phantomjs'
+
   # `guard init bundler`
   gem 'guard-bundler', require: false
 
@@ -118,6 +120,7 @@ group :development do
 end
 
 group :production do
+  gem 'asset_sync'  
   gem 'rails_12factor'
   gem 'rack-timeout'
 end
