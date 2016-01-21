@@ -32,4 +32,14 @@ angular.module 'CCR', [
     delete $httpProvider.defaults.headers.common['X-Requested-With']
     $httpProvider.defaults.headers.common['Accept'] = 'application/json'
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
+
+    $httpProvider.interceptors.push ($q) ->
+      'request': (config)  ->
+        <% if Rails.env.production? %>
+        url_prefix = "//childrens-council.herokuapp.com"
+        <% else %>
+        url_prefix = ""
+        <% end %>
+        config.url =  url_prefix + config.url
+        config
   ]
