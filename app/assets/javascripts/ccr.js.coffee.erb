@@ -33,13 +33,13 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Accept'] = 'application/json'
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 
-    $httpProvider.interceptors.push () ->
-      'request': (config)  ->
-        <% if Rails.env.production? %>
-        url_prefix = "//childrens-council.herokuapp.com"
-        <% else %>
-        url_prefix = ""
-        <% end %>
-        config.url =  url_prefix + config.url
-        config
+    # $httpProvider.interceptors.push () ->
+    #   'request': (config)  ->
+    #     <% if Rails.env.production? %>
+    #     url_prefix = "//childrens-council.herokuapp.com/"
+    #     <% else %>
+    #     url_prefix = ""
+    #     <% end %>
+    #     config.url =  url_prefix + config.url
+    #     config
   ]
