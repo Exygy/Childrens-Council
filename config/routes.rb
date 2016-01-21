@@ -58,10 +58,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     post 'search' => 'search#search'
+    # route for OPTIONS CORS
+    match '*path', to: 'search#search', via: :options
+    # just to get rid of annoying sourcemap 404's...
+    match '*path', to: 'search#search', via: :all if Rails.env.development?
   end
-
-  # just to get rid of annoying sourcemap 404's...
-  match '*path', to: 'api::search#search', via: :all if Rails.env.development?
-  # route for OPTIONS CORS
-  match '*path', to: 'api::search#search', via: :options
 end
