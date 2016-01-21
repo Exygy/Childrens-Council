@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -120,7 +121,7 @@ group :development do
 end
 
 group :production do
-  gem 'asset_sync'  
+  gem 'asset_sync'
   gem 'rails_12factor'
   gem 'rack-timeout'
 end
