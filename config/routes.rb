@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+]Rails.application.routes.draw do
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   end
 
   # just to get rid of annoying sourcemap 404's...
-  match '*path', to: 'home#index', via: :all if Rails.env.development?
+  match '*path', to: 'search#search', via: :all if Rails.env.development?
   # route for OPTIONS CORS
-  match '*path', to: 'home#index', via: :options
+  match '*path', to: 'search#search', via: :options
 end
