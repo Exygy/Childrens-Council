@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def index
-    respond_to do |format|
-      format.html
-    end
+  end
+
+  def wordpress_template
+    render 'wordpress_template', layout: false
   end
 end

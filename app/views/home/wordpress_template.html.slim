@@ -1,0 +1,8 @@
+- if Rails.env.production?
+  base href="//childrens-council.herokuapp.com/"
+- else
+  base href="/"
+= javascript_include_tag 'application'
+
+div ng-app="CCR"
+  div [ui-view]
