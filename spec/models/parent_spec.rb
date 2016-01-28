@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: parents
+#
+#  id         :integer          not null, primary key
+#  first_name :text             not null
+#  last_name  :text             not null
+#  email      :citext
+#  zip        :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Parent, type: :model do

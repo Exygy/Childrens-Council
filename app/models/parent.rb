@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: parents
+#
+#  id         :integer          not null, primary key
+#  first_name :text             not null
+#  last_name  :text             not null
+#  email      :citext
+#  zip        :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Parent < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
