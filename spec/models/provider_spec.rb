@@ -29,16 +29,40 @@
 #  tax_id          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  latitude        :float
+#  longitude       :float
 #
 
 require 'rails_helper'
 
 RSpec.describe Provider, type: :model do
-  let(:provider) { FactoryGirl.build(:provider) }
+  before(:all) do
+    @provider = FactoryGirl.build(:provider)
+    Geocoder.configure(lookup: :test)
+    Geocoder::Lookup::Test.add_stub(
+      @provider.geocodable_address_string, [
+        {
+          'latitude'     => 40.7143528,
+          'longitude'    => -74.0059731,
+          'address'      => 'New York, NY, USA',
+          'state'        => 'New York',
+          'state_code'   => 'NY',
+          'country'      => 'United States',
+          'country_code' => 'US',
+        },
+      ]
+    )
+  end
+
+  let(:provider) { @provider }
+
   subject { provider }
 
   it { is_expected.to validate_presence_of(:name) }
   # it { is_expected.to belong_to(:city) }
   # it { is_expected.to belong_to(:mail_city).class_name('City').with_foreign_key('mail_city_id') }
   it { is_expected.to be_valid }
+  it { is_expected.to belong_to(:mail_city).class_name('City').with_foreign_key('mail_city_id') }
+  it { expect(provider.latitude).to eq(40.7143528) }
+  it { expect(provider.longitude).to eq(-74.0059731) }
 end

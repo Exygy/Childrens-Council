@@ -29,6 +29,8 @@
 #  tax_id          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  latitude        :float
+#  longitude       :float
 #
 
 class Provider < ActiveRecord::Base
@@ -38,6 +40,39 @@ class Provider < ActiveRecord::Base
   belongs_to :state
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
 
+  geocoded_by :geocodable_address_string
+  after_validation :geocode
 
-  
+  def facility?
+    true
+  end
+
+  def geocodable_address_string
+    full_address_array.compact.join(', ')
+  end
+
+  def full_address_array
+    r = []
+    r << street_address
+    r << city.name if city
+    r << state.name if state
+    r << zip
+    r.flatten
+  end
+
+  def street_address
+    address_array = []
+    # facility are geocoded by exact address
+    if self.facility?
+      address_array << address_1
+      address_array << address_2
+    end
+    # non facility are geocoded by cross streets
+    unless self.facility?
+      address_array << cross_street_1
+      address_array << '@' # mark street intersection
+      address_array << cross_street_2
+    end
+    address_array.compact
+  end
 end

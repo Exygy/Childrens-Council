@@ -1,13 +1,14 @@
 module Api
   class SearchController < ApplicationController
     def search
-      parent = Parent.first_or_new(parent_params)
-
-      if parent.update(parent_params)
-        render json: parent, status: 200
-      else
-        render json: { errors: parent.errors }, status: 422
-      end
+      render json: {goog: true}, status: 200
+      # parent = Parent.first_or_new(parent_params)
+      #
+      # if parent.update(parent_params)
+      #   render json: parent, status: 200
+      # else
+      #   render json: { errors: parent.errors }, status: 422
+      # end
     end
 
     private
