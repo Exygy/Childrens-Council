@@ -23,14 +23,12 @@ describe 'CORS Preflight Request via OPTIONS HTTP method' do
     end
 
     it 'sets Access-Control-Allow-Origin header to the Origin in the request' do
-      expect(headers['Access-Control-Allow-Origin']).
-        to eq(@allowed_origin)
+      expect(headers['Access-Control-Allow-Origin']).to eq(@allowed_origin)
     end
 
     it 'sets Access-Control-Allow-Methods to the whitelisted methods' do
       allowed_http_methods = headers['Access-Control-Allow-Methods']
-      expect(allowed_http_methods).
-        to eq(%w(GET POST OPTIONS).join(', '))
+      expect(allowed_http_methods).to eq('GET, POST, OPTIONS')
     end
 
     it 'returns the Access-Control-Max-Age header' do
@@ -48,8 +46,8 @@ describe 'CORS Preflight Request via OPTIONS HTTP method' do
     end
 
     it 'only exposes the Etag, Last-Modified, Link and X-Total-Count headers' do
-      expect(headers['Access-Control-Expose-Headers']).
-        to eq('Etag, Last-Modified, Link, X-Total-Count')
+      expect(headers['Access-Control-Expose-Headers'])
+        .to eq('Etag, Last-Modified, Link, X-Total-Count')
     end
 
     it 'allows access to a specific provider' do
@@ -58,8 +56,8 @@ describe 'CORS Preflight Request via OPTIONS HTTP method' do
               'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'GET',
               'REQUEST_METHOD' => 'OPTIONS'
 
-      expect(headers['Access-Control-Allow-Origin']).
-        to eq(@allowed_origin)
+      expect(headers['Access-Control-Allow-Origin'])
+        .to eq(@allowed_origin)
     end
 
     it 'allows access to the search endpoint' do
@@ -69,8 +67,8 @@ describe 'CORS Preflight Request via OPTIONS HTTP method' do
               'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'GET',
               'REQUEST_METHOD' => 'OPTIONS'
 
-      expect(headers['Access-Control-Allow-Origin']).
-        to eq(@allowed_origin)
+      expect(headers['Access-Control-Allow-Origin'])
+        .to eq(@allowed_origin)
     end
 
     it 'does not allow access to non-whitelisted endpoints' do
