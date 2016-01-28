@@ -25,8 +25,8 @@ module ChildrensCouncil
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do
-        origins '*' # localhost|ccsf.wpengine.com|childrenscouncil.org|rspec
-        resource %r{/providers/*},
+        origins "#{Rails.env.production? ? 'http://ccsf.wpengine.com' : '*'}" # localhost|http://ccsf.wpengine.com|childrenscouncil.org|rspec
+        resource %r{/search|providers/*},
                  headers: :any,
                  methods: [:get, :post, :options],
                  expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count']
