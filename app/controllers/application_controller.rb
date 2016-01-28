@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def verified_request?
+
+    puts "in here"
+    puts valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
+
     super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
   end
 
