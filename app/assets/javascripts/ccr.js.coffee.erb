@@ -8,13 +8,22 @@ angular.module 'CCR', [
     $stateProvider
       .state('search', {
         url: '/',
-        templateUrl: 'search.html',
+        templateUrl: 'search/search.html',
         controller: 'SearchController',
       })
       .state('results', {
         url: '/results',
-        templateUrl: 'results.html',
+        templateUrl: 'results/results.html',
         controller: 'ResultsController',
+      })
+      .state('provider', {
+        url: '/providers/:id',
+        templateUrl: 'provider/provider.html',
+        controller: 'ProviderController',
+        resolve:
+          provider: ['$stateParams', 'ProviderService', ($stateParams, ProviderService) ->
+            ProviderService.getProvider($stateParams.id)
+          ]
       })
     $urlRouterProvider.otherwise('/')
   ]
