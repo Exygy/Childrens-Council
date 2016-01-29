@@ -14,7 +14,7 @@ SearchService = ($http) ->
       options: {},
       events: {},
       id: 123
-    }
+    },
   ]
 
 
