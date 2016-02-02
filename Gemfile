@@ -36,6 +36,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'active_model_serializers'
 
+# paginate
+gem 'kaminari'
+
+# keep track of record history
+gem 'paper_trail'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
 
@@ -107,9 +113,9 @@ group :development do
   # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard init livereload`
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
-  gem 'rb-fsevent',       require: false
+  # gem 'guard-livereload', require: false
+  # gem 'rack-livereload'
+  # gem 'rb-fsevent',       require: false
 
   gem 'phantomjs'
 

@@ -16,6 +16,8 @@ class Parent < ActiveRecord::Base
   validates :last_name, presence: true
   validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
 
+  has_paper_trail
+
   # This will not find a parent if that parent has an email but an email is not present in the parameters
   # This treats email as a primary key, and prevents someone with the same name but without an email from
   # updating a parent with an email

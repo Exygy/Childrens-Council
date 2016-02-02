@@ -1,6 +1,5 @@
-MapController = ($scope, SearchService, $log) ->
-    $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 8 };
-    $scope.markers = SearchService.markers
+MapController = ($scope) ->
+    $scope.map = {center: {latitude: 37.7833, longitude: -122.4167 }, zoom: 10 };
 
-MapController.$inject = ['$scope', 'SearchService', '$log']
+MapController.$inject = ['$scope']
 angular.module('CCR').controller('MapController', MapController)
