@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: states
+#
+#  id   :integer          not null, primary key
+#  name :text
+#  abbr :text
+#
+
 require 'rails_helper'
 
 RSpec.describe State, type: :model do

@@ -4,7 +4,22 @@ SearchService = ($http) ->
     lastName: ''
     email: ''
   @results = []
-  @postSearch = () ->
+
+  @markers =  [
+    {
+      coords: {
+        latitude: 40.1451,
+        longitude: -99.6680
+      },
+      options: {},
+      events: {},
+      id: 123
+    },
+  ]
+
+
+  @postSearch = (callback) ->
+    that = @
     $http {
       method: 'POST',
       url: '/api/search',
@@ -13,7 +28,10 @@ SearchService = ($http) ->
     .then (response) ->
       # // this callback will be called asynchronously
       # // when the response is available
-      console.log response.data
+      that.parent = response.data
+      that.results = [1]
+      if callback
+        callback()
   @
 
 SearchService.$inject = ['$http']

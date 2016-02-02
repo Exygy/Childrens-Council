@@ -53,6 +53,9 @@ gem 'sprockets', '~> 2.12.4'
 # Forked version of angular-rails-templates that works with sprockets >= 3.0
 # gem 'angular-rails4-templates'
 
+# Complete Ruby geocoding solution
+gem 'geocoder'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -91,6 +94,9 @@ group :development do
   gem 'quiet_assets'
 
   gem 'rubocop', require: false
+
+  # Add a comment summarizing the current schema to the top or bottom of each models
+  gem 'annotate'
 
   # `guard` to watch files and run tasks
   gem 'guard', '>= 2.2.2', require: false

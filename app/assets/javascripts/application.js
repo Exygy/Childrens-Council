@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require lodash/lodash
 //= require angular
+//= require angular-simple-logger
+//= require angular-google-maps
 //= require angular-ui-router
 //= require angular-rails-templates
 //= require_tree .

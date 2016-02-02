@@ -2,3 +2,9 @@ p I'm Searching!
 
 p
   | {{ results }}
+
+a ng-href=''
+
+#map_canvas ng-controller="MapController"
+  ui-gmap-google-map center='map.center' zoom='map.zoom'
+    ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"

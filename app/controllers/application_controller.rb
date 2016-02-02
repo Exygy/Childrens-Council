@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_csrf_cookie
+    return unless protect_against_forgery?
+    cookies['XSRF-TOKEN'] = form_authenticity_token
+  end
+
   def render_not_found
     hash =
       {
