@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: childrens_council_production
-  username: childrens_council
+  database: childrens_council
+  username: gkinney
   password: <%= ENV['childrens_council_DATABASE_PASSWORD'] %>
