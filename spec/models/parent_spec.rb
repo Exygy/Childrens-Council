@@ -15,6 +15,8 @@ require 'rails_helper'
 
 RSpec.describe Parent, type: :model do
   let(:parent) { FactoryGirl.build(:parent) }
+  let(:parent_with_email) { FactoryGirl.build(:parent, phone: '') }
+  let(:parent_with_phone) { FactoryGirl.build(:parent, email: '') }
 
   subject { parent }
 
