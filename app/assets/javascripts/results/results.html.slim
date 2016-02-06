@@ -1,10 +1,15 @@
 p I'm Searching!
 
-p
-  | {{ results }}
-
-a ng-href=''
-
 #map_canvas ng-controller="MapController"
   ui-gmap-google-map center='map.center' zoom='map.zoom'
-    ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+    ui-gmap-marker ng-repeat="marker in (data.providers | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+
+ul
+  li ng-repeat="provider in data.providers"
+      | {{ provider.name }}
+
+p totalProviders {{ data.totalProviders }}
+p providersPerPage {{ data.providersPerPage }}
+
+button ng-click="postSearch()" Search
+button ng-click="nextPage()" Paginate

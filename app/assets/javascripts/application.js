@@ -18,4 +18,5 @@
 //= require angular-google-maps
 //= require angular-ui-router
 //= require angular-rails-templates
+//= require angular-paginate-anything
 //= require_tree .

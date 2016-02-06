@@ -1,14 +1,13 @@
 module Api
   class SearchController < ApplicationController
+
     def search
-      render json: { goog: true }, status: 200
-      # parent = Parent.first_or_new(parent_params)
-      #
-      # if parent.update(parent_params)
-      #   render json: parent, status: 200
-      # else
-      #   render json: { errors: parent.errors }, status: 422
-      # end
+      providers = Provider.all
+      provider_count = Provider.count
+      render json: {
+          total: provider_count,
+          providers: providers.page(params[:page]).per(params[:per_page])
+      }, status: 200
     end
 
     private

@@ -17,6 +17,7 @@ class Parent < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
+  has_paper_trail
 
   def phone=(number)
     self[:phone] = number.gsub(/\D/, '') if number

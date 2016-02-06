@@ -1,9 +1,14 @@
 SearchService = ($http) ->
-  @parent =
-    firstName: ''
-    lastName: ''
-    email: ''
-  @results = []
+  @data = {
+    totalProviders: 0,
+    providersPerPage: 25,
+    providers: [],
+    parent:
+      firstName: ''
+      lastName: ''
+      email: ''
+  }
+  @current_page = 1
 
   @markers =  [
     {
@@ -17,21 +22,35 @@ SearchService = ($http) ->
     },
   ]
 
+  @queryParams = ->
+    { page: @current_page, per_page: @providersPerPage }
 
   @postSearch = (callback) ->
+    that = @
+    @current_page = 1
+    @serverRequest (response) ->
+      that.data.providers = response.data.providers
+      that.data.totalProviders = response.data.total
+      callback() if callback
+
+  @nextPage = (callback) ->
+    that = @
+    @current_page++
+    @serverRequest (response) ->
+      that.data.providers = that.data.providers.concat response.data.providers
+      callback() if callback
+
+  @serverRequest = (callback) ->
     that = @
     $http {
       method: 'POST',
       url: '/api/search',
-      data: {parent: @parent}
+      data: @queryParams()
     }
     .then (response) ->
-      # // this callback will be called asynchronously
-      # // when the response is available
-      that.parent = response.data
-      that.results = [1]
-      if callback
-        callback()
+      # this callback will be called asynchronously
+      # when the response is available
+      callback(response) if callback
   @
 
 SearchService.$inject = ['$http']

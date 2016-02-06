@@ -1,5 +1,5 @@
 module Api
-  class ProvidersController < ApplicationController
+  class ProvidersController < ApiKeyController
     def show
       provider = Provider.find(params[:id])
       render json: provider, status: 200

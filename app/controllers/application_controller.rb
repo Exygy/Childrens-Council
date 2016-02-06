@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::RoutingError, with: :render_not_found
+  rescue_from ActionController::Unauthorized, with: :render_unauthorized
 
   private
 
@@ -14,11 +15,25 @@ class ApplicationController < ActionController::Base
   end
 
   def render_not_found
-    hash =
+    render_json
       {
         status: 404,
-        message: 'The requested resource could not be found.',
+        message: 'The requested resource could not be found',
       }
-    render json: hash, status: 404
   end
+
+  def render_unauthorized
+    render_json
+      {
+        status: 401,
+        message: 'Unauthorized API key',
+      }
+  end
+
+  private
+
+  def render_json(hash)
+    render json: hash, status: hash.status
+  end
+
 end

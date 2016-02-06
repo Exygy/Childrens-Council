@@ -40,8 +40,9 @@ class Provider < ActiveRecord::Base
   belongs_to :state
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
 
+  has_paper_trail
   geocoded_by :geocodable_address_string
-  after_validation :geocode
+  after_validation :geocode #, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   def facility?
     true
