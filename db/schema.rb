@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201232931) do
+ActiveRecord::Schema.define(version: 20160206223841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
+
+  create_table "care_reasons", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "care_reasons_parents", id: false, force: :cascade do |t|
+    t.integer "parent_id",      null: false
+    t.integer "care_reason_id", null: false
+  end
+
+  add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", using: :btree
+  add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
   create_table "children", force: :cascade do |t|
     t.integer  "age",        null: false
