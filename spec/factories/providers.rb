@@ -52,6 +52,5 @@ FactoryGirl.define do
     mail_zip Faker::Address.zip
     ssn "#{Faker::Number.number(3)}-#{Faker::Number.number(2)}-#{Faker::Number.number(3)}"
     tax_id "#{Faker::Number.number(2)}-#{Faker::Number.number(7)}"
-    # association :city
   end
 end
