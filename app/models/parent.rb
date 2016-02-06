@@ -15,26 +15,29 @@ class Parent < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
-  validates :phone, length: { is: 10 }
+  validates :phone, presence: true, if: 'email.blank?'
+  validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
 
   def phone=(number)
     self[:phone] = number.gsub(/\D/, '') if number
   end
 
-  # This will not find a parent if that parent has an email but an email is not present in the parameters
-  # This treats email as a primary key, and prevents someone with the same name but without an email from
-  # updating a parent with an email
   def self.find_unique(params)
     if params[:email].present?
-      where(email: params[:email])
-    else
-      # We are sure to return a parent without an email, since this parameter is blank
-      where(params)
+      parent = where(email: params[:email])
+    elsif params[:phone].present?
+      parent = where(phone: params[:phone].gsub(/\D/, ''))
     end
+
+    unless parent.present?
+      fail ActiveRecord::RecordNotFound, "Can't find parent with params: #{params}"
+    end
+    parent
   end
 
   def self.first_or_new(params)
-    parent = find_unique(params).take
-    parent ? parent : new(params)
+    find_unique(params).take
+  rescue ActiveRecord::RecordNotFound
+    new(params)
   end
 end
