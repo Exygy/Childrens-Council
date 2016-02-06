@@ -42,7 +42,7 @@ class Provider < ActiveRecord::Base
 
   has_paper_trail
   geocoded_by :geocodable_address_string
-  after_validation :geocode #, if: ->(obj){ obj.address.present? and obj.address_changed? }
+  after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   def facility?
     true
