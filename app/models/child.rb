@@ -10,4 +10,5 @@
 #
 
 class Child < ActiveRecord::Base
+  belongs_to :schedule_year
 end

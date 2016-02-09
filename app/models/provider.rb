@@ -39,6 +39,7 @@ class Provider < ActiveRecord::Base
   belongs_to :mail_city, class_name: 'City', foreign_key: :mail_city_id
   belongs_to :state
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
+  belongs_to :schedule_year
 
   has_paper_trail
   geocoded_by :geocodable_address_string

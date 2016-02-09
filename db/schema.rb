@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160206223841) do
+ActiveRecord::Schema.define(version: 20160210003927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,15 @@ ActiveRecord::Schema.define(version: 20160206223841) do
     t.integer "parent_id",      null: false
     t.integer "care_reason_id", null: false
   end
-
   add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", using: :btree
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
   create_table "children", force: :cascade do |t|
-    t.integer  "age",        null: false
+    t.integer  "age",              null: false
     t.text     "zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "schedule_year_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -41,17 +41,17 @@ ActiveRecord::Schema.define(version: 20160206223841) do
   end
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",            null: false
-    t.text     "last_name",             null: false
+    t.text     "first_name", null: false
+    t.text     "last_name",  null: false
     t.citext   "email"
     t.text     "zip"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "phone",      limit: 10
   end
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",            null: false
+    t.text     "name",             null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -75,10 +75,17 @@ ActiveRecord::Schema.define(version: 20160206223841) do
     t.text     "mail_zip"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "schedule_year_id"
+  end
+
+  create_table "schedules_year", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "states", force: :cascade do |t|
@@ -94,7 +101,6 @@ ActiveRecord::Schema.define(version: 20160206223841) do
     t.text     "object"
     t.datetime "created_at"
   end
-
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end
