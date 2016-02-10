@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210011039) do
+ActiveRecord::Schema.define(version: 20160210153348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160210011039) do
     t.integer "parent_id",      null: false
     t.integer "care_reason_id", null: false
   end
+
   add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", unique: true, using: :btree
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160210011039) do
     t.integer "schedule_week_id", null: false
     t.integer "child_id",         null: false
   end
+
   add_index "children_schedule_week", ["child_id", "schedule_week_id"], name: "index_children_schedules_week_on_c_id_and_sw_id", using: :btree
   add_index "children_schedule_week", ["schedule_week_id", "child_id"], name: "index_children_schedules_week_on_sw_id_and_c_id", unique: true, using: :btree
 
@@ -48,12 +50,12 @@ ActiveRecord::Schema.define(version: 20160210011039) do
   end
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name", null: false
-    t.text     "last_name",  null: false
+    t.text     "first_name",            null: false
+    t.text     "last_name",             null: false
     t.citext   "email"
     t.text     "zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "phone",      limit: 10
   end
 
@@ -93,8 +95,21 @@ ActiveRecord::Schema.define(version: 20160210011039) do
     t.integer "schedule_week_id", null: false
     t.integer "provider_id",      null: false
   end
+
   add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
   add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
+
+  create_table "schedules_day", force: :cascade do |t|
+    t.integer  "day_of_week", limit: 2, null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "closed"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "provider_id"
+  end
+
+  add_index "schedules_day", ["provider_id"], name: "index_schedules_day_on_provider_id", using: :btree
 
   create_table "schedules_week", force: :cascade do |t|
     t.text "name", null: false
@@ -117,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160210011039) do
     t.text     "object"
     t.datetime "created_at"
   end
+
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

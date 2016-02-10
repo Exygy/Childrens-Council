@@ -48,7 +48,6 @@ gem 'rack-cors', :require => 'rack/cors'
 # Database
 gem 'pg'
 gem 'pg_search'
-gem 'schema_plus_enums'
 
 # Assets
 gem 'slim-rails'
