@@ -30,11 +30,11 @@ ActiveRecord::Schema.define(version: 20160210171641) do
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
   create_table "children", force: :cascade do |t|
-    t.integer  "age",              null: false
-    t.text     "zip"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "schedule_year_id"
+    t.integer  "age_year",         limit: 2, null: false
+    t.integer  "age_month",        limit: 2, null: false
   end
 
   create_table "children_schedule_day", id: false, force: :cascade do |t|
