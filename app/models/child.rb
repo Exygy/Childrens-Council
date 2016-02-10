@@ -12,4 +12,5 @@
 class Child < ActiveRecord::Base
   belongs_to :schedule_year
   has_and_belongs_to_many :schedule_week, join_table: 'children_schedule_week'
+  has_and_belongs_to_many :schedule_days, join_table: 'children_schedule_day'
 end

@@ -68,5 +68,6 @@ RSpec.describe Provider, type: :model do
   it { expect(provider.longitude).to eq(-74.0059731) }
   it { is_expected.to belong_to(:schedule_year) }
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
+  it { is_expected.to have_many(:schedule_hours) }
   it { is_expected.to have_many(:schedule_days) }
 end

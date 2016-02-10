@@ -36,3 +36,5 @@ ScheduleWeek.create([
   { name: 'Overnight' },
   { name: 'Other' },
 ])
+
+Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }

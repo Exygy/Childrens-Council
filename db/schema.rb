@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210153348) do
+ActiveRecord::Schema.define(version: 20160210171641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20160210153348) do
     t.datetime "updated_at",       null: false
     t.integer  "schedule_year_id"
   end
+
+  create_table "children_schedule_day", id: false, force: :cascade do |t|
+    t.integer "schedule_day_id", null: false
+    t.integer "child_id",        null: false
+  end
+
+  add_index "children_schedule_day", ["child_id", "schedule_day_id"], name: "index_children_schedule_day_on_child_id_and_schedule_day_id", using: :btree
+  add_index "children_schedule_day", ["schedule_day_id", "child_id"], name: "index_children_schedule_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
 
   create_table "children_schedule_week", id: false, force: :cascade do |t|
     t.integer "schedule_week_id", null: false
@@ -99,17 +107,22 @@ ActiveRecord::Schema.define(version: 20160210153348) do
   add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
   add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
 
-  create_table "schedules_day", force: :cascade do |t|
-    t.integer  "day_of_week", limit: 2, null: false
+  create_table "schedule_hours", force: :cascade do |t|
+    t.integer  "schedule_day_id", null: false
+    t.integer  "provider_id",     null: false
     t.time     "start_time"
     t.time     "end_time"
     t.boolean  "closed"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "provider_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "schedules_day", ["provider_id"], name: "index_schedules_day_on_provider_id", using: :btree
+  add_index "schedule_hours", ["provider_id", "schedule_day_id"], name: "index_schedule_hours_on_provider_id_and_schedule_day_id", using: :btree
+  add_index "schedule_hours", ["schedule_day_id", "provider_id"], name: "index_schedule_hours_on_schedule_day_id_and_provider_id", unique: true, using: :btree
+
+  create_table "schedules_day", force: :cascade do |t|
+    t.text "name", null: false
+  end
 
   create_table "schedules_week", force: :cascade do |t|
     t.text "name", null: false
