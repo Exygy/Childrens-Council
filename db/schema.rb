@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(version: 20160210213319) do
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
   create_table "care_types", force: :cascade do |t|
-    t.text "name", null: false
+    t.text    "name",                     null: false
+    t.boolean "facility", default: false
   end
 
   create_table "care_types_children", id: false, force: :cascade do |t|

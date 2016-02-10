@@ -41,5 +41,5 @@ Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
 
 CareType.create([
   { name: 'Family Child Care' },
-  { name: 'Child Care Center' },
+  { name: 'Child Care Center', facility: true },
 ])

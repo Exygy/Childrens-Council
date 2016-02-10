@@ -53,7 +53,7 @@ class Provider < ActiveRecord::Base
   after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   def facility?
-    true
+    care_type.facility if care_type
   end
 
   def geocodable_address_string
