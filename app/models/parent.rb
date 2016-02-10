@@ -18,6 +18,9 @@ class Parent < ActiveRecord::Base
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
   has_and_belongs_to_many :care_reasons
+  belongs_to :found_option, foreign_key: :found_option_id
+  belongs_to :zip_code
+
   has_paper_trail
 
   def phone=(number)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210181100) do
+ActiveRecord::Schema.define(version: 20160210213319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", unique: true, using: :btree
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
+  create_table "care_types", force: :cascade do |t|
+    t.text    "name",                     null: false
+    t.boolean "facility", default: false
+  end
+
+  create_table "care_types_children", id: false, force: :cascade do |t|
+    t.integer "care_type_id", null: false
+    t.integer "child_id",     null: false
+  end
+
+  add_index "care_types_children", ["care_type_id", "child_id"], name: "index_care_types_children_on_care_type_id_and_child_id", unique: true, using: :btree
+  add_index "care_types_children", ["child_id", "care_type_id"], name: "index_care_types_children_on_child_id_and_care_type_id", using: :btree
+
   create_table "children", force: :cascade do |t|
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
@@ -36,6 +49,8 @@ ActiveRecord::Schema.define(version: 20160210181100) do
     t.integer  "age_year",         limit: 2, null: false
     t.integer  "age_month",        limit: 2, null: false
   end
+
+  add_index "children", ["schedule_year_id"], name: "index_children_on_schedule_year_id", using: :btree
 
   create_table "children_schedule_day", id: false, force: :cascade do |t|
     t.integer "schedule_day_id", null: false
@@ -54,6 +69,10 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   add_index "children_schedule_week", ["schedule_week_id", "child_id"], name: "index_children_schedules_week_on_sw_id_and_c_id", unique: true, using: :btree
 
   create_table "cities", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "found_options", force: :cascade do |t|
     t.text "name", null: false
   end
 
@@ -78,14 +97,18 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",            null: false
-    t.text     "last_name",             null: false
+    t.text     "first_name",                 null: false
+    t.text     "last_name",                  null: false
     t.citext   "email"
-    t.text     "zip"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "phone",      limit: 10
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "phone",           limit: 10
+    t.integer  "zip_code_id"
+    t.integer  "found_option_id"
   end
+
+  add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
+  add_index "parents", ["zip_code_id"], name: "index_parents_on_zip_code_id", using: :btree
 
   create_table "providers", force: :cascade do |t|
     t.text     "name",             null: false
@@ -102,14 +125,12 @@ ActiveRecord::Schema.define(version: 20160210181100) do
     t.text     "address_2"
     t.integer  "city_id"
     t.integer  "state_id"
-    t.text     "zip"
     t.text     "cross_street_1"
     t.text     "cross_street_2"
     t.text     "mail_address_1"
     t.text     "mail_address_2"
     t.integer  "mail_city_id"
     t.integer  "mail_state_id"
-    t.text     "mail_zip"
     t.text     "ssn"
     t.text     "tax_id"
     t.datetime "created_at",       null: false
@@ -117,7 +138,20 @@ ActiveRecord::Schema.define(version: 20160210181100) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
+    t.integer  "zip_code_id"
+    t.integer  "mail_zip_code_id"
+    t.integer  "care_type_id"
+    t.text     "description"
   end
+
+  add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
+  add_index "providers", ["city_id"], name: "index_providers_on_city_id", using: :btree
+  add_index "providers", ["mail_city_id"], name: "index_providers_on_mail_city_id", using: :btree
+  add_index "providers", ["mail_state_id"], name: "index_providers_on_mail_state_id", using: :btree
+  add_index "providers", ["mail_zip_code_id"], name: "index_providers_on_mail_zip_code_id", using: :btree
+  add_index "providers", ["schedule_year_id"], name: "index_providers_on_schedule_year_id", using: :btree
+  add_index "providers", ["state_id"], name: "index_providers_on_state_id", using: :btree
+  add_index "providers", ["zip_code_id"], name: "index_providers_on_zip_code_id", using: :btree
 
   create_table "providers_schedule_week", id: false, force: :cascade do |t|
     t.integer "schedule_week_id", null: false
@@ -167,5 +201,9 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "zip_codes", force: :cascade do |t|
+    t.string "zip", limit: 5, null: false
+  end
 
 end

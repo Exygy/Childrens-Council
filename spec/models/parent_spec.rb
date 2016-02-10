@@ -25,6 +25,8 @@ RSpec.describe Parent, type: :model do
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to be_valid }
   it { is_expected.to have_and_belong_to_many(:care_reasons) }
+  it { is_expected.to belong_to(:found_option).with_foreign_key(:found_option_id) }
+  it { is_expected.to belong_to(:zip_code) }
 
   context 'when email is blank' do
     subject { parent_without_phone }

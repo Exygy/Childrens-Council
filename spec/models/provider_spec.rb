@@ -59,16 +59,34 @@ RSpec.describe Provider, type: :model do
   subject { provider }
 
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to be_valid }
+  it { is_expected.to belong_to(:care_type) }
   it { is_expected.to belong_to(:city) }
   it { is_expected.to belong_to(:mail_city).class_name('City').with_foreign_key('mail_city_id') }
   it { is_expected.to belong_to(:state) }
   it { is_expected.to belong_to(:mail_state).class_name('State').with_foreign_key('mail_state_id') }
-  it { is_expected.to be_valid }
-  it { expect(provider.latitude).to eq(40.7143528) }
-  it { expect(provider.longitude).to eq(-74.0059731) }
+  it { is_expected.to belong_to(:zip_code) }
+  it { is_expected.to belong_to(:mail_zip_code).class_name('ZipCode').with_foreign_key('mail_zip_code_id') }
   it { is_expected.to have_many(:licenses) }
   it { is_expected.to belong_to(:schedule_year) }
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
   it { is_expected.to have_many(:schedule_hours) }
   it { is_expected.to have_many(:schedule_days) }
+  it { expect(provider.latitude).to eq(40.7143528) }
+  it { expect(provider.longitude).to eq(-74.0059731) }
+
+  describe '.facility?' do
+    let!(:facility_care_type) { FactoryGirl.create(:care_type, facility: true) }
+    let!(:non_facility_care_type) { FactoryGirl.create(:care_type, facility: false) }
+    let(:facility_provider) { FactoryGirl.build(:provider) }
+    let(:non_facility_provider) { FactoryGirl.build(:provider) }
+
+    it 'returns whether or not provider is a facility' do
+      facility_provider.care_type = facility_care_type
+      non_facility_provider.care_type = non_facility_care_type
+
+      expect(facility_provider.facility?).to be true
+      expect(non_facility_provider.facility?).to be false
+    end
+  end
 end

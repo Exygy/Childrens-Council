@@ -44,12 +44,10 @@ FactoryGirl.define do
     url Faker::Internet.url
     address_1 Faker::Address.street_address
     address_2 Faker::Address.secondary_address
-    zip Faker::Address.zip
     cross_street_1 Faker::Address.street_name
     cross_street_2 Faker::Address.street_name
     mail_address_1 Faker::Address.street_address
     mail_address_2 Faker::Address.secondary_address
-    mail_zip Faker::Address.zip
     ssn "#{Faker::Number.number(3)}-#{Faker::Number.number(2)}-#{Faker::Number.number(3)}"
     tax_id "#{Faker::Number.number(2)}-#{Faker::Number.number(7)}"
   end
