@@ -23,3 +23,16 @@ ScheduleYear.create([
   { name: 'Summer Only' },
   { name: 'Seasonal/Other' },
 ])
+
+ScheduleWeek.create([
+  { name: 'Full Time' },
+  { name: 'Part Time' },
+  { name: 'Before School' },
+  { name: 'After School' },
+  { name: 'Drop In' },
+  { name: 'Variable/Flexible' },
+  { name: 'Days' },
+  { name: 'Evening' },
+  { name: 'Overnight' },
+  { name: 'Other' },
+])

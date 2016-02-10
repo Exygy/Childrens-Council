@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210010144) do
+ActiveRecord::Schema.define(version: 20160210011039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160210010144) do
     t.integer "parent_id",      null: false
     t.integer "care_reason_id", null: false
   end
-  add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", using: :btree
+  add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", unique: true, using: :btree
   add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
 
   create_table "children", force: :cascade do |t|
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20160210010144) do
     t.datetime "updated_at",       null: false
     t.integer  "schedule_year_id"
   end
+
+  create_table "children_schedule_week", id: false, force: :cascade do |t|
+    t.integer "schedule_week_id", null: false
+    t.integer "child_id",         null: false
+  end
+  add_index "children_schedule_week", ["child_id", "schedule_week_id"], name: "index_children_schedules_week_on_c_id_and_sw_id", using: :btree
+  add_index "children_schedule_week", ["schedule_week_id", "child_id"], name: "index_children_schedules_week_on_sw_id_and_c_id", unique: true, using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
@@ -81,6 +88,13 @@ ActiveRecord::Schema.define(version: 20160210010144) do
     t.float    "longitude"
     t.integer  "schedule_year_id"
   end
+
+  create_table "providers_schedule_week", id: false, force: :cascade do |t|
+    t.integer "schedule_week_id", null: false
+    t.integer "provider_id",      null: false
+  end
+  add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
+  add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
 
   create_table "schedules_week", force: :cascade do |t|
     t.text "name", null: false
