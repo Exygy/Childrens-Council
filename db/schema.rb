@@ -11,34 +11,84 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201232931) do
+ActiveRecord::Schema.define(version: 20160210181100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
 
-  create_table "children", force: :cascade do |t|
-    t.integer  "age",        null: false
-    t.text     "zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "care_reasons", force: :cascade do |t|
+    t.text "name", null: false
   end
+
+  create_table "care_reasons_parents", id: false, force: :cascade do |t|
+    t.integer "parent_id",      null: false
+    t.integer "care_reason_id", null: false
+  end
+
+  add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", unique: true, using: :btree
+  add_index "care_reasons_parents", ["parent_id", "care_reason_id"], name: "index_care_reasons_parents_on_parent_id_and_care_reason_id", using: :btree
+
+  create_table "children", force: :cascade do |t|
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "schedule_year_id"
+    t.integer  "age_year",         limit: 2, null: false
+    t.integer  "age_month",        limit: 2, null: false
+  end
+
+  create_table "children_schedule_day", id: false, force: :cascade do |t|
+    t.integer "schedule_day_id", null: false
+    t.integer "child_id",        null: false
+  end
+
+  add_index "children_schedule_day", ["child_id", "schedule_day_id"], name: "index_children_schedule_day_on_child_id_and_schedule_day_id", using: :btree
+  add_index "children_schedule_day", ["schedule_day_id", "child_id"], name: "index_children_schedule_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
+
+  create_table "children_schedule_week", id: false, force: :cascade do |t|
+    t.integer "schedule_week_id", null: false
+    t.integer "child_id",         null: false
+  end
+
+  add_index "children_schedule_week", ["child_id", "schedule_week_id"], name: "index_children_schedules_week_on_c_id_and_sw_id", using: :btree
+  add_index "children_schedule_week", ["schedule_week_id", "child_id"], name: "index_children_schedules_week_on_sw_id_and_c_id", unique: true, using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
   end
 
+  create_table "licenses", force: :cascade do |t|
+    t.integer  "provider_id",      null: false
+    t.date     "date"
+    t.boolean  "exempt"
+    t.integer  "type"
+    t.text     "number"
+    t.integer  "capacity"
+    t.integer  "capacity_desired"
+    t.integer  "capacity_subsidy"
+    t.integer  "age_from_year"
+    t.integer  "age_from_month"
+    t.integer  "age_to_year"
+    t.integer  "age_to_month"
+    t.integer  "vacancies"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
+
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name", null: false
-    t.text     "last_name",  null: false
+    t.text     "first_name",            null: false
+    t.text     "last_name",             null: false
     t.citext   "email"
     t.text     "zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "phone",      limit: 10
   end
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",            null: false
+    t.text     "name",             null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -62,10 +112,44 @@ ActiveRecord::Schema.define(version: 20160201232931) do
     t.text     "mail_zip"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "schedule_year_id"
+  end
+
+  create_table "providers_schedule_week", id: false, force: :cascade do |t|
+    t.integer "schedule_week_id", null: false
+    t.integer "provider_id",      null: false
+  end
+
+  add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
+  add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
+
+  create_table "schedule_hours", force: :cascade do |t|
+    t.integer  "schedule_day_id", null: false
+    t.integer  "provider_id",     null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "closed"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "schedule_hours", ["provider_id", "schedule_day_id"], name: "index_schedule_hours_on_provider_id_and_schedule_day_id", using: :btree
+  add_index "schedule_hours", ["schedule_day_id", "provider_id"], name: "index_schedule_hours_on_schedule_day_id_and_provider_id", unique: true, using: :btree
+
+  create_table "schedules_day", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "schedules_week", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "schedules_year", force: :cascade do |t|
+    t.text "name", null: false
   end
 
   create_table "states", force: :cascade do |t|

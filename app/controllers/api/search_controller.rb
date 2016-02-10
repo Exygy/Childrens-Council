@@ -1,12 +1,11 @@
 module Api
   class SearchController < ApplicationController
-
     def search
       providers = Provider.all
       provider_count = providers.count
       render json: {
-          total: provider_count,
-          providers: providers.page(params[:page]).per(params[:per_page])
+        total: provider_count,
+        providers: providers.page(params[:page]).per(params[:per_page]),
       }, status: 200
     end
 

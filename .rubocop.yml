@@ -45,3 +45,8 @@ Style/ClassAndModuleChildren:
 # so don't require inline documentation
 Style/Documentation:
   Enabled: false
+
+# Using has_and_belongs_to_many is simpler when we don't need to access
+# or manipulate the relationship, itself
+Rails/HasAndBelongsToMany:
+  Enabled: false
