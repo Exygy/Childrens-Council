@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210210338) do
+ActiveRecord::Schema.define(version: 20160210212109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,10 @@ ActiveRecord::Schema.define(version: 20160210210338) do
     t.text "name", null: false
   end
 
+  create_table "found_options", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
   create_table "licenses", force: :cascade do |t|
     t.integer  "provider_id",      null: false
     t.date     "date"
@@ -92,15 +96,17 @@ ActiveRecord::Schema.define(version: 20160210210338) do
   add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",             null: false
-    t.text     "last_name",              null: false
+    t.text     "first_name",                 null: false
+    t.text     "last_name",                  null: false
     t.citext   "email"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "phone",       limit: 10
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "phone",           limit: 10
     t.integer  "zip_code_id"
+    t.integer  "found_option_id"
   end
 
+  add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
   add_index "parents", ["zip_code_id"], name: "index_parents_on_zip_code_id", using: :btree
 
   create_table "providers", force: :cascade do |t|
