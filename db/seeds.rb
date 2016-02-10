@@ -5,3 +5,21 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+CareReason.create([
+  { name: 'Employment' },
+  { name: 'Looking for Work' },
+  { name: 'In School/Training' },
+  { name: 'Alternative/Back Up Care' },
+  { name: 'Child Protective Services/Respite' },
+  { name: 'Enrichment/Development' },
+  { name: 'Mildly Ill' },
+  { name: 'Other Parental Needs' },
+])
+
+ScheduleYear.create([
+  { name: 'Full Year' },
+  { name: 'School Year Only' },
+  { name: 'Summer Only' },
+  { name: 'Seasonal/Other' },
+])
