@@ -39,6 +39,8 @@ class Provider < ActiveRecord::Base
   belongs_to :mail_city, class_name: 'City', foreign_key: :mail_city_id
   belongs_to :state
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
+  belongs_to :zip_code
+  belongs_to :mail_zip_code, class_name: 'ZipCode', foreign_key: :mail_zip_code_id
   has_many :licenses
   belongs_to :schedule_year
   has_and_belongs_to_many :schedule_week, join_table: 'providers_schedule_week'

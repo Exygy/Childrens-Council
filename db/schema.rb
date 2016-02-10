@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210181100) do
+ActiveRecord::Schema.define(version: 20160210200803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,13 +78,13 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",            null: false
-    t.text     "last_name",             null: false
+    t.text     "first_name",             null: false
+    t.text     "last_name",              null: false
     t.citext   "email"
-    t.text     "zip"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "phone",      limit: 10
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "phone",       limit: 10
+    t.integer  "zip_code_id"
   end
 
   create_table "providers", force: :cascade do |t|
@@ -102,14 +102,12 @@ ActiveRecord::Schema.define(version: 20160210181100) do
     t.text     "address_2"
     t.integer  "city_id"
     t.integer  "state_id"
-    t.text     "zip"
     t.text     "cross_street_1"
     t.text     "cross_street_2"
     t.text     "mail_address_1"
     t.text     "mail_address_2"
     t.integer  "mail_city_id"
     t.integer  "mail_state_id"
-    t.text     "mail_zip"
     t.text     "ssn"
     t.text     "tax_id"
     t.datetime "created_at",       null: false
@@ -117,6 +115,8 @@ ActiveRecord::Schema.define(version: 20160210181100) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
+    t.integer  "zip_code_id"
+    t.integer  "mail_zip_code_id"
   end
 
   create_table "providers_schedule_week", id: false, force: :cascade do |t|
@@ -167,5 +167,9 @@ ActiveRecord::Schema.define(version: 20160210181100) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "zip_codes", force: :cascade do |t|
+    t.string "zip", limit: 5, null: false
+  end
 
 end
