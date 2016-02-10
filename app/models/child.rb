@@ -12,6 +12,7 @@
 class Child < ActiveRecord::Base
   validates :age_year, presence: true, inclusion: { in: 1...18 }
   validates :age_month, presence: true, inclusion: { in: 1..12 }
+  has_and_belongs_to_many :care_types
   belongs_to :schedule_year
   has_and_belongs_to_many :schedule_week, join_table: 'children_schedule_week'
   has_and_belongs_to_many :schedule_days, join_table: 'children_schedule_day'

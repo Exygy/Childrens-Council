@@ -60,6 +60,7 @@ RSpec.describe Provider, type: :model do
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to be_valid }
+  it { is_expected.to belong_to(:care_type) }
   it { is_expected.to belong_to(:city) }
   it { is_expected.to belong_to(:mail_city).class_name('City').with_foreign_key('mail_city_id') }
   it { is_expected.to belong_to(:state) }

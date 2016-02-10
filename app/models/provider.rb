@@ -35,6 +35,7 @@
 
 class Provider < ActiveRecord::Base
   validates :name, presence: true
+  belongs_to :care_type
   belongs_to :city
   belongs_to :mail_city, class_name: 'City', foreign_key: :mail_city_id
   belongs_to :state
@@ -56,7 +57,7 @@ class Provider < ActiveRecord::Base
   end
 
   def geocodable_address_string
-    full_address_array.compact.join(', ')
+    full_address_array.flatten.compact.join(', ')
   end
 
   def full_address_array
@@ -64,8 +65,8 @@ class Provider < ActiveRecord::Base
     r << street_address
     r << city.name if city
     r << state.name if state
-    r << zip
-    r.flatten
+    r << zip_code.zip if zip_code
+    r
   end
 
   def street_address
