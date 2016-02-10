@@ -5,6 +5,7 @@ RSpec.describe ScheduleYear, type: :model do
 
   subject { schedule_year }
 
+  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to be_valid }
   it { is_expected.to have_many(:providers) }
   it { is_expected.to have_many(:children) }
