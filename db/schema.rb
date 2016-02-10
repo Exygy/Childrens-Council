@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210171641) do
+ActiveRecord::Schema.define(version: 20160210181100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,26 @@ ActiveRecord::Schema.define(version: 20160210171641) do
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
   end
+
+  create_table "licenses", force: :cascade do |t|
+    t.integer  "provider_id",      null: false
+    t.date     "date"
+    t.boolean  "exempt"
+    t.integer  "type"
+    t.text     "number"
+    t.integer  "capacity"
+    t.integer  "capacity_desired"
+    t.integer  "capacity_subsidy"
+    t.integer  "age_from_year"
+    t.integer  "age_from_month"
+    t.integer  "age_to_year"
+    t.integer  "age_to_month"
+    t.integer  "vacancies"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
     t.text     "first_name",            null: false
