@@ -2,11 +2,16 @@
 #
 # Table name: children
 #
-#  id         :integer          not null, primary key
-#  age        :integer          not null
-#  zip        :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :integer          not null, primary key
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  schedule_year_id :integer
+#  age_year         :integer          not null
+#  age_month        :integer          not null
+#
+# Indexes
+#
+#  index_children_on_schedule_year_id  (schedule_year_id)
 #
 
 require 'rails_helper'

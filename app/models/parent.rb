@@ -2,13 +2,20 @@
 #
 # Table name: parents
 #
-#  id         :integer          not null, primary key
-#  first_name :text             not null
-#  last_name  :text             not null
-#  email      :citext
-#  zip        :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  first_name      :text             not null
+#  last_name       :text             not null
+#  email           :citext
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  phone           :string(10)
+#  zip_code_id     :integer
+#  found_option_id :integer
+#
+# Indexes
+#
+#  index_parents_on_found_option_id  (found_option_id)
+#  index_parents_on_zip_code_id      (zip_code_id)
 #
 
 class Parent < ActiveRecord::Base

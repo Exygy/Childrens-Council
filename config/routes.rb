@@ -58,8 +58,11 @@ Rails.application.routes.draw do
   #   end
 
   namespace :api, defaults: { format: :json } do
-    post 'search' => 'search#search'
-    get '/providers/:id' => 'providers#show', as: :provider
+    # post 'search' => 'search#search'
+    # get '/providers/:id' => 'providers#show', as: :provider
+
+    resources :providers, only: [:index, :show]
+
     # CORS support
     match '*unmatched_route' => 'cors#render_204', via: [:options]
     match '*unmatched_route' => 'errors#raise_not_found!', via: [:get, :delete, :patch, :post, :put]

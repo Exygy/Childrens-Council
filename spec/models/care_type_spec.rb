@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: care_types
+#
+#  id       :integer          not null, primary key
+#  name     :text             not null
+#  facility :boolean          default(FALSE)
+#
+
 require 'rails_helper'
 
 RSpec.describe CareType, type: :model do
