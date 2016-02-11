@@ -18,7 +18,7 @@ module Api
     private
 
     def raise_not_authorized!
-      fail ActionController::Unauthorized
+      #render_unauthorized
     end
   end
 end

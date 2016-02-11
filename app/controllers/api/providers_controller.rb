@@ -10,7 +10,33 @@ module Api
 
       # provider_type:
       # ages: will be an array containing the months
+
       # day and hours of care: day through joining table + info on joining table
+
+      params[:open_days] =
+
+      [
+        {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 1},
+        {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 2}
+      ]
+
+
+      if !params[:open_days].blank
+        providers = providers.joins{schedule_hours}
+        params[:open_days].each do |day_params|
+          if day_params.has_key?(:start_time) and day_params.has_key?(:end_time) and day_params.has_key?(:schedule_day_id)
+            providers = providers.where{
+                (schedule_hours.start_time == my{day_params[:start_time]})
+              & (schedule_hours.end_time == my{day_params[:end_time]})
+              & (schedule_hours.schedule_day_id == my{day_params[:schedule_day_id]})
+            }
+          end
+        end
+      end
+
+
+
+
       # summer_school: true
       # year_long: true
       # child_care_type: 1 - care_type_id

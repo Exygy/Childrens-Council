@@ -43,8 +43,8 @@ SearchService = ($http) ->
   @serverRequest = (callback) ->
     that = @
     $http {
-      method: 'POST',
-      url: '/api/search',
+      method: 'GET',
+      url: '/api/providers',
       data: @queryParams()
     }
     .then (response) ->
