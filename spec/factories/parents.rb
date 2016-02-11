@@ -13,9 +13,10 @@
 
 FactoryGirl.define do
   factory :parent do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
-    email { Faker::Internet.email }
-    phone { Faker::PhoneNumber.us_number }
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    email Faker::Internet.email
+    phone "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}"
+    home_zip_code Faker::Number.number(5)
   end
 end

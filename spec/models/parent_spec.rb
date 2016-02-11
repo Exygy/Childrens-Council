@@ -37,8 +37,8 @@ RSpec.describe Parent, type: :model do
 
   describe '.find_unique' do
     name = { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name }
-    let(:parent_params) { name.merge(email: Faker::Internet.email, phone: Faker::PhoneNumber.us_number) }
-    let(:parent_params_same_name_different_email_and_phone) { name.merge(email: Faker::Internet.email, phone: Faker::PhoneNumber.us_number) }
+    let(:parent_params) { name.merge(email: Faker::Internet.email, phone: "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}") }
+    let(:parent_params_same_name_different_email_and_phone) { name.merge(email: Faker::Internet.email, phone: "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}") }
     let!(:parent) { Parent.create(parent_params) }
     let!(:parent_same_name_different_email_and_phone) { Parent.create(parent_params_same_name_different_email_and_phone) }
     let(:unsaved_parent_params) { FactoryGirl.attributes_for(:parent) }
