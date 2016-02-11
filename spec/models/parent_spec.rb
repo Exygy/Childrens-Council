@@ -9,13 +9,13 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  phone           :string(10)
-#  zip_code_id     :integer
 #  found_option_id :integer
+#  address         :text
+#  home_zip_code   :string(5)
 #
 # Indexes
 #
 #  index_parents_on_found_option_id  (found_option_id)
-#  index_parents_on_zip_code_id      (zip_code_id)
 #
 
 require 'rails_helper'
@@ -30,10 +30,12 @@ RSpec.describe Parent, type: :model do
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  it { is_expected.to validate_length_of(:home_zip_code).is_equal_to 5 }
   it { is_expected.to be_valid }
   it { is_expected.to have_and_belong_to_many(:care_reasons) }
   it { is_expected.to belong_to(:found_option).with_foreign_key(:found_option_id) }
-  it { is_expected.to belong_to(:zip_code) }
+  it { is_expected.to have_and_belong_to_many(:neighborhoods) }
+  it { is_expected.to have_and_belong_to_many(:zip_codes) }
 
   context 'when email is blank' do
     subject { parent_without_phone }
@@ -44,8 +46,8 @@ RSpec.describe Parent, type: :model do
 
   describe '.find_unique' do
     name = { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name }
-    let(:parent_params) { name.merge(email: Faker::Internet.email, phone: Faker::PhoneNumber.us_number) }
-    let(:parent_params_same_name_different_email_and_phone) { name.merge(email: Faker::Internet.email, phone: Faker::PhoneNumber.us_number) }
+    let(:parent_params) { name.merge(email: Faker::Internet.email, phone: "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}") }
+    let(:parent_params_same_name_different_email_and_phone) { name.merge(email: Faker::Internet.email, phone: "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}") }
     let!(:parent) { Parent.create(parent_params) }
     let!(:parent_same_name_different_email_and_phone) { Parent.create(parent_params_same_name_different_email_and_phone) }
     let(:unsaved_parent_params) { FactoryGirl.attributes_for(:parent) }

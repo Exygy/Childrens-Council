@@ -9,20 +9,21 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  phone           :string(10)
-#  zip_code_id     :integer
 #  found_option_id :integer
+#  address         :text
+#  home_zip_code   :string(5)
 #
 # Indexes
 #
 #  index_parents_on_found_option_id  (found_option_id)
-#  index_parents_on_zip_code_id      (zip_code_id)
 #
 
 FactoryGirl.define do
   factory :parent do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
-    email { Faker::Internet.email }
-    phone { Faker::PhoneNumber.us_number }
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    email Faker::Internet.email
+    phone "#{Faker::PhoneNumber.area_code}-#{Faker::PhoneNumber.exchange_code}-#{Faker::PhoneNumber.subscriber_number}"
+    home_zip_code Faker::Number.number(5)
   end
 end

@@ -9,13 +9,13 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  phone           :string(10)
-#  zip_code_id     :integer
 #  found_option_id :integer
+#  address         :text
+#  home_zip_code   :string(5)
 #
 # Indexes
 #
 #  index_parents_on_found_option_id  (found_option_id)
-#  index_parents_on_zip_code_id      (zip_code_id)
 #
 
 class Parent < ActiveRecord::Base
@@ -24,9 +24,11 @@ class Parent < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
+  validates :home_zip_code, length: { is: 5 }, if: 'home_zip_code.present?'
   has_and_belongs_to_many :care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
-  belongs_to :zip_code
+  has_and_belongs_to_many :neighborhoods
+  has_and_belongs_to_many :zip_codes
 
   has_paper_trail
 

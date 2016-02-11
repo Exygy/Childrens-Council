@@ -35,6 +35,7 @@
 #  care_type_id     :integer
 #  description      :text
 #  ages             :integer          default([]), is an Array
+#  neighborhood_id  :integer
 #
 # Indexes
 #
@@ -43,6 +44,7 @@
 #  index_providers_on_mail_city_id      (mail_city_id)
 #  index_providers_on_mail_state_id     (mail_state_id)
 #  index_providers_on_mail_zip_code_id  (mail_zip_code_id)
+#  index_providers_on_neighborhood_id   (neighborhood_id)
 #  index_providers_on_schedule_year_id  (schedule_year_id)
 #  index_providers_on_state_id          (state_id)
 #  index_providers_on_zip_code_id       (zip_code_id)
@@ -83,6 +85,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to belong_to(:zip_code) }
   it { is_expected.to belong_to(:mail_zip_code).class_name('ZipCode').with_foreign_key('mail_zip_code_id') }
   it { is_expected.to have_many(:licenses) }
+  it { is_expected.to belong_to(:neighborhood) }
   it { is_expected.to belong_to(:schedule_year) }
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
   it { is_expected.to have_many(:schedule_hours) }
