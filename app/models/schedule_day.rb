@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: schedules_day
+#
+#  id   :integer          not null, primary key
+#  name :text             not null
+#
+
 class ScheduleDay < ActiveRecord::Base
   self.table_name = 'schedules_day'
   validates :name, presence: true

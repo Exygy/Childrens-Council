@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: zip_codes
+#
+#  id  :integer          not null, primary key
+#  zip :string(5)        not null
+#
+
 require 'rails_helper'
 
 RSpec.describe ZipCode, type: :model do

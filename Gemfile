@@ -113,9 +113,9 @@ group :development do
   # Livereload: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails
   # Add `config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)` to `config/environments/development.rb`
   # `guard init livereload`
-  # gem 'guard-livereload', require: false
-  # gem 'rack-livereload'
-  # gem 'rb-fsevent',       require: false
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent',       require: false
 
   gem 'phantomjs'
 

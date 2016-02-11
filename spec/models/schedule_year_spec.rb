@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: schedules_year
+#
+#  id   :integer          not null, primary key
+#  name :text             not null
+#
+
 require 'rails_helper'
 
 RSpec.describe ScheduleYear, type: :model do
