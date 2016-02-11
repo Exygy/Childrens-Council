@@ -102,4 +102,46 @@ class Provider < ActiveRecord::Base
     end
     address_array.compact
   end
+
+  # CLASS METHODS
+  class << self
+    def search_by_zipcode_ids(zipcode_ids)
+      where{ zip_code_id.in( my{zipcode_ids} ) }
+    end
+
+    def search_by_neighborhood_ids(neighborhoods)
+      where{ neighborhood_id.in( my{neighborhoods} ) }
+    end
+
+    def search_by_schedule_year_ids(schedule_year_ids)
+      where{ schedule_year_id.in( my{schedule_year_ids} ) }
+    end
+
+    def search_by_care_type_ids(care_type_ids)
+      where{ care_type_id.in( my{care_type_ids} ) }
+    end
+
+    def search_by_ages(ages)
+      query_param = '{' + ages.join(',') + '}'
+      where("ages @> ?", query_param)
+    end
+
+    def search_by_days_and_hours(days_and_hours)
+      providers = self.joins{schedule_hours}
+      days_and_hours.each do |day_params|
+        if day_params.has_key?(:start_time) and day_params.has_key?(:end_time) and day_params.has_key?(:schedule_day_id)
+          providers = providers.where{
+              (schedule_hours.start_time == my{day_params[:start_time]})
+            & (schedule_hours.end_time == my{day_params[:end_time]})
+            & (schedule_hours.schedule_day_id == my{day_params[:schedule_day_id]})
+          }
+        end
+      end
+      providers
+    end
+
+
+  end
+
+
 end

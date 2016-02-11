@@ -1,49 +1,30 @@
 module Api
   class ProvidersController < ApiKeyController
+
+
+
     def index
       providers = Provider.all
 
       # location
-      providers = providers.where{ zip_code_id.in( my{params[:zipcodes]} ) } if params[:zipcodes] #array of ids
-      #providers = providers.where(neighborhoods: params[:neighborhoods]) if params[:neighborhoods] #array of ids
+      providers = providers.search_by_zipcode_ids(params[:zipcode_ids]) if params[:zipcode_ids]
+      providers = providers.search_by_neighborhood_ids(params[:neighborhood_ids]) if params[:neighborhood_ids] #array of ids
       providers = providers.near(params[:near_address], 20) if params[:near_address] #string
-
-
-
-
 
       # provider_type:
       # ages: will be an array containing the months
-
-      providers = providers.where("ages @> ?", '{8, 9, 10}') if params[:ages]
+      providers = providers.search_by_ages(params[:ages]) if params[:ages] #array of interger = months
 
       # day and hours of care: day through joining table + info on joining table
-      params[:open_days] =
+      # open_days: [{start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 1}, {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 2}]
 
-      [
-        {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 1},
-        {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 2}
-      ]
+      providers = providers.search_by_days_and_hours(params[:open_days]) if params[:open_days] #array of interger = months
 
-
-      if !params[:open_days].blank
-        providers = providers.joins{schedule_hours}
-        params[:open_days].each do |day_params|
-          if day_params.has_key?(:start_time) and day_params.has_key?(:end_time) and day_params.has_key?(:schedule_day_id)
-            providers = providers.where{
-                (schedule_hours.start_time == my{day_params[:start_time]})
-              & (schedule_hours.end_time == my{day_params[:end_time]})
-              & (schedule_hours.schedule_day_id == my{day_params[:schedule_day_id]})
-            }
-          end
-        end
-      end
-
-      # summer_school OR year_long: true
-      providers = providers.where(schedule_year_id: params[:schedule_year_id]) if params[:schedule_year_id]
+      # summer_school OR year_long
+      providers = providers.search_by_schedule_year_ids(params[:schedule_year_ids]) if params[:schedule_year_ids] #array of ids
 
       # child_care_type: 1 - care_type_id
-      providers = providers.where(care_type_id: params[:care_type_id]) if params[:care_type_id]
+      providers = providers.search_by_care_type_ids(params[:care_type_ids]) if params[:care_type_ids] #array of ids
 
       # languages: [{language: "english", "fluent"}] languages through joining table + info (fluent...) on joining table
 
