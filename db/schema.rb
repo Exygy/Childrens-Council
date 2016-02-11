@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211195237) do
+ActiveRecord::Schema.define(version: 20160211203945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,18 @@ ActiveRecord::Schema.define(version: 20160211195237) do
 
   add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
 
+  create_table "neighborhoods", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "neighborhoods_parents", id: false, force: :cascade do |t|
+    t.integer "neighborhood_id", null: false
+    t.integer "parent_id",       null: false
+  end
+
+  add_index "neighborhoods_parents", ["neighborhood_id", "parent_id"], name: "index_neighborhoods_parents_on_neighborhood_id_and_parent_id", unique: true, using: :btree
+  add_index "neighborhoods_parents", ["parent_id", "neighborhood_id"], name: "index_neighborhoods_parents_on_parent_id_and_neighborhood_id", using: :btree
+
   create_table "parents", force: :cascade do |t|
     t.text     "first_name",                 null: false
     t.text     "last_name",                  null: false
@@ -150,6 +162,7 @@ ActiveRecord::Schema.define(version: 20160211195237) do
     t.integer  "mail_zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
+    t.integer  "neighborhood_id"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
@@ -157,6 +170,7 @@ ActiveRecord::Schema.define(version: 20160211195237) do
   add_index "providers", ["mail_city_id"], name: "index_providers_on_mail_city_id", using: :btree
   add_index "providers", ["mail_state_id"], name: "index_providers_on_mail_state_id", using: :btree
   add_index "providers", ["mail_zip_code_id"], name: "index_providers_on_mail_zip_code_id", using: :btree
+  add_index "providers", ["neighborhood_id"], name: "index_providers_on_neighborhood_id", using: :btree
   add_index "providers", ["schedule_year_id"], name: "index_providers_on_schedule_year_id", using: :btree
   add_index "providers", ["state_id"], name: "index_providers_on_state_id", using: :btree
   add_index "providers", ["zip_code_id"], name: "index_providers_on_zip_code_id", using: :btree

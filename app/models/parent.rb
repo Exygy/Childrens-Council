@@ -20,6 +20,7 @@ class Parent < ActiveRecord::Base
   validates :home_zip_code, length: { is: 5 }, if: 'home_zip_code.present?'
   has_and_belongs_to_many :care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
+  has_and_belongs_to_many :neighborhoods
   has_and_belongs_to_many :zip_codes
 
   has_paper_trail
