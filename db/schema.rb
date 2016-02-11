@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210213319) do
+ActiveRecord::Schema.define(version: 20160211200359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20160210213319) do
   add_index "parents", ["zip_code_id"], name: "index_parents_on_zip_code_id", using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",             null: false
+    t.text     "name",                          null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 20160210213319) do
     t.integer  "mail_state_id"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20160210213319) do
     t.integer  "mail_zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
+    t.integer  "ages",             default: [],              array: true
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree

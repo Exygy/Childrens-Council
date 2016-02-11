@@ -4,15 +4,20 @@ module Api
       providers = Provider.all
 
       # location
-      providers = providers.where(zipcode: params[:zipcodes]) if params[:zipcodes]
-      providers = providers.where(neighborhoods: params[:neighborhoods]) if params[:neighborhoods]
-      providers = providers.near(params[:near_address], 20) if params[:near_address]
+      providers = providers.where{ zip_code_id.in( my{params[:zipcodes]} ) } if params[:zipcodes] #array of ids
+      #providers = providers.where(neighborhoods: params[:neighborhoods]) if params[:neighborhoods] #array of ids
+      providers = providers.near(params[:near_address], 20) if params[:near_address] #string
+
+
+
+
 
       # provider_type:
       # ages: will be an array containing the months
 
-      # day and hours of care: day through joining table + info on joining table
+      providers = providers.where("ages @> ?", '{8, 9, 10}') if params[:ages]
 
+      # day and hours of care: day through joining table + info on joining table
       params[:open_days] =
 
       [
@@ -34,13 +39,20 @@ module Api
         end
       end
 
+      # summer_school OR year_long: true
+      providers = providers.where(schedule_year_id: params[:schedule_year_id]) if params[:schedule_year_id]
 
-
-
-      # summer_school: true
-      # year_long: true
       # child_care_type: 1 - care_type_id
+      providers = providers.where(care_type_id: params[:care_type_id]) if params[:care_type_id]
+
       # languages: [{language: "english", "fluent"}] languages through joining table + info (fluent...) on joining table
+
+
+
+
+
+
+
       # rate: shit show?
       # financial_assistance: [1,2,3] foreign_key
       # child_care_philisophie: [1,2,3] foreign_key
