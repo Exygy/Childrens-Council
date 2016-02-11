@@ -9,5 +9,5 @@ RSpec.describe ZipCode, type: :model do
   it { is_expected.to validate_length_of(:zip).is_equal_to(5) }
   it { is_expected.to be_valid }
   it { is_expected.to have_many(:providers) }
-  it { is_expected.to have_many(:parents) }
+  it { is_expected.to have_and_belong_to_many(:parents) }
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210213319) do
+ActiveRecord::Schema.define(version: 20160211195237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,12 +103,20 @@ ActiveRecord::Schema.define(version: 20160210213319) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.string   "phone",           limit: 10
-    t.integer  "zip_code_id"
     t.integer  "found_option_id"
+    t.text     "address"
+    t.string   "home_zip_code",   limit: 5
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
-  add_index "parents", ["zip_code_id"], name: "index_parents_on_zip_code_id", using: :btree
+
+  create_table "parents_zip_codes", id: false, force: :cascade do |t|
+    t.integer "parent_id",   null: false
+    t.integer "zip_code_id", null: false
+  end
+
+  add_index "parents_zip_codes", ["parent_id", "zip_code_id"], name: "index_parents_zip_codes_on_parent_id_and_zip_code_id", using: :btree
+  add_index "parents_zip_codes", ["zip_code_id", "parent_id"], name: "index_parents_zip_codes_on_zip_code_id_and_parent_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
     t.text     "name",             null: false
