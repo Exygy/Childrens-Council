@@ -67,5 +67,25 @@ FactoryGirl.define do
     mail_address_2 Faker::Address.secondary_address
     ssn "#{Faker::Number.number(3)}-#{Faker::Number.number(2)}-#{Faker::Number.number(3)}"
     tax_id "#{Faker::Number.number(2)}-#{Faker::Number.number(7)}"
+
+    after(:build) do |provider|
+      Geocoder.configure(lookup: :test)
+      Geocoder::Lookup::Test.add_stub(
+        provider.geocodable_address_string, [
+          {
+            'latitude'     => 40.7143528,
+            'longitude'    => -74.0059731,
+            'address'      => 'New York, NY, USA',
+            'state'        => 'New York',
+            'state_code'   => 'NY',
+            'country'      => 'United States',
+            'country_code' => 'US',
+          },
+        ]
+      )
+      provider.latitude = 40.7143528
+      provider.longitude = -74.0059731
+      provider.save
+    end
   end
 end

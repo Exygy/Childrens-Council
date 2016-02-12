@@ -15,19 +15,15 @@ class ApplicationController < ActionController::Base
 
   def render_not_found
     render_json(
-      {
-        status: 404,
-        message: 'The requested resource could not be found'
-      }
+      status: 404,
+      message: 'The requested resource could not be found',
     )
   end
 
   def render_unauthorized
     render_json(
-      {
-        status: 401,
-        message: 'Unauthorized API key'
-      }
+      status: 401,
+      message: 'Unauthorized API key',
     )
   end
 
