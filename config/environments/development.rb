@@ -41,4 +41,6 @@ Rails.application.configure do
 
   # Automatically inject JavaScript needed for LiveReload
   # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+
+  Faker::Config.locale = 'en-US'
 end
