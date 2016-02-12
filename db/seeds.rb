@@ -6,23 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-CareReason.create([
-  { name: 'Employment' },
-  { name: 'Looking for Work' },
-  { name: 'In School/Training' },
-  { name: 'Alternative/Back Up Care' },
-  { name: 'Child Protective Services/Respite' },
-  { name: 'Enrichment/Development' },
-  { name: 'Mildly Ill' },
-  { name: 'Other Parental Needs' },
-])
+# CareReason.create([
+#   { name: 'Employment' },
+#   { name: 'Looking for Work' },
+#   { name: 'In School/Training' },
+#   { name: 'Alternative/Back Up Care' },
+#   { name: 'Child Protective Services/Respite' },
+#   { name: 'Enrichment/Development' },
+#   { name: 'Mildly Ill' },
+#   { name: 'Other Parental Needs' },
+# ])
 
-ScheduleYear.create([
-  { name: 'Full Year' },
-  { name: 'School Year Only' },
-  { name: 'Summer Only' },
-  { name: 'Seasonal/Other' },
-])
+# ScheduleYear.create([
+#   { name: 'Full Year' },
+#   { name: 'School Year Only' },
+#   { name: 'Summer Only' },
+#   { name: 'Seasonal/Other' },
+# ])
 
 ScheduleWeek.create([
   { name: 'Full Time' },
@@ -39,42 +39,42 @@ ScheduleWeek.create([
 
 Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
 
-CareType.create([
-  { name: 'Family Child Care' },
-  { name: 'Child Care Center', facility: true },
-])
+# CareType.create([
+#   { name: 'Family Child Care' },
+#   { name: 'Child Care Center', facility: true },
+# ])
 
-Neighborhood.create([
-  { name: 'Hayes Valley, Tenderloin, North of Market' },
-  { name: 'South of Market (SoMa)' },
-  { name: 'Financial District' },
-  { name: 'Embarcadero (South) & SoMa' },
-  { name: 'Potrero Hill' },
-  { name: 'Chinatown' },
-  { name: 'Nob Hill, Russian Hill' },
-  { name: 'Mission, Bernal Heights' },
-  { name: 'Embarcadero, Barbary Coast' },
-  { name: 'Ingelside-Excelsior' },
-  { name: 'Castro, Noe Valley' },
-  { name: 'Pacific Heights, Western Addition, Japantown' },
-  { name: 'Outer Sunset' },
-  { name: 'Haight Ashbury, Cole Valley' },
-  { name: 'Inner Richmond' },
-  { name: 'Outer Richmond' },
-  { name: 'Inner Sunset' },
-  { name: 'Cow Hollow, Marina' },
-  { name: 'Bayview' },
-  { name: 'St. Francis Wood, West Portal' },
-  { name: 'Presidio' },
-  { name: 'Twin Peaks, Glen Park' },
-  { name: 'Lake Merced' },
-  { name: 'North Beach, Fishermans Wharf' },
-  { name: 'Visitacion Valley' },
-  { name: 'Unknown' },
-  { name: 'Park Merced' },
-  { name: 'Outer mission' },
-  { name: 'Central Richmond' },
-  { name: 'Sunnyside' },
-  { name: 'Treasure island' },
-  { name: 'Mission Bay' },
-])
+# Neighborhood.create([
+#   { name: 'Hayes Valley, Tenderloin, North of Market' },
+#   { name: 'South of Market (SoMa)' },
+#   { name: 'Financial District' },
+#   { name: 'Embarcadero (South) & SoMa' },
+#   { name: 'Potrero Hill' },
+#   { name: 'Chinatown' },
+#   { name: 'Nob Hill, Russian Hill' },
+#   { name: 'Mission, Bernal Heights' },
+#   { name: 'Embarcadero, Barbary Coast' },
+#   { name: 'Ingelside-Excelsior' },
+#   { name: 'Castro, Noe Valley' },
+#   { name: 'Pacific Heights, Western Addition, Japantown' },
+#   { name: 'Outer Sunset' },
+#   { name: 'Haight Ashbury, Cole Valley' },
+#   { name: 'Inner Richmond' },
+#   { name: 'Outer Richmond' },
+#   { name: 'Inner Sunset' },
+#   { name: 'Cow Hollow, Marina' },
+#   { name: 'Bayview' },
+#   { name: 'St. Francis Wood, West Portal' },
+#   { name: 'Presidio' },
+#   { name: 'Twin Peaks, Glen Park' },
+#   { name: 'Lake Merced' },
+#   { name: 'North Beach, Fishermans Wharf' },
+#   { name: 'Visitacion Valley' },
+#   { name: 'Unknown' },
+#   { name: 'Park Merced' },
+#   { name: 'Outer mission' },
+#   { name: 'Central Richmond' },
+#   { name: 'Sunnyside' },
+#   { name: 'Treasure island' },
+#   { name: 'Mission Bay' },
+# ])

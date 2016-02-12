@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211203945) do
+ActiveRecord::Schema.define(version: 20160212010025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,18 +159,17 @@ ActiveRecord::Schema.define(version: 20160211203945) do
     t.float    "longitude"
     t.integer  "schedule_year_id"
     t.integer  "zip_code_id"
-    t.integer  "mail_zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
     t.integer  "ages",             default: [],              array: true
     t.integer  "neighborhood_id"
+    t.string   "mail_zip_code"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
   add_index "providers", ["city_id"], name: "index_providers_on_city_id", using: :btree
   add_index "providers", ["mail_city_id"], name: "index_providers_on_mail_city_id", using: :btree
   add_index "providers", ["mail_state_id"], name: "index_providers_on_mail_state_id", using: :btree
-  add_index "providers", ["mail_zip_code_id"], name: "index_providers_on_mail_zip_code_id", using: :btree
   add_index "providers", ["neighborhood_id"], name: "index_providers_on_neighborhood_id", using: :btree
   add_index "providers", ["schedule_year_id"], name: "index_providers_on_schedule_year_id", using: :btree
   add_index "providers", ["state_id"], name: "index_providers_on_state_id", using: :btree
