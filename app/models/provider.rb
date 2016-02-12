@@ -125,28 +125,47 @@ class Provider < ActiveRecord::Base
     end
 
     def search_by_days_and_hours(days_and_hours)
+      query_params = days_and_hours_to_query_params(days_and_hours)
+      valid_days_and_hours_size = valid_days_and_hours_size(days_and_hours)
+      results = ScheduleHours.where(
+        (
+          ['("schedule_hours"."start_time" <= ? AND "schedule_hours"."end_time" >= ? AND "schedule_hours"."schedule_day_id" = ?)'] * valid_days_and_hours_size
+        ).join(' OR '),
+        *query_params,
+      )
+      results = results.select { schedule_hours.provider_id }
+      results = results.group { schedule_hours.provider_id }
+      results = results.having {
+        {
+          schedule_hours => {
+            count('*') => my { days_and_hours.length }
+          }
+        }
+      }
+      where { id.in my { results } }
+    end
 
 
+    private
 
-      providers = joins { schedule_hours }
+    def valid_days_and_hours_size(days_and_hours)
+      count = 0
       days_and_hours.each do |day_and_hours|
-        providers = providers.or do
-          next unless valid_day_and_hours?(day_and_hours)
-
-
-          (
-            (schedule_hours.start_time <= my { day_and_hours[:start_time] }) &
-            (schedule_hours.end_time >= my { day_and_hours[:end_time] }) &
-            (schedule_hours.schedule_day_id == my { day_and_hours[:schedule_day_id] })
-          )
-
-        end
+        next unless valid_day_and_hours?(day_and_hours)
+        count += 1
       end
+      count
+    end
 
-      Post.where('id = 1').or(Post.containing_the_letter_a)
-
-
-      providers.group{schedule_hours.provider_id}.having{{schedule_hours => {count('*') => my{ days_and_hours.length }}}}
+    def days_and_hours_to_query_params(days_and_hours)
+      query_params = []
+      days_and_hours.each do |day_and_hours|
+        next unless valid_day_and_hours?(day_and_hours)
+        query_params << day_and_hours[:start_time]
+        query_params << day_and_hours[:end_time]
+        query_params << day_and_hours[:schedule_day_id]
+      end
+      query_params
     end
 
     def valid_day_and_hours?(day_and_hours)
