@@ -31,11 +31,11 @@
 #  longitude        :float
 #  schedule_year_id :integer
 #  zip_code_id      :integer
-#  mail_zip_code_id :integer
 #  care_type_id     :integer
 #  description      :text
 #  ages             :integer          default([]), is an Array
 #  neighborhood_id  :integer
+#  mail_zip_code    :string
 #
 # Indexes
 #
@@ -43,7 +43,6 @@
 #  index_providers_on_city_id           (city_id)
 #  index_providers_on_mail_city_id      (mail_city_id)
 #  index_providers_on_mail_state_id     (mail_state_id)
-#  index_providers_on_mail_zip_code_id  (mail_zip_code_id)
 #  index_providers_on_neighborhood_id   (neighborhood_id)
 #  index_providers_on_schedule_year_id  (schedule_year_id)
 #  index_providers_on_state_id          (state_id)
@@ -65,6 +64,7 @@ FactoryGirl.define do
     cross_street_2 Faker::Address.street_name
     mail_address_1 Faker::Address.street_address
     mail_address_2 Faker::Address.secondary_address
+    mail_zip_code Faker::Address.zip_code
     ssn "#{Faker::Number.number(3)}-#{Faker::Number.number(2)}-#{Faker::Number.number(3)}"
     tax_id "#{Faker::Number.number(2)}-#{Faker::Number.number(7)}"
 
