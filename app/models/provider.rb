@@ -147,7 +147,6 @@ class Provider < ActiveRecord::Base
       where { id.in my { results } }
     end
 
-
     private
 
     def valid_days_and_hours_size(days_and_hours)
@@ -171,8 +170,9 @@ class Provider < ActiveRecord::Base
     end
 
     def valid_day_and_hours?(day_and_hours)
-      day_and_hours.key?(:start_time) and day_and_hours.key?(:end_time) and day_and_hours.key?(:schedule_day_id)
+      day_and_hours.key?(:start_time) and
+        day_and_hours.key?(:end_time) and
+        day_and_hours.key?(:schedule_day_id)
     end
-
   end
 end

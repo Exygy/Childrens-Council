@@ -32,7 +32,7 @@ module Api
     private
 
     def parent_params
-      params.require(:parent).permit(:email, :first_name, :last_name)
+      params.permit(:zipcode_ids, :neighborhood_ids, :near_address, :ages, :open_days, :schedule_year_ids, :care_type_ids)
     end
   end
 end
