@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::SearchController, type: :controller do
-  describe 'POST #search' do
+RSpec.describe Api::ProvidersController, type: :controller do
+  describe 'POST #index' do
     context 'when parent saved' do
       let(:parent_attributes) { FactoryGirl.attributes_for :parent }
       before do

@@ -33,7 +33,7 @@
 #  zip_code_id      :integer
 #  care_type_id     :integer
 #  description      :text
-#  ages             :integer          default([]), is an Array
+#  licensed_ages    :integer          default([]), is an Array
 #  neighborhood_id  :integer
 #  mail_zip_code    :string
 #
@@ -148,9 +148,9 @@ RSpec.describe Provider, type: :model do
     let(:one_year_old) { [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
     let(:two_year_old) { [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24] }
     let(:three_year_old) { [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36] }
-    let!(:first_provider) { FactoryGirl.create(:provider, ages: one_year_old) }
-    let!(:second_provider) { FactoryGirl.create(:provider, ages: one_year_old + three_year_old) }
-    let!(:third_provider) { FactoryGirl.create(:provider, ages: two_year_old) }
+    let!(:first_provider) { FactoryGirl.create(:provider, licensed_ages: one_year_old) }
+    let!(:second_provider) { FactoryGirl.create(:provider, licensed_ages: one_year_old + three_year_old) }
+    let!(:third_provider) { FactoryGirl.create(:provider, licensed_ages: two_year_old) }
 
     it 'returns providers filtered by ages' do
       expect(Provider.search_by_ages(one_year_old).count).to be 2

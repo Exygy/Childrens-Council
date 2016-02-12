@@ -7,11 +7,4 @@ RSpec.describe HomeController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
-
-  describe 'GET #wordpress_template' do
-    it 'returns http success' do
-      get :wordpress_template
-      expect(response).to have_http_status(:success)
-    end
-  end
 end

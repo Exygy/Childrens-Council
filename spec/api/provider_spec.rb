@@ -34,10 +34,12 @@ describe 'GET /providers/:id' do
       expect(json.keys).to eq %w[id name alternate_name contact_name phone
                                  phone_ext phone_other phone_other_ext fax
                                  email url address_1 address_2 city_id
-                                 state_id zip cross_street_1 cross_street_2
+                                 state_id cross_street_1 cross_street_2
                                  mail_address_1 mail_address_2 mail_city_id
-                                 mail_state_id mail_zip ssn tax_id
-                                 created_at updated_at]
+                                 mail_state_id ssn tax_id created_at updated_at
+                                 latitude longitude schedule_year_id
+                                 zip_code_id care_type_id description
+                                 licensed_ages neighborhood_id mail_zip_code]
     end
   end
 
@@ -52,7 +54,7 @@ describe 'GET /providers/:id' do
 
     it 'returns a helpful message' do
       expect(json['message'])
-        .to eq('The requested resource could not be found.')
+        .to eq('The requested resource could not be found')
     end
 
     it 'returns a 404 status code' do

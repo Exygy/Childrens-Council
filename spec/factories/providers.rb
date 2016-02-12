@@ -33,7 +33,7 @@
 #  zip_code_id      :integer
 #  care_type_id     :integer
 #  description      :text
-#  ages             :integer          default([]), is an Array
+#  licensed_ages    :integer          default([]), is an Array
 #  neighborhood_id  :integer
 #  mail_zip_code    :string
 #

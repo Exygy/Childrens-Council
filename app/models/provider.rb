@@ -33,7 +33,7 @@
 #  zip_code_id      :integer
 #  care_type_id     :integer
 #  description      :text
-#  ages             :integer          default([]), is an Array
+#  licensed_ages    :integer          default([]), is an Array
 #  neighborhood_id  :integer
 #  mail_zip_code    :string
 #
@@ -121,7 +121,7 @@ class Provider < ActiveRecord::Base
 
     def search_by_ages(ages)
       query_param = '{' + ages.join(',') + '}'
-      where('ages @> ?', query_param)
+      where('licensed_ages @> ?', query_param)
     end
 
     def search_by_days_and_hours(days_and_hours)
