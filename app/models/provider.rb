@@ -106,42 +106,54 @@ class Provider < ActiveRecord::Base
   # CLASS METHODS
   class << self
     def search_by_zipcode_ids(zipcode_ids)
-      where{ zip_code_id.in( my{zipcode_ids} ) }
+      where { zip_code_id.in(my { zipcode_ids }) }
     end
 
     def search_by_neighborhood_ids(neighborhoods)
-      where{ neighborhood_id.in( my{neighborhoods} ) }
+      where { neighborhood_id.in(my { neighborhoods }) }
     end
 
     def search_by_schedule_year_ids(schedule_year_ids)
-      where{ schedule_year_id.in( my{schedule_year_ids} ) }
+      where { schedule_year_id.in(my { schedule_year_ids }) }
     end
 
     def search_by_care_type_ids(care_type_ids)
-      where{ care_type_id.in( my{care_type_ids} ) }
+      where { care_type_id.in(my { care_type_ids }) }
     end
 
     def search_by_ages(ages)
       query_param = '{' + ages.join(',') + '}'
-      where("ages @> ?", query_param)
+      where('ages @> ?', query_param)
     end
 
     def search_by_days_and_hours(days_and_hours)
-      providers = self.joins{schedule_hours}
-      days_and_hours.each do |day_params|
-        if day_params.has_key?(:start_time) and day_params.has_key?(:end_time) and day_params.has_key?(:schedule_day_id)
-          providers = providers.where{
-              (schedule_hours.start_time == my{day_params[:start_time]})
-            & (schedule_hours.end_time == my{day_params[:end_time]})
-            & (schedule_hours.schedule_day_id == my{day_params[:schedule_day_id]})
-          }
+
+
+
+      providers = joins { schedule_hours }
+      days_and_hours.each do |day_and_hours|
+        providers = providers.or do
+          next unless valid_day_and_hours?(day_and_hours)
+
+
+          (
+            (schedule_hours.start_time <= my { day_and_hours[:start_time] }) &
+            (schedule_hours.end_time >= my { day_and_hours[:end_time] }) &
+            (schedule_hours.schedule_day_id == my { day_and_hours[:schedule_day_id] })
+          )
+
         end
       end
-      providers
+
+      Post.where('id = 1').or(Post.containing_the_letter_a)
+
+
+      providers.group{schedule_hours.provider_id}.having{{schedule_hours => {count('*') => my{ days_and_hours.length }}}}
     end
 
+    def valid_day_and_hours?(day_and_hours)
+      day_and_hours.key?(:start_time) and day_and_hours.key?(:end_time) and day_and_hours.key?(:schedule_day_id)
+    end
 
   end
-
-
 end

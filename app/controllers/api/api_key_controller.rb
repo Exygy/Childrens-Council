@@ -18,7 +18,7 @@ module Api
     private
 
     def raise_not_authorized!
-      #render_unauthorized
+      # render_unauthorized
     end
   end
 end
