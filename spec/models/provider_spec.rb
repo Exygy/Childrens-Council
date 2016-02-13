@@ -70,6 +70,8 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
   it { is_expected.to have_many(:schedule_hours) }
   it { is_expected.to have_many(:schedule_days) }
+  it { is_expected.to have_many(:language_providers) }
+  it { is_expected.to have_many(:languages) }
   it { expect(provider.latitude).to eq(40.7143528) }
   it { expect(provider.longitude).to eq(-74.0059731) }
 
@@ -156,6 +158,39 @@ RSpec.describe Provider, type: :model do
       expect(Provider.search_by_ages(one_year_old).count).to be 2
       expect(Provider.search_by_ages(two_year_old).count).to be 1
       expect(Provider.search_by_ages(three_year_old).count).to be 1
+    end
+  end
+
+  describe '.search_by_languages' do
+    let(:first_language) { FactoryGirl.create(:language) }
+    let(:second_language) { FactoryGirl.create(:language) }
+    let(:first_provider) { FactoryGirl.create(:provider) }
+    let(:second_provider) { FactoryGirl.create(:provider) }
+    let!(:first_language_provider) { FactoryGirl.create(:language_provider, level: "fluent", provider: first_provider, language: first_language) }
+    let!(:second_language_provider) { FactoryGirl.create(:language_provider, level: "spoken", provider: first_provider, language: first_language) }
+    let!(:third_language_provider) { FactoryGirl.create(:language_provider, level: "fluent", provider: second_provider, language: first_language) }
+    let!(:fourth_language_provider) { FactoryGirl.create(:language_provider, level: "spoken", provider: second_provider, language: second_language) }
+
+    it 'returns providers filtered by languages' do
+      first_search_params = [
+        {language_id: first_language.id, level: "fluent"},
+      ]
+      second_search_params = [
+        {language_id: second_language.id, level: "spoken"},
+      ]
+      third_search_params = [
+        {language_id: first_language.id, level: "fluent"},
+        {language_id: second_language.id, level: "fluent"},
+      ]
+      fourth_search_params = [
+        {language_id: first_language.id, level: "fluent"},
+        {language_id: first_language.id, level: "spoken"},
+      ]
+
+      expect(Provider.search_by_languages(first_search_params).count).to be 2
+      expect(Provider.search_by_languages(second_search_params).count).to be 1
+      expect(Provider.search_by_languages(third_search_params).count).to be 0
+      expect(Provider.search_by_languages(fourth_search_params).count).to be 1
     end
   end
 

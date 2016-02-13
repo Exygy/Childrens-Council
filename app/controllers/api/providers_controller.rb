@@ -7,6 +7,7 @@ module Api
       providers = providers.near(params[:near_address], 20) if params[:near_address]
       providers = providers.search_by_ages(params[:ages]) if params[:ages]
       providers = providers.search_by_days_and_hours(params[:open_days]) if params[:open_days]
+      providers = providers.search_by_languages(params[:languages]) if params[:languages]
       providers = providers.search_by_schedule_year_ids(params[:schedule_year_ids]) if params[:schedule_year_ids]
       providers = providers.search_by_care_type_ids(params[:care_type_ids]) if params[:care_type_ids]
 

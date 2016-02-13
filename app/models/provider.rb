@@ -63,6 +63,8 @@ class Provider < ActiveRecord::Base
   has_and_belongs_to_many :schedule_week, join_table: :providers_schedule_week
   has_many :schedule_hours, class_name: 'ScheduleHours'
   has_many :schedule_days, through: :schedule_hours
+  has_many :language_providers
+  has_many :languages, through: :language_providers
 
   has_paper_trail
   geocoded_by :geocodable_address_string
@@ -124,6 +126,27 @@ class Provider < ActiveRecord::Base
       where('licensed_ages @> ?', query_param)
     end
 
+    def search_by_languages(languages)
+      query_params = languages_to_query_params(languages)
+      valid_languages_size = valid_languages_size(languages)
+      results = LanguageProvider.where(
+        (
+          ['("language_providers"."level" = ? AND "language_providers"."language_id" = ?)'] * valid_languages_size
+        ).join(' OR '),
+        *query_params,
+      )
+      results = results.select { language_providers.provider_id }
+      results = results.group { language_providers.provider_id }
+      results = results.having {
+        {
+          language_providers => {
+            count('*') => my { valid_languages_size }
+          }
+        }
+      }
+      where { id.in my { results } }
+    end
+
     def search_by_days_and_hours(days_and_hours)
       query_params = days_and_hours_to_query_params(days_and_hours)
       valid_days_and_hours_size = valid_days_and_hours_size(days_and_hours)
@@ -138,7 +161,7 @@ class Provider < ActiveRecord::Base
       results = results.having {
         {
           schedule_hours => {
-            count('*') => my { days_and_hours.length }
+            count('*') => my { valid_days_and_hours_size }
           }
         }
       }
@@ -171,6 +194,30 @@ class Provider < ActiveRecord::Base
       day_and_hours.key?(:start_time) and
         day_and_hours.key?(:end_time) and
         day_and_hours.key?(:schedule_day_id)
+    end
+
+    def valid_languages_size(languages)
+      count = 0
+      languages.each do |language|
+        next unless valid_language?(language)
+        count += 1
+      end
+      count
+    end
+
+    def languages_to_query_params(languages)
+      query_params = []
+      languages.each do |language|
+        next unless valid_language?(language)
+        query_params << language[:level]
+        query_params << language[:language_id]
+      end
+      query_params
+    end
+
+    def valid_language?(language)
+      language.key?(:level) and
+        language.key?(:language_id)
     end
   end
 end

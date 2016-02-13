@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212225516) do
+ActiveRecord::Schema.define(version: 20160212231555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,22 @@ ActiveRecord::Schema.define(version: 20160212225516) do
 
   create_table "found_options", force: :cascade do |t|
     t.text "name", null: false
+  end
+
+  create_table "language_providers", force: :cascade do |t|
+    t.integer  "language_id"
+    t.integer  "provider_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "level"
+  end
+
+  add_index "language_providers", ["provider_id"], name: "index_language_providers_on_provider_id", using: :btree
+
+  create_table "languages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -228,4 +244,5 @@ ActiveRecord::Schema.define(version: 20160212225516) do
     t.string "zip", limit: 5, null: false
   end
 
+  add_foreign_key "language_providers", "providers"
 end
