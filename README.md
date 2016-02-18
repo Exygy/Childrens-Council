@@ -26,7 +26,7 @@
   ],
   "languages": [
     {language_id: 1, level: 'fluent'},
-    {language_id: 2, level: 'fluent'}
+    {language_id: 2, level: 'spoken'}
   ],
   "schedule_year_ids": [1,2,3],
   "care_type_ids":  [1,2,3]

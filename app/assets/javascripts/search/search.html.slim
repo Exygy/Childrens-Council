@@ -14,8 +14,19 @@ form.row name="search" ng-submit="submitSearch()" novalidate=""
 
   .small-12.columns
     label
+      | Phone
+      input type="text" name="parent[phone]" ng-model="parent.phone"
+
+  .small-12.columns
+    label
       | Email
       input type="email" name="parent[email]" ng-model="parent.email"
+
+  .small-12.columns
+    label
+      | Location
+      input type="text" name="provider[near_address]" ng-model="provider.near_address"
+
 
   .small-12.columns
     input.button type="submit" value="Search"

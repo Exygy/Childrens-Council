@@ -94,7 +94,7 @@ RSpec.describe LanguagesController, type: :controller do
       end
 
       it 're-renders the new template' do
-        post :create, {language: invalid_attributes}, valid_session
+        post :create, {language: invalid_attributes }, valid_session
         expect(response).to render_template('new')
       end
     end
@@ -108,20 +108,20 @@ RSpec.describe LanguagesController, type: :controller do
 
       it 'updates the requested language' do
         language = Language.create! valid_attributes
-        put :update, { id: language.to_param, language: new_attributes}, valid_session
+        put :update, { id: language.to_param, language: new_attributes }, valid_session
         language.reload
         skip('Add assertions for updated state')
       end
 
       it 'assigns the requested language as @language' do
         language = Language.create! valid_attributes
-        put :update, { id: language.to_param, language: valid_attributes}, valid_session
+        put :update, { id: language.to_param, language: valid_attributes }, valid_session
         expect(assigns(:language)).to eq(language)
       end
 
       it 'redirects to the language' do
         language = Language.create! valid_attributes
-        put :update, { id: language.to_param, language: valid_attributes}, valid_session
+        put :update, { id: language.to_param, language: valid_attributes }, valid_session
         expect(response).to redirect_to(language)
       end
     end
@@ -129,13 +129,13 @@ RSpec.describe LanguagesController, type: :controller do
     context 'with invalid params' do
       it 'assigns the language as @language' do
         language = Language.create! valid_attributes
-        put :update, { id: language.to_param, language: invalid_attributes}, valid_session
+        put :update, { id: language.to_param, language: invalid_attributes }, valid_session
         expect(assigns(:language)).to eq(language)
       end
 
       it 're-renders the edit template' do
         language = Language.create! valid_attributes
-        put :update, { id: language.to_param, language: invalid_attributes}, valid_session
+        put :update, { id: language.to_param, language: invalid_attributes }, valid_session
         expect(response).to render_template('edit')
       end
     end

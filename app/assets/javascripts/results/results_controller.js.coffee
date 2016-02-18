@@ -6,6 +6,11 @@ ResultsController = ($scope, $location, SearchService) ->
     SearchService.nextPage () ->
       console.log "stop loader animation"
 
+  $scope.prevPage = ->
+    console.log "start loader animation"
+    SearchService.prevPage () ->
+      console.log "stop loader animation"
+
   $scope.postSearch = ->
     console.log "start loader animation"
     SearchService.postSearch () ->

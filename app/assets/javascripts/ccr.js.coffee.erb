@@ -1,7 +1,8 @@
 angular.module 'CCR', [
     'templates',
     'ui.router',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'ngCookies'
   ]
   .constant '_', window._
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
@@ -41,4 +42,5 @@ angular.module 'CCR', [
     delete $httpProvider.defaults.headers.common['X-Requested-With']
     $httpProvider.defaults.headers.common['Accept'] = 'application/json'
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
+    $httpProvider.interceptors.push('APIInterceptor');
   ]

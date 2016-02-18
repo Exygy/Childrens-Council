@@ -1,0 +1,23 @@
+h1 Listing referral_logs
+
+table
+  thead
+    tr
+      th Params
+      th Parent
+      th
+      th
+      th
+
+  tbody
+    - @referral_logs.each do |referral_log|
+      tr
+        td = referral_log.params
+        td = referral_log.parent
+        td = link_to 'Show', referral_log
+        td = link_to 'Edit', edit_referral_log_path(referral_log)
+        td = link_to 'Destroy', referral_log, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Referral log', new_referral_log_path

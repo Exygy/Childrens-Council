@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :api, defaults: { format: :json } do
-    resources :providers, only: [:index, :show]
+    post 'providers' => 'providers#index'
+    post 'provider' => 'providers#show'
 
     # CORS support
     match '*unmatched_route' => 'cors#render_204', via: [:options]

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Params:
+  = @referral_log.params
+p
+  strong Parent:
+  = @referral_log.parent
+
+= link_to 'Edit', edit_referral_log_path(@referral_log)
+'|
+= link_to 'Back', referral_logs_path

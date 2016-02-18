@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212231555) do
+ActiveRecord::Schema.define(version: 20160217212131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20160212231555) do
     t.integer  "found_option_id"
     t.text     "address"
     t.string   "home_zip_code",   limit: 5
+    t.string   "api_key"
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
@@ -199,6 +200,15 @@ ActiveRecord::Schema.define(version: 20160212231555) do
   add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
   add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
 
+  create_table "referral_logs", force: :cascade do |t|
+    t.json     "params"
+    t.integer  "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "referral_logs", ["parent_id"], name: "index_referral_logs_on_parent_id", using: :btree
+
   create_table "schedule_hours", force: :cascade do |t|
     t.integer  "schedule_day_id", null: false
     t.integer  "provider_id",     null: false
@@ -245,4 +255,5 @@ ActiveRecord::Schema.define(version: 20160212231555) do
   end
 
   add_foreign_key "language_providers", "providers"
+  add_foreign_key "referral_logs", "parents"
 end

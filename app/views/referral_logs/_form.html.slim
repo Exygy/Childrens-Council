@@ -1,0 +1,15 @@
+= form_for @referral_log do |f|
+  - if @referral_log.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@referral_log.errors.count, "error")} prohibited this referral_log from being saved:"
+      ul
+        - @referral_log.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :params
+    = f.text_field :params
+  .field
+    = f.label :parent
+    = f.text_field :parent
+  .actions = f.submit

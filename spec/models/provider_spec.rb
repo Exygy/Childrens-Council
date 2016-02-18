@@ -166,25 +166,25 @@ RSpec.describe Provider, type: :model do
     let(:second_language) { FactoryGirl.create(:language) }
     let(:first_provider) { FactoryGirl.create(:provider) }
     let(:second_provider) { FactoryGirl.create(:provider) }
-    let!(:first_language_provider) { FactoryGirl.create(:language_provider, level: "fluent", provider: first_provider, language: first_language) }
-    let!(:second_language_provider) { FactoryGirl.create(:language_provider, level: "spoken", provider: first_provider, language: first_language) }
-    let!(:third_language_provider) { FactoryGirl.create(:language_provider, level: "fluent", provider: second_provider, language: first_language) }
-    let!(:fourth_language_provider) { FactoryGirl.create(:language_provider, level: "spoken", provider: second_provider, language: second_language) }
+    let!(:first_language_provider) { FactoryGirl.create(:language_provider, level: 'fluent', provider: first_provider, language: first_language) }
+    let!(:second_language_provider) { FactoryGirl.create(:language_provider, level: 'spoken', provider: first_provider, language: first_language) }
+    let!(:third_language_provider) { FactoryGirl.create(:language_provider, level: 'fluent', provider: second_provider, language: first_language) }
+    let!(:fourth_language_provider) { FactoryGirl.create(:language_provider, level: 'spoken', provider: second_provider, language: second_language) }
 
     it 'returns providers filtered by languages' do
       first_search_params = [
-        {language_id: first_language.id, level: "fluent"},
+        { language_id: first_language.id, level: 'fluent' },
       ]
       second_search_params = [
-        {language_id: second_language.id, level: "spoken"},
+        { language_id: second_language.id, level: 'spoken' },
       ]
       third_search_params = [
-        {language_id: first_language.id, level: "fluent"},
-        {language_id: second_language.id, level: "fluent"},
+        { language_id: first_language.id, level: 'fluent' },
+        { language_id: second_language.id, level: 'fluent' },
       ]
       fourth_search_params = [
-        {language_id: first_language.id, level: "fluent"},
-        {language_id: first_language.id, level: "spoken"},
+        { language_id: first_language.id, level: 'fluent' },
+        { language_id: first_language.id, level: 'spoken' },
       ]
 
       expect(Provider.search_by_languages(first_search_params).count).to be 2

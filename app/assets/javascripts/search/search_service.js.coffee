@@ -3,27 +3,28 @@ SearchService = ($http) ->
     totalProviders: 0,
     providersPerPage: 25,
     providers: [],
-    parent:
-      firstName: ''
-      lastName: ''
-      email: ''
   }
+
+  @parent = {
+    firstName: ''
+    lastName: ''
+    email: ''
+    phone: ''
+  }
+
+  @search_params = {
+    near_address: ''
+  }
+
   @current_page = 1
 
-  @markers =  [
-    {
-      coords: {
-        latitude: 40.1451,
-        longitude: -99.6680
-      },
-      options: {},
-      events: {},
-      id: 123
-    },
-  ]
-
   @queryParams = ->
-    { page: @current_page, per_page: @providersPerPage }
+    {
+      page: @current_page,
+      per_page: @providersPerPage,
+      providers: @search_params,
+      parent: @parent,
+    }
 
   @postSearch = (callback) ->
     that = @
@@ -37,13 +38,23 @@ SearchService = ($http) ->
     that = @
     @current_page++
     @serverRequest (response) ->
-      that.data.providers = that.data.providers.concat response.data.providers
+      that.data.providers = response.data.providers
+      that.data.totalProviders = response.data.total
       callback() if callback
+
+  @prevPage = (callback) ->
+    that = @
+    @current_page--
+    @serverRequest (response) ->
+      that.data.providers = response.data.providers
+      that.data.totalProviders = response.data.total
+      callback() if callback
+
 
   @serverRequest = (callback) ->
     that = @
     $http {
-      method: 'GET',
+      method: 'POST',
       url: '/api/providers',
       data: @queryParams()
     }

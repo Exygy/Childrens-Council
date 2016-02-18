@@ -12,6 +12,7 @@
 #  found_option_id :integer
 #  address         :text
 #  home_zip_code   :string(5)
+#  api_key         :string
 #
 # Indexes
 #
@@ -24,11 +25,14 @@ class Parent < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
+  validates :api_key, presence: true
+  validates :api_key, uniqueness: true
   validates :home_zip_code, length: { is: 5 }, if: 'home_zip_code.present?'
   has_and_belongs_to_many :care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
   has_and_belongs_to_many :neighborhoods
   has_and_belongs_to_many :zip_codes
+  before_create :set_api_key
 
   has_paper_trail
 
@@ -36,22 +40,7 @@ class Parent < ActiveRecord::Base
     self[:phone] = number.gsub(/\D/, '') if number
   end
 
-  def self.find_unique(params)
-    if params[:email].present?
-      parent = where(email: params[:email])
-    elsif params[:phone].present?
-      parent = where(phone: params[:phone].gsub(/\D/, ''))
-    end
-
-    unless parent.present?
-      fail ActiveRecord::RecordNotFound, "Can't find parent with params: #{params}"
-    end
-    parent
-  end
-
-  def self.first_or_new(params)
-    find_unique(params).take
-  rescue ActiveRecord::RecordNotFound
-    new(params)
+  def set_api_key
+    self.api_key = Devise.friendly_token.first(20)
   end
 end

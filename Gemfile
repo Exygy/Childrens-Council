@@ -62,7 +62,11 @@ gem 'sprockets', '~> 2.12.4'
 # Complete Ruby geocoding solution
 gem 'geocoder'
 
+# Easier way to write complex query
 gem 'squeel'
+
+# Authentication manager
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
