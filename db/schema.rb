@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217212131) do
+ActiveRecord::Schema.define(version: 20160219145358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,13 +210,14 @@ ActiveRecord::Schema.define(version: 20160217212131) do
   add_index "referral_logs", ["parent_id"], name: "index_referral_logs_on_parent_id", using: :btree
 
   create_table "schedule_hours", force: :cascade do |t|
-    t.integer  "schedule_day_id", null: false
-    t.integer  "provider_id",     null: false
+    t.integer  "schedule_day_id",                 null: false
+    t.integer  "provider_id",                     null: false
     t.time     "start_time"
     t.time     "end_time"
     t.boolean  "closed"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "open_24",         default: false
   end
 
   add_index "schedule_hours", ["provider_id", "schedule_day_id"], name: "index_schedule_hours_on_provider_id_and_schedule_day_id", using: :btree
