@@ -37,8 +37,8 @@ module Api
     end
 
     def method_missing(method_sym, *arguments, &block)
-      method_name_prefix = "provider_param_"
-      if method_sym[0..method_name_prefix.length-1] == method_name_prefix
+      method_name_prefix = 'provider_param_'
+      if method_sym[0..method_name_prefix.length - 1] == method_name_prefix
         param = method_sym[method_name_prefix.length..method_sym.length]
         !provider_params[param.to_sym].blank? ? provider_params[param.to_sym] : false
       else

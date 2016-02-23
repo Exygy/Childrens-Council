@@ -94,7 +94,7 @@ RSpec.describe LanguagesController, type: :controller do
       end
 
       it 're-renders the new template' do
-        post :create, {language: invalid_attributes }, valid_session
+        post :create, { language: invalid_attributes }, valid_session
         expect(response).to render_template('new')
       end
     end

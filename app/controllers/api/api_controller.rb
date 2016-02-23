@@ -28,10 +28,10 @@ module Api
         param = send("parent_param_#{key}")
         parent = parent.where(key.to_sym => param) if param
       end
-      parent.first_or_create do |parent|
+      parent.first_or_create do |record|
         parent_params.keys.each do |key|
           param = send("parent_param_#{key}")
-          parent[key.to_sym] = param if param
+          record[key.to_sym] = param if param
         end
       end
     end
@@ -57,8 +57,8 @@ module Api
     end
 
     def method_missing(method_sym, *arguments, &block)
-      method_name_prefix = "parent_param_"
-      if method_sym[0..method_name_prefix.length-1] == method_name_prefix
+      method_name_prefix = 'parent_param_'
+      if method_sym[0..method_name_prefix.length - 1] == method_name_prefix
         param = method_sym[method_name_prefix.length..method_sym.length]
         !parent_params[param.to_sym].blank? ? parent_params[param.to_sym] : false
       else
