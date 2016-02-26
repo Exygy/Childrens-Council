@@ -11,6 +11,15 @@ ResultsController = ($scope, $location, ResultsService) ->
     ResultsService.prevPage () ->
       console.log "stop loader animation"
 
+  $scope.isFirstPage = () ->
+    $scope.data.current_page == 1
+
+  $scope.isLastPage = () ->
+    total_number_of_pages = Math.ceil $scope.data.totalProviders/$scope.data.providersPerPage
+    $scope.data.current_page == total_number_of_pages
+
+
+
   # View toggler
   $scope.view_mode = { list: true, map: false }
   $scope.toggleView = ->

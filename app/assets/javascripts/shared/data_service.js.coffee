@@ -15,9 +15,11 @@ DataService = ($http) ->
     near_address: ''
   }
 
+  @current_page = 1
+
   @queryParams = ->
     {
-      page: @current_page || 1,
+      page: @current_page,
       per_page: @providersPerPage,
       providers: @search_params,
       parent: @parent,
@@ -33,6 +35,7 @@ DataService = ($http) ->
       if response.data
         that.data.providers = response.data.providers
         that.data.totalProviders = response.data.total
+        that.data.current_page = that.current_page
       callback() if callback
 
   @serverRequest = (callback) ->
