@@ -1,0 +1,11 @@
+ul
+  li ng-repeat="provider in data.providers"
+      a href="/providers/{{ provider.id }}"
+        | {{ provider.name }}
+
+p totalProviders {{ data.totalProviders }}
+p providersPerPage {{ data.providersPerPage }}
+
+button ng-click="postSearch()" Search
+button ng-click="prevPage()" Prev Page
+button ng-click="nextPage()" Next Page

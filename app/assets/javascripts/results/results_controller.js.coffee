@@ -16,5 +16,11 @@ ResultsController = ($scope, $location, SearchService) ->
     SearchService.postSearch () ->
       console.log "stop loader animation"
 
+  # View toggler
+  $scope.view_mode = { list: true, map: false }
+  $scope.toggleView = ->
+    $scope.view_mode.map = !$scope.view_mode.map
+    $scope.view_mode.list = !$scope.view_mode.list
+
 ResultsController.$inject = ['$scope', '$location', 'SearchService']
 angular.module('CCR').controller('ResultsController', ResultsController)

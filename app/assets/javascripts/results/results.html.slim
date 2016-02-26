@@ -1,17 +1,5 @@
-p I'm Searching!
+button ng-click="toggleView()" Map / List
 
-#map_canvas ng-controller="MapController"
-  ui-gmap-google-map center='map.center' zoom='map.zoom'
-    ui-gmap-marker ng-repeat="marker in (data.providers | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
-
-ul
-  li ng-repeat="provider in data.providers"
-      a href="/providers/{{ provider.id }}"
-        | {{ provider.name }}
-
-p totalProviders {{ data.totalProviders }}
-p providersPerPage {{ data.providersPerPage }}
-
-button ng-click="postSearch()" Search
-button ng-click="prevPage()" Prev Page
-button ng-click="nextPage()" Next Page
+.filters ng-include="results/result_filters.html"
+.map_view ng-show="view_mode.map" ng-include="'results/result_map.html'"
+.list_view ng-show="view_mode.list" ng-include="'results/result_list.html'"
