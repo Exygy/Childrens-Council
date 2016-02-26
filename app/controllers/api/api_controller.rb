@@ -23,12 +23,7 @@ module Api
     end
 
     def find_or_create_parent
-      parent = Parent
-      %w[email phone api_key].each do |key|
-        param = send("parent_param_#{key}")
-        parent = parent.where(key.to_sym => param) if param
-      end
-      parent.first_or_create do |record|
+      result = Parent.where(valid_parent_params).first_or_create do |record|
         parent_params.keys.each do |key|
           param = send("parent_param_#{key}")
           record[key.to_sym] = param if param
@@ -41,7 +36,15 @@ module Api
     end
 
     def parent_params_valid?
-      parent_param_email or parent_param_email or parent_param_api_key
+      ( parent_param_first_name and parent_param_last_name and (parent_param_email or parent_param_phone) ) or (parent_param_api_key)
+    end
+
+    def valid_parent_params
+      params = {}
+      params[:email]   = parent_param_email   if parent_param_email
+      params[:phone]   = parent_param_phone   if parent_param_phone
+      params[:api_key] = parent_param_api_key if parent_param_api_key
+      params
     end
 
     def parent_params
