@@ -1,16 +1,15 @@
-APIInterceptor = ($location, $rootScope, $q, $cookies) ->
-  @cookie_key = 'cc_api_key'
+APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
 
   @request = (config) ->
     if config.method == "POST"
-      api_key = $cookies.get(@cookie_key)
+      api_key = $cookies.get CC_COOKIE
       config.data = {} unless config.data
       config.data.api_key = api_key if api_key
     config
 
   @response = (response) ->
     api_key = response.headers('CC-APIKEY')
-    $cookies.put(@cookie_key, api_key) if api_key
+    $cookies.put(CC_COOKIE, api_key) if api_key
     response
 
   @responseError = (response) ->
@@ -22,5 +21,5 @@ APIInterceptor = ($location, $rootScope, $q, $cookies) ->
 
   @
 
-APIInterceptor.$inject = ['$location', '$rootScope', '$q', '$cookies']
+APIInterceptor.$inject = ['$location', '$rootScope', '$q', '$cookies', 'CC_COOKIE']
 angular.module('CCR').service('APIInterceptor', APIInterceptor)

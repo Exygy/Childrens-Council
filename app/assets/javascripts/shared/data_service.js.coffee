@@ -26,8 +26,12 @@ DataService = ($http) ->
       parent: @parent,
     }
 
+  @resetData = ->
+    @data.providers = []
+    @data.totalProviders = 0
+
   @performSearch = (callback) =>
-    that = @
+    that = @    
     @serverRequest (response) ->
       that.data.providers = response.data.providers
       that.data.totalProviders = response.data.total

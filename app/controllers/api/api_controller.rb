@@ -8,7 +8,7 @@ module Api
 
     def check_parent_credentials
       @current_parent = find_or_create_parent if parent_params_valid?
-      raise_not_authorized! unless @current_parent.persisted?
+      raise_not_authorized! unless @current_parent and @current_parent.persisted?
     end
 
     def create_referral_log
