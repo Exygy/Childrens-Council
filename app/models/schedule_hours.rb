@@ -10,6 +10,7 @@
 #  closed          :boolean
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  open_24         :boolean          default(FALSE)
 #
 # Indexes
 #
