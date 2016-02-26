@@ -13,16 +13,21 @@ form.row name="searchForm" ng-submit="submitSearch()" novalidate=""
       | Last Name
       input type="text" name="lastName" required="" ng-model="parent.lastName" ng-class="{ error: (searchForm.lastName.$dirty && searchForm.lastName.$invalid) }"
       small.error ng-show="(searchForm.lastName.$dirty && searchForm.lastName.$invalid)" Invalid entry
+
   .small-12.columns
+    a ng-click="toggleParentFieldMode()" Email | Phone
+
+  .small-12.columns ng-show="parentFieldMode == 'phone'"
     label ng-class="{ error: searchForm.phone.$invalid }"
       | Phone
-      input type="text" name="phone" ng-model="parent.phone" ng-class="{ error: searchForm.phone.$dirty && searchForm.phone.$invalid }"
+      input type="text" name="phone" ng-model="parent.phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && parentFieldMode == 'phone')"
       small.error ng-show="searchForm.phone.$invalid" Invalid entry
-  .small-12.columns
+  .small-12.columns ng-show="parentFieldMode == 'email'"
     label ng-class="{ error: searchForm.email.$invalid }"
       | Email
-      input type="email" name="email" ng-model="parent.email" ng-class="{ error: searchForm.email.$invalid }"
+      input type="email" name="email" ng-model="parent.email" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldMode == 'email')"
       small.error ng-show="searchForm.email.$invalid" Invalid entry
+
   .small-12.columns
     label
       | Location
