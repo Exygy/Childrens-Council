@@ -13,6 +13,7 @@
 #  address         :text
 #  home_zip_code   :string(5)
 #  api_key         :string
+#  full_name       :string
 #
 # Indexes
 #
@@ -36,6 +37,13 @@ class Parent < ActiveRecord::Base
 
   def phone=(number)
     self[:phone] = number.gsub(/\D/, '') if number
+  end
+
+  def full_name=(full_name)
+    self[:full_name] = full_name
+    full_name_array = full_name.split(' ')
+    self[:first_name] = full_name_array[0]
+    self[:last_name] = full_name_array[1] if full_name_array.length > 1
   end
 
   def set_api_key

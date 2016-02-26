@@ -6,8 +6,7 @@ DataService = ($http) ->
   }
 
   @parent = {
-    firstName: ''
-    lastName: ''
+    fullName: ''
     email: ''
     phone: ''
   }
@@ -31,10 +30,11 @@ DataService = ($http) ->
     @data.totalProviders = 0
 
   @performSearch = (callback) =>
-    that = @    
+    that = @
     @serverRequest (response) ->
-      that.data.providers = response.data.providers
-      that.data.totalProviders = response.data.total
+      if response.data
+        that.data.providers = response.data.providers
+        that.data.totalProviders = response.data.total
       callback() if callback
 
   @serverRequest = (callback) ->

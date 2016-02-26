@@ -29,6 +29,9 @@ module Api
           record[key.to_sym] = param if param
         end
       end
+      result.full_name = parent_param_full_name
+      result.save() # will not trigger a second SQL query unless full_name has changed
+      result
     end
 
     def raise_not_authorized!
@@ -36,14 +39,12 @@ module Api
     end
 
     def parent_params_valid?
-      ( parent_param_api_key ) or ( parent_param_first_name and parent_param_last_name and (parent_param_email or parent_param_phone) )
+      ( parent_param_api_key ) or ( parent_param_full_name and (parent_param_email or parent_param_phone) )
     end
 
     def valid_parent_params
       params = {}
       if parent_param_email or parent_param_phone
-        params[:first_name] = parent_param_first_name
-        params[:last_name]  = parent_param_last_name
         params[:email] = parent_param_email if parent_param_email
         params[:phone] = parent_param_phone if parent_param_phone
       else

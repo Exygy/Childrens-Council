@@ -2,13 +2,10 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
   $scope.provider = SearchService.search_params
 
-  $scope.parentFieldMode = 'email'
+  $scope.parentFieldModeEmail = true
 
   $scope.toggleParentFieldMode = () ->
-    if $scope.parentFieldMode == 'email'
-      $scope.parentFieldMode = 'phone'
-    else
-      $scope.parentFieldMode = 'email'
+    $scope.parentFieldModeEmail = !$scope.parentFieldModeEmail
 
   validateForm = () ->
     for field_name, field_obj of $scope.parent

@@ -13,6 +13,7 @@
 #  address         :text
 #  home_zip_code   :string(5)
 #  api_key         :string
+#  full_name       :string
 #
 # Indexes
 #
