@@ -15,11 +15,9 @@ DataService = ($http) ->
     near_address: ''
   }
 
-  @current_page = 1
-
   @queryParams = ->
     {
-      page: @current_page,
+      page: @current_page || 1,
       per_page: @providersPerPage,
       providers: @search_params,
       parent: @parent,

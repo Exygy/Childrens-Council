@@ -1,19 +1,14 @@
-ResultsController = ($scope, $location, SearchService) ->
-  $scope.data = SearchService.data
+ResultsController = ($scope, $location, ResultsService) ->
+  $scope.data = ResultsService.data
 
   $scope.nextPage = ->
     console.log "start loader animation"
-    SearchService.nextPage () ->
+    ResultsService.nextPage () ->
       console.log "stop loader animation"
 
   $scope.prevPage = ->
     console.log "start loader animation"
-    SearchService.prevPage () ->
-      console.log "stop loader animation"
-
-  $scope.postSearch = ->
-    console.log "start loader animation"
-    SearchService.postSearch () ->
+    ResultsService.prevPage () ->
       console.log "stop loader animation"
 
   # View toggler
@@ -22,5 +17,5 @@ ResultsController = ($scope, $location, SearchService) ->
     $scope.view_mode.map = !$scope.view_mode.map
     $scope.view_mode.list = !$scope.view_mode.list
 
-ResultsController.$inject = ['$scope', '$location', 'SearchService']
+ResultsController.$inject = ['$scope', '$location', 'ResultsService']
 angular.module('CCR').controller('ResultsController', ResultsController)

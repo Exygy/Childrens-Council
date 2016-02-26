@@ -2,12 +2,12 @@ ResultsService = ($http, DataService) ->
   angular.extend ResultsService.prototype, DataService
 
   @nextPage = (callback) ->
-    @current_page++
-    @performSearch callback
+    DataService.current_page++
+    DataService.performSearch callback
 
   @prevPage = (callback) ->
-    @current_page--
-    @performSearch callback
+    DataService.current_page--
+    DataService.performSearch callback
 
   @
 
