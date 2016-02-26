@@ -1,13 +1,13 @@
 ProviderService = ($http) ->
-  @provider =
-    firstName: ''
-    lastName: ''
-    email: ''
+  @provider = {}
 
   @results = []
   @getProvider = (id) ->
     that = @
-    $http.get('/api/providers/'+id)
+    $http {
+      method: 'POST',
+      url: '/api/providers/'+id
+    }
     .then (response) ->
       # // this callback will be called asynchronously
       # // when the response is available

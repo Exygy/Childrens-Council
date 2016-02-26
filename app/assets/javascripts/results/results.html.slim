@@ -6,7 +6,8 @@ p I'm Searching!
 
 ul
   li ng-repeat="provider in data.providers"
-      | {{ provider.name }}
+      a href="/providers/{{ provider.id }}"
+        | {{ provider.name }}
 
 p totalProviders {{ data.totalProviders }}
 p providersPerPage {{ data.providersPerPage }}

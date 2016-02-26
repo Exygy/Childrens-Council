@@ -18,6 +18,9 @@ SearchService = ($http) ->
 
   @current_page = 1
 
+  @ParentIsValid = ->
+    @parent.firstName != '' and @parent.lastName != '' and ( @parent.email != '' or @parent.phone != '' )
+
   @queryParams = ->
     {
       page: @current_page,

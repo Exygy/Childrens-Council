@@ -36,19 +36,24 @@ module Api
     end
 
     def parent_params_valid?
-      ( parent_param_first_name and parent_param_last_name and (parent_param_email or parent_param_phone) ) or (parent_param_api_key)
+      ( parent_param_api_key ) or ( parent_param_first_name and parent_param_last_name and (parent_param_email or parent_param_phone) )
     end
 
     def valid_parent_params
       params = {}
-      params[:email]   = parent_param_email   if parent_param_email
-      params[:phone]   = parent_param_phone   if parent_param_phone
-      params[:api_key] = parent_param_api_key if parent_param_api_key
+      if parent_param_email or parent_param_phone
+        params[:first_name] = parent_param_first_name
+        params[:last_name]  = parent_param_last_name
+        params[:email] = parent_param_email if parent_param_email
+        params[:phone] = parent_param_phone if parent_param_phone
+      else
+        params[:api_key] = parent_param_api_key
+      end
       params
     end
 
     def parent_params
-      params.require(:parent).permit(:email, :first_name, :last_name, :phone)
+      params.include?(:parent) ? params[:parent] : {}
     end
 
     def parent_param_phone

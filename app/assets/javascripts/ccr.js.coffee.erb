@@ -6,7 +6,7 @@ angular.module 'CCR', [
   ]
   .constant '_', window._
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
-    # $locationProvider.html5Mode(true)
+    $locationProvider.html5Mode(true)
     $stateProvider
       .state('search', {
         url: '/',
