@@ -2,30 +2,31 @@
   .small-12.columns
     h2 Start Search
 
-form.row name="search" ng-submit="submitSearch()" novalidate=""
+form.row name="searchForm" ng-submit="submitSearch()" novalidate=""
   .small-6.columns
-    label
+    label ng-class="{ error: (searchForm.firstName.$dirty && searchForm.firstName.$invalid) }"
       | First Name
-      input type="text" name="parent[first_name]" required="" ng-model="parent.firstName"
+      input type="text" name="firstName" required="" ng-model="parent.firstName" ng-class="{ error: (searchForm.firstName.$dirty && searchForm.firstName.$invalid) }"
+      small.error ng-show="(searchForm.firstName.$dirty && searchForm.firstName.$invalid)" Invalid entry
   .small-6.columns
-    label
+    label ng-class="{ error: (searchForm.lastName.$dirty && searchForm.lastName.$invalid) }"
       | Last Name
-      input type="text" name="parent[last_name]" required="" ng-model="parent.lastName"
-
+      input type="text" name="lastName" required="" ng-model="parent.lastName" ng-class="{ error: (searchForm.lastName.$dirty && searchForm.lastName.$invalid) }"
+      small.error ng-show="(searchForm.lastName.$dirty && searchForm.lastName.$invalid)" Invalid entry
   .small-12.columns
-    label
+    label ng-class="{ error: searchForm.phone.$invalid }"
       | Phone
-      input type="text" name="parent[phone]" ng-model="parent.phone"
-
+      input type="text" name="phone" ng-model="parent.phone" ng-class="{ error: searchForm.phone.$dirty && searchForm.phone.$invalid }"
+      small.error ng-show="searchForm.phone.$invalid" Invalid entry
   .small-12.columns
-    label
+    label ng-class="{ error: searchForm.email.$invalid }"
       | Email
-      input type="email" name="parent[email]" ng-model="parent.email"
-
+      input type="email" name="email" ng-model="parent.email" ng-class="{ error: searchForm.email.$invalid }"
+      small.error ng-show="searchForm.email.$invalid" Invalid entry
   .small-12.columns
     label
       | Location
-      input type="text" name="provider[near_address]" ng-model="provider.near_address"
+      input type="text" name="near_address" ng-model="provider.near_address"
 
 
   .small-12.columns

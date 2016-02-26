@@ -1,9 +1,6 @@
 SearchService = ($http, $cookies, CC_COOKIE, DataService) ->
   angular.extend SearchService.prototype, DataService
 
-  @ParentIsValid = ->
-    @parent.firstName != '' and @parent.lastName != '' and ( @parent.email != '' or @parent.phone != '' )
-
   @deleteApiKey = ->
     $cookies.remove CC_COOKIE
 
