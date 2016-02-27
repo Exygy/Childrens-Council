@@ -18,8 +18,6 @@ ResultsController = ($scope, $location, ResultsService) ->
     total_number_of_pages = Math.ceil $scope.data.totalProviders/$scope.data.providersPerPage
     $scope.data.current_page == total_number_of_pages
 
-
-
   # View toggler
   $scope.view_mode = { list: true, map: false }
   $scope.toggleView = ->

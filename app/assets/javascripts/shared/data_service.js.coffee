@@ -1,4 +1,4 @@
-DataService = ($http) ->
+DataService = (HttpService) ->
   @data = {
     totalProviders: 0,
     providersPerPage: 25,
@@ -17,6 +17,8 @@ DataService = ($http) ->
 
   @current_page = 1
 
+  @current_request = null
+
   @queryParams = ->
     {
       page: @current_page,
@@ -25,9 +27,12 @@ DataService = ($http) ->
       parent: @parent,
     }
 
-  @resetData = ->
-    @data.providers = []
-    @data.totalProviders = 0
+  @httpParams = ->
+    {
+      method: 'POST',
+      url: '/api/providers',
+      data: @queryParams()
+    }
 
   @performSearch = (callback) =>
     that = @
@@ -39,16 +44,13 @@ DataService = ($http) ->
       callback() if callback
 
   @serverRequest = (callback) ->
-    $http {
-      method: 'POST',
-      url: '/api/providers',
-      data: @queryParams()
-    }
-    .then (response) ->
-      # this callback will be called asynchronously
-      # when the response is available
-      callback(response) if callback
+    HttpService.http( @httpParams(), callback )
+
+  @resetData = ->
+    @data.providers = []
+    @data.totalProviders = 0
+
   @
 
-DataService.$inject = ['$http']
+DataService.$inject = ['HttpService']
 angular.module('CCR').service('DataService', DataService)
