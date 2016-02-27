@@ -1,5 +1,5 @@
 p
-  ' Showing {{ data.providersPerPage*(data.current_page-1)+1 }}
+  ' Showing {{ data.providersPerPage*(data.current_page-1) != 0 ? data.providersPerPage*(data.current_page-1) : 1 }}
   ' -
   ' {{ data.providersPerPage*data.current_page < data.totalProviders ? data.providersPerPage*data.current_page : data.totalProviders }}
   ' of {{ data.totalProviders }} results

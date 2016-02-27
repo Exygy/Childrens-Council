@@ -13,6 +13,7 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
     response
 
   @responseError = (response) ->
+    console.log "response.status", response.status
     if response.status == 401 or response.status == 400
       $rootScope.$broadcast 'unauthorized'
       $location.path ""

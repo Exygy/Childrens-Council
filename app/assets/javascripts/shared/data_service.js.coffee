@@ -17,8 +17,6 @@ DataService = (HttpService) ->
 
   @current_page = 1
 
-  @current_request = null
-
   @queryParams = ->
     {
       page: @current_page,
