@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'home/index'
-  get 'wordpress_template' => 'home#wordpress_template' if Rails.env.development?
+  get 'home/index' if Rails.env.development?
+  get 'wordpress_template' => 'home#wordpress_template'
 
   root 'home#index'
 
