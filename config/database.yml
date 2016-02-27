@@ -80,7 +80,4 @@ test:
 #
 production:
   <<: *default
-  host: '173.228.102.72'
-  database: childrens_council
-  username: gkinney
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_URL'] %>
