@@ -1,131 +1,130 @@
-#sidebar.large-4.medium-4.columns
-  nav.section-nav
-    | section nav
+p.text-gray
+  small
+    strong Note
+    ' : if you’re looking for providers who have experience with
+    strong.text-black children with special needs
+    ' , please
+    a href="#" contact us via this quick form
+    ' . A member of our Inclusion team will follow up to help.
 
-#main.large-8.medium-8.columns
-  h1 Search for child care
-  p.text-gray
-    small
-      strong Note
-      ' : if you’re looking for providers who have experience with
-      strong.text-black children with special needs
-      ' , please
-      a href="#" contact us via this quick form
-      ' . A member of our Inclusion team will follow up to help.
-  form name="searchForm" ng-submit="submitSearch()" novalidate=""
-    section.row.vert-offset-top-2
-      .columns.large-8.medium-12
-        label.title-label Child's age ( when care will be needed )
-        .range-slider data-slider=""
-          span.range-slider-handle role="slider" tabindex="0"
-          span.range-slider-active-segment
-          input#aa name="aa" type="hidden"
-    section.row.vert-offset-top-2
-      .columns.large-8.medium-12
-        label.title-label Desired locations
+form name="searchForm" ng-submit="submitSearch()" novalidate=""
+  section.row.vert-offset-top-2
+    .columns.large-8.medium-12
+      label.title-label Child's age ( when care will be needed )
+      .range-slider data-slider=""
+        span.range-slider-handle role="slider" tabindex="0"
+        span.range-slider-active-segment
+        input#aa name="aa" type="hidden"
+  section.row.vert-offset-top-2
+    .columns.large-8.medium-12
+      label.title-label Desired locations
+      ul [data-tab]
+        li.tab-title.active
+          a href="#by-address" Closest to an address
+        li
+          a href="#by-zip-code" By zip code
+        li
+          a href="#by-neighborhood" By neighborhood
+
+      .tabs-content
+        #by-address.content.active
+          input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
+        #by-zip-code.content
+          | Zip Code
+        #by-neighborhood.content
+          | By Neighborhood
+
+  section.row.vert-offset-top-2
+    .columns.large-12.medium-12
+      label.title-label Child care provider type
+      a href="#"  What are the differences?
+      .row
+        .columns.large-6.medium-12
+          label.checkbox-button
+            input type="checkbox"
+            i.fa.fa-home
+            | Family Child Care
+        .columns.large-6.medium-12
+          label.checkbox-button
+            input type="checkbox"
+            i.fa.fa-building-o
+            | Child Care Center
+
+  section.row.vert-offset-top-5.well-section
+    .columns.large-8.medium-12
+      label.title-label.vert-offset-top-0 About you
+      a href="#"
+        small Why are we asking for your information?
+      label.title-label.text-normal.vert-offset-top-2
+        ' Your name
+        input placeholder="First and last name" type="text" name="fullName" required="" ng-model="parent.fullName" ng-class="{ error: (searchForm.fullName.$dirty && searchForm.fullName.$invalid) }"
+        small.error ng-show="(searchForm.fullName.$dirty && searchForm.fullName.$invalid)" Invalid entry
+
+
+      label.title-label.text-normal.vert-offset-top-2 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
+        ' Email address or phone
         ul.inline-list.radio-list
           li
-            input#closest checked="" name="locations_type" type="radio"
-            label for="closest"
-              small Closest to an address
+            input#email checked="" name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
+            label for="email"
+              small Email address
           li
-            input#by_zip name="locations_type" type="radio"
-            label for="by_zip"
-              small By zip code
-          li
-            input#by_neightborhood name="locations_type" type="radio"
-            label for="by_neightborhood"
-              small By neighborhood
+            input#phone name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
+            label for="phone"
+              small Phone
 
-        input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
+        input type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-show="!parentFieldModeEmail" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
+        small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Invalid entry
 
-    section.row.vert-offset-top-2
-      .columns.large-12.medium-12
-        label.title-label Child care provider type
-        a href="#"  What are the differences?
-        .row
-          .columns.large-6.medium-12
-            label.checkbox-button
-              input type="checkbox"
-              i.fa.fa-home
-              | Family Child Care
-          .columns.large-6.medium-12
-            label.checkbox-button
-              input type="checkbox"
-              i.fa.fa-building-o
-              | Child Care Center
-    section.row.vert-offset-top-5.well-section
-      .columns.large-8.medium-12
-        label.title-label.vert-offset-top-0 About you
-        a href="#"
-          small Why are we asking for your information?
-        label.title-label.text-normal.vert-offset-top-2
-          ' Your name
-          input placeholder="First and last name" type="text" name="fullName" required="" ng-model="parent.fullName" ng-class="{ error: (searchForm.fullName.$dirty && searchForm.fullName.$invalid) }"
-          small.error ng-show="(searchForm.fullName.$dirty && searchForm.fullName.$invalid)" Invalid entry
+        input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-show="parentFieldModeEmail" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
+        small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Invalid entry
 
+      label.title-label.text-normal.vert-offset-top-2
+        | Home zip code
+        small.optional OPTIONAL
+      .row
+        .columns.large-5
+          input placeholder=("5 digit zip code") type="text"
+      label.title-label.text-normal.vert-offset-top-2 Reasons for considering child care
+      ul.no-bullet.vert-offset-bottom-0
+        li
+          select
+            option value="employment"  Employment
+            option value="option2"  Option 2
+            option value="option3"  Option 3
+      a href="#"
+        small Add another
+      label.title-label.text-normal.vert-offset-top-2
+        | How did you hear about us?
+        small.optional OPTIONAL
+      select
+        option value="select"  Select..
+        option value="option2"  Option 2
+        option value="option3"  Option 3
 
-        label.title-label.text-normal.vert-offset-top-2 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
-          ' Email address or phone
-          ul.inline-list.radio-list
-            li
-              input#email checked="" name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
-              label for="email"
-                small Email address
-            li
-              input#phone name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
-              label for="phone"
-                small Phone
+  section.row.vert-offset-top-3
+    .columns.large-12.medium-12
+      .side-col-container
+        .side-col
+          input#agreement name="agreement" type="checkbox"
+        label.text-black for="agreement"
+        p
+          strong
+            small I agree to the following:
+        p
+          small
+            | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
+            a href="#"  Read our referral policies and disclaimers.
 
-          input type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-show="!parentFieldModeEmail" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
-          small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Invalid entry
+  section.row.vert-offset-top-1
+    .columns.large-12.medium-12
+      .side-col-container
+        .side-col
+          input#subscribe name="subscribe" type="checkbox"
+        label.text-black for="subscribe"
+        p
+          small Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
-          input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-show="parentFieldModeEmail" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
-          small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Invalid entry
-
-        label.title-label.text-normal.vert-offset-top-2
-          | Home zip code
-          small.optional OPTIONAL
-        .row
-          .columns.large-5
-            input placeholder=("5 digit zip code") type="text"
-        label.title-label.text-normal.vert-offset-top-2 Reasons for considering child care
-        ul.no-bullet.vert-offset-bottom-0
-          li
-            select
-              option value="employment"  Employment
-              option value="option2"  Option 2
-              option value="option3"  Option 3
-        a href="#"
-          small Add another
-        label.title-label.text-normal.vert-offset-top-2
-          | How did you hear about us?
-          small.optional OPTIONAL
-        select
-          option value="select"  Select..
-          option value="option2"  Option 2
-          option value="option3"  Option 3
-    section.row.vert-offset-top-3
-      .columns.large-12.medium-12
-        .side-col-container
-          .side-col
-            input#agreement name="agreement" type="checkbox"
-          label.text-black for="agreement"
-          p
-            strong
-              small I agree to the following:
-          p
-            small
-              | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
-              a href="#"  Read our referral policies and disclaimers.
-    section.row.vert-offset-top-1
-      .columns.large-12.medium-12
-        .side-col-container
-          .side-col
-            input#subscribe name="subscribe" type="checkbox"
-          label.text-black for="subscribe"
-          p
-            small Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
-    section.row.vert-offset-top-1.vert-offset-bottom-5
-      .columns.large-12.medium-12
-        input.button.large.text-uppercase type="submit" value="Search"
+  section.row.vert-offset-top-1.vert-offset-bottom-5
+    .columns.large-12.medium-12
+      input.button.large.text-uppercase type="submit" value="Search"

@@ -43,4 +43,7 @@ Rails.application.configure do
   # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 
   Faker::Config.locale = 'en-US'
+
+  # Allow access from vagrant environment
+  config.web_console.whitelisted_ips = '192.168.50.4'
 end
