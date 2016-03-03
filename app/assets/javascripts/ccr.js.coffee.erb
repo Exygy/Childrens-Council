@@ -13,16 +13,19 @@ angular.module 'CCR', [
         url: '/',
         templateUrl: 'search/search.html',
         controller: 'SearchController',
+        onEnter: showSidebar,
       })
       .state('results', {
         url: '/results',
         templateUrl: 'results/results.html',
         controller: 'ResultsController',
+        onEnter: hideSidebar,
       })
       .state('provider', {
         url: '/providers/:id',
         templateUrl: 'provider/provider.html',
         controller: 'ProviderController',
+        onEnter: hideSidebar,
         resolve:
           provider: ['$stateParams', 'ProviderService', ($stateParams, ProviderService) ->
             ProviderService.getProvider($stateParams.id)
@@ -45,3 +48,11 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
     $httpProvider.interceptors.push('APIInterceptor');
   ]
+
+hideSidebar = () ->
+  $(document.getElementById('main')).addClass 'expanded'
+  $(document.getElementById('sidebar')).addClass 'hide'
+
+showSidebar = () ->
+  $(document.getElementById('main')).removeClass 'expanded'
+  $(document.getElementById('sidebar')).removeClass 'hide'

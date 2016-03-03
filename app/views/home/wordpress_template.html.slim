@@ -1,7 +1,8 @@
 - if Rails.env.production?
   base href="//childrens-council.herokuapp.com/"
 - else
-  base href="/"
+  base href="//192.168.50.1:3000"
+= stylesheet_link_tag 'wordpress_styles', media: 'all'
 = javascript_include_tag 'application'
 
 div ng-app="CCR"
