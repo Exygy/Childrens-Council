@@ -20,7 +20,7 @@ span ng-repeat="provider in data.providers"
     .side-col
       i.fa.fa-building.text-gray
     h5
-      a ng-href="/#/providers/{{ provider.id }}" {{ provider.name }}
+      a ng-click="goToProvider(provider.id)" {{ provider.name }}
     p
       ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id }} {{ provider.state_id }} {{ provider.zip_code_id }}
       a href="#"  See map
@@ -32,15 +32,16 @@ span ng-repeat="provider in data.providers"
         i.fa.fa-clock-o.text-gray
         | M-F, 7am-6pm
     p
-      a ng-href="/#/providers/{{ provider.id }}" http://www.brighthorizons.com
+      a ng-href="{{ provider.url }}" target="_blank"
+        ' {{ provider.url }}
     .vert-offset-top-1
       p
         ' {{ provider.description }}
     p.text-gray Financial assistance: CalWorks, Head Start & Early Head Start.
     p.text-gray
-      | Check history & reports:
+      | Check history &amp; reports:
       a href="#"  Lic #384001082
-      | \&
+      | &amp;
       a href="#"  #294001291
   hr.vert-offset-top-2.vert-offset-bottom-2
 
