@@ -29,7 +29,7 @@ module Api
           record[key.to_sym] = param if param
         end
       end
-      result.full_name = parent_param_full_name
+      result.full_name = parent_param_full_name if parent_param_full_name
       result.save() # will not trigger a second SQL query unless full_name has changed
       result
     end
