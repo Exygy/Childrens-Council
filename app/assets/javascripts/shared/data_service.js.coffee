@@ -12,7 +12,8 @@ DataService = (HttpService) ->
   }
 
   @search_params = {
-    near_address: ''
+    near_address: '',
+    age: 1
   }
 
   @current_page = 1

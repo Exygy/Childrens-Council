@@ -1,13 +1,55 @@
-p
-  ' Showing {{ data.providersPerPage*(data.current_page-1) != 0 ? data.providersPerPage*(data.current_page-1) : 1 }}
-  ' -
-  ' {{ data.providersPerPage*data.current_page < data.totalProviders ? data.providersPerPage*data.current_page : data.totalProviders }}
-  ' of {{ data.totalProviders }} results
+.row.text-gray.vert-offset-bottom-2
+  .large-6.medium-6.small-6.columns
+    small
+      span Sort by:
+      span.hor-offset-left-05
+        em Random
+        i.fa.fa-info-circle.hor-offset-left-05
+  .large-6.medium-6.small-6.columns.text-right
+    small
+      | Showing
+      strong
+        ' {{ data.providersPerPage*(data.current_page-1) != 0 ? data.providersPerPage*(data.current_page-1) : 1 }}
+        ' -
+        ' {{ data.providersPerPage*data.current_page < data.totalProviders ? data.providersPerPage*data.current_page : data.totalProviders }}
+      | of {{ data.totalProviders }} results
 
-ul
-  li ng-repeat="provider in data.providers"
-      a href="/providers/{{ provider.id }}"
-        | {{ provider.name }}
+span ng-repeat="provider in data.providers"
 
-button ng-click="prevPage()" ng-disabled="isFirstPage()" Prev {{ data.providersPerPage }}
-button ng-click="nextPage()" ng-disabled="isLastPage()" Next {{ data.providersPerPage }}
+  .side-col-container.results-item
+    .side-col
+      i.fa.fa-building.text-gray
+    h5
+      ' {{ provider.name }}
+    p
+      ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id }} {{ provider.state_id }} {{ provider.zip_code_id }}
+      a href="#"  See map
+    p
+      span.detail-item
+        i.fa.fa-phone-square.text-gray
+        | {{ provider.phone }}
+      span.detail-item
+        i.fa.fa-clock-o.text-gray
+        | M-F, 7am-6pm
+    p
+      a href="/providers/{{ provider.id }}" http://www.brighthorizons.com
+    .vert-offset-top-1
+      p
+        ' {{ provider.description }}
+    p.text-gray Financial assistance: CalWorks, Head Start & Early Head Start.
+    p.text-gray
+      | Check history & reports:
+      a href="#"  Lic #384001082
+      | \&
+      a href="#"  #294001291
+  hr.vert-offset-top-2.vert-offset-bottom-2
+
+ul.button-group.radius.vert-offset-bottom-3
+  li
+    a ng-click="prevPage()" ng-disabled="isFirstPage()"
+      i.fa.fa-chevron-left.hor-offset-right-05
+      small Previous {{ data.providersPerPage }}
+  li
+    a ng-click="nextPage()" ng-disabled="isLastPage()"
+      small Next {{ data.providersPerPage }}
+      i.fa.fa-chevron-right.hor-offset-left-05

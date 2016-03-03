@@ -1,6 +1,6 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
-  $scope.provider = SearchService.search_params
+  $scope.search_params = SearchService.search_params
 
   $scope.parentFieldModeEmail = true
   $scope.toggleParentFieldMode = () ->
