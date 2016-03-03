@@ -5,11 +5,6 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
       api_key = $cookies.get CC_COOKIE
       config.data = {} unless config.data
       config.data.api_key = api_key if api_key
-
-      console.log config
-    base_url = "<%= Rails.env.production? ? '//childrens-council.herokuapp.com/' : '' %>"
-    config.url = base_url + config.url
-
     config
 
   @response = (response) ->
