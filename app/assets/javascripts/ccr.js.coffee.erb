@@ -5,9 +5,9 @@ angular.module 'CCR', [
     'ngCookies'
   ]
   .constant '_', window._
-  .constant 'CC_COOKIE', 'cc_api_key'  
+  .constant 'CC_COOKIE', 'cc_api_key'
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
-    $locationProvider.html5Mode(true)
+    # $locationProvider.html5Mode(true)
     $stateProvider
       .state('search', {
         url: '/',
@@ -15,7 +15,7 @@ angular.module 'CCR', [
         controller: 'SearchController',
       })
       .state('results', {
-        url: '/results',
+        url: '/providers',
         templateUrl: 'results/results.html',
         controller: 'ResultsController',
       })
