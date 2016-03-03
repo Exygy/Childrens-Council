@@ -20,7 +20,7 @@ span ng-repeat="provider in data.providers"
     .side-col
       i.fa.fa-building.text-gray
     h5
-      ' {{ provider.name }}
+      a ng-href="/#/providers/{{ provider.id }}" {{ provider.name }}
     p
       ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id }} {{ provider.state_id }} {{ provider.zip_code_id }}
       a href="#"  See map
@@ -32,7 +32,7 @@ span ng-repeat="provider in data.providers"
         i.fa.fa-clock-o.text-gray
         | M-F, 7am-6pm
     p
-      a href="/providers/{{ provider.id }}" http://www.brighthorizons.com
+      a ng-href="/#/providers/{{ provider.id }}" http://www.brighthorizons.com
     .vert-offset-top-1
       p
         ' {{ provider.description }}
