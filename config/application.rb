@@ -29,7 +29,7 @@ module ChildrensCouncil
         resource %r{/search|providers/*},
                  headers: :any,
                  methods: [:get, :post, :options],
-                 expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count']
+                 expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
       end
     end
 
