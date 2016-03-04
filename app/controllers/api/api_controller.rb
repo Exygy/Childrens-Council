@@ -20,6 +20,7 @@ module Api
 
     def send_apikey
       response.headers['CCAPIKEY'] = @current_parent.api_key
+      response.headers['Access-Control-Expose-Headers'] = 'Location'
     end
 
     def find_or_create_parent
