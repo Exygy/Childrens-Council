@@ -1,7 +1,7 @@
 <script>
   CCR_DATA = {
     <% cache do %>
-      <% [CareReason, CareType, Language, LanguageProvider, License, Neighborhood, State, ZipCode].each do |m| %>
+      <% [State].each do |m| %>
         "<%= m.name.underscore.pluralize %>": <%= m.all.index_by(&:id).to_json.html_safe%>,
       <% end %>
     <% end %>
