@@ -13,6 +13,11 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
   @response = (response) ->
     api_key = response.headers('CC-APIKEY')
     $cookies.put(CC_COOKIE, api_key) if api_key
+
+    if response.status == 401 or response.status == 400
+      $rootScope.$broadcast 'unauthorized'
+      $location.path ""
+
     response
 
   @responseError = (response) ->
