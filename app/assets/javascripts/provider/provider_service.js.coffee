@@ -4,7 +4,7 @@ ProviderService = (HttpService) ->
   @results = []
   @getProvider = (id) ->
     that = @
-    HttpService.http
+    HttpService.http(
       {
         method: 'POST',
         url: '/api/providers/'+id
@@ -13,6 +13,7 @@ ProviderService = (HttpService) ->
         # // this callback will be called asynchronously
         # // when the response is available
         that.provider = response.data
+    )
   @
 
 ProviderService.$inject = ['HttpService']
