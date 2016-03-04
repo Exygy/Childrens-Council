@@ -3,6 +3,9 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
   @request = (config) ->
     if config.method == "POST"
       api_key = $cookies.get CC_COOKIE
+
+      console.log api_key
+
       config.data = {} unless config.data
       config.data.api_key = api_key if api_key
     config
