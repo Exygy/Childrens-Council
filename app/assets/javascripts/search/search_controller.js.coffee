@@ -16,5 +16,12 @@ SearchController = ($scope, $state, SearchService) ->
       SearchService.postSearch () ->
         $state.go('results')
 
+  $scope.toggleCareTypeIdSelection = (care_type_id) ->
+    idx = $scope.search_params.care_type_ids.indexOf care_type_id
+    if idx > -1
+      $scope.search_params.care_type_ids.splice idx, 1
+    else
+      $scope.search_params.care_type_ids.push care_type_id
+
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)

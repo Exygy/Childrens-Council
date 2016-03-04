@@ -13,7 +13,7 @@ DataService = (HttpService) ->
 
   @search_params = {
     near_address: '',
-    age: 1
+    care_type_ids: [],
   }
 
   @current_page = 1

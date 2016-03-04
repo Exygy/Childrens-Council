@@ -33,7 +33,7 @@ module Api
     private
 
     def provider_params
-      params.require(:providers).permit(:zipcode_ids, :neighborhood_ids, :near_address, :ages, :open_days, :schedule_year_ids, :care_type_ids)
+      params.require(:providers).permit(zipcode_ids: [], neighborhood_ids: [], :near_address, ages: [], open_days: [], schedule_year_ids: [], care_type_ids: [])
     end
 
     def method_missing(method_sym, *arguments, &block)
