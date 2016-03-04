@@ -1,7 +1,9 @@
-<script>
-  CCR_DATA = {
-      <% [CareReason, CareType, Language, LanguageProvider, License, Neighborhood, State, ZipCode].each do |m| %>
-        "<%= m.name.underscore.pluralize %>": <%= m.all.index_by(&:id).to_json.html_safe%>,
-      <% end %>
-  }
-</script>
+<% cache("CCR_DATA", expires_in: 24.hours) do %>
+  <script>
+    CCR_DATA = {
+        <% [CareReason, CareType, Language, LanguageProvider, License, Neighborhood, State, ZipCode].each do |m| %>
+          "<%= m.name.underscore.pluralize %>": <%= m.all.index_by(&:id).to_json.html_safe%>,
+        <% end %>
+    }
+  </script>
+<% end %>
