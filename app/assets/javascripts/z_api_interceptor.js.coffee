@@ -1,32 +1,16 @@
+# is called z_api_interceptor so the file is included after ccr.js.coffee
 APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
 
   @request = (config) ->
     if config.method == "POST"
       api_key = $cookies.get CC_COOKIE
-
-      console.log "api_key read", api_key
-
       config.data = {} unless config.data
       config.data.api_key = api_key if api_key
     config
 
   @response = (response) ->
     api_key = response.headers('Cc-Apikey')
-
-    console.log 'headers', response.headers()
-    console.log 'CcApikey', response.headers('Cc-Apikey')
-    console.log 'ccapikey', response.headers('cc-apikey')
-    console.log 'CCAPIKEY', response.headers('CC-APIKEY')
-    console.log 'CCAPIKEY', response.headers('CC-APIKEY')
-
-    console.log "api_key set", api_key, response
-
     $cookies.put(CC_COOKIE, api_key) if api_key
-
-    if response.status == 401 or response.status == 400
-      $rootScope.$broadcast 'unauthorized'
-      $location.path ""
-
     response
 
   @responseError = (response) ->
