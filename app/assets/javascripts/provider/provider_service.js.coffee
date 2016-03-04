@@ -1,18 +1,19 @@
-ProviderService = ($http) ->
+ProviderService = (HttpService) ->
   @provider = {}
 
   @results = []
   @getProvider = (id) ->
     that = @
-    $http {
-      method: 'POST',
-      url: '/api/providers/'+id
-    }
-    .then (response) ->
-      # // this callback will be called asynchronously
-      # // when the response is available
-      that.provider = response.data
+    HttpService.http
+      {
+        method: 'POST',
+        url: '/api/providers/'+id
+      },
+      (response) ->
+        # // this callback will be called asynchronously
+        # // when the response is available
+        that.provider = response.data
   @
 
-ProviderService.$inject = ['$http']
+ProviderService.$inject = ['HttpService']
 angular.module('CCR').service('ProviderService', ProviderService)
