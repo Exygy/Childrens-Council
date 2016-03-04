@@ -11,7 +11,7 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
     config
 
   @response = (response) ->
-    api_key = response.headers('CC-APIKEY')
+    api_key = response.headers('Cc-Apikey')
     $cookies.put(CC_COOKIE, api_key) if api_key
 
     if response.status == 401 or response.status == 400
