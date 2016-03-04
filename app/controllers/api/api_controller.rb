@@ -19,7 +19,7 @@ module Api
     end
 
     def send_apikey
-      response.headers['Cc-Apikey'] = @current_parent.api_key
+      response.headers['CCAPIKEY'] = @current_parent.api_key
     end
 
     def find_or_create_parent
