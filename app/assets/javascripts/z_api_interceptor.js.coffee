@@ -13,6 +13,7 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
   @response = (response) ->
     api_key = response.headers('Cc-Apikey')
 
+    console.log 'headers', response.headers()
     console.log 'CcApikey', response.headers('Cc-Apikey')
     console.log 'ccapikey', response.headers('cc-apikey')
     console.log 'CCAPIKEY', response.headers('CC-APIKEY')
