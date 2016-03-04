@@ -4,7 +4,7 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
     if config.method == "POST"
       api_key = $cookies.get CC_COOKIE
 
-      console.log api_key
+      console.log "api_key read", api_key
 
       config.data = {} unless config.data
       config.data.api_key = api_key if api_key
@@ -12,6 +12,9 @@ APIInterceptor = ($location, $rootScope, $q, $cookies, CC_COOKIE) ->
 
   @response = (response) ->
     api_key = response.headers('Cc-Apikey')
+
+    console.log "api_key set", api_key
+
     $cookies.put(CC_COOKIE, api_key) if api_key
 
     if response.status == 401 or response.status == 400
