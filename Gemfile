@@ -34,6 +34,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Server
 gem 'puma'
+
+# Model to json format
 gem 'active_model_serializers'
 
 # paginate

@@ -26,8 +26,8 @@ module Api
     end
 
     def show
-      provider = Provider.find(params[:id])
-      render json: provider, status: 200
+      provider = Provider.eager_load(:language_providers, :schedule_hours, :schedule_week, :schedule_days, :licenses).find(params[:id])
+      render json: ProviderSerializer.new(provider), status: 200
     end
 
     private
