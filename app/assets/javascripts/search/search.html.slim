@@ -18,21 +18,13 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
   section.row.vert-offset-top-2
     .columns.large-8.medium-12
       label.title-label Desired locations
-      ul [data-tab]
-        li.tab-title.active
-          a href="#by-address" Closest to an address
-        li
-          a href="#by-zip-code" By zip code
-        li
-          a href="#by-neighborhood" By neighborhood
-
-      .tabs-content
-        #by-address.content.active
+      tabset.tabs-inline
+        tab heading="Closest to an address"
           input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
-        #by-zip-code.content
-          | Zip Code
-        #by-neighborhood.content
-          | By Neighborhood
+        tab heading="By zip code"
+          input type="text" placeholder="Zip code" name="zip-code" ng-model="search_params.zip_code_ids"
+        tab heading="By neighborhood"
+          input type="text"
 
   section.row.vert-offset-top-2
     .columns.large-12.medium-12
@@ -64,21 +56,14 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
       label.title-label.text-normal.vert-offset-top-2 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
         ' Email address or phone
-        ul.inline-list.radio-list
-          li
-            input#email checked="" name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
-            label for="email"
-              small Email address
-          li
-            input#phone name="email_or_phone" type="radio" ng-click="toggleParentFieldMode()"
-            label for="phone"
-              small Phone
+        tabset.tabs-inline
+          tab heading="Email address"
+            input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
+            small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Email or phone number is required
 
-        input type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-show="!parentFieldModeEmail" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
-        small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Invalid entry
-
-        input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-show="parentFieldModeEmail" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
-        small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Invalid entry
+          tab heading="Phone"
+            input type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
+            small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Phone number or email is required
 
       label.title-label.text-normal.vert-offset-top-2
         | Home zip code

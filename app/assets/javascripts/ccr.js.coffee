@@ -2,7 +2,8 @@ angular.module 'CCR', [
     'templates',
     'ui.router',
     'uiGmapgoogle-maps',
-    'ngCookies'
+    'ngCookies',
+    'mm.foundation',
   ]
   .constant '_', window._
   .constant 'CC_COOKIE', 'cc_api_key'

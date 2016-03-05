@@ -20,4 +20,5 @@
 //= require angular-cookies
 //= require angular-rails-templates
 //= require angular-paginate-anything
+//= require angular-foundation
 //= require_tree .
