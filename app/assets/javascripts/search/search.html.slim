@@ -34,12 +34,12 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
         .columns.large-6.medium-12
           label.checkbox-button
-            input type="checkbox" value="1" name="care_type_ids[]" ng-checked="search_params.care_type_ids.indexOf(1) > -1" ng-click="toggleCareTypeIdSelection(1)"
+            input type="checkbox" value="1" name="care_type_ids[]" checklist-model="search_params.care_type_ids"
             i.fa.fa-home
             | Family Child Care
         .columns.large-6.medium-12
           label.checkbox-button
-            input type="checkbox" value="2" name="care_type_ids[]" ng-checked="search_params.care_type_ids.indexOf(2) > -1" ng-click="toggleCareTypeIdSelection(2)"
+            input type="checkbox" value="2" name="care_type_ids[]" checklist-model="search_params.care_type_ids"
             i.fa.fa-building-o
             | Child Care Center
 

@@ -21,4 +21,5 @@
 //= require angular-rails-templates
 //= require angular-paginate-anything
 //= require angular-foundation
+//= require checklist-model
 //= require_tree .

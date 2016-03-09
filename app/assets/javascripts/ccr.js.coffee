@@ -4,6 +4,7 @@ angular.module 'CCR', [
     'uiGmapgoogle-maps',
     'ngCookies',
     'mm.foundation',
+    'checklist-model'
   ]
   .constant '_', window._
   .constant 'CC_COOKIE', 'cc_api_key'
