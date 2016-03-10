@@ -19,9 +19,10 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
     .columns.large-8.medium-12
       label.title-label Desired locations
       tabset.tabs-inline
-        tab heading="Closest to an address"
+        tab heading="Closest to an address" select="setLocationType('near_address')"
           input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
-        tab heading="By zip code"
+
+        tab heading="By zip code" select="setLocationType('zip_code_ids')"
           div [ng-repeat="zip_code in search_params.zip_code_ids track by $index"]
             ui-select ng-model="search_params.zip_code_ids[$index]" theme="selectize"
                 ui-select-match placeholder="Zip code"
@@ -33,7 +34,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
           button ng-show="hasFinalValue(search_params.zip_code_ids)" ng-click="addItem(search_params.zip_code_ids)" Add another
 
-        tab heading="By neighborhood"
+        tab heading="By neighborhood" select="setLocationType('neighborhood_ids')"
           div [ng-repeat="neighborhood in search_params.neighborhood_ids track by $index"]
             select name="neighborhood" ng-model="search_params.neighborhood_ids[$index]"
               option value="" Select Neighborhood
