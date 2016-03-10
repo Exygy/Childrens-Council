@@ -1,5 +1,5 @@
-.map_canvas style="width:500px;height:500px;" ng-controller="MapController"
-  ui-gmap-google-map style="display:block;width:500px;height:500px;" center='map.center' zoom='map.zoom'
+#map_canvas ng-controller="MapController"
+  ui-gmap-google-map center='map.center' zoom='map.zoom'
     ui-gmap-marker ng-repeat="marker in (data.providers | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
 
 button ng-click="prevPage()" Prev Page

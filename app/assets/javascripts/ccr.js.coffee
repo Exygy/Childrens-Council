@@ -39,7 +39,7 @@ angular.module 'CCR', [
   ]
   .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
     uiGmapGoogleMapApiProvider.configure(
-        key: 'AIzaSyCI85KTN1V7hI-oGLijsoGFuJUWbWRjW1A',
+        key: 'AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I',
         v: '3.22', #defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     )
