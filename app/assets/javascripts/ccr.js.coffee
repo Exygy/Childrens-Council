@@ -7,6 +7,7 @@ angular.module 'CCR', [
     'checklist-model'
   ]
   .constant '_', window._
+  .constant 'deepFilter', window.deepFilter
   .constant 'CC_COOKIE', 'cc_api_key'
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
     $locationProvider.html5Mode(true)

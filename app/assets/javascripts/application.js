@@ -22,4 +22,5 @@
 //= require angular-paginate-anything
 //= require angular-foundation
 //= require checklist-model
+//= require deep-filter/index.umd.js
 //= require_tree .

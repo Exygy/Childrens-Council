@@ -14,17 +14,21 @@ DataService = (HttpService) ->
   @search_params = {
     near_address: '',
     care_type_ids: [],
+    neighborhood_ids: [''],
   }
 
   @current_page = 1
 
   @queryParams = ->
-    {
+    params = {
       page: @current_page,
       per_page: @providersPerPage,
       providers: @search_params,
       parent: @parent,
     }
+
+    deepFilter params, (value) ->
+      '' != value
 
   @httpParams = ->
     {
