@@ -6,7 +6,7 @@ DataService = (HttpService) ->
   }
 
   @parent = {
-    fullName: ''
+    full_name: ''
     email: ''
     phone: ''
   }

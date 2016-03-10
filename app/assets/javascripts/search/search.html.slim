@@ -67,8 +67,8 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         small Why are we asking for your information?
       label.title-label.text-normal.vert-offset-top-2
         ' Your name
-        input placeholder="First and last name" type="text" name="fullName" required="" ng-model="parent.fullName" ng-class="{ error: (searchForm.fullName.$dirty && searchForm.fullName.$invalid) }"
-        small.error ng-show="(searchForm.fullName.$dirty && searchForm.fullName.$invalid)" Invalid entry
+        input placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name" ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
+        small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)" Invalid entry
 
 
       label.title-label.text-normal.vert-offset-top-2 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
