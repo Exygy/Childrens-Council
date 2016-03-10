@@ -12,7 +12,7 @@ ProviderService = (HttpService) ->
       (response) ->
         # // this callback will be called asynchronously
         # // when the response is available
-        that.provider = response.data
+        that.provider = response.data.provider
     )
   @
 
