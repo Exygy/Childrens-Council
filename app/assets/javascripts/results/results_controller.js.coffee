@@ -21,6 +21,21 @@ ResultsController = ($scope, $location, $state, ResultsService) ->
   $scope.goToProvider = (provider_id) ->
     $state.go('provider', {id: provider_id})
 
+  $scope.toggleMap = (provider) ->
+    if provider.map
+      delete provider.map
+    else
+      provider.map =
+        center:
+          latitude: provider.latitude,
+          longitude: provider.longitude
+        ,
+        zoom: 16,
+        options:
+          scrollwheel: false
+          streetViewControl: false
+          mapTypeControl: false
+
   # View toggler
   $scope.view_mode = { list: true, map: false }
   $scope.toggleView = ->
