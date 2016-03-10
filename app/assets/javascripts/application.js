@@ -23,4 +23,5 @@
 //= require angular-foundation
 //= require checklist-model
 //= require deep-filter/index.umd.js
+//= require ui-select/dist/select.js
 //= require_tree .

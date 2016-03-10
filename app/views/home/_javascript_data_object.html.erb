@@ -2,6 +2,8 @@
   <script>
     CCR_DATA = {
         <% [CareReason, CareType, Language, License, Neighborhood, State, ZipCode].each do |m| %>
+          <% all = m.all %>
+          "<%= m.name.underscore.pluralize %>_array": <%= m.all.to_json.html_safe%>,
           "<%= m.name.underscore.pluralize %>": <%= m.all.index_by(&:id).to_json.html_safe%>,
         <% end %>
     }

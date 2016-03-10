@@ -15,6 +15,7 @@ DataService = (HttpService) ->
     near_address: '',
     care_type_ids: [],
     neighborhood_ids: [''],
+    zip_code_ids: [''],
   }
 
   @current_page = 1

@@ -11,6 +11,7 @@
     "angular-cookies": "~1.4.9",
     "angular-foundation": "^0.8.0",
     "checklist-model": "^0.9.0",
-    "deep-filter": "^1.0.1"
+    "deep-filter": "^1.0.1",
+    "ui-select": "angular-ui-select#^0.14.9"
   }
 }

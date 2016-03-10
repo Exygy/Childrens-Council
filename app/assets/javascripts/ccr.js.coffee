@@ -4,7 +4,8 @@ angular.module 'CCR', [
     'uiGmapgoogle-maps',
     'ngCookies',
     'mm.foundation',
-    'checklist-model'
+    'checklist-model',
+    'ui.select',
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter

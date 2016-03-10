@@ -22,9 +22,26 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         tab heading="Closest to an address"
           input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
         tab heading="By zip code"
-          input type="text" placeholder="Zip code" name="zip-code" ng-model="search_params.zip_code_ids"
+          div [ng-repeat="zip_code in search_params.zip_code_ids track by $index"]
+            ui-select ng-model="search_params.zip_code_ids[$index]" theme="selectize"
+                ui-select-match placeholder="Zip code"
+                  | {{$select.selected.zip}}
+                ui-select-choices repeat="zip_code.id as zip_code in (data.zip_codes_array | filter: $select.search) track by zip_code.id"
+                  | {{zip_code.zip}}
+
+            button class="right" ng-show="$index > 0" ng-click="removeItem(search_params.zip_code_ids, $index)" Remove
+
+          button ng-show="hasFinalValue(search_params.zip_code_ids)" ng-click="addItem(search_params.zip_code_ids)" Add another
+
         tab heading="By neighborhood"
-          input type="text"
+          div [ng-repeat="neighborhood in search_params.neighborhood_ids track by $index"]
+            select name="neighborhood" ng-model="search_params.neighborhood_ids[$index]"
+              option value="" Select Neighborhood
+              option ng-repeat="neighborhood in data.neighborhoods_array track by neighborhood.id" value="{{ neighborhood.id }}" {{neighborhood.name}}
+
+            button class="right" ng-show="$index > 0" ng-click="removeItem(search_params.neighborhood_ids, $index)" Remove
+
+          button ng-show="hasFinalValue(search_params.neighborhood_ids)" ng-click="addItem(search_params.neighborhood_ids)" Add another
 
   section.row.vert-offset-top-2
     .columns.large-12.medium-12

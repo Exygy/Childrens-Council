@@ -1,6 +1,7 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
   $scope.search_params = SearchService.search_params
+  $scope.data = CCR_DATA
 
   validateForm = () ->
     for field_name, field_obj of $scope.parent
@@ -11,6 +12,15 @@ SearchController = ($scope, $state, SearchService) ->
     if $scope.searchForm.$valid
       SearchService.postSearch () ->
         $state.go('results')
+
+  $scope.addItem = (collection) ->
+    collection.push('')
+
+  $scope.removeItem = (collection, index) ->
+    collection = collection.splice(index, 1)
+
+  $scope.hasFinalValue = (collection) ->
+    collection[collection.length - 1] != ''
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)
