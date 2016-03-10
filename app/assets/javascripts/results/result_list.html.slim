@@ -22,7 +22,7 @@ span ng-repeat="provider in data.providers"
     h5
       a ng-click="goToProvider(provider.id)" {{ provider.name }}
     p
-      ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id | cityIdToName }} {{ provider.state_id | stateIdToAbbr }} {{ provider.zip_code_id }}
+      ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id | cityIdToName }} {{ provider.state_id | stateIdToAbbr }} {{ provider.zip_code_id | zipCodeIdToName}}
       a href="#"  See map
     p
       span.detail-item

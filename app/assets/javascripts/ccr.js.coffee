@@ -40,7 +40,7 @@ angular.module 'CCR', [
   .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
     uiGmapGoogleMapApiProvider.configure(
         key: 'AIzaSyCI85KTN1V7hI-oGLijsoGFuJUWbWRjW1A',
-        v: '3.20', #defaults to latest 3.X anyhow
+        v: '3.22', #defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     )
   ]
@@ -52,8 +52,9 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
     $httpProvider.interceptors.push('APIInterceptor');
   ]
-  .run ($rootScope) ->
+  .run ['$rootScope', ($rootScope) ->
     $rootScope.data = CCR_DATA
+  ]
 
 hideSidebar = () ->
   $(document.getElementById('main')).addClass 'expanded'
