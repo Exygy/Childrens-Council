@@ -1,7 +1,6 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
   $scope.search_params = SearchService.search_params
-  $scope.data = CCR_DATA
 
   validateForm = () ->
     for field_name, field_obj of $scope.parent

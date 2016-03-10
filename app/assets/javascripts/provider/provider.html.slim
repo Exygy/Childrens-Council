@@ -4,31 +4,31 @@ section.content.row.vert-offset-bottom-5.new-page
       nav
         ul
           li.active
-            a href="#"
+            a href="#about"
               | About
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#general_information"
               | General Information
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#location"
               | Location
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#hours_of_operation"
               | Hours of Operation
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#license_and_ages_served"
               | License & Ages Served
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#language_options"
               | Language Options
               i.fa.fa-chevron-right
           li
-            a href="#"
+            a href="#financial_assitance"
               | Financial Assistance
               i.fa.fa-chevron-right
     .vert-offset-top-3
@@ -43,9 +43,10 @@ section.content.row.vert-offset-bottom-5.new-page
             | (PDF, 289kb)
           p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
   .large-8.medium-8.columns
-    h3.text-capitalize.vert-offset-bottom-1 About
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris imperdiet libero magna, eu luctus nunc placerat ut. Maecenas rhoncus, nisl ac tincidunt posuere, mi ipsum tincidunt tortor, ut pulvinar lorem est scelerisque tortor. Donec et vestibulum orci, eu condimentum eros. Cras aliquet malesuada enim et iaculis. Cras nec risus ut tellus vulputate dignissim sed sit amet dui. In hac habitasse platea dictumst.
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 General Information
+    h3#about.text-capitalize.vert-offset-bottom-1 About
+    p
+      ' {{provider.description}}
+    h3#general_information.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 General Information
     .colored-icons
       .row
         .columns.medium-6.small-12
@@ -60,7 +61,7 @@ section.content.row.vert-offset-bottom-5.new-page
               i.fa.fa-normal.fa-envelope
             span.label-gray.lighter Email
             a href="mailto:{{ provider.email }}" {{ provider.email }}
-      hr/
+      hr
       .row
         .columns.medium-6.small-12
           .side-col-container.results-item
@@ -74,7 +75,7 @@ section.content.row.vert-offset-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-user
             span.label-gray.lighter Owner
-            a href="#"  Jeniffer L.
+            a href="#"  TODO: Jeniffer L.
       hr
       .row
         .columns.medium-6.small-12
@@ -120,68 +121,37 @@ section.content.row.vert-offset-bottom-5.new-page
             span.label-gray.lighter Child care provider type
             span Child care center
       hr
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Location
+    h3#location.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Location
     div
       span.label-gray.lighter
-        ' {{ provider.neighborhood_id }}
+        ' {{ provider.neighborhood_id|neighborhoodIdToName }}
       span
         '  {{ provider.address_1 }}
         '  {{ provider.address_2 }}
-        '  {{ provider.city_id }}
-        '  {{ provider.state_id }}
-        ' {{ provider.zip_code_id }}
-
-
-
-
+        '  {{ provider.city_id|cityIdToName }}
+        '  {{ provider.state_id|stateIdToAbbr }}
+        ' {{ provider.zip_code_id|zipCodeIdToName }}
 
       .map.vert-offset-top-2
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Hours of Operation
+    h3#hours_of_operation.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Hours of Operation
     table.extended.table.table-centered
       thead
         tr
-          th
-            span.label-gray Sun
-          th
-            span.label-gray Mon
-          th
-            span.label-gray Tue
-          th
-            span.label-gray Wed
-          th
-            span.label-gray Thu
-          th
-            span.label-gray Fri
-          th
-            span.label-gray Sat
+          th ng-repeat="schedule_hour in provider.schedule_hours track by $index"
+            span.label-gray
+              | {{ schedule_hour.schedule_day_id|scheduleDayIdToName }}
       tbody
         tr
-          td.bg-gray Closed
-          td
-            span 7:00am
-            small.label-gray TO
-            span 6:00pm
-          td
-            span 7:00am
-            small.label-gray TO
-            span 6:00pm
-          td
-            span 7:00am
-            small.label-gray TO
-            span 6:00pm
-          td
-            span 7:00am
-            small.label-gray TO
-            span 6:00pm
-          td
-            span 7:00am
-            small.label-gray TO
-            span 6:00pm
-          td.bg-gray
-            span 8:00am
-            small.label-gray TO
-            span 12:00pm
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 License & Ages Served
+          td ng-repeat="schedule_hour in provider.schedule_hours track by $index" ng-class="{'bg-gray': schedule_hour.closed }"
+            span ng-if="schedule_hour.closed" Closed
+            span ng-if="!schedule_hour.closed"
+              span
+                ' {{schedule_hour.start_time| date:'h:mm a':'UTC'}}
+              small.label-gray TO
+              span
+                ' {{schedule_hour.end_time| date:'h:mm a':'UTC'}}
+
+    h3#license_and_ages_served.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 License & Ages Served
     table.extended.table-lines
       thead
         tr
@@ -192,21 +162,20 @@ section.content.row.vert-offset-bottom-5.new-page
           th
             span.label-gray.lighter Capacity
       tbody
-        tr
+        tr  ng-repeat="license in provider.licenses track by $index"
           td
-            a href="#"  #384000255
+            a href="#"
+              ' #
+              | {{license.number}}
           td
-            span Infant: 0yr - 1yr
+            span TODO: Infant: 0yr - 1yr
           td
-            span 25
-        tr
-          td
-            a href="#"  #384000394
-          td
-            span Preschool: 2yr - 5yr 11m
-          td
-            span 50
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Language Options
+            span
+              ' {{license.capacity}}
+
+    h3#language_options.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Language Options
+
+
     span.label-gray.lighter
       | Language Immersion Programs
       i.fa.fa-info-circle
@@ -216,7 +185,8 @@ section.content.row.vert-offset-bottom-5.new-page
       | Language Spoken
       i.fa.fa-info-circle
     p Chinese, Spanish, Russian
-    h3.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Language Options
+
+    h3#financial_assitance.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Financial Assistance
     table.extended.table-lines
       tr
         td
@@ -244,40 +214,3 @@ section.content.row.vert-offset-bottom-5.new-page
           .text-gray.vert-offset-top-05 Full or partial tuition discount offered via private funding per provider.
         td.text-right.nobreak
           a href="#"  Hide details
-
-
-
-/ {{ provider.id }}
-/ {{ provider.name }}
-/ {{ provider.alternate_name }}
-/ {{ provider.contact_name }}
-/ {{ provider.phone }}
-/ {{ provider.phone_ext }}
-/ {{ provider.phone_other }}
-/ {{ provider.phone_other_ext }}
-/ {{ provider.fax }}
-/ {{ provider.email }}
-/ {{ provider.url }}
-/ {{ provider.address_1 }}
-/ {{ provider.address_2 }}
-/ {{ provider.city_id }}
-/ {{ provider.state_id }}
-/ {{ provider.cross_street_1 }}
-/ {{ provider.cross_street_2 }}
-/ {{ provider.mail_address_1 }}
-/ {{ provider.mail_address_2 }}
-/ {{ provider.mail_city_id }}
-/ {{ provider.mail_state_id }}
-/ {{ provider.ssn }}
-/ {{ provider.tax_id }}
-/ {{ provider.created_at }}
-/ {{ provider.updated_at }}
-/ {{ provider.latitude }}
-/ {{ provider.longitude }}
-/ {{ provider.schedule_year_id }}
-/ {{ provider.zip_code_id }}
-/ {{ provider.care_type_id }}
-/ {{ provider.description }}
-/ {{ provider.licensed_ages }}
-/ {{ provider.neighborhood_id }}
-/ {{ provider.mail_zip_code }}

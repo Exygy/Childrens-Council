@@ -52,6 +52,8 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
     $httpProvider.interceptors.push('APIInterceptor');
   ]
+  .run ($rootScope) ->
+    $rootScope.data = CCR_DATA
 
 hideSidebar = () ->
   $(document.getElementById('main')).addClass 'expanded'
