@@ -6,30 +6,48 @@ DataService = (HttpService) ->
   }
 
   @parent = {
-    fullName: ''
+    full_name: ''
     email: ''
     phone: ''
   }
 
   @search_params = {
-    near_address: '',
     care_type_ids: [],
+    location_type: '',
+    near_address: '',
     neighborhood_ids: [''],
     zip_code_ids: [''],
   }
 
   @current_page = 1
 
+  @getSearchParams = ->
+    search_params = @search_params
+    # Remove unneeded search params
+    keys_to_remove = [
+      'location_type',
+      'near_address',
+      'neighborhood_ids',
+      'zip_code_ids',
+    ].filter (value) ->
+      value != search_params.location_type
+
+    _.transform search_params, (filtered_params, value, key) ->
+      filtered_params[key] = value unless key in keys_to_remove
+    , {}
+
+
   @queryParams = ->
     params = {
       page: @current_page,
-      per_page: @providersPerPage,
-      providers: @search_params,
+      per_page: @data.providersPerPage,
+      providers: @getSearchParams(),
       parent: @parent,
     }
 
     deepFilter params, (value) ->
-      '' != value
+      # Filter out empty strings and arrays
+      if typeof value.length != 'undefined' and value.length <= 0 then false else true
 
   @httpParams = ->
     {

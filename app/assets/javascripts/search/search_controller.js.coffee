@@ -21,5 +21,8 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.hasFinalValue = (collection) ->
     collection[collection.length - 1] != ''
 
+  $scope.setLocationType = (type) ->
+    $scope.search_params.location_type = type
+
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)
