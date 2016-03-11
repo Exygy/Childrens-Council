@@ -3,8 +3,8 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.search_params = SearchService.search_params
 
   validateForm = () ->
-    for field_name, field_obj of $scope.parent
-      $scope.searchForm[field_name].$setDirty()
+    # for field_name, field_obj of $scope.parent
+    #   $scope.searchForm[field_name].$setDirty()
 
   $scope.submitSearch = ->
     validateForm()

@@ -6,6 +6,7 @@ angular.module 'CCR', [
     'mm.foundation',
     'checklist-model',
     'ui.select',
+    'ui.slider',
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter

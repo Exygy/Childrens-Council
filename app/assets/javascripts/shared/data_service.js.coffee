@@ -9,6 +9,11 @@ DataService = (HttpService) ->
     full_name: ''
     email: ''
     phone: ''
+    children: [
+      {
+        age: 30
+      },
+    ]
   }
 
   @search_params = {
@@ -23,6 +28,11 @@ DataService = (HttpService) ->
 
   @getSearchParams = ->
     search_params = @search_params
+    search_params.ages = []
+
+    @parent.children.forEach (child) ->
+      search_params.ages.push(child.age)
+
     # Remove unneeded search params
     keys_to_remove = [
       'location_type',

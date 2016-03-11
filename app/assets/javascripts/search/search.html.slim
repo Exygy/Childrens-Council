@@ -11,10 +11,10 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
   section.row.vert-offset-top-2
     .columns.large-8.medium-12
       label.title-label Child's age ( when care will be needed )
-      .range-slider data-slider=""
-        span.range-slider-handle role="slider" tabindex="0"
-        span.range-slider-active-segment
-        input#aa name="aa" type="hidden"
+      div [ui-slider min="0" max="60" ng-model="parent.children[0].age" use-decimals]
+      span
+        | {{parent.children[0].age | ageToYearsAndMonths}}
+
   section.row.vert-offset-top-2
     .columns.large-8.medium-12
       label.title-label Desired locations

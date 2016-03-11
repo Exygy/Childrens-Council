@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require lodash/lodash
 //= require angular
 //= require angular-simple-logger
@@ -21,6 +22,7 @@
 //= require angular-rails-templates
 //= require angular-paginate-anything
 //= require angular-foundation
+//= require angular-ui-slider/src/slider.js
 //= require checklist-model
 //= require deep-filter/index.umd.js
 //= require ui-select/dist/select.js

@@ -12,6 +12,8 @@
     "angular-foundation": "^0.8.0",
     "checklist-model": "^0.9.0",
     "deep-filter": "^1.0.1",
-    "ui-select": "angular-ui-select#^0.14.9"
+    "ui-select": "angular-ui-select#^0.14.9",
+    "angular-ui-slider": "^0.2.1",
+    "jquery-ui": "jqueryui#^1.11.4"
   }
 }
