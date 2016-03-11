@@ -69,6 +69,7 @@ class Provider < ActiveRecord::Base
   has_paper_trail
   geocoded_by :geocodable_address_string
   after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
+  before_save :calculate_ages
 
   def as_json(options={})
     super(include: :schedule_hours)
@@ -105,6 +106,21 @@ class Provider < ActiveRecord::Base
       address_array << cross_street_2
     end
     address_array.compact
+  end
+
+  def calculate_ages
+    ages = []
+    if licenses.present?
+      licenses.each do |license|
+        next unless license.age_range
+
+        license.age_range.each do |age|
+          ages << age
+        end
+      end
+    end
+
+    self.licensed_ages = ages.uniq
   end
 
   # CLASS METHODS

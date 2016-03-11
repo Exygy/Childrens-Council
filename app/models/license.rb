@@ -36,4 +36,27 @@ class License < ActiveRecord::Base
   validates :age_from_month, inclusion: { in: 1..12 }
   validates :age_to_month, inclusion: { in: 1..12 }
   belongs_to :provider
+
+  def age_from_months
+    age_in_months(age_from_year, age_from_month)
+  end
+
+  def age_to_months
+    age_in_months(age_to_year, age_to_month)
+  end
+
+  def age_range
+    age_range = (age_from_months..age_to_months)
+
+    age_range == (0..0) ? false : age_range
+  end
+
+  private
+
+  def age_in_months(years, months)
+    years = years.nil? ? 0 : years
+    months = months.nil? ? 0 : months
+
+    years * 12 + months
+  end
 end

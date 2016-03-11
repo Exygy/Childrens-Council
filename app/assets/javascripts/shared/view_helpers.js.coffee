@@ -101,10 +101,7 @@ FormatPhoneNumber = () ->
       country = ''
     number = number.slice(0, 3) + '-' + number.slice(3)
     (country + ' (' + city + ') ' + number).trim()
-
 angular.module('CCR').filter('formatPhoneNumber', FormatPhoneNumber)
-
-
 
 PrefixUrl = () ->
   (value) ->
@@ -112,5 +109,14 @@ PrefixUrl = () ->
     return value if 'http://'.indexOf(value) == 0 or 'https://'.indexOf(value) == 0
     return value if value.indexOf('http://') == 0 or value.indexOf('https://') == 0
     return 'http://' + value
-
 angular.module('CCR').filter('prefixUrl', PrefixUrl)
+
+AgeToYearsAndMonths = () ->
+  (age_in_months) ->
+    years = Math.floor age_in_months / 12
+    months = age_in_months % 12
+    age_text = "#{years} yrs"
+    age_text += " #{months} mon" if months
+    age_text
+angular.module('CCR').filter('ageToYearsAndMonths', AgeToYearsAndMonths)
+
