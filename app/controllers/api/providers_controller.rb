@@ -1,7 +1,7 @@
 module Api
   class ProvidersController < ApiController
     def index
-      providers = Provider.all
+      providers = Provider.includes(:schedule_hours)
       providers = providers.search_by_zipcode_ids(provider_param_zipcode_ids) if provider_param_zipcode_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address

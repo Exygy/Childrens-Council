@@ -57,7 +57,7 @@ DataService = (HttpService) ->
 
     deepFilter params, (value) ->
       # Filter out empty strings and arrays
-      if typeof value.length != 'undefined' and value.length <= 0 then false else true
+      if value and value.length <= 0 then false else true
 
   @httpParams = ->
     {

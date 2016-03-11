@@ -2,3 +2,13 @@
  left: 0;
  width: 100%;
 }
+
+#map_canvas, .angular-google-map-container {
+  width: 640px;
+  height: 800px;
+}
+
+.provider_list .angular-google-map-container {
+  width: 640px;
+  height: 200px;
+}
