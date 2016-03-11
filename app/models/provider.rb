@@ -70,6 +70,10 @@ class Provider < ActiveRecord::Base
   geocoded_by :geocodable_address_string
   after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
 
+  def as_json(options={})
+    super(include: :schedule_hours)
+  end
+
   def facility?
     care_type ? care_type.facility : false
   end
