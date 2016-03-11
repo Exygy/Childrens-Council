@@ -54,7 +54,7 @@ section.content.row.vert-offset-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-globe
             span.label-gray.lighter Website
-            a href="{{ provider.url }}" target="_blank" {{ provider.url }}
+            a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
         .columns.medium-6.small-12
           .side-col-container.results-item
             .side-col
@@ -69,7 +69,7 @@ section.content.row.vert-offset-bottom-5.new-page
               i.fa.fa-normal.fa-phone-square
             span.label-gray.lighter Phone
             span
-              ' {{ provider.phone }}
+              ' {{ provider.phone | formatPhoneNumber }}
         .columns.medium-6.small-12
           .side-col-container.results-item
             .side-col
