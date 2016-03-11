@@ -1,5 +1,6 @@
 ScheduleHoursToSummary = ($rootScope, $filter) ->
   (schedule_hours) ->
+
     scheduleHourToString = (schedule_hour) ->
       if !schedule_hour.closed
         start_date = $filter('date')(schedule_hour.start_time, 'h:mma', 'UTC')
@@ -14,6 +15,7 @@ ScheduleHoursToSummary = ($rootScope, $filter) ->
         day_first_char = $rootScope.data['schedule_days'][schedule_hour.schedule_day_id].name.charAt(0)
       day_first_char
 
+    week_days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
     summary_hours = {}
     for schedule_hour in schedule_hours
       hour_key = scheduleHourToString(schedule_hour)

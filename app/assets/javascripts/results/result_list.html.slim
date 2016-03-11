@@ -34,12 +34,12 @@ span ng-repeat="provider in data.providers"
     p
       span.detail-item
         i.fa.fa-phone-square.text-gray
-        | {{ provider.phone }}
+        |  {{ provider.phone | formatPhoneNumber }}
       span.detail-item
         i.fa.fa-clock-o.text-gray
-        | {{ provider.schedule_hours | scheduleHoursToSummary }}
+        |  {{ provider.schedule_hours | scheduleHoursToSummary }}
     p
-      a ng-href="{{ provider.url }}" target="_blank"
+      a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
         ' {{ provider.url }}
     .vert-offset-top-1
       p
