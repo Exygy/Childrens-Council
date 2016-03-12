@@ -75,7 +75,7 @@ section.content.row.vert-offset-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-user
             span.label-gray.lighter Owner
-            a href="#"  TODO: Jeniffer L.
+            a href="#" TODO: Jeniffer L.
       hr
       .row
         .columns.medium-6.small-12
@@ -83,8 +83,8 @@ section.content.row.vert-offset-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-heart
             span.label-gray.lighter
-              | Care Approach
-              a href="#"  Learn more
+              ' Care Approach
+              a href="#" Learn more
             span Montessori
         .columns.medium-6.small-12
           .side-col-container.results-item
@@ -119,10 +119,11 @@ section.content.row.vert-offset-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-building
             span.label-gray.lighter Child care provider type
-            span Child care center
+            span
+              ' {{ provider.care_type_id | careTypeIdToName }}
       hr
     h3#location.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Location
-    div
+    .single_provider_map
       span.label-gray.lighter
         ' {{ provider.neighborhood_id|neighborhoodIdToName }}
       span
@@ -132,7 +133,11 @@ section.content.row.vert-offset-bottom-5.new-page
         '  {{ provider.state_id|stateIdToAbbr }}
         ' {{ provider.zip_code_id|zipCodeIdToName }}
 
-      .map.vert-offset-top-2
+      ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options'
+        ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+
+
+
     h3#hours_of_operation.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Hours of Operation
     table.extended.table.table-centered
       thead
@@ -165,24 +170,23 @@ section.content.row.vert-offset-bottom-5.new-page
         tr  ng-repeat="license in provider.licenses track by $index"
           td
             a href="#"
-              ' #
-              | {{license.number}}
+              |#
+              |{{license.number}}
           td
-            span TODO: Infant: 0yr - 1yr
+            span TODO: Infant: {{license.age_from_year}}.{{license.age_from_month}}yr - {{license.age_to_year}}.{{license.age_to_month}}yr
           td
             span
               ' {{license.capacity}}
 
     h3#language_options.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Language Options
 
-
     span.label-gray.lighter
-      | Language Immersion Programs
+      ' Language Immersion Programs
       i.fa.fa-info-circle
     p Chinse, Spanish.
-    hr/
+    hr
     span.label-gray.lighter
-      | Language Spoken
+      ' Language Spoken
       i.fa.fa-info-circle
     p Chinese, Spanish, Russian
 
@@ -193,24 +197,23 @@ section.content.row.vert-offset-bottom-5.new-page
           i.fa.fa-normal.text-green.fa-check-circle
         td CalWORKs (provider accepts CalWORKs vouchers / payments)
         td.text-right.nobreak
-          a href="#"  Show details
+          a href="#" Show details
       tr
         td
           i.fa.fa-normal.text-green.fa-check-circle
         td Head Start and Early Head Start
         td.text-right.nobreak
-          a href="#"  Show details
+          a href="#" Show details
       tr
         td
           i.fa.fa-normal.text-green.fa-check-circle
         td Preschool for All
         td.text-right.nobreak
-          a href="#"  Show details
+          a href="#" Show details
       tr
         td
           i.fa.fa-normal.text-green.fa-check-circle
-        td
-          | Scholarships
+        td Scholarships
           .text-gray.vert-offset-top-05 Full or partial tuition discount offered via private funding per provider.
         td.text-right.nobreak
-          a href="#"  Hide details
+          a href="#" Hide details

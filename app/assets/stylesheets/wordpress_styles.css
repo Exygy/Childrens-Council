@@ -12,3 +12,8 @@
   width: 640px;
   height: 200px;
 }
+
+.single_provider_map .angular-google-map-container {
+  width: 640px;
+  height: 400px;
+}
