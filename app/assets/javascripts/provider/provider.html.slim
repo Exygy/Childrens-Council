@@ -1,4 +1,4 @@
-section.content.row.vert-offset-bottom-5.new-page
+section.content.row.margin-bottom-5.new-page
   .large-4.medium-4.columns
     .sidebar-block
       nav
@@ -31,11 +31,11 @@ section.content.row.vert-offset-bottom-5.new-page
             a href="#financial_assitance"
               | Financial Assistance
               i.fa.fa-chevron-right
-    .vert-offset-top-3
-      .text-gray.vert-offset-bottom-2
+    .margin-top-3
+      .c-base.margin-bottom-2
         .side-col-container.results-item
           .side-col
-            i.fa.fa-normal.fa-file-pdf-o.text-red
+            i.fa.fa-normal.fa-file-pdf-o.c-red
           a href="#"
             strong
               | Download our
@@ -43,11 +43,11 @@ section.content.row.vert-offset-bottom-5.new-page
             | (PDF, 289kb)
           p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
   .large-8.medium-8.columns
-    h3#about.text-capitalize.vert-offset-bottom-1 About
+    h3#about.text-capitalize.margin-bottom-1 About
     p
       ' {{provider.description}}
-    h3#general_information.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 General Information
-    .colored-icons
+    h3#general_information.text-capitalize.margin-top-3.margin-bottom-1 General Information
+    .color-icons
       .row
         .columns.medium-6.small-12
           .side-col-container.results-item
@@ -121,7 +121,7 @@ section.content.row.vert-offset-bottom-5.new-page
             span.label-gray.lighter Child care provider type
             span Child care center
       hr
-    h3#location.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Location
+    h3#location.text-capitalize.margin-top-3.margin-bottom-1 Location
     div
       span.label-gray.lighter
         ' {{ provider.neighborhood_id|neighborhoodIdToName }}
@@ -132,9 +132,9 @@ section.content.row.vert-offset-bottom-5.new-page
         '  {{ provider.state_id|stateIdToAbbr }}
         ' {{ provider.zip_code_id|zipCodeIdToName }}
 
-      .map.vert-offset-top-2
-    h3#hours_of_operation.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Hours of Operation
-    table.extended.table.table-centered
+      .map.margin-top-2
+    h3#hours_of_operation.text-capitalize.margin-top-3.margin-bottom-1 Hours of Operation
+    table.table-centered.table-hours
       thead
         tr
           th ng-repeat="schedule_hour in provider.schedule_hours track by $index"
@@ -142,7 +142,7 @@ section.content.row.vert-offset-bottom-5.new-page
               | {{ schedule_hour.schedule_day_id|scheduleDayIdToName }}
       tbody
         tr
-          td ng-repeat="schedule_hour in provider.schedule_hours track by $index" ng-class="{'bg-gray': schedule_hour.closed }"
+          td ng-repeat="schedule_hour in provider.schedule_hours track by $index"
             span ng-if="schedule_hour.closed" Closed
             span ng-if="!schedule_hour.closed"
               span
@@ -151,8 +151,8 @@ section.content.row.vert-offset-bottom-5.new-page
               span
                 ' {{schedule_hour.end_time| date:'h:mm a':'UTC'}}
 
-    h3#license_and_ages_served.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 License & Ages Served
-    table.extended.table-lines
+    h3#license_and_ages_served.text-capitalize.margin-top-3.margin-bottom-1 License & Ages Served
+    table.table-lines
       thead
         tr
           th
@@ -173,7 +173,7 @@ section.content.row.vert-offset-bottom-5.new-page
             span
               ' {{license.capacity}}
 
-    h3#language_options.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Language Options
+    h3#language_options.text-capitalize.margin-top-3.margin-bottom-1 Language Options
 
 
     span.label-gray.lighter
@@ -186,31 +186,31 @@ section.content.row.vert-offset-bottom-5.new-page
       i.fa.fa-info-circle
     p Chinese, Spanish, Russian
 
-    h3#financial_assitance.text-capitalize.vert-offset-top-3.vert-offset-bottom-1 Financial Assistance
-    table.extended.table-lines
+    h3#financial_assitance.text-capitalize.margin-top-3.margin-bottom-1 Financial Assistance
+    table.table-lines
       tr
         td
-          i.fa.fa-normal.text-green.fa-check-circle
+          i.fa.fa-normal.c-green-yellow.fa-check-circle
         td CalWORKs (provider accepts CalWORKs vouchers / payments)
-        td.text-right.nobreak
+        td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.text-green.fa-check-circle
+          i.fa.fa-normal.c-green-yellow.fa-check-circle
         td Head Start and Early Head Start
-        td.text-right.nobreak
+        td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.text-green.fa-check-circle
+          i.fa.fa-normal.c-green-yellow.fa-check-circle
         td Preschool for All
-        td.text-right.nobreak
+        td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.text-green.fa-check-circle
+          i.fa.fa-normal.c-green-yellow.fa-check-circle
         td
           | Scholarships
-          .text-gray.vert-offset-top-05 Full or partial tuition discount offered via private funding per provider.
-        td.text-right.nobreak
+          .c-base.margin-top-small Full or partial tuition discount offered via private funding per provider.
+        td.text-right.text-no-wrap
           a href="#"  Hide details
