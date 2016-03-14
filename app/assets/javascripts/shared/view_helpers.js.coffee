@@ -14,6 +14,14 @@ CareTypeIdToName = ($rootScope) ->
 CareTypeIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('careTypeIdToName', CareTypeIdToName)
 
+IsFacility = ($rootScope) ->
+  (care_type_id) ->
+    if $rootScope.data['care_types'][care_type_id]
+      $rootScope.data['care_types'][care_type_id].facility
+
+IsFacility.$inject = ['$rootScope']
+angular.module('CCR').filter('isFacility', IsFacility)
+
 LanguageIdToName = ($rootScope) ->
   (language_id) ->
     if $rootScope.data['languages'][language_id]

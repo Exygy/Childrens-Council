@@ -58,8 +58,6 @@ class ProviderSerializer < ActiveModel::Serializer
   attributes :schedule_year_id, :zip_code_id, :care_type_id, :description
   attributes :licensed_ages, :neighborhood_id, :mail_zip_code
 
-
-
   attributes :schedule_days, :schedule_hours
   attributes :language_providers, :licenses
 
@@ -67,7 +65,4 @@ class ProviderSerializer < ActiveModel::Serializer
   has_many :schedule_hours
   has_many :schedule_week
   has_many :licenses
-
-
-
 end
