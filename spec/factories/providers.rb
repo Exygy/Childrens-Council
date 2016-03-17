@@ -88,5 +88,9 @@ FactoryGirl.define do
       provider.longitude = -74.0059731
       provider.save
     end
+
+    factory :provider_with_license do
+      association license
+    end
   end
 end

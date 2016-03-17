@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317004449) do
+ActiveRecord::Schema.define(version: 20160317182436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,6 +202,14 @@ ActiveRecord::Schema.define(version: 20160317004449) do
   add_index "providers_schedule_week", ["provider_id", "schedule_week_id"], name: "index_providers_schedules_week_on_p_id_and_sw_id", using: :btree
   add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
 
+  create_table "providers_subsidies", id: false, force: :cascade do |t|
+    t.integer "provider_id", null: false
+    t.integer "subsidy_id",  null: false
+  end
+
+  add_index "providers_subsidies", ["provider_id", "subsidy_id"], name: "index_providers_subsidies_on_provider_id_and_subsidy_id", unique: true, using: :btree
+  add_index "providers_subsidies", ["subsidy_id", "provider_id"], name: "index_providers_subsidies_on_subsidy_id_and_provider_id", using: :btree
+
   create_table "referral_logs", force: :cascade do |t|
     t.json     "params"
     t.integer  "parent_id"
@@ -262,6 +270,10 @@ ActiveRecord::Schema.define(version: 20160317004449) do
   add_index "statuses", ["provider_id"], name: "index_statuses_on_provider_id", using: :btree
   add_index "statuses", ["status_reason_id"], name: "index_statuses_on_status_reason_id", using: :btree
 
+  create_table "subsidies", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -278,6 +290,8 @@ ActiveRecord::Schema.define(version: 20160317004449) do
   end
 
   add_foreign_key "language_providers", "providers"
+  add_foreign_key "providers_subsidies", "providers"
+  add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "referral_logs", "parents"
   add_foreign_key "statuses", "providers"
   add_foreign_key "statuses", "status_reasons"
