@@ -12,5 +12,8 @@
 class StatusReason < ActiveRecord::Base
   include StatusType
 
-  has_many :statuses
+  validates :name, presence: true
+  validates :status_type, presence: true
+
+  has_many :statuses, inverse_of: :status_reason
 end

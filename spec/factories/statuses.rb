@@ -20,7 +20,22 @@
 FactoryGirl.define do
   factory :status do
     status_type Faker::Number.between(0, 2)
-    start_date Faker::Date.forward(7)
-    end_date Faker::Date.between(1.week.from_now, 1.year.from_now)
+    association :provider
+
+    factory :active_status do
+      status_type 2
+    end
+
+    factory :temporarily_inactive_status do
+      status_type 1
+      start_date Faker::Date.forward(7)
+      end_date Faker::Date.between(1.week.from_now, 1.year.from_now)
+    end
+
+    factory :inactive_status do
+      status_type 0
+      start_date Faker::Date.forward(7)
+      association :status_reason
+    end
   end
 end

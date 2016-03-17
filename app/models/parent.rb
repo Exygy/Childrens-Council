@@ -23,10 +23,10 @@
 class Parent < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, uniqueness: { case_sensitive: false }, if: 'email.present?'
+  validates :email, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :phone, presence: true, if: 'email.blank?'
-  validates :phone, length: { is: 10 }, uniqueness: true, if: 'phone.present?'
-  validates :home_zip_code, length: { is: 5 }, if: 'home_zip_code.present?'
+  validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true
+  validates :home_zip_code, length: { is: 5 }, allow_blank: true
   has_and_belongs_to_many :care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
   has_and_belongs_to_many :neighborhoods

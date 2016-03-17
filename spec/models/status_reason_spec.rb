@@ -16,6 +16,8 @@ RSpec.describe StatusReason, type: :model do
 
   subject { status_reason }
 
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:status_type) }
   it { is_expected.to have_many(:statuses) }
   it { is_expected.to be_valid }
 end

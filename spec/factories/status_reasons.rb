@@ -12,6 +12,6 @@
 FactoryGirl.define do
   factory :status_reason do
     name Faker::Lorem.word
-    status_type Faker::Number.between(0, 2)
+    status_type 0
   end
 end

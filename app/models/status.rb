@@ -20,6 +20,17 @@
 class Status < ActiveRecord::Base
   include StatusType
 
+  validates :provider, presence: true
+  validates :status_type, presence: true
+  validates :start_date, presence: true, if: 'temporarily_inactive? || inactive?'
+  validates :start_date, absence: true, unless: 'temporarily_inactive? || inactive?'
+  validates :end_date, presence: true, if: 'temporarily_inactive?'
+  validates :end_date, absence: true, unless: 'temporarily_inactive?'
+  validates :status_reason, presence: true, if: 'inactive?'
+  validates :status_reason, absence: true, if: 'active?'
+
   belongs_to :provider
-  belongs_to :status_reason
+  belongs_to :status_reason, inverse_of: :statuses
+
+  has_paper_trail
 end
