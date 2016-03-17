@@ -37,4 +37,22 @@ RSpec.describe License, type: :model do
   it { is_expected.to validate_inclusion_of(:age_to_month).in_range(1..12) }
   it { is_expected.to be_valid }
   it { is_expected.to belong_to(:provider) }
+
+  describe '.age_from_months' do
+    pending
+  end
+
+  describe '.age_to_months' do
+    pending
+  end
+
+  describe '.age_range' do
+    pending
+  end
+
+  private
+
+  describe '.age_in_months(years, months)' do
+    pending
+  end
 end
