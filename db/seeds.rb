@@ -78,3 +78,10 @@
 #   { name: 'Treasure island' },
 #   { name: 'Mission Bay' },
 # ])
+
+ProgramType.create([
+  { name: 'Care Approach' },
+  { name: 'Immersion Program' },
+  { name: 'Quality Improvement Program' },
+  { name: 'Religious Program' },
+])
