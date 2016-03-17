@@ -24,20 +24,20 @@
 #   { name: 'Seasonal/Other' },
 # ])
 
-ScheduleWeek.create([
-  { name: 'Full Time' },
-  { name: 'Part Time' },
-  { name: 'Before School' },
-  { name: 'After School' },
-  { name: 'Drop In' },
-  { name: 'Variable/Flexible' },
-  { name: 'Days' },
-  { name: 'Evening' },
-  { name: 'Overnight' },
-  { name: 'Other' },
-])
+# ScheduleWeek.create([
+#   { name: 'Full Time' },
+#   { name: 'Part Time' },
+#   { name: 'Before School' },
+#   { name: 'After School' },
+#   { name: 'Drop In' },
+#   { name: 'Variable/Flexible' },
+#   { name: 'Days' },
+#   { name: 'Evening' },
+#   { name: 'Overnight' },
+#   { name: 'Other' },
+# ])
 
-Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
+# Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
 
 # CareType.create([
 #   { name: 'Family Child Care' },

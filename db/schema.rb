@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304024027) do
+ActiveRecord::Schema.define(version: 20160317004449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20160304024027) do
   add_index "parents_zip_codes", ["zip_code_id", "parent_id"], name: "index_parents_zip_codes_on_zip_code_id_and_parent_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",                          null: false
+    t.text     "name",                             null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -171,17 +171,18 @@ ActiveRecord::Schema.define(version: 20160304024027) do
     t.integer  "mail_state_id"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
     t.integer  "zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
-    t.integer  "licensed_ages",    default: [],              array: true
+    t.integer  "licensed_ages",       default: [],              array: true
     t.integer  "neighborhood_id"
     t.string   "mail_zip_code"
+    t.boolean  "accepting_referrals"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
@@ -241,6 +242,26 @@ ActiveRecord::Schema.define(version: 20160304024027) do
     t.text "abbr"
   end
 
+  create_table "status_reasons", force: :cascade do |t|
+    t.text     "name",        null: false
+    t.integer  "status_type", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.integer  "provider_id",      null: false
+    t.integer  "status_type",      null: false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "status_reason_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "statuses", ["provider_id"], name: "index_statuses_on_provider_id", using: :btree
+  add_index "statuses", ["status_reason_id"], name: "index_statuses_on_status_reason_id", using: :btree
+
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -258,4 +279,6 @@ ActiveRecord::Schema.define(version: 20160304024027) do
 
   add_foreign_key "language_providers", "providers"
   add_foreign_key "referral_logs", "parents"
+  add_foreign_key "statuses", "providers"
+  add_foreign_key "statuses", "status_reasons"
 end

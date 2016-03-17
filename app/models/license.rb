@@ -25,7 +25,7 @@
 #
 
 class License < ActiveRecord::Base
-  enum type: {
+  enum license_type: {
     infant: 0,
     preschool: 1,
     school_age: 2,

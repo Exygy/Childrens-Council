@@ -2,40 +2,41 @@
 #
 # Table name: providers
 #
-#  id               :integer          not null, primary key
-#  name             :text             not null
-#  alternate_name   :text
-#  contact_name     :text
-#  phone            :text
-#  phone_ext        :text
-#  phone_other      :text
-#  phone_other_ext  :text
-#  fax              :text
-#  email            :text
-#  url              :text
-#  address_1        :text
-#  address_2        :text
-#  city_id          :integer
-#  state_id         :integer
-#  cross_street_1   :text
-#  cross_street_2   :text
-#  mail_address_1   :text
-#  mail_address_2   :text
-#  mail_city_id     :integer
-#  mail_state_id    :integer
-#  ssn              :text
-#  tax_id           :text
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  latitude         :float
-#  longitude        :float
-#  schedule_year_id :integer
-#  zip_code_id      :integer
-#  care_type_id     :integer
-#  description      :text
-#  licensed_ages    :integer          default([]), is an Array
-#  neighborhood_id  :integer
-#  mail_zip_code    :string
+#  id                  :integer          not null, primary key
+#  name                :text             not null
+#  alternate_name      :text
+#  contact_name        :text
+#  phone               :text
+#  phone_ext           :text
+#  phone_other         :text
+#  phone_other_ext     :text
+#  fax                 :text
+#  email               :text
+#  url                 :text
+#  address_1           :text
+#  address_2           :text
+#  city_id             :integer
+#  state_id            :integer
+#  cross_street_1      :text
+#  cross_street_2      :text
+#  mail_address_1      :text
+#  mail_address_2      :text
+#  mail_city_id        :integer
+#  mail_state_id       :integer
+#  ssn                 :text
+#  tax_id              :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  latitude            :float
+#  longitude           :float
+#  schedule_year_id    :integer
+#  zip_code_id         :integer
+#  care_type_id        :integer
+#  description         :text
+#  licensed_ages       :integer          default([]), is an Array
+#  neighborhood_id     :integer
+#  mail_zip_code       :string
+#  accepting_referrals :boolean
 #
 # Indexes
 #
@@ -65,6 +66,7 @@ class Provider < ActiveRecord::Base
   has_many :schedule_days, through: :schedule_hours
   has_many :language_providers
   has_many :languages, through: :language_providers
+  has_one :status
 
   has_paper_trail
   geocoded_by :geocodable_address_string
