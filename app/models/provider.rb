@@ -69,6 +69,7 @@ class Provider < ActiveRecord::Base
   has_many :languages, through: :language_providers
   has_one :status
   has_and_belongs_to_many :subsidies
+  has_and_belongs_to_many :programs
 
   has_paper_trail
   geocoded_by :geocodable_address_string

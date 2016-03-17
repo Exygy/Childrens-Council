@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317182436) do
+ActiveRecord::Schema.define(version: 20160317185928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,18 @@ ActiveRecord::Schema.define(version: 20160317182436) do
 
   add_index "parents_zip_codes", ["parent_id", "zip_code_id"], name: "index_parents_zip_codes_on_parent_id_and_zip_code_id", using: :btree
   add_index "parents_zip_codes", ["zip_code_id", "parent_id"], name: "index_parents_zip_codes_on_zip_code_id_and_parent_id", unique: true, using: :btree
+
+  create_table "programs", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "programs_providers", id: false, force: :cascade do |t|
+    t.integer "program_id",  null: false
+    t.integer "provider_id", null: false
+  end
+
+  add_index "programs_providers", ["program_id", "provider_id"], name: "index_programs_providers_on_program_id_and_provider_id", using: :btree
+  add_index "programs_providers", ["provider_id", "program_id"], name: "index_programs_providers_on_provider_id_and_program_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
     t.text     "name",                             null: false
@@ -290,6 +302,8 @@ ActiveRecord::Schema.define(version: 20160317182436) do
   end
 
   add_foreign_key "language_providers", "providers"
+  add_foreign_key "programs_providers", "programs"
+  add_foreign_key "programs_providers", "providers"
   add_foreign_key "providers_subsidies", "providers"
   add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "referral_logs", "parents"

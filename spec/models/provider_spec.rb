@@ -57,8 +57,8 @@ RSpec.describe Provider, type: :model do
 
   subject { provider }
 
-  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to be_valid }
+  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to belong_to(:care_type) }
   it { is_expected.to belong_to(:city) }
   it { is_expected.to belong_to(:mail_city).class_name('City').with_foreign_key('mail_city_id') }
@@ -75,6 +75,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to have_many(:languages) }
   it { is_expected.to have_one(:status) }
   it { is_expected.to have_and_belong_to_many(:subsidies) }
+  it { is_expected.to have_and_belong_to_many(:programs) }
 
   it { expect(provider.latitude).to eq(40.7143528) }
   it { expect(provider.longitude).to eq(-74.0059731) }
