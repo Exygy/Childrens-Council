@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317203353) do
+ActiveRecord::Schema.define(version: 20160318015702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(version: 20160317203353) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.integer  "provider_id",      null: false
+    t.integer  "provider_id",                      null: false
     t.date     "date"
-    t.boolean  "exempt"
+    t.boolean  "exempt",           default: false
     t.integer  "license_type"
     t.text     "number"
     t.integer  "capacity"
@@ -106,11 +106,33 @@ ActiveRecord::Schema.define(version: 20160317203353) do
     t.integer  "age_to_year"
     t.integer  "age_to_month"
     t.integer  "vacancies"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "licenses", ["provider_id"], name: "index_licenses_on_provider_id", using: :btree
+
+  create_table "meal_sponsors", force: :cascade do |t|
+    t.text     "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "meal_types", force: :cascade do |t|
+    t.text "name", null: false
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.integer  "meal_type_id",                         null: false
+    t.integer  "provider_id",                          null: false
+    t.boolean  "provided_by_facility", default: false
+    t.boolean  "provided_by_parent",   default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "meals", ["meal_type_id", "provider_id"], name: "index_meals_on_meal_type_id_and_provider_id", using: :btree
+  add_index "meals", ["provider_id", "meal_type_id"], name: "index_meals_on_provider_id_and_meal_type_id", unique: true, using: :btree
 
   create_table "neighborhoods", force: :cascade do |t|
     t.text "name", null: false
@@ -170,7 +192,7 @@ ActiveRecord::Schema.define(version: 20160317203353) do
   add_index "programs_providers", ["provider_id", "program_id"], name: "index_programs_providers_on_provider_id_and_program_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",                             null: false
+    t.text     "name",                               null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -192,24 +214,27 @@ ActiveRecord::Schema.define(version: 20160317203353) do
     t.integer  "mail_state_id"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
     t.integer  "zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
-    t.integer  "licensed_ages",       default: [],              array: true
+    t.integer  "licensed_ages",       default: [],                array: true
     t.integer  "neighborhood_id"
     t.string   "mail_zip_code"
-    t.boolean  "accepting_referrals"
+    t.boolean  "accepting_referrals", default: true
+    t.boolean  "meals_optional",      default: true
+    t.integer  "meal_sponsor_id"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
   add_index "providers", ["city_id"], name: "index_providers_on_city_id", using: :btree
   add_index "providers", ["mail_city_id"], name: "index_providers_on_mail_city_id", using: :btree
   add_index "providers", ["mail_state_id"], name: "index_providers_on_mail_state_id", using: :btree
+  add_index "providers", ["meal_sponsor_id"], name: "index_providers_on_meal_sponsor_id", using: :btree
   add_index "providers", ["neighborhood_id"], name: "index_providers_on_neighborhood_id", using: :btree
   add_index "providers", ["schedule_year_id"], name: "index_providers_on_schedule_year_id", using: :btree
   add_index "providers", ["state_id"], name: "index_providers_on_state_id", using: :btree
@@ -245,7 +270,7 @@ ActiveRecord::Schema.define(version: 20160317203353) do
     t.integer  "provider_id",                     null: false
     t.time     "start_time"
     t.time     "end_time"
-    t.boolean  "closed"
+    t.boolean  "closed",          default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.boolean  "open_24",         default: false
@@ -311,9 +336,12 @@ ActiveRecord::Schema.define(version: 20160317203353) do
   end
 
   add_foreign_key "language_providers", "providers"
+  add_foreign_key "meals", "meal_types"
+  add_foreign_key "meals", "providers"
   add_foreign_key "programs", "program_types"
   add_foreign_key "programs_providers", "programs"
   add_foreign_key "programs_providers", "providers"
+  add_foreign_key "providers", "meal_sponsors"
   add_foreign_key "providers_subsidies", "providers"
   add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "referral_logs", "parents"

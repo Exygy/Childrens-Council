@@ -85,3 +85,12 @@ ProgramType.create([
   { name: 'Quality Improvement Program' },
   { name: 'Religious Program' },
 ])
+
+MealType.create([
+  { name: 'Breakfast' },
+  { name: 'AM Snack' },
+  { name: 'Lunch' },
+  { name: 'PM Snack' },
+  { name: 'Dinner' },
+  { name: 'Late' },
+])

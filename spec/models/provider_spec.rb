@@ -36,7 +36,9 @@
 #  licensed_ages       :integer          default([]), is an Array
 #  neighborhood_id     :integer
 #  mail_zip_code       :string
-#  accepting_referrals :boolean
+#  accepting_referrals :boolean          default(TRUE)
+#  meals_optional      :boolean          default(TRUE)
+#  meal_sponsor_id     :integer
 #
 # Indexes
 #
@@ -44,6 +46,7 @@
 #  index_providers_on_city_id           (city_id)
 #  index_providers_on_mail_city_id      (mail_city_id)
 #  index_providers_on_mail_state_id     (mail_state_id)
+#  index_providers_on_meal_sponsor_id   (meal_sponsor_id)
 #  index_providers_on_neighborhood_id   (neighborhood_id)
 #  index_providers_on_schedule_year_id  (schedule_year_id)
 #  index_providers_on_state_id          (state_id)
@@ -66,6 +69,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to belong_to(:mail_state).class_name('State').with_foreign_key('mail_state_id') }
   it { is_expected.to belong_to(:zip_code) }
   it { is_expected.to have_many(:licenses) }
+  it { is_expected.to belong_to(:meal_sponsor) }
   it { is_expected.to belong_to(:neighborhood) }
   it { is_expected.to belong_to(:schedule_year) }
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
@@ -73,6 +77,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to have_many(:schedule_days) }
   it { is_expected.to have_many(:language_providers) }
   it { is_expected.to have_many(:languages) }
+  it { is_expected.to have_many(:meals) }
   it { is_expected.to have_one(:status) }
   it { is_expected.to have_and_belong_to_many(:subsidies) }
   it { is_expected.to have_and_belong_to_many(:programs) }

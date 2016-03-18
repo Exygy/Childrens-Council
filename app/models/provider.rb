@@ -36,7 +36,9 @@
 #  licensed_ages       :integer          default([]), is an Array
 #  neighborhood_id     :integer
 #  mail_zip_code       :string
-#  accepting_referrals :boolean
+#  accepting_referrals :boolean          default(TRUE)
+#  meals_optional      :boolean          default(TRUE)
+#  meal_sponsor_id     :integer
 #
 # Indexes
 #
@@ -44,6 +46,7 @@
 #  index_providers_on_city_id           (city_id)
 #  index_providers_on_mail_city_id      (mail_city_id)
 #  index_providers_on_mail_state_id     (mail_state_id)
+#  index_providers_on_meal_sponsor_id   (meal_sponsor_id)
 #  index_providers_on_neighborhood_id   (neighborhood_id)
 #  index_providers_on_schedule_year_id  (schedule_year_id)
 #  index_providers_on_state_id          (state_id)
@@ -60,6 +63,7 @@ class Provider < ActiveRecord::Base
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
   belongs_to :zip_code
   has_many :licenses
+  belongs_to :meal_sponsor
   belongs_to :neighborhood
   belongs_to :schedule_year
   has_and_belongs_to_many :schedule_week, join_table: :providers_schedule_week
@@ -67,6 +71,7 @@ class Provider < ActiveRecord::Base
   has_many :schedule_days, through: :schedule_hours
   has_many :language_providers
   has_many :languages, through: :language_providers
+  has_many :meals, inverse_of: :provider
   has_one :status
   has_and_belongs_to_many :subsidies
   has_and_belongs_to_many :programs

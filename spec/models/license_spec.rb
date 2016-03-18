@@ -5,7 +5,7 @@
 #  id               :integer          not null, primary key
 #  provider_id      :integer          not null
 #  date             :date
-#  exempt           :boolean
+#  exempt           :boolean          default(FALSE)
 #  license_type     :integer
 #  number           :text
 #  capacity         :integer

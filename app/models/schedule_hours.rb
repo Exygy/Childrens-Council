@@ -7,7 +7,7 @@
 #  provider_id     :integer          not null
 #  start_time      :time
 #  end_time        :time
-#  closed          :boolean
+#  closed          :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  open_24         :boolean          default(FALSE)
