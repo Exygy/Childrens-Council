@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318015702) do
+ActiveRecord::Schema.define(version: 20160318160305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(version: 20160318015702) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -119,7 +119,9 @@ ActiveRecord::Schema.define(version: 20160318015702) do
   end
 
   create_table "meal_types", force: :cascade do |t|
-    t.text "name", null: false
+    t.text     "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -171,7 +173,9 @@ ActiveRecord::Schema.define(version: 20160318015702) do
   add_index "parents_zip_codes", ["zip_code_id", "parent_id"], name: "index_parents_zip_codes_on_zip_code_id_and_parent_id", unique: true, using: :btree
 
   create_table "program_types", force: :cascade do |t|
-    t.text "name", null: false
+    t.text     "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "programs", force: :cascade do |t|
@@ -249,8 +253,10 @@ ActiveRecord::Schema.define(version: 20160318015702) do
   add_index "providers_schedule_week", ["schedule_week_id", "provider_id"], name: "index_providers_schedules_week_on_sw_id_and_p_id", unique: true, using: :btree
 
   create_table "providers_subsidies", id: false, force: :cascade do |t|
-    t.integer "provider_id", null: false
-    t.integer "subsidy_id",  null: false
+    t.integer  "provider_id", null: false
+    t.integer  "subsidy_id",  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "providers_subsidies", ["provider_id", "subsidy_id"], name: "index_providers_subsidies_on_provider_id_and_subsidy_id", unique: true, using: :btree
@@ -317,7 +323,9 @@ ActiveRecord::Schema.define(version: 20160318015702) do
   add_index "statuses", ["status_reason_id"], name: "index_statuses_on_status_reason_id", using: :btree
 
   create_table "subsidies", force: :cascade do |t|
-    t.text "name", null: false
+    t.text     "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "versions", force: :cascade do |t|
