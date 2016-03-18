@@ -2,55 +2,58 @@
 #
 # Table name: providers
 #
-#  id                  :integer          not null, primary key
-#  name                :text             not null
-#  alternate_name      :text
-#  contact_name        :text
-#  phone               :text
-#  phone_ext           :text
-#  phone_other         :text
-#  phone_other_ext     :text
-#  fax                 :text
-#  email               :text
-#  url                 :text
-#  address_1           :text
-#  address_2           :text
-#  city_id             :integer
-#  state_id            :integer
-#  cross_street_1      :text
-#  cross_street_2      :text
-#  mail_address_1      :text
-#  mail_address_2      :text
-#  mail_city_id        :integer
-#  mail_state_id       :integer
-#  ssn                 :text
-#  tax_id              :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  latitude            :float
-#  longitude           :float
-#  schedule_year_id    :integer
-#  zip_code_id         :integer
-#  care_type_id        :integer
-#  description         :text
-#  licensed_ages       :integer          default([]), is an Array
-#  neighborhood_id     :integer
-#  mail_zip_code       :string
-#  accepting_referrals :boolean          default(TRUE)
-#  meals_optional      :boolean          default(TRUE)
-#  meal_sponsor_id     :integer
+#  id                    :integer          not null, primary key
+#  name                  :text             not null
+#  alternate_name        :text
+#  contact_name          :text
+#  phone                 :text
+#  phone_ext             :text
+#  phone_other           :text
+#  phone_other_ext       :text
+#  fax                   :text
+#  email                 :text
+#  url                   :text
+#  address_1             :text
+#  address_2             :text
+#  city_id               :integer
+#  state_id              :integer
+#  cross_street_1        :text
+#  cross_street_2        :text
+#  mail_address_1        :text
+#  mail_address_2        :text
+#  mail_city_id          :integer
+#  mail_state_id         :integer
+#  ssn                   :text
+#  tax_id                :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  latitude              :float
+#  longitude             :float
+#  schedule_year_id      :integer
+#  zip_code_id           :integer
+#  care_type_id          :integer
+#  description           :text
+#  licensed_ages         :integer          default([]), is an Array
+#  neighborhood_id       :integer
+#  mail_zip_code         :string
+#  accepting_referrals   :boolean          default(TRUE)
+#  meals_optional        :boolean          default(TRUE)
+#  meal_sponsor_id       :integer
+#  english_capability    :integer
+#  preferred_language_id :integer
 #
 # Indexes
 #
-#  index_providers_on_care_type_id      (care_type_id)
-#  index_providers_on_city_id           (city_id)
-#  index_providers_on_mail_city_id      (mail_city_id)
-#  index_providers_on_mail_state_id     (mail_state_id)
-#  index_providers_on_meal_sponsor_id   (meal_sponsor_id)
-#  index_providers_on_neighborhood_id   (neighborhood_id)
-#  index_providers_on_schedule_year_id  (schedule_year_id)
-#  index_providers_on_state_id          (state_id)
-#  index_providers_on_zip_code_id       (zip_code_id)
+#  index_providers_on_care_type_id           (care_type_id)
+#  index_providers_on_city_id                (city_id)
+#  index_providers_on_mail_city_id           (mail_city_id)
+#  index_providers_on_mail_state_id          (mail_state_id)
+#  index_providers_on_meal_sponsor_id        (meal_sponsor_id)
+#  index_providers_on_neighborhood_id        (neighborhood_id)
+#  index_providers_on_preferred_language_id  (preferred_language_id)
+#  index_providers_on_schedule_year_id       (schedule_year_id)
+#  index_providers_on_state_id               (state_id)
+#  index_providers_on_zip_code_id            (zip_code_id)
 #
 
 require 'rails_helper'
@@ -68,7 +71,10 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to belong_to(:state) }
   it { is_expected.to belong_to(:mail_state).class_name('State').with_foreign_key('mail_state_id') }
   it { is_expected.to belong_to(:zip_code) }
+  it { is_expected.to have_and_belong_to_many(:languages) }
+  it { is_expected.to belong_to(:preferred_language).class_name('Language').with_foreign_key('preferred_language_id') }
   it { is_expected.to have_many(:licenses) }
+  it { is_expected.to have_many(:meals) }
   it { is_expected.to belong_to(:meal_sponsor) }
   it { is_expected.to belong_to(:neighborhood) }
   it { is_expected.to have_many(:rates) }
@@ -76,9 +82,6 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
   it { is_expected.to have_many(:schedule_hours) }
   it { is_expected.to have_many(:schedule_days) }
-  it { is_expected.to have_many(:language_providers) }
-  it { is_expected.to have_many(:languages) }
-  it { is_expected.to have_many(:meals) }
   it { is_expected.to have_one(:status) }
   it { is_expected.to have_and_belong_to_many(:subsidies) }
   it { is_expected.to have_and_belong_to_many(:programs) }
@@ -176,33 +179,15 @@ RSpec.describe Provider, type: :model do
   describe '.search_by_languages' do
     let(:first_language) { FactoryGirl.create(:language) }
     let(:second_language) { FactoryGirl.create(:language) }
-    let(:first_provider) { FactoryGirl.create(:provider) }
-    let(:second_provider) { FactoryGirl.create(:provider) }
-    let!(:first_language_provider) { FactoryGirl.create(:language_provider, level: 'fluent', provider: first_provider, language: first_language) }
-    let!(:second_language_provider) { FactoryGirl.create(:language_provider, level: 'spoken', provider: first_provider, language: first_language) }
-    let!(:third_language_provider) { FactoryGirl.create(:language_provider, level: 'fluent', provider: second_provider, language: first_language) }
-    let!(:fourth_language_provider) { FactoryGirl.create(:language_provider, level: 'spoken', provider: second_provider, language: second_language) }
+    let(:third_language) { FactoryGirl.create(:language) }
+    let!(:first_provider) { FactoryGirl.create(:provider, languages: [first_language]) }
+    let!(:second_provider) { FactoryGirl.create(:provider, languages: [first_language, second_language]) }
 
     it 'returns providers filtered by languages' do
-      first_search_params = [
-        { language_id: first_language.id, level: 'fluent' },
-      ]
-      second_search_params = [
-        { language_id: second_language.id, level: 'spoken' },
-      ]
-      third_search_params = [
-        { language_id: first_language.id, level: 'fluent' },
-        { language_id: second_language.id, level: 'fluent' },
-      ]
-      fourth_search_params = [
-        { language_id: first_language.id, level: 'fluent' },
-        { language_id: first_language.id, level: 'spoken' },
-      ]
-
-      expect(Provider.search_by_languages(first_search_params).count).to be 2
-      expect(Provider.search_by_languages(second_search_params).count).to be 1
-      expect(Provider.search_by_languages(third_search_params).count).to be 0
-      expect(Provider.search_by_languages(fourth_search_params).count).to be 1
+      expect(Provider.search_by_languages([first_language.id]).count).to be 2
+      expect(Provider.search_by_languages([second_language.id]).count).to be 1
+      expect(Provider.search_by_languages([first_language.id, second_language.id]).count).to be 2
+      expect(Provider.search_by_languages([third_language.id]).count).to be 0
     end
   end
 

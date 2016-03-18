@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318172002) do
+ActiveRecord::Schema.define(version: 20160318213517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,21 +76,21 @@ ActiveRecord::Schema.define(version: 20160318172002) do
     t.text "name", null: false
   end
 
-  create_table "language_providers", force: :cascade do |t|
-    t.integer  "language_id"
-    t.integer  "provider_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "level"
-  end
-
-  add_index "language_providers", ["provider_id"], name: "index_language_providers_on_provider_id", using: :btree
-
   create_table "languages", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "languages_providers", force: :cascade do |t|
+    t.integer  "language_id", null: false
+    t.integer  "provider_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "languages_providers", ["language_id", "provider_id"], name: "index_languages_providers_on_language_id_and_provider_id", using: :btree
+  add_index "languages_providers", ["provider_id", "language_id"], name: "index_languages_providers_on_provider_id_and_language_id", unique: true, using: :btree
 
   create_table "licenses", force: :cascade do |t|
     t.integer  "provider_id",                      null: false
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20160318172002) do
   add_index "programs_providers", ["provider_id", "program_id"], name: "index_programs_providers_on_provider_id_and_program_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",                               null: false
+    t.text     "name",                                 null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -218,20 +218,22 @@ ActiveRecord::Schema.define(version: 20160318172002) do
     t.integer  "mail_state_id"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
     t.integer  "zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
-    t.integer  "licensed_ages",       default: [],                array: true
+    t.integer  "licensed_ages",         default: [],                array: true
     t.integer  "neighborhood_id"
     t.string   "mail_zip_code"
-    t.boolean  "accepting_referrals", default: true
-    t.boolean  "meals_optional",      default: true
+    t.boolean  "accepting_referrals",   default: true
+    t.boolean  "meals_optional",        default: true
     t.integer  "meal_sponsor_id"
+    t.integer  "english_capability"
+    t.integer  "preferred_language_id"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
@@ -240,6 +242,7 @@ ActiveRecord::Schema.define(version: 20160318172002) do
   add_index "providers", ["mail_state_id"], name: "index_providers_on_mail_state_id", using: :btree
   add_index "providers", ["meal_sponsor_id"], name: "index_providers_on_meal_sponsor_id", using: :btree
   add_index "providers", ["neighborhood_id"], name: "index_providers_on_neighborhood_id", using: :btree
+  add_index "providers", ["preferred_language_id"], name: "index_providers_on_preferred_language_id", using: :btree
   add_index "providers", ["schedule_year_id"], name: "index_providers_on_schedule_year_id", using: :btree
   add_index "providers", ["state_id"], name: "index_providers_on_state_id", using: :btree
   add_index "providers", ["zip_code_id"], name: "index_providers_on_zip_code_id", using: :btree
@@ -360,12 +363,14 @@ ActiveRecord::Schema.define(version: 20160318172002) do
     t.string "zip", limit: 5, null: false
   end
 
-  add_foreign_key "language_providers", "providers"
+  add_foreign_key "languages_providers", "languages"
+  add_foreign_key "languages_providers", "providers"
   add_foreign_key "meals", "meal_types"
   add_foreign_key "meals", "providers"
   add_foreign_key "programs", "program_types"
   add_foreign_key "programs_providers", "programs"
   add_foreign_key "programs_providers", "providers"
+  add_foreign_key "providers", "languages", column: "preferred_language_id"
   add_foreign_key "providers", "meal_sponsors"
   add_foreign_key "providers_subsidies", "providers"
   add_foreign_key "providers_subsidies", "subsidies"

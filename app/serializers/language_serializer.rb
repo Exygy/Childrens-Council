@@ -3,7 +3,7 @@
 # Table name: languages
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string           not null
 #  created_at :datetime
 #  updated_at :datetime
 #

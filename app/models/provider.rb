@@ -2,58 +2,68 @@
 #
 # Table name: providers
 #
-#  id                  :integer          not null, primary key
-#  name                :text             not null
-#  alternate_name      :text
-#  contact_name        :text
-#  phone               :text
-#  phone_ext           :text
-#  phone_other         :text
-#  phone_other_ext     :text
-#  fax                 :text
-#  email               :text
-#  url                 :text
-#  address_1           :text
-#  address_2           :text
-#  city_id             :integer
-#  state_id            :integer
-#  cross_street_1      :text
-#  cross_street_2      :text
-#  mail_address_1      :text
-#  mail_address_2      :text
-#  mail_city_id        :integer
-#  mail_state_id       :integer
-#  ssn                 :text
-#  tax_id              :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  latitude            :float
-#  longitude           :float
-#  schedule_year_id    :integer
-#  zip_code_id         :integer
-#  care_type_id        :integer
-#  description         :text
-#  licensed_ages       :integer          default([]), is an Array
-#  neighborhood_id     :integer
-#  mail_zip_code       :string
-#  accepting_referrals :boolean          default(TRUE)
-#  meals_optional      :boolean          default(TRUE)
-#  meal_sponsor_id     :integer
+#  id                    :integer          not null, primary key
+#  name                  :text             not null
+#  alternate_name        :text
+#  contact_name          :text
+#  phone                 :text
+#  phone_ext             :text
+#  phone_other           :text
+#  phone_other_ext       :text
+#  fax                   :text
+#  email                 :text
+#  url                   :text
+#  address_1             :text
+#  address_2             :text
+#  city_id               :integer
+#  state_id              :integer
+#  cross_street_1        :text
+#  cross_street_2        :text
+#  mail_address_1        :text
+#  mail_address_2        :text
+#  mail_city_id          :integer
+#  mail_state_id         :integer
+#  ssn                   :text
+#  tax_id                :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  latitude              :float
+#  longitude             :float
+#  schedule_year_id      :integer
+#  zip_code_id           :integer
+#  care_type_id          :integer
+#  description           :text
+#  licensed_ages         :integer          default([]), is an Array
+#  neighborhood_id       :integer
+#  mail_zip_code         :string
+#  accepting_referrals   :boolean          default(TRUE)
+#  meals_optional        :boolean          default(TRUE)
+#  meal_sponsor_id       :integer
+#  english_capability    :integer
+#  preferred_language_id :integer
 #
 # Indexes
 #
-#  index_providers_on_care_type_id      (care_type_id)
-#  index_providers_on_city_id           (city_id)
-#  index_providers_on_mail_city_id      (mail_city_id)
-#  index_providers_on_mail_state_id     (mail_state_id)
-#  index_providers_on_meal_sponsor_id   (meal_sponsor_id)
-#  index_providers_on_neighborhood_id   (neighborhood_id)
-#  index_providers_on_schedule_year_id  (schedule_year_id)
-#  index_providers_on_state_id          (state_id)
-#  index_providers_on_zip_code_id       (zip_code_id)
+#  index_providers_on_care_type_id           (care_type_id)
+#  index_providers_on_city_id                (city_id)
+#  index_providers_on_mail_city_id           (mail_city_id)
+#  index_providers_on_mail_state_id          (mail_state_id)
+#  index_providers_on_meal_sponsor_id        (meal_sponsor_id)
+#  index_providers_on_neighborhood_id        (neighborhood_id)
+#  index_providers_on_preferred_language_id  (preferred_language_id)
+#  index_providers_on_schedule_year_id       (schedule_year_id)
+#  index_providers_on_state_id               (state_id)
+#  index_providers_on_zip_code_id            (zip_code_id)
 #
 
 class Provider < ActiveRecord::Base
+  enum english_capability: {
+    beginning: 0,
+    conversational: 1,
+    fluent: 2,
+    taking_esl: 3,
+  }
+
   validates :name, presence: true
 
   belongs_to :care_type
@@ -63,6 +73,9 @@ class Provider < ActiveRecord::Base
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
   belongs_to :zip_code
   has_many :licenses
+  has_and_belongs_to_many :languages
+  belongs_to :preferred_language, class_name: 'Language', foreign_key: :preferred_language_id
+  has_many :meals, inverse_of: :provider
   belongs_to :meal_sponsor
   belongs_to :neighborhood
   has_many :rates, inverse_of: :provider
@@ -70,9 +83,6 @@ class Provider < ActiveRecord::Base
   has_and_belongs_to_many :schedule_week, join_table: :providers_schedule_week
   has_many :schedule_hours, class_name: 'ScheduleHours'
   has_many :schedule_days, through: :schedule_hours
-  has_many :language_providers
-  has_many :languages, through: :language_providers
-  has_many :meals, inverse_of: :provider
   has_one :status
   has_and_belongs_to_many :subsidies
   has_and_belongs_to_many :programs
@@ -158,24 +168,7 @@ class Provider < ActiveRecord::Base
     end
 
     def search_by_languages(languages)
-      query_params = languages_to_query_params(languages)
-      valid_languages_size = valid_languages_size(languages)
-      results = LanguageProvider.where(
-        (
-          ['("language_providers"."level" = ? AND "language_providers"."language_id" = ?)'] * valid_languages_size
-        ).join(' OR '),
-        *query_params,
-      )
-      results = results.select { language_providers.provider_id }
-      results = results.group { language_providers.provider_id }
-      results = results.having {
-        {
-          language_providers => {
-            count('*') => my { valid_languages_size }
-          }
-        }
-      }
-      where { id.in my { results } }
+      joins(:languages).where('"languages"."id" IN (?)', languages).distinct
     end
 
     def search_by_days_and_hours(days_and_hours)
@@ -225,30 +218,6 @@ class Provider < ActiveRecord::Base
       day_and_hours.key?(:start_time) and
         day_and_hours.key?(:end_time) and
         day_and_hours.key?(:schedule_day_id)
-    end
-
-    def valid_languages_size(languages)
-      count = 0
-      languages.each do |language|
-        next unless valid_language?(language)
-        count += 1
-      end
-      count
-    end
-
-    def languages_to_query_params(languages)
-      query_params = []
-      languages.each do |language|
-        next unless valid_language?(language)
-        query_params << language[:level]
-        query_params << language[:language_id]
-      end
-      query_params
-    end
-
-    def valid_language?(language)
-      language.key?(:level) and
-        language.key?(:language_id)
     end
   end
 end
