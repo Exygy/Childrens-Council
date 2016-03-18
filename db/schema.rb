@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318214841) do
+ActiveRecord::Schema.define(version: 20160318215220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,10 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   end
 
   create_table "care_reasons_parents", id: false, force: :cascade do |t|
-    t.integer "parent_id",      null: false
-    t.integer "care_reason_id", null: false
+    t.integer  "parent_id",      null: false
+    t.integer  "care_reason_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_index "care_reasons_parents", ["care_reason_id", "parent_id"], name: "index_care_reasons_parents_on_care_reason_id_and_parent_id", unique: true, using: :btree
@@ -35,8 +37,10 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   end
 
   create_table "care_types_children", id: false, force: :cascade do |t|
-    t.integer "care_type_id", null: false
-    t.integer "child_id",     null: false
+    t.integer  "care_type_id", null: false
+    t.integer  "child_id",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "care_types_children", ["care_type_id", "child_id"], name: "index_care_types_children_on_care_type_id_and_child_id", unique: true, using: :btree
@@ -53,16 +57,20 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   add_index "children", ["schedule_year_id"], name: "index_children_on_schedule_year_id", using: :btree
 
   create_table "children_schedule_day", id: false, force: :cascade do |t|
-    t.integer "schedule_day_id", null: false
-    t.integer "child_id",        null: false
+    t.integer  "schedule_day_id", null: false
+    t.integer  "child_id",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "children_schedule_day", ["child_id", "schedule_day_id"], name: "index_children_schedule_day_on_child_id_and_schedule_day_id", using: :btree
   add_index "children_schedule_day", ["schedule_day_id", "child_id"], name: "index_children_schedule_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
 
   create_table "children_schedule_week", id: false, force: :cascade do |t|
-    t.integer "schedule_week_id", null: false
-    t.integer "child_id",         null: false
+    t.integer  "schedule_week_id", null: false
+    t.integer  "child_id",         null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "children_schedule_week", ["child_id", "schedule_week_id"], name: "index_children_schedules_week_on_c_id_and_sw_id", using: :btree
@@ -73,13 +81,15 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   end
 
   create_table "found_options", force: :cascade do |t|
-    t.text "name", null: false
+    t.text     "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "languages", force: :cascade do |t|
     t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "languages_providers", force: :cascade do |t|
@@ -141,8 +151,10 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   end
 
   create_table "neighborhoods_parents", id: false, force: :cascade do |t|
-    t.integer "neighborhood_id", null: false
-    t.integer "parent_id",       null: false
+    t.integer  "neighborhood_id", null: false
+    t.integer  "parent_id",       null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "neighborhoods_parents", ["neighborhood_id", "parent_id"], name: "index_neighborhoods_parents_on_neighborhood_id_and_parent_id", unique: true, using: :btree
@@ -165,8 +177,10 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
 
   create_table "parents_zip_codes", id: false, force: :cascade do |t|
-    t.integer "parent_id",   null: false
-    t.integer "zip_code_id", null: false
+    t.integer  "parent_id",   null: false
+    t.integer  "zip_code_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "parents_zip_codes", ["parent_id", "zip_code_id"], name: "index_parents_zip_codes_on_parent_id_and_zip_code_id", using: :btree
@@ -188,8 +202,10 @@ ActiveRecord::Schema.define(version: 20160318214841) do
   add_index "programs", ["program_type_id"], name: "index_programs_on_program_type_id", using: :btree
 
   create_table "programs_providers", id: false, force: :cascade do |t|
-    t.integer "program_id",  null: false
-    t.integer "provider_id", null: false
+    t.integer  "program_id",  null: false
+    t.integer  "provider_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "programs_providers", ["program_id", "provider_id"], name: "index_programs_providers_on_program_id_and_provider_id", using: :btree
@@ -284,7 +300,7 @@ ActiveRecord::Schema.define(version: 20160318214841) do
 
   create_table "referral_logs", force: :cascade do |t|
     t.json     "params"
-    t.integer  "parent_id"
+    t.integer  "parent_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -363,19 +379,42 @@ ActiveRecord::Schema.define(version: 20160318214841) do
     t.string "zip", limit: 5, null: false
   end
 
+  add_foreign_key "care_reasons_parents", "care_reasons"
+  add_foreign_key "care_reasons_parents", "parents"
+  add_foreign_key "care_types_children", "care_types"
+  add_foreign_key "care_types_children", "children"
+  add_foreign_key "children", "schedules_year", column: "schedule_year_id"
+  add_foreign_key "children_schedule_day", "children"
+  add_foreign_key "children_schedule_day", "schedules_day", column: "schedule_day_id"
+  add_foreign_key "children_schedule_week", "children"
+  add_foreign_key "children_schedule_week", "schedules_week", column: "schedule_week_id"
   add_foreign_key "languages_providers", "languages"
   add_foreign_key "languages_providers", "providers"
   add_foreign_key "meals", "meal_types"
   add_foreign_key "meals", "providers"
+  add_foreign_key "neighborhoods_parents", "neighborhoods"
+  add_foreign_key "neighborhoods_parents", "parents"
+  add_foreign_key "parents", "found_options"
+  add_foreign_key "parents_zip_codes", "parents"
+  add_foreign_key "parents_zip_codes", "zip_codes"
   add_foreign_key "programs", "program_types"
   add_foreign_key "programs_providers", "programs"
   add_foreign_key "programs_providers", "providers"
+  add_foreign_key "providers", "cities"
+  add_foreign_key "providers", "cities", column: "mail_city_id"
   add_foreign_key "providers", "languages", column: "preferred_language_id"
   add_foreign_key "providers", "meal_sponsors"
+  add_foreign_key "providers", "neighborhoods"
+  add_foreign_key "providers", "schedules_year", column: "schedule_year_id"
+  add_foreign_key "providers", "states"
+  add_foreign_key "providers", "states", column: "mail_state_id"
+  add_foreign_key "providers", "zip_codes"
+  add_foreign_key "providers_schedule_week", "schedules_week", column: "schedule_week_id"
   add_foreign_key "providers_subsidies", "providers"
   add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "rates", "providers"
   add_foreign_key "referral_logs", "parents"
+  add_foreign_key "schedule_hours", "schedules_day", column: "schedule_day_id"
   add_foreign_key "statuses", "providers"
   add_foreign_key "statuses", "status_reasons"
 end
