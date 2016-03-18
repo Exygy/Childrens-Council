@@ -6,7 +6,7 @@
 #  provider_id      :integer          not null
 #  date             :date
 #  exempt           :boolean          default(FALSE)
-#  license_type     :integer
+#  license_type     :integer          not null
 #  number           :text
 #  capacity         :integer
 #  capacity_desired :integer
