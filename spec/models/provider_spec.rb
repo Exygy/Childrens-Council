@@ -71,6 +71,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to have_many(:licenses) }
   it { is_expected.to belong_to(:meal_sponsor) }
   it { is_expected.to belong_to(:neighborhood) }
+  it { is_expected.to have_many(:rates) }
   it { is_expected.to belong_to(:schedule_year) }
   it { is_expected.to have_and_belong_to_many(:schedule_week) }
   it { is_expected.to have_many(:schedule_hours) }

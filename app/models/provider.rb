@@ -65,6 +65,7 @@ class Provider < ActiveRecord::Base
   has_many :licenses
   belongs_to :meal_sponsor
   belongs_to :neighborhood
+  has_many :rates, inverse_of: :provider
   belongs_to :schedule_year
   has_and_belongs_to_many :schedule_week, join_table: :providers_schedule_week
   has_many :schedule_hours, class_name: 'ScheduleHours'

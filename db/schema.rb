@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318160305) do
+ActiveRecord::Schema.define(version: 20160318172002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,6 +262,23 @@ ActiveRecord::Schema.define(version: 20160318160305) do
   add_index "providers_subsidies", ["provider_id", "subsidy_id"], name: "index_providers_subsidies_on_provider_id_and_subsidy_id", unique: true, using: :btree
   add_index "providers_subsidies", ["subsidy_id", "provider_id"], name: "index_providers_subsidies_on_subsidy_id_and_provider_id", using: :btree
 
+  create_table "rates", force: :cascade do |t|
+    t.integer  "provider_id",                          null: false
+    t.integer  "rate_type",                            null: false
+    t.decimal  "full_monthly", precision: 7, scale: 2
+    t.decimal  "full_weekly",  precision: 7, scale: 2
+    t.decimal  "full_daily",   precision: 7, scale: 2
+    t.decimal  "full_hourly",  precision: 7, scale: 2
+    t.decimal  "part_monthly", precision: 7, scale: 2
+    t.decimal  "part_weekly",  precision: 7, scale: 2
+    t.decimal  "part_daily",   precision: 7, scale: 2
+    t.decimal  "part_hourly",  precision: 7, scale: 2
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "rates", ["provider_id"], name: "index_rates_on_provider_id", using: :btree
+
   create_table "referral_logs", force: :cascade do |t|
     t.json     "params"
     t.integer  "parent_id"
@@ -352,6 +369,7 @@ ActiveRecord::Schema.define(version: 20160318160305) do
   add_foreign_key "providers", "meal_sponsors"
   add_foreign_key "providers_subsidies", "providers"
   add_foreign_key "providers_subsidies", "subsidies"
+  add_foreign_key "rates", "providers"
   add_foreign_key "referral_logs", "parents"
   add_foreign_key "statuses", "providers"
   add_foreign_key "statuses", "status_reasons"
