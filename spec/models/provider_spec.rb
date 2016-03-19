@@ -79,7 +79,7 @@ RSpec.describe Provider, type: :model do
   it { is_expected.to belong_to(:neighborhood) }
   it { is_expected.to have_many(:rates) }
   it { is_expected.to belong_to(:schedule_year) }
-  it { is_expected.to have_and_belong_to_many(:schedule_week) }
+  it { is_expected.to have_and_belong_to_many(:schedule_weeks) }
   it { is_expected.to have_many(:schedule_hours) }
   it { is_expected.to have_many(:schedule_days) }
   it { is_expected.to have_one(:status) }
@@ -146,6 +146,40 @@ RSpec.describe Provider, type: :model do
     end
   end
 
+  describe '.search_by_schedule_week_ids' do
+    let(:first_schedule_week) { FactoryGirl.create(:schedule_week) }
+    let(:second_schedule_week) { FactoryGirl.create(:schedule_week) }
+    let(:third_schedule_week) { FactoryGirl.create(:schedule_week) }
+    let!(:first_provider) { FactoryGirl.create(:provider, schedule_weeks: [first_schedule_week]) }
+    let!(:second_provider) { FactoryGirl.create(:provider, schedule_weeks: [first_schedule_week, second_schedule_week]) }
+
+    it 'returns providers filtered by schedule week' do
+      expect(Provider.search_by_schedule_week_ids([first_schedule_week.id]).count).to be 2
+      expect(Provider.search_by_schedule_week_ids([second_schedule_week.id]).count).to be 1
+      expect(Provider.search_by_schedule_week_ids([first_schedule_week.id, second_schedule_week.id]).count).to be 2
+      expect(Provider.search_by_schedule_week_ids([third_schedule_week.id]).count).to be 0
+    end
+  end
+
+  describe '.search_by_schedule_day_ids' do
+    let(:sunday) { FactoryGirl.create(:schedule_day, name: 'Sunday') }
+    let(:monday) { FactoryGirl.create(:schedule_day, name: 'Monday') }
+    let(:tuesday) { FactoryGirl.create(:schedule_day, name: 'Tuesday') }
+    let(:first_provider) { FactoryGirl.create(:provider) }
+    let(:second_provider) { FactoryGirl.create(:provider) }
+    let!(:first_open_sunday) { FactoryGirl.create(:schedule_hours, provider: first_provider, schedule_day: sunday, closed: false) }
+    let!(:second_closed_sunday) { FactoryGirl.create(:schedule_hours, provider: second_provider, schedule_day: sunday, closed: true) }
+    let!(:first_open_monday) { FactoryGirl.create(:schedule_hours, provider: first_provider, schedule_day: monday, closed: false) }
+    let!(:second_open_monday) { FactoryGirl.create(:schedule_hours, provider: second_provider, schedule_day: monday, closed: false) }
+
+    it 'returns providers filtered by schedule day' do
+      expect(Provider.search_by_schedule_day_ids([sunday.id]).count).to be 1
+      expect(Provider.search_by_schedule_day_ids([monday.id]).count).to be 2
+      expect(Provider.search_by_schedule_day_ids([sunday.id, monday.id]).count).to be 2
+      expect(Provider.search_by_schedule_day_ids([tuesday.id]).count).to be 0
+    end
+  end
+
   describe '.search_by_care_type_ids' do
     let!(:first_care_type) { FactoryGirl.create(:care_type) }
     let!(:second_care_type) { FactoryGirl.create(:care_type) }
@@ -176,7 +210,7 @@ RSpec.describe Provider, type: :model do
     # end
   end
 
-  describe '.search_by_languages' do
+  describe '.search_by_language_ids' do
     let(:first_language) { FactoryGirl.create(:language) }
     let(:second_language) { FactoryGirl.create(:language) }
     let(:third_language) { FactoryGirl.create(:language) }
@@ -184,10 +218,10 @@ RSpec.describe Provider, type: :model do
     let!(:second_provider) { FactoryGirl.create(:provider, languages: [first_language, second_language]) }
 
     it 'returns providers filtered by languages' do
-      expect(Provider.search_by_languages([first_language.id]).count).to be 2
-      expect(Provider.search_by_languages([second_language.id]).count).to be 1
-      expect(Provider.search_by_languages([first_language.id, second_language.id]).count).to be 2
-      expect(Provider.search_by_languages([third_language.id]).count).to be 0
+      expect(Provider.search_by_language_ids([first_language.id]).count).to be 2
+      expect(Provider.search_by_language_ids([second_language.id]).count).to be 1
+      expect(Provider.search_by_language_ids([first_language.id, second_language.id]).count).to be 2
+      expect(Provider.search_by_language_ids([third_language.id]).count).to be 0
     end
   end
 

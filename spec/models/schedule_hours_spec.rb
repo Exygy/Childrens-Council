@@ -26,6 +26,9 @@ RSpec.describe ScheduleHours, type: :model do
   subject { schedule_hours }
 
   it { is_expected.to be_valid }
+  it { is_expected.to validate_presence_of(:provider) }
+  it { is_expected.to validate_presence_of(:schedule_day) }
+
   it { is_expected.to belong_to(:provider) }
   it { is_expected.to belong_to(:schedule_day) }
 end

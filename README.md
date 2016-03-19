@@ -2,16 +2,18 @@
 
 ### API Doc ###
 
-| Field     | Format    | Example |
-| --------|---------|-------|
-| zipcode_ids  | array of zipcode ids   | [int, int, int, ...]    |
-| neighborhood_ids | array of neighborhood ids | [int, int, int, ...]   |
-| near_address | string, Google Map address | "string"    |
-| ages | array of ages in month | [int, int, int, ...]    |
-| open_days | array of day object | [{start_time: time, end_time: time schedule_day_id: int}, ...]    |
-| languages | array of language object | [{language_id: int, level: string}, ...]    |
-| schedule_year_ids | array of schedule year ids | [int, int, int, ...]    |
-| care_type_ids | array of care type ids | [int, int, int, ...]    |
+| Field             | Format                     | Example              |
+| ------------------|----------------------------|----------------------|
+| zipcode_ids       | array of zipcode ids       | [int, int, int, ...] |
+| neighborhood_ids  | array of neighborhood ids  | [int, int, int, ...] |
+| near_address      | string, Google Map address | "string"             |
+| ages              | array of ages in month     | [int, int, int, ...] |
+| open_days         | array of day object        | [{start_time: time, end_time: time schedule_day_id: int}, ...] |
+| language_ids      | array of language ids      | [int, int, int, ...] |
+| schedule_year_ids | array of schedule year ids | [int, int, int, ...] |
+| schedule_week_ids | array of schedule week ids | [int, int, int, ...] |
+| schedule_day_ids  | array of schedule day ids  | [int, int, int, ...] |
+| care_type_ids     | array of care type ids     | [int, int, int, ...] |
 
 
 ```
@@ -24,11 +26,10 @@
     {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 1},
     {start_time: '08:00:00', end_time: '17:00:00', schedule_day_id: 2}
   ],
-  "languages": [
-    {language_id: 1, level: 'fluent'},
-    {language_id: 2, level: 'spoken'}
-  ],
+  "language_ids": [1,2,3],
   "schedule_year_ids": [1,2,3],
+  "schedule_week_ids": [1,2,3],
+  "schedule_day_ids": [1,2,3],
   "care_type_ids":  [1,2,3]
 }
 ```

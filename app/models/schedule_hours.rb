@@ -19,6 +19,9 @@
 #
 
 class ScheduleHours < ActiveRecord::Base
-  belongs_to :provider
-  belongs_to :schedule_day
+  validates :provider, presence: true
+  validates :schedule_day, presence: true
+
+  belongs_to :provider, inverse_of: :schedule_hours
+  belongs_to :schedule_day, inverse_of: :schedule_hours
 end

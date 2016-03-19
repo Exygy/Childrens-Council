@@ -7,11 +7,12 @@ module Api
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
       providers = providers.search_by_ages(provider_param_ages) if provider_param_ages
       providers = providers.search_by_days_and_hours(provider_param_open_days) if provider_param_open_days
-      providers = providers.search_by_languages(provider_param_languages) if provider_param_languages
+      providers = providers.search_by_language_ids(provider_param_language_ids) if provider_param_languages_ids
       providers = providers.search_by_schedule_year_ids(provider_param_schedule_year_ids) if provider_param_schedule_year_ids
+      providers = providers.search_by_schedule_week_ids(provider_param_schedule_week_ids) if provider_param_schedule_week_ids
+      providers = providers.search_by_schedule_day_ids(provider_param_schedule_day_ids) if provider_param_schedule_day_ids
       providers = providers.search_by_care_type_ids(provider_param_care_type_ids) if provider_param_care_type_ids
 
-      # languages: [{language: "english", "fluent"}] languages through joining table + info (fluent...) on joining table
       # rate: shit show?
       # financial_assistance: [1,2,3] foreign_key
       # child_care_philisophie: [1,2,3] foreign_key

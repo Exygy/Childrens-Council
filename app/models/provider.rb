@@ -80,8 +80,8 @@ class Provider < ActiveRecord::Base
   belongs_to :neighborhood
   has_many :rates, inverse_of: :provider
   belongs_to :schedule_year
-  has_and_belongs_to_many :schedule_week, join_table: :providers_schedule_week
-  has_many :schedule_hours, class_name: 'ScheduleHours'
+  has_and_belongs_to_many :schedule_weeks, join_table: :providers_schedule_week
+  has_many :schedule_hours, class_name: 'ScheduleHours', inverse_of: :provider
   has_many :schedule_days, through: :schedule_hours
   has_one :status
   has_and_belongs_to_many :subsidies
@@ -158,6 +158,14 @@ class Provider < ActiveRecord::Base
       where { schedule_year_id.in(my { schedule_year_ids }) }
     end
 
+    def search_by_schedule_week_ids(schedule_week_ids)
+      joins(:schedule_weeks).where(schedule_weeks: { id: schedule_week_ids }).distinct
+    end
+
+    def search_by_schedule_day_ids(schedule_day_ids)
+      joins(:schedule_hours).where(schedule_hours: { schedule_day_id: schedule_day_ids, closed: false }).distinct
+    end
+
     def search_by_care_type_ids(care_type_ids)
       where { care_type_id.in(my { care_type_ids }) }
     end
@@ -167,8 +175,8 @@ class Provider < ActiveRecord::Base
       where('licensed_ages @> ?', query_param)
     end
 
-    def search_by_languages(languages)
-      joins(:languages).where('"languages"."id" IN (?)', languages).distinct
+    def search_by_language_ids(language_ids)
+      joins(:languages).where(languages: { id: language_ids }).distinct
     end
 
     def search_by_days_and_hours(days_and_hours)
