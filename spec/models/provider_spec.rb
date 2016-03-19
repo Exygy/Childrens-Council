@@ -104,6 +104,23 @@ RSpec.describe Provider, type: :model do
     end
   end
 
+  describe '.active' do
+    let(:first_provider) { FactoryGirl.create(:provider) }
+    let(:second_provider) { FactoryGirl.create(:provider) }
+    let(:third_provider) { FactoryGirl.create(:provider) }
+    let!(:first_active) { FactoryGirl.create(:active_status, provider: first_provider) }
+    let!(:second_active) { FactoryGirl.create(:active_status, provider: second_provider) }
+    let!(:third_inactive) { FactoryGirl.create(:inactive_status, provider: third_provider) }
+
+    it 'is an instance of ActiveRecord::Relation' do
+      expect(Provider.active).to be_an(ActiveRecord::Relation)
+    end
+
+    it 'returns providers with an active status' do
+      expect(Provider.active.count).to be 2
+    end
+  end
+
   describe '.search_by_zipcode_ids' do
     let!(:first_zip_code) { FactoryGirl.create(:zip_code) }
     let!(:second_zip_code) { FactoryGirl.create(:zip_code) }

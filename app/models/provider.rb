@@ -146,6 +146,18 @@ class Provider < ActiveRecord::Base
 
   # CLASS METHODS
   class << self
+    def accepting_referrals
+      where(accepting_referrals: true)
+    end
+
+    def active
+      joins(:status).where(status: { status_type: Status.status_types[:active] })
+    end
+
+    def listed
+      active.accepting_referrals
+    end
+
     def search_by_zipcode_ids(zipcode_ids)
       where { zip_code_id.in(my { zipcode_ids }) }
     end
