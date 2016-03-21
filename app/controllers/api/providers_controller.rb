@@ -52,6 +52,8 @@ module Api
         language_ids: [],
         neighborhood_ids: [],
         open_days: [],
+        schedule_day_ids: [],
+        schedule_week_ids: [],
         schedule_year_ids: [],
         zip_code_ids: [],
       )

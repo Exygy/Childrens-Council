@@ -23,49 +23,88 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
       tab heading="Closest to an address" select="setLocationType('near_address')"
         .row
           .medium-6.columns
-            input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="search_params.near_address"
+            input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="parent.near_address"
 
       tab heading="By zip code" select="setLocationType('zip_code_ids')"
         .row
           .medium-5.columns
-            .repeater-container [ng-repeat="zip_code in search_params.zip_code_ids track by $index"]
-              ui-select class="repeater-input" ng-model="search_params.zip_code_ids[$index]" theme="selectize"
+            .repeater-container [ng-repeat="zip_code in parent.zip_code_ids track by $index"]
+              ui-select class="repeater-input" ng-model="parent.zip_code_ids[$index]" theme="selectize"
                   ui-select-match placeholder="Zip code"
                     | {{$select.selected.zip}}
                   ui-select-choices repeat="zip_code.id as zip_code in (data.zip_codes_array | filter: $select.search) track by zip_code.id"
                     | {{zip_code.zip}}
 
-              button.inline.repeater ng-show="$index > 0" ng-click="removeItem(search_params.zip_code_ids, $index)" Remove
+              button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.zip_code_ids, $index)" Remove
 
-            button.inline ng-show="hasFinalValue(search_params.zip_code_ids)" ng-click="addItem(search_params.zip_code_ids)" Add another
+            button.inline type="button" ng-show="hasFinalValue(parent.zip_code_ids)" ng-click="addItem(parent.zip_code_ids)" Add another
 
       tab heading="By neighborhood" select="setLocationType('neighborhood_ids')"
         .row
           .medium-7.columns
-            .repeater-container [ng-repeat="neighborhood in search_params.neighborhood_ids track by $index"]
-              select name="neighborhood" ng-model="search_params.neighborhood_ids[$index]"
+            .repeater-container [ng-repeat="neighborhood in parent.neighborhood_ids track by $index"]
+              select name="neighborhood" ng-model="parent.neighborhood_ids[$index]"
                 option value="" Select Neighborhood
                 option ng-repeat="neighborhood in data.neighborhoods_array track by neighborhood.id" value="{{ neighborhood.id }}" {{neighborhood.name}}
 
-              button.inline.repeater ng-show="$index > 0" ng-click="removeItem(search_params.neighborhood_ids, $index)" Remove
+              button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.neighborhood_ids, $index)" Remove
 
-            button.inline ng-show="hasFinalValue(search_params.neighborhood_ids)" ng-click="addItem(search_params.neighborhood_ids)" Add another
+            button.inline type="button" ng-show="hasFinalValue(parent.neighborhood_ids)" ng-click="addItem(parent.neighborhood_ids)" Add another
 
   section.margin-top-2
     h5.c-black Child care provider type
+
     a href="#"  What are the differences?
     .row
 
       .columns.large-6.medium-12
         label.checkbox-button
-          input type="checkbox" value="1" name="care_type_ids[]" checklist-model="search_params.care_type_ids"
-          i.fa.fa-home
+          input type="checkbox" name="care_type_ids[]" checklist-value="1" checklist-model="parent.children[0].care_type_ids"
+          span.fa.fa-home
           | Family Child Care
       .columns.large-6.medium-12
         label.checkbox-button
-          input type="checkbox" value="2" name="care_type_ids[]" checklist-model="search_params.care_type_ids"
-          i.fa.fa-building-o
+          input type="checkbox" name="care_type_ids[]" checklist-value="2" checklist-model="parent.children[0].care_type_ids"
+          span.fa.fa-building-o
           | Child Care Center
+
+  section.margin-top-2
+    h5.c-black Schedule needs
+
+    p.c-base When do you need childcare? Customize to your schedule's needs.
+
+    accordion
+      accordion-group
+        accordion-heading
+          | All year round
+          span.right Show options
+
+        .button-group
+          span ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id"
+            button type="button" ng-model="parent.children[0].schedule_year_id" btn-radio="schedule_year.id"
+              | {{schedule_year.name}}
+
+      accordion-group
+        accordion-heading
+          | Full-time
+          small.c-base<
+            | (Evening, overnight, and more options available)
+          span.right Show options
+
+        .checkbox ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
+          input type="checkbox" id="schedule-week-{{schedule_week.name}}" name="schedule-week-{{schedule_week.name}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
+          label for="schedule-week-{{schedule_week.name}}"
+            | {{schedule_week.name}}
+
+      accordion-group
+        accordion-heading
+          | Monday - Friday
+          span.right Show options
+
+        .checkbox ng-repeat="schedule_day in data.schedule_days_array track by schedule_day.id"
+          input type="checkbox" id="schedule-day-{{schedule_day.name}}" name="schedule-day-{{schedule_day.name}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
+          label for="schedule-day-{{schedule_day.name}}"
+            | {{schedule_day.name}}
 
   section.margin-top-5.panel.radius
     h5.c-black.margin-bottom-none About you
@@ -112,25 +151,17 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
       option value="option3"  Option 3
 
   section.margin-top-3
-    .side-col-container
-      .side-col
-        input#agreement name="agreement" type="checkbox"
-      label.c-black for="agreement"
-      p
-        strong
-          small I agree to the following:
-      p
-        small
-          | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
-          a href="#"  Read our referral policies and disclaimers.
+    input#agreement name="agreement" type="checkbox"
+    label.c-black for="agreement"
+      strong I agree to the following:
+    p
+      small
+        | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
+        a href="#"  Read our referral policies and disclaimers.
 
   section.margin-top-1
-    .side-col-container
-      .side-col
-        input#subscribe name="subscribe" type="checkbox"
-      label.c-black for="subscribe"
-      p
-        small Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
+    input#subscribe name="subscribe" type="checkbox"
+    label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
   section.margin-top-1.margin-bottom-5
     input.button.large.text-uppercase type="submit" value="Search"

@@ -1,63 +1,63 @@
-DataService = (HttpService) ->
+DataService = ($rootScope, HttpService) ->
   @data = {
     totalProviders: 0,
     providersPerPage: 25,
     providers: [],
   }
 
+  @settings = {
+    location_type: 'near_address'
+  }
+
   @parent = {
     full_name: ''
     email: ''
     phone: ''
+    zip_code: ''
+    near_address: ''
+    neighborhood_ids: ['']
+    zip_code_ids: ['']
+    care_reason_ids: ['']
+    found_option: 0
+    language_ids: [''],
     children: [
       {
         age: 30
-      },
+        care_type_ids: []
+        schedule_day_ids: [2, 3, 4, 5, 6] # Default to weekdays
+        schedule_week_ids: [1] # Default to Full Time
+        schedule_year_id: 1 # Default to Year Round
+      }
     ]
-  }
-
-  @search_params = {
-    care_type_ids: [],
-    location_type: '',
-    near_address: '',
-    neighborhood_ids: [''],
-    zip_code_ids: [''],
   }
 
   @current_page = 1
 
   @getSearchParams = ->
-    search_params = @search_params
-    search_params.ages = []
+    search_params = {
+      ages: [@parent.children[0].age],
+      care_type_ids: @parent.children[0].care_type_ids,
+      language_ids: @parent.language_ids
+      schedule_day_ids: @parent.children[0].schedule_day_ids
+      schedule_week_ids: @parent.children[0].schedule_week_ids
+      schedule_year_ids: [@parent.children[0].schedule_year_id]
+    }
+    search_params[@settings.location_type] = @parent[@settings.location_type]
 
-    @parent.children.forEach (child) ->
-      search_params.ages.push(child.age)
+    search_params
 
-    # Remove unneeded search params
-    keys_to_remove = [
-      'location_type',
-      'near_address',
-      'neighborhood_ids',
-      'zip_code_ids',
-    ].filter (value) ->
-      value != search_params.location_type
-
-    _.transform search_params, (filtered_params, value, key) ->
-      filtered_params[key] = value unless key in keys_to_remove
-    , {}
-
+  @cleanEmptyParams = (params) ->
+    deepFilter params, (value, key) ->
+      # Filter out empty strings and arrays
+      if (value and value.length <= 0) or value[0] == '' then false else true
 
   @queryParams = ->
-    params = {
+    @cleanEmptyParams {
       page: @current_page,
       per_page: @data.providersPerPage,
       providers: @getSearchParams(),
       parent: @parent,
     }
-
-    deepFilter params, (value) ->
-      # Filter out empty strings and arrays
-      if value and value.length <= 0 then false else true
 
   @httpParams = ->
     {
@@ -84,5 +84,5 @@ DataService = (HttpService) ->
 
   @
 
-DataService.$inject = ['HttpService']
+DataService.$inject = ['$rootScope', 'HttpService']
 angular.module('CCR').service('DataService', DataService)

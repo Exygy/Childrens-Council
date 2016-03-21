@@ -1,6 +1,6 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
-  $scope.search_params = SearchService.search_params
+  $scope.settings = SearchService.settings
 
   validateForm = () ->
     # for field_name, field_obj of $scope.parent
@@ -22,7 +22,7 @@ SearchController = ($scope, $state, SearchService) ->
     collection[collection.length - 1] != ''
 
   $scope.setLocationType = (type) ->
-    $scope.search_params.location_type = type
+    $scope.settings.location_type = type
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)
