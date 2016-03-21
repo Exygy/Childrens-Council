@@ -121,7 +121,7 @@ RSpec.describe Provider, type: :model do
     end
   end
 
-  describe '.search_by_zipcode_ids' do
+  describe '.search_by_zip_code_ids' do
     let!(:first_zip_code) { FactoryGirl.create(:zip_code) }
     let!(:second_zip_code) { FactoryGirl.create(:zip_code) }
     let!(:first_provider) { FactoryGirl.create(:provider, zip_code: first_zip_code) }
@@ -129,9 +129,9 @@ RSpec.describe Provider, type: :model do
     let!(:third_provider) { FactoryGirl.create(:provider, zip_code: second_zip_code) }
 
     it 'returns providers filtered by zip codes' do
-      expect(Provider.search_by_zipcode_ids([first_zip_code.id]).count).to be 1
-      expect(Provider.search_by_zipcode_ids([second_zip_code.id]).count).to be 2
-      expect(Provider.search_by_zipcode_ids([first_zip_code.id, second_zip_code.id]).count).to be 3
+      expect(Provider.search_by_zip_code_ids([first_zip_code.id]).count).to be 1
+      expect(Provider.search_by_zip_code_ids([second_zip_code.id]).count).to be 2
+      expect(Provider.search_by_zip_code_ids([first_zip_code.id, second_zip_code.id]).count).to be 3
     end
   end
 

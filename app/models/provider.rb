@@ -158,8 +158,8 @@ class Provider < ActiveRecord::Base
       active.accepting_referrals
     end
 
-    def search_by_zipcode_ids(zipcode_ids)
-      where { zip_code_id.in(my { zipcode_ids }) }
+    def search_by_zip_code_ids(zip_code_ids)
+      where { zip_code_id.in(my { zip_code_ids }) }
     end
 
     def search_by_neighborhood_ids(neighborhoods)

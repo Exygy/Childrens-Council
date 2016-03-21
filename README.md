@@ -18,7 +18,7 @@
 
 ```
 {
-  "zipcode_ids": [1,2,3],
+  "zip_code_ids": [1,2,3],
   "neighborhood_ids": [1,2,3],
   "near_address": "4053 18th St, San Francisco, CA 94114, USA",
   "ages": [12,13,14,15,16,17,18,19,20,21,22,23,24],

@@ -4,7 +4,7 @@ module Api
       # Include associated provider models where we need information for display in the results list
       # (prevents individual join queries for each provider)
       providers = Provider.includes(:licenses, :schedule_hours, :subsidies)
-      providers = providers.search_by_zipcode_ids(provider_param_zipcode_ids) if provider_param_zipcode_ids
+      providers = providers.search_by_zip_code_ids(provider_param_zip_code_ids) if provider_param_zip_code_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
       providers = providers.search_by_ages(provider_param_ages) if provider_param_ages
@@ -53,7 +53,7 @@ module Api
         neighborhood_ids: [],
         open_days: [],
         schedule_year_ids: [],
-        zipcode_ids: [],
+        zip_code_ids: [],
       )
     end
 
