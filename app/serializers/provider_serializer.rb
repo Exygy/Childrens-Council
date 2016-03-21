@@ -66,10 +66,12 @@ class ProviderSerializer < ActiveModel::Serializer
   attributes :licensed_ages, :neighborhood_id, :mail_zip_code
 
   attributes :schedule_days, :schedule_hours
-  attributes :language_providers, :licenses
+  attributes :languages, :licenses
 
-  has_many :language_providers
-  has_many :schedule_hours
-  has_many :schedule_week
+  has_many :languages
   has_many :licenses
+  has_many :programs
+  has_many :schedule_hours
+  has_many :schedule_weeks
+  has_many :subsidies
 end

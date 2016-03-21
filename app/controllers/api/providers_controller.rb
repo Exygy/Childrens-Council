@@ -1,7 +1,9 @@
 module Api
   class ProvidersController < ApiController
     def index
-      providers = Provider.includes(:schedule_hours)
+      # Include associated provider models where we need information for display in the results list
+      # (prevents individual join queries for each provider)
+      providers = Provider.includes(:licenses, :schedule_hours, :subsidies)
       providers = providers.search_by_zipcode_ids(provider_param_zipcode_ids) if provider_param_zipcode_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
@@ -27,7 +29,16 @@ module Api
     end
 
     def show
-      provider = Provider.eager_load(:language_providers, :schedule_hours, :schedule_week, :schedule_days, :licenses).find(params[:id])
+      provider = Provider.eager_load(
+        :languages,
+        :licenses,
+        :meals,
+        :programs,
+        :schedule_days,
+        :schedule_hours,
+        :schedule_weeks,
+        :subsidies,
+      ).find(params[:id])
       render json: ProviderSerializer.new(provider), status: 200
     end
 
