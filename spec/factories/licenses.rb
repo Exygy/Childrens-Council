@@ -5,8 +5,8 @@
 #  id               :integer          not null, primary key
 #  provider_id      :integer          not null
 #  date             :date
-#  exempt           :boolean
-#  license_type     :integer
+#  exempt           :boolean          default(FALSE)
+#  license_type     :integer          not null
 #  number           :text
 #  capacity         :integer
 #  capacity_desired :integer
@@ -28,7 +28,7 @@ FactoryGirl.define do
   factory :license do
     date Faker::Date.backward(730)
     exempt Faker::Number.between(0, 1)
-    type Faker::Number.between(0, 3)
+    license_type Faker::Number.between(0, 3)
     number Faker::Number.number(9)
     capacity Faker::Number.between(2, 20)
     capacity_desired Faker::Number.between(0, 1)

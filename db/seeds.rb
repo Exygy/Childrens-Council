@@ -24,20 +24,20 @@
 #   { name: 'Seasonal/Other' },
 # ])
 
-ScheduleWeek.create([
-  { name: 'Full Time' },
-  { name: 'Part Time' },
-  { name: 'Before School' },
-  { name: 'After School' },
-  { name: 'Drop In' },
-  { name: 'Variable/Flexible' },
-  { name: 'Days' },
-  { name: 'Evening' },
-  { name: 'Overnight' },
-  { name: 'Other' },
-])
+# ScheduleWeek.create([
+#   { name: 'Full Time' },
+#   { name: 'Part Time' },
+#   { name: 'Before School' },
+#   { name: 'After School' },
+#   { name: 'Drop In' },
+#   { name: 'Variable/Flexible' },
+#   { name: 'Days' },
+#   { name: 'Evening' },
+#   { name: 'Overnight' },
+#   { name: 'Other' },
+# ])
 
-Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
+# Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
 
 # CareType.create([
 #   { name: 'Family Child Care' },
@@ -77,4 +77,20 @@ Date::DAYNAMES.each { |day| ScheduleDay.create(name: day) }
 #   { name: 'Sunnyside' },
 #   { name: 'Treasure island' },
 #   { name: 'Mission Bay' },
+# ])
+
+# ProgramType.create([
+#   { name: 'Care Approach' },
+#   { name: 'Immersion Program' },
+#   { name: 'Quality Improvement Program' },
+#   { name: 'Religious Program' },
+# ])
+
+# MealType.create([
+#   { name: 'Breakfast' },
+#   { name: 'AM Snack' },
+#   { name: 'Lunch' },
+#   { name: 'PM Snack' },
+#   { name: 'Dinner' },
+#   { name: 'Late' },
 # ])

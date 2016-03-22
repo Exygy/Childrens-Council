@@ -1,8 +1,8 @@
-p.text-gray
+p.c-base
   small
     strong Note
     ' : if you’re looking for providers who have experience with
-    strong.text-black children with special needs
+    strong.c-black children with special needs
     ' , please
     a href="#" contact us via this quick form
     ' . A member of our Inclusion team will follow up to help.
@@ -88,7 +88,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         small.optional OPTIONAL
       .row
         .columns.large-5
-          input placeholder="5 digit zip code" type="text"
+          input placeholder="5 digit zip code" type="text" ng-model="parent.zip_code" ng-required="false"
       label.title-label.text-normal.vert-offset-top-2 Reasons for considering child care
       ul.no-bullet.vert-offset-bottom-0
         li

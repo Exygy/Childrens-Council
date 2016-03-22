@@ -12,7 +12,6 @@
  *
  *= require foundation_and_overrides
  *= require ui-select/dist/select
- *= require wordpress_styles
  *= require_tree .
  *= require_self
  */

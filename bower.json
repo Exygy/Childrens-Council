@@ -15,5 +15,8 @@
     "ui-select": "angular-ui-select#^0.14.9",
     "angular-ui-slider": "^0.2.1",
     "jquery-ui": "jqueryui#^1.11.4"
+  },
+  "resolutions": {
+    "jquery-ui": "1.11.4"
   }
 }

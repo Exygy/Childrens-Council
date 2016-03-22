@@ -7,7 +7,7 @@
 #  provider_id     :integer          not null
 #  start_time      :time
 #  end_time        :time
-#  closed          :boolean
+#  closed          :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  open_24         :boolean          default(FALSE)
@@ -19,6 +19,9 @@
 #
 
 class ScheduleHours < ActiveRecord::Base
-  belongs_to :provider
-  belongs_to :schedule_day
+  validates :provider, presence: true
+  validates :schedule_day, presence: true
+
+  belongs_to :provider, inverse_of: :schedule_hours
+  belongs_to :schedule_day, inverse_of: :schedule_hours
 end

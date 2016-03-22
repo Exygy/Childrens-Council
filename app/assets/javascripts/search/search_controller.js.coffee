@@ -1,10 +1,11 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
-  $scope.search_params = SearchService.search_params
+  $scope.settings = SearchService.settings
 
   validateForm = () ->
-    # for field_name, field_obj of $scope.parent
-    #   $scope.searchForm[field_name].$setDirty()
+    for field_name, field_obj of $scope.parent
+      if $scope.searchForm[field_name]
+        $scope.searchForm[field_name].$setDirty()
 
   $scope.submitSearch = ->
     validateForm()
@@ -19,10 +20,13 @@ SearchController = ($scope, $state, SearchService) ->
     collection = collection.splice(index, 1)
 
   $scope.hasFinalValue = (collection) ->
-    collection[collection.length - 1] != ''
+    if collection
+      collection[collection.length - 1] != ''
+    else
+      false
 
   $scope.setLocationType = (type) ->
-    $scope.search_params.location_type = type
+    $scope.settings.location_type = type
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)

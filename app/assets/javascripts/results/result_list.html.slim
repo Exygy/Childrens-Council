@@ -1,10 +1,10 @@
-.row.text-gray.vert-offset-bottom-2
+.row.c-base.margin-bottom-2
   .large-6.medium-6.small-6.columns
     small
       span Sort by:
-      span.hor-offset-left-05
+      span.margin-left-small
         em Random
-        i.fa.fa-info-circle.hor-offset-left-05
+        i.fa.fa-info-circle.margin-left-small
   .large-6.medium-6.small-6.columns.text-right
     small
       | Showing
@@ -14,12 +14,16 @@
         '  {{ data.providersPerPage*data.current_page < data.totalProviders ? data.providersPerPage*data.current_page : data.totalProviders }}
       |  of {{ data.totalProviders }} results
 
-span ng-repeat="provider in data.providers"
-
-  .side-col-container.results-item
-    .side-col
-      i.fa.fa-building.text-gray
-    h5
+ul.no-bullet ng-repeat="provider in data.providers"
+  li.results-item
+    .provider-type ng-switch="provider.care_type_id | isFacility"
+      div ng-switch-when="true"
+        span.fa.fa-building.c-gainsboro
+        .show-for-sr Child Care Center
+      div ng-switch-when="false"
+        span.fa.fa-home.c-gainsboro
+        .show-for-sr Family Child Care
+    h3.item-title
       a ng-click="goToProvider(provider.id)" {{ provider.name }}
     p
       ' {{ provider.address_1 }} {{ provider.address_2 }} {{ provider.city_id | cityIdToName }} {{ provider.state_id | stateIdToAbbr }} {{ provider.zip_code_id | zipCodeIdToName}}
@@ -27,37 +31,35 @@ span ng-repeat="provider in data.providers"
         span ng-if="!provider.map" See map
         span ng-if="provider.map" Hide map
 
-    .provider_list ng-if="provider.map"
-      ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options'
-        ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+    ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options' ng-if="provider.map"
+      ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
 
     p
-      span.detail-item
-        i.fa.fa-phone-square.text-gray
+      span.item-detail
+        span.fa.fa-phone-square.c-base
         '  {{ provider.phone | formatPhoneNumber }}
-      span.detail-item
-        i.fa.fa-clock-o.text-gray
+      span.item-detail
+        span.fa.fa-clock-o.c-base
         '  {{ provider.schedule_hours | scheduleHoursToSummary }}
     p
       a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
         ' {{ provider.url }}
-    .vert-offset-top-1
-      p
-        ' {{ provider.description }}
-    p.text-gray Financial assistance: CalWorks, Head Start & Early Head Start.
-    p.text-gray
+    p.margin-top-small
+      ' {{ provider.description }}
+    p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
+    p.c-base
       | Check history &amp; reports:
-      a href="#"  Lic #384001082
+      a.c-blue-soft href="#"  Lic #384001082
       | &amp;
-      a href="#"  #294001291
-  hr.vert-offset-top-2.vert-offset-bottom-2
+      a.c-blue-soft href="#"  #294001291
+  hr.margin-top-2.margin-bottom-2
 
-ul.button-group.radius.vert-offset-bottom-3
+ul.pager.button-group.radius.margin-bottom-3
   li
     a ng-click="prevPage()" ng-disabled="isFirstPage()"
-      i.fa.fa-chevron-left.hor-offset-right-05
+      i.fa.fa-chevron-left.margin-right-small
       small Previous {{ data.providersPerPage }}
   li
     a ng-click="nextPage()" ng-disabled="isLastPage()"
       small Next {{ data.providersPerPage }}
-      i.fa.fa-chevron-right.hor-offset-left-05
+      i.fa.fa-chevron-right.margin-left-small

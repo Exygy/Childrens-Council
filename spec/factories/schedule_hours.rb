@@ -7,7 +7,7 @@
 #  provider_id     :integer          not null
 #  start_time      :time
 #  end_time        :time
-#  closed          :boolean
+#  closed          :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  open_24         :boolean          default(FALSE)
@@ -20,6 +20,8 @@
 
 FactoryGirl.define do
   factory :schedule_hours do
+    association :provider
+    association :schedule_day
     start_time Faker::Time.forward(1, :morning).strftime('%H:%M')
     end_time Faker::Time.forward(1, :evening).strftime('%H:%M')
     closed Faker::Number.between(0, 1)

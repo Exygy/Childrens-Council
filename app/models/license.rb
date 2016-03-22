@@ -5,8 +5,8 @@
 #  id               :integer          not null, primary key
 #  provider_id      :integer          not null
 #  date             :date
-#  exempt           :boolean
-#  license_type     :integer
+#  exempt           :boolean          default(FALSE)
+#  license_type     :integer          not null
 #  number           :text
 #  capacity         :integer
 #  capacity_desired :integer
@@ -25,7 +25,7 @@
 #
 
 class License < ActiveRecord::Base
-  enum type: {
+  enum license_type: {
     infant: 0,
     preschool: 1,
     school_age: 2,
