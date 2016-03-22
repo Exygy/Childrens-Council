@@ -128,3 +128,26 @@ AgeToYearsAndMonths = () ->
     age_text
 angular.module('CCR').filter('ageToYearsAndMonths', AgeToYearsAndMonths)
 
+AbbreviateDay = () ->
+  (day_of_week) ->
+    if day_of_week.length > 3 then day_of_week.substr(0, 3) else day_of_week
+angular.module('CCR').filter('abbreviateDay', AbbreviateDay)
+
+Attribute = () ->
+  (attribute) ->
+    _.kebabCase(attribute)
+angular.module('CCR').filter('attribute', Attribute)
+
+SortDays = () ->
+  (days) ->
+    _.sortBy days, (day) ->
+      [
+        'monday'
+        'tuesday'
+        'wednesday'
+        'thursday'
+        'friday'
+        'sunday'
+        'saturday'
+      ].indexOf(day.name.toLowerCase())
+angular.module('CCR').filter('sortDays', SortDays)

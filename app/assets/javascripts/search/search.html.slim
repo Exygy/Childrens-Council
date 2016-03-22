@@ -23,33 +23,33 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
       tab heading="Closest to an address" select="setLocationType('near_address')"
         .row
           .medium-6.columns
-            input type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="parent.near_address"
+            input.radius type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="parent.near_address"
 
       tab heading="By zip code" select="setLocationType('zip_code_ids')"
         .row
           .medium-5.columns
             .repeater-container [ng-repeat="zip_code in parent.zip_code_ids track by $index"]
-              ui-select class="repeater-input" ng-model="parent.zip_code_ids[$index]" theme="selectize"
-                  ui-select-match placeholder="Zip code"
+              ui-select.repeater-input ng-model="parent.zip_code_ids[$index]" theme="selectize"
+                  ui-select-match placeholder="Zip code" allow-clear="true"
                     | {{$select.selected.zip}}
                   ui-select-choices repeat="zip_code.id as zip_code in (data.zip_codes_array | filter: $select.search) track by zip_code.id"
                     | {{zip_code.zip}}
 
               button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.zip_code_ids, $index)" Remove
 
-            button.inline type="button" ng-show="hasFinalValue(parent.zip_code_ids)" ng-click="addItem(parent.zip_code_ids)" Add another
+            button.inline type="button" ng-show="hasFinalValue(parent.zip_code_ids) && parent.zip_code_ids.length < 3" ng-click="addItem(parent.zip_code_ids)" Add another
 
       tab heading="By neighborhood" select="setLocationType('neighborhood_ids')"
         .row
           .medium-7.columns
             .repeater-container [ng-repeat="neighborhood in parent.neighborhood_ids track by $index"]
-              select name="neighborhood" ng-model="parent.neighborhood_ids[$index]"
+              select.radius name="neighborhood" ng-model="parent.neighborhood_ids[$index]"
                 option value="" Select Neighborhood
                 option ng-repeat="neighborhood in data.neighborhoods_array track by neighborhood.id" value="{{ neighborhood.id }}" {{neighborhood.name}}
 
               button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.neighborhood_ids, $index)" Remove
 
-            button.inline type="button" ng-show="hasFinalValue(parent.neighborhood_ids)" ng-click="addItem(parent.neighborhood_ids)" Add another
+            button.inline type="button" ng-show="hasFinalValue(parent.neighborhood_ids) && parent.neighborhood_ids.length < 3" ng-click="addItem(parent.neighborhood_ids)" Add another
 
   section.margin-top-2
     h5.c-black Child care provider type
@@ -58,53 +58,69 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
     .row
 
       .columns.large-6.medium-12
-        label.checkbox-button
-          input type="checkbox" name="care_type_ids[]" checklist-value="1" checklist-model="parent.children[0].care_type_ids"
-          span.fa.fa-home
-          | Family Child Care
+        .checkbox.checkbox-button
+          input type="checkbox" id="care-type-1" name="care_type_ids[]" checklist-value="1" checklist-model="parent.children[0].care_type_ids"
+          label for="care-type-1"
+            span.fa.fa-home
+            | Family Child Care
       .columns.large-6.medium-12
-        label.checkbox-button
-          input type="checkbox" name="care_type_ids[]" checklist-value="2" checklist-model="parent.children[0].care_type_ids"
-          span.fa.fa-building-o
-          | Child Care Center
+        .checkbox.checkbox-button
+          input type="checkbox" id="care-type-2" name="care_type_ids[]" checklist-value="2" checklist-model="parent.children[0].care_type_ids"
+          label for="care-type-2"
+            span.fa.fa-building-o
+            | Child Care Center
 
   section.margin-top-2
     h5.c-black Schedule needs
 
     p.c-base When do you need childcare? Customize to your schedule's needs.
 
-    accordion
-      accordion-group
+    accordion close-others="false"
+      accordion-group is-open="is_open_years"
         accordion-heading
           | All year round
-          span.right Show options
+          .right.toggle ng-switch="is_open_years"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
 
         .button-group
-          span ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id"
-            button type="button" ng-model="parent.children[0].schedule_year_id" btn-radio="schedule_year.id"
-              | {{schedule_year.name}}
+          button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="parent.children[0].schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-light']"
+            | {{schedule_year.name}}
 
-      accordion-group
+      accordion-group is-open="is_open_weeks"
         accordion-heading
           | Full-time
-          small.c-base<
-            | (Evening, overnight, and more options available)
-          span.right Show options
+          small.c-base ng-show="parent.children[0].schedule_week_ids.length < 2"
+            |  (Evening, overnight, and more options available)
+          .right.toggle ng-switch="is_open_weeks"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
 
-        .checkbox ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
-          input type="checkbox" id="schedule-week-{{schedule_week.name}}" name="schedule-week-{{schedule_week.name}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
-          label for="schedule-week-{{schedule_week.name}}"
-            | {{schedule_week.name}}
+        .clearfix
+          span ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
+            .checkbox.checkbox-week.checkbox-left
+              input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule-week-{{schedule_week.name}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
+              label for="schedule-week-{{schedule_week.name | attribute}}"
+                | {{schedule_week.name}}
+            div.clearfix ng-if="$index + 1 % 3 == 0"
 
-      accordion-group
+      accordion-group is-open="is_open_days"
         accordion-heading
           | Monday - Friday
-          span.right Show options
+          .right.toggle ng-switch="is_open_days"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
 
-        .checkbox ng-repeat="schedule_day in data.schedule_days_array track by schedule_day.id"
-          input type="checkbox" id="schedule-day-{{schedule_day.name}}" name="schedule-day-{{schedule_day.name}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
-          label for="schedule-day-{{schedule_day.name}}"
-            | {{schedule_day.name}}
+        .clearfix
+          span ng-repeat="schedule_day in (data.schedule_days_array | sortDays) track by schedule_day.id"
+            .checkbox.checkbox-day.checkbox-left
+              input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule-day-{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
+              label for="schedule-day-{{schedule_day.name | attribute}}"
+                | {{schedule_day.name | abbreviateDay}}
+            div.clearfix ng-if="$index == 4"
 
   section.margin-top-5.panel.radius
     h5.c-black.margin-bottom-none About you
@@ -120,7 +136,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
       | Email address or phone
     tabset.tabs-inline
       tab heading="Email address"
-        input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }"  ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
+        input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
         small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Email or phone number is required
 
       tab heading="Phone"
@@ -164,4 +180,4 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
     label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
   section.margin-top-1.margin-bottom-5
-    input.button.large.text-uppercase type="submit" value="Search"
+    input.large.round.button.text-uppercase type="submit" value="Search"
