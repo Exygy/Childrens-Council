@@ -6,7 +6,7 @@ DataService = ($rootScope, HttpService) ->
   }
 
   @settings = {
-    location_type: 'neighborhood_ids'
+    location_type: ''
   }
 
   @parent = {
@@ -18,7 +18,7 @@ DataService = ($rootScope, HttpService) ->
     neighborhood_ids: ['']
     zip_code_ids: ['']
     care_reason_ids: ['']
-    found_option: 0
+    found_option_id: null
     language_ids: ['']
     children: [
       {

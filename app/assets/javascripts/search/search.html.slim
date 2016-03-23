@@ -9,12 +9,12 @@ p.c-base
 
 form name="searchForm" ng-submit="submitSearch()" novalidate=""
   section.margin-top-2
-    h5.c-black Child's age ( when care will be needed )
+    h5#age-label.c-black Child's age ( when care will be needed )
 
     .row
       .medium-7.columns
         .ui-slider-container
-          div.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="parent.children[0].age" use-decimals]
+          #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="parent.children[0].age" use-decimals aria-labeledBy="ageLabel"]
             span.age-label style="left:{{(parent.children[0].age / 60) * 100}}%;"
               | {{parent.children[0].age | ageToYearsAndMonths}}
             span.age-min 0
@@ -24,44 +24,51 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
   section.margin-top-2
     h5.c-black Desired locations
-    tabset.tabs-inline
-      tab heading="Closest to an address" select="setLocationType('near_address')"
-        .row
-          .medium-6.columns
-            input.radius type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="parent.near_address"
+    tabset.tabs-inline role="tablist"
+      tab select="setLocationType('near_address')"
+        tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'near_address'}}" controls="address-tab" Closest to an address
 
-      tab heading="By zip code" select="setLocationType('zip_code_ids')"
-        .row
+        #address-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'near_address'}}"
+          .medium-6.columns
+            label.show-for-sr for="near-address" Search by distance from an address in San Francisco
+            input#near-address.radius type="text" placeholder="Enter any address in San Francisco" name="near-address" ng-model="parent.near_address"
+
+      tab select="setLocationType('zip_code_ids')"
+        tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'zip_code_ids'}}" controls="zip-code-tab" By zip code
+
+        #zip-code-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'zip_code_ids'}}"
           .medium-5.columns
-            .repeater-container [ng-repeat="zip_code in parent.zip_code_ids track by $index"]
-              ui-select.repeater-input ng-model="parent.zip_code_ids[$index]" theme="selectize"
+            .repeater-container ng-repeat="zip_code in parent.zip_code_ids track by $index"
+              ui-select.repeater-input ng-model="parent.zip_code_ids[$index]" theme="selectize" aria-label="Select zip code"
                   ui-select-match placeholder="Zip code" allow-clear="true"
                     | {{$select.selected.zip}}
                   ui-select-choices repeat="zip_code.id as zip_code in (data.zip_codes_array | filter: $select.search) track by zip_code.id"
                     | {{zip_code.zip}}
 
-              button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.zip_code_ids, $index)" Remove
+              button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(parent.zip_code_ids, $index)" Remove
 
-            button.inline type="button" ng-show="hasFinalValue(parent.zip_code_ids) && parent.zip_code_ids.length < 3" ng-click="addItem(parent.zip_code_ids)" Add another
+            button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(parent.zip_code_ids) && parent.zip_code_ids.length < 3" ng-click="addItem(parent.zip_code_ids)" Add another
 
-      tab heading="By neighborhood" select="setLocationType('neighborhood_ids')"
-        .row
+      tab select="setLocationType('neighborhood_ids')"
+        tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'neighborhood_ids'}}" controls="neighborhood-tab" By neighborhood
+        #neighborhood-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'neighborhood_ids'}}"
+
           .medium-7.columns
-            .repeater-container [ng-repeat="neighborhood in parent.neighborhood_ids track by $index"]
-              select.radius name="neighborhood" ng-model="parent.neighborhood_ids[$index]"
+            .repeater-container ng-repeat="neighborhood in parent.neighborhood_ids track by $index"
+              label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
+              select.radius id="neighborhood-{{$index + 1}}" name="neighborhood-{{$index + 1}}" ng-model="parent.neighborhood_ids[$index]" ng-options="neighborhood.id as neighborhood.name for neighborhood in data.neighborhoods_array track by neighborhood.id"
+
                 option value="" Select Neighborhood
-                option ng-repeat="neighborhood in data.neighborhoods_array track by neighborhood.id" value="{{ neighborhood.id }}" {{neighborhood.name}}
 
-              button.inline.repeater type="button" ng-show="$index > 0" ng-click="removeItem(parent.neighborhood_ids, $index)" Remove
+              button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(parent.neighborhood_ids, $index)" Remove
 
-            button.inline type="button" ng-show="hasFinalValue(parent.neighborhood_ids) && parent.neighborhood_ids.length < 3" ng-click="addItem(parent.neighborhood_ids)" Add another
+            button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(parent.neighborhood_ids) && parent.neighborhood_ids.length < 3" ng-click="addItem(parent.neighborhood_ids)" Add another
 
-  section.margin-top-2
+  section.margin-top-1.margin-bottom-3
     h5.c-black Child care provider type
 
     a href="#"  What are the differences?
-    .row
-
+    .row.margin-top-1
       .columns.large-6.medium-12
         .checkbox.checkbox-button
           input type="checkbox" id="care-type-1" name="care_type_ids[]" checklist-value="1" checklist-model="parent.children[0].care_type_ids"
@@ -80,30 +87,32 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
     p.c-base When do you need childcare? Customize to your schedule's needs.
 
-    accordion close-others="false"
+    accordion close-others="false" role="tablist"
       accordion-group is-open="is_open_years"
         accordion-heading
-          | All year round
-          .right.toggle ng-switch="is_open_years"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
+          #annual-schedule-heading role="tab" aria-controls="annual-schedule-panel"
+            | All year round
+            .right.toggle ng-switch="is_open_years"
+              span ng-switch-when="false" Show
+              span ng-switch-when="true" Hide
+              |  options
 
-        .button-group
+        #annual-schedule-panel.button-group role="tabpanel" aria-labelledby="annual-schedule-heading" aria-hidden="{{!is_open_years}}"
           button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="parent.children[0].schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-light']"
             | {{schedule_year.name}}
 
       accordion-group is-open="is_open_weeks"
         accordion-heading
-          | Full-time
-          small.c-base ng-show="parent.children[0].schedule_week_ids.length < 2"
-            |  (Evening, overnight, and more options available)
-          .right.toggle ng-switch="is_open_weeks"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
+          #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
+            | Full-time
+            small.c-base ng-show="parent.children[0].schedule_week_ids.length < 2"
+              |  (Evening, overnight, and more options available)
+            .right.toggle ng-switch="is_open_weeks"
+              span ng-switch-when="false" Show
+              span ng-switch-when="true" Hide
+              |  options
 
-        .clearfix
+        #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_open_weeks}}"
           span ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
             .checkbox.checkbox-week.checkbox-left
               input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule-week-{{schedule_week.name}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
@@ -113,13 +122,14 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
 
       accordion-group is-open="is_open_days"
         accordion-heading
-          | Monday - Friday
-          .right.toggle ng-switch="is_open_days"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
+          #day-schedule-heading role="tab" aria-controls="day-schedule-panel"
+            | Monday - Friday
+            .right.toggle ng-switch="is_open_days"
+              span ng-switch-when="false" Show
+              span ng-switch-when="true" Hide
+              |  options
 
-        .clearfix
+        #day-schedule-panel.clearfix role="tabpanel" aria-labelledby="day-schedule-heading" aria-hidden="{{!is_open_days}}"
           span ng-repeat="schedule_day in (data.schedule_days_array | sortDays) track by schedule_day.id"
             .checkbox.checkbox-day.checkbox-left
               input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule-day-{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
@@ -127,62 +137,75 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
                 | {{schedule_day.name | abbreviateDay}}
             div.clearfix ng-if="$index == 4"
 
-  section.margin-top-5.panel.radius
+  section.margin-top-3.panel.radius
     h5.c-black.margin-bottom-none About you
     a href="#"
       small Why are we asking for your information?
-    label.c-black.text-normal.margin-top-2
+    label.large.c-black.text-normal.margin-top-2
       ' Your name
-      input placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name" ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
+      input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name" ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
       small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)" Invalid entry
 
 
-    h6.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
-      | Email address or phone
-    tabset.tabs-inline
-      tab heading="Email address"
-        input type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
-        small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Email or phone number is required
+    h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
+      | Email address <em>or</em> phone
+    tabset.tabs-inline role="tablist"
+      tab select="setContactType('email')"
+        tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'email'}}" controls="email-tab" Email address
 
-      tab heading="Phone"
-        input type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
-        small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Phone number or email is required
+        #email-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'email'}}"
+          label.show-for-sr for="email" Email
+          input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
+          small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Email or phone number is required
 
-    label.c-black.text-normal.margin-top-2
+      tab select="setContactType('phone')"
+        tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'phone'}}" controls="phone-tab" Phone
+
+        #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
+          label.show-for-sr for="phone" Phone
+          input#phone.radius type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
+          small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Phone number or email is required
+
+    label.large.c-black.text-normal.margin-top-1 for="zip-code"
       | Home zip code
-      small.optional OPTIONAL
+      em
+        small.optional Optional
     .row
       .columns.large-5
-        input placeholder=("5 digit zip code") type="text"
-    label.c-black.text-normal.margin-top-2 Reasons for considering child care
-    ul.no-bullet.margin-bottom-none
-      li
-        select
-          option value="employment"  Employment
-          option value="option2"  Option 2
-          option value="option3"  Option 3
-    a href="#"
-      small Add another
-    label.c-black.text-normal.margin-top-2
-      | How did you hear about us?
-      small.optional OPTIONAL
-    select
-      option value="select"  Select..
-      option value="option2"  Option 2
-      option value="option3"  Option 3
+        input#zip-code.radius type="text" placeholder="5 digit zip code"
 
-  section.margin-top-3
-    input#agreement name="agreement" type="checkbox"
-    label.c-black for="agreement"
-      strong I agree to the following:
-    p
+    h6.c-black.text-normal.margin-top-2 Reasons for considering child care
+
+    .repeater-container ng-repeat="care_reason in parent.care_reason_ids track by $index"
+      label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
+      select.radius id="care-reason-{{$index + 1}}" name="care-reason-{{$index + 1}}" ng-model="parent.care_reason_ids[$index]" ng-options="care_reason.id as care_reason.name for care_reason in data.care_reasons_array track by care_reason.id"
+        option [value="" disabled] Select Care Reason
+
+      button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.care_reason_ids, $index)" Remove
+
+    button.inline type="button" aria-label="Add another care reason" ng-show="hasFinalValue(parent.care_reason_ids) && parent.care_reason_ids.length < 3" ng-click="addItem(parent.care_reason_ids)" Add another
+
+    label.large.c-black.text-normal.margin-top-2 for="found-option"
+      | How did you hear about us?
+      em
+        small.optional Optional
+
+    .repeater-container
+      select#found-option.radius name="found-option" ng-model="parent.found_option_id" ng-options="found_option.id as found_option.name for found_option in data.found_options_array track by found_option.id"
+        option value="" Select
+
+  section.margin-top-2
+    .checkbox.checkbox-single
+      input#agreement name="agreement" type="checkbox" value="1"
+      label.c-black for="agreement"
+        strong I agree to the following:
+    p.padding-left-2
       small
         | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
         a href="#"  Read our referral policies and disclaimers.
 
-  section.margin-top-1
-    input#subscribe name="subscribe" type="checkbox"
-    label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
+    .checkbox.checkbox-single
+      input#subscribe name="subscribe" type="checkbox" value="1"
+      label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
-  section.margin-top-1.margin-bottom-5
-    input.large.round.button.text-uppercase type="submit" value="Search"
+    input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Search"

@@ -1,6 +1,7 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
   $scope.settings = SearchService.settings
+  $scope.settings.contact_type = ''
 
   validateForm = () ->
     # for field_name, field_obj of $scope.parent
@@ -23,6 +24,9 @@ SearchController = ($scope, $state, SearchService) ->
 
   $scope.setLocationType = (type) ->
     $scope.settings.location_type = type
+
+  $scope.setContactType = (type) ->
+    $scope.settings.contact_type = type
 
 SearchController.$inject = ['$scope', '$state', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)
