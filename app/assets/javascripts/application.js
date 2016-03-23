@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require lodash/lodash
 //= require angular
+//= require angular-aria/angular-aria.js
 //= require angular-simple-logger
 //= require angular-google-maps
 //= require angular-ui-router

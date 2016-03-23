@@ -2,7 +2,7 @@
   "name": "childrens-council",
   "private": true,
   "dependencies": {
-    "angular": "~1.4.9",
+    "angular": "~1.5.2",
     "angular-ui-router": "~0.2.15",
     "foundation": "~5.5.3",
     "angular-mocks": "~1.4.8",
@@ -14,9 +14,11 @@
     "deep-filter": "^1.0.1",
     "ui-select": "angular-ui-select#^0.14.9",
     "angular-ui-slider": "^0.2.1",
-    "jquery-ui": "jqueryui#^1.11.4"
+    "jquery-ui": "jqueryui#^1.11.4",
+    "angular-aria": "^1.5.2"
   },
   "resolutions": {
-    "jquery-ui": "1.11.4"
+    "jquery-ui": "1.11.4",
+    "angular": "1.2 - 1.5"
   }
 }

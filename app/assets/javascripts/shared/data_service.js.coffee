@@ -1,12 +1,12 @@
 DataService = ($rootScope, HttpService) ->
   @data = {
-    totalProviders: 0,
-    providersPerPage: 25,
-    providers: [],
+    totalProviders: 0
+    providersPerPage: 25
+    providers: []
   }
 
   @settings = {
-    location_type: 'near_address'
+    location_type: ''
   }
 
   @parent = {
@@ -19,7 +19,8 @@ DataService = ($rootScope, HttpService) ->
     zip_code_ids: ['']
     care_reason_ids: ['']
     found_option_id: 0
-    language_ids: [''],
+    language_ids: ['']
+    subscribe: 0
     children: [
       {
         age_months: 30,
@@ -53,16 +54,16 @@ DataService = ($rootScope, HttpService) ->
 
   @queryParams = ->
     @cleanEmptyParams {
-      page: @current_page,
-      per_page: @data.providersPerPage,
-      providers: @getSearchParams(),
-      parent: @parent,
+      page: @current_page
+      per_page: @data.providersPerPage
+      providers: @getSearchParams()
+      parent: @parent
     }
 
   @httpParams = ->
     {
-      method: 'POST',
-      url: '/api/providers',
+      method: 'POST'
+      url: '/api/providers'
       data: @queryParams()
     }
 
@@ -76,7 +77,7 @@ DataService = ($rootScope, HttpService) ->
       callback() if callback
 
   @serverRequest = (callback) ->
-    HttpService.http( @httpParams(), callback )
+    HttpService.http @httpParams(), callback
 
   @resetData = ->
     @data.providers = []

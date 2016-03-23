@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323220141) do
+ActiveRecord::Schema.define(version: 20160323233043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20160323220141) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "children_schedules_day", ["child_id", "schedule_day_id"], name: "index_children_schedule_day_on_child_id_and_schedule_day_id", using: :btree
-  add_index "children_schedules_day", ["schedule_day_id", "child_id"], name: "index_children_schedule_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
+  add_index "children_schedules_day", ["child_id", "schedule_day_id"], name: "index_children_schedules_day_on_child_id_and_schedule_day_id", using: :btree
+  add_index "children_schedules_day", ["schedule_day_id", "child_id"], name: "index_children_schedules_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
@@ -382,43 +382,6 @@ ActiveRecord::Schema.define(version: 20160323220141) do
     t.string "zip", limit: 5, null: false
   end
 
-  add_foreign_key "care_reasons_parents", "care_reasons"
-  add_foreign_key "care_reasons_parents", "parents"
-  add_foreign_key "care_types_children", "care_types"
-  add_foreign_key "care_types_children", "children"
   add_foreign_key "children", "parents"
-  add_foreign_key "children", "schedules_year", column: "schedule_year_id"
-  add_foreign_key "children_schedule_week", "children"
-  add_foreign_key "children_schedule_week", "schedules_week", column: "schedule_week_id"
-  add_foreign_key "children_schedules_day", "children"
-  add_foreign_key "children_schedules_day", "schedules_day", column: "schedule_day_id"
-  add_foreign_key "languages_providers", "languages"
-  add_foreign_key "languages_providers", "providers"
-  add_foreign_key "meals", "meal_types"
-  add_foreign_key "meals", "providers"
-  add_foreign_key "neighborhoods_parents", "neighborhoods"
-  add_foreign_key "neighborhoods_parents", "parents"
-  add_foreign_key "parents", "found_options"
-  add_foreign_key "parents_zip_codes", "parents"
-  add_foreign_key "parents_zip_codes", "zip_codes"
-  add_foreign_key "programs", "program_types"
-  add_foreign_key "programs_providers", "programs"
-  add_foreign_key "programs_providers", "providers"
-  add_foreign_key "providers", "cities"
-  add_foreign_key "providers", "cities", column: "mail_city_id"
-  add_foreign_key "providers", "languages", column: "preferred_language_id"
-  add_foreign_key "providers", "meal_sponsors"
-  add_foreign_key "providers", "neighborhoods"
-  add_foreign_key "providers", "schedules_year", column: "schedule_year_id"
-  add_foreign_key "providers", "states"
-  add_foreign_key "providers", "states", column: "mail_state_id"
-  add_foreign_key "providers", "zip_codes"
-  add_foreign_key "providers_schedule_week", "schedules_week", column: "schedule_week_id"
-  add_foreign_key "providers_subsidies", "providers"
-  add_foreign_key "providers_subsidies", "subsidies"
-  add_foreign_key "rates", "providers"
   add_foreign_key "referral_logs", "parents"
-  add_foreign_key "schedule_hours", "schedules_day", column: "schedule_day_id"
-  add_foreign_key "statuses", "providers"
-  add_foreign_key "statuses", "status_reasons"
 end
