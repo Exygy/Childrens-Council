@@ -14,6 +14,18 @@ ProviderService = (HttpService) ->
         # // when the response is available
         that.provider = response.data.provider
     )
+
+  @providerMap = (provider) ->
+    center:
+      latitude: provider.latitude,
+      longitude: provider.longitude
+    ,
+    zoom: 16,
+    options:
+      scrollwheel: false
+      streetViewControl: false
+      mapTypeControl: false
+
   @
 
 ProviderService.$inject = ['HttpService']

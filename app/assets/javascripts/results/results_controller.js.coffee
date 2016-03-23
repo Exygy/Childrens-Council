@@ -1,4 +1,4 @@
-ResultsController = ($scope, $location, $state, ResultsService) ->
+ResultsController = ($scope, $location, $state, ResultsService, ProviderService) ->
   $scope.data = ResultsService.data
 
   $scope.nextPage = ->
@@ -25,16 +25,7 @@ ResultsController = ($scope, $location, $state, ResultsService) ->
     if provider.map
       delete provider.map
     else
-      provider.map =
-        center:
-          latitude: provider.latitude,
-          longitude: provider.longitude
-        ,
-        zoom: 16,
-        options:
-          scrollwheel: false
-          streetViewControl: false
-          mapTypeControl: false
+      provider.map = ProviderService.providerMap(provider)
 
   # View toggler
   $scope.view_mode = { list: true, map: false }
@@ -42,5 +33,5 @@ ResultsController = ($scope, $location, $state, ResultsService) ->
     $scope.view_mode.map = !$scope.view_mode.map
     $scope.view_mode.list = !$scope.view_mode.list
 
-ResultsController.$inject = ['$scope', '$location', '$state', 'ResultsService']
+ResultsController.$inject = ['$scope', '$location', '$state', 'ResultsService', 'ProviderService']
 angular.module('CCR').controller('ResultsController', ResultsController)

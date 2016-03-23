@@ -54,7 +54,7 @@ section.content.row.margin-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-globe
             span.label-gray.lighter Website
-            a href="{{ provider.url }}" target="_blank" {{ provider.url }}
+            a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
         .columns.medium-6.small-12
           .side-col-container.results-item
             .side-col
@@ -69,13 +69,13 @@ section.content.row.margin-bottom-5.new-page
               i.fa.fa-normal.fa-phone-square
             span.label-gray.lighter Phone
             span
-              ' {{ provider.phone }}
+              ' {{ provider.phone | formatPhoneNumber }}
         .columns.medium-6.small-12
           .side-col-container.results-item
             .side-col
               i.fa.fa-normal.fa-user
             span.label-gray.lighter Owner
-            a href="#"  TODO: Jeniffer L.
+            a href="#" TODO: Jeniffer L.
       hr
       .row
         .columns.medium-6.small-12
@@ -83,8 +83,8 @@ section.content.row.margin-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-heart
             span.label-gray.lighter
-              | Care Approach
-              a href="#"  Learn more
+              ' Care Approach
+              a href="#" Learn more
             span Montessori
         .columns.medium-6.small-12
           .side-col-container.results-item
@@ -119,10 +119,11 @@ section.content.row.margin-bottom-5.new-page
             .side-col
               i.fa.fa-normal.fa-building
             span.label-gray.lighter Child care provider type
-            span Child care center
+            span
+              ' {{ provider.care_type_id | careTypeIdToName }}
       hr
     h3#location.text-capitalize.margin-top-3.margin-bottom-1 Location
-    div
+    .single_provider_map
       span.label-gray.lighter
         ' {{ provider.neighborhood_id|neighborhoodIdToName }}
       span
@@ -132,9 +133,13 @@ section.content.row.margin-bottom-5.new-page
         '  {{ provider.state_id|stateIdToAbbr }}
         ' {{ provider.zip_code_id|zipCodeIdToName }}
 
-      .map.margin-top-2
+    .map.margin-top-2
+      ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options'
+      ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+
     h3#hours_of_operation.text-capitalize.margin-top-3.margin-bottom-1 Hours of Operation
     table.table-centered.table-hours
+
       thead
         tr
           th ng-repeat="schedule_hour in provider.schedule_hours track by $index"
@@ -165,24 +170,23 @@ section.content.row.margin-bottom-5.new-page
         tr  ng-repeat="license in provider.licenses track by $index"
           td
             a href="#"
-              ' #
-              | {{license.number}}
+              |#
+              |{{license.number}}
           td
-            span TODO: Infant: 0yr - 1yr
+            span TODO: Infant: {{license.age_from_year}}.{{license.age_from_month}}yr - {{license.age_to_year}}.{{license.age_to_month}}yr
           td
             span
               ' {{license.capacity}}
 
     h3#language_options.text-capitalize.margin-top-3.margin-bottom-1 Language Options
 
-
     span.label-gray.lighter
-      | Language Immersion Programs
+      ' Language Immersion Programs
       i.fa.fa-info-circle
     p Chinse, Spanish.
-    hr/
+    hr
     span.label-gray.lighter
-      | Language Spoken
+      ' Language Spoken
       i.fa.fa-info-circle
     p Chinese, Spanish, Russian
 

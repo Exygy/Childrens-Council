@@ -23,7 +23,10 @@ SearchController = ($scope, $state, SearchService) ->
     collection = collection.splice(index, 1)
 
   $scope.hasFinalValue = (collection) ->
-    collection[collection.length - 1] != ''
+    if collection
+      collection[collection.length - 1] != ''
+    else
+      false
 
   $scope.setLocationType = (type) ->
     $scope.settings.location_type = type
