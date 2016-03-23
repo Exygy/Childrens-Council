@@ -18,8 +18,9 @@ DataService = ($rootScope, HttpService) ->
     neighborhood_ids: ['']
     zip_code_ids: ['']
     care_reason_ids: ['']
-    found_option_id: null
+    found_option_id: 0
     language_ids: ['']
+    subscribe: 0
     children: [
       {
         age: 30

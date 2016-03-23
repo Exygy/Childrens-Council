@@ -7,7 +7,7 @@ p.c-base
     a href="#" contact us via this quick form
     ' . A member of our Inclusion team will follow up to help.
 
-form name="searchForm" ng-submit="submitSearch()" novalidate=""
+form [name="searchForm" ng-submit="submitSearch()" novalidate]
   section.margin-top-2
     h5#age-label.c-black Child's age ( when care will be needed )
 
@@ -31,7 +31,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         #address-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'near_address'}}"
           .medium-6.columns
             label.show-for-sr for="near-address" Search by distance from an address in San Francisco
-            input#near-address.radius type="text" placeholder="Enter any address in San Francisco" name="near-address" ng-model="parent.near_address"
+            input#near-address.radius type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="parent.near_address"
 
       tab select="setLocationType('zip_code_ids')"
         tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'zip_code_ids'}}" controls="zip-code-tab" By zip code
@@ -56,7 +56,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
           .medium-7.columns
             .repeater-container ng-repeat="neighborhood in parent.neighborhood_ids track by $index"
               label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
-              select.radius id="neighborhood-{{$index + 1}}" name="neighborhood-{{$index + 1}}" ng-model="parent.neighborhood_ids[$index]" ng-options="neighborhood.id as neighborhood.name for neighborhood in data.neighborhoods_array track by neighborhood.id"
+              select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="parent.neighborhood_ids[$index]" ng-options="neighborhood.id as neighborhood.name for neighborhood in data.neighborhoods_array track by neighborhood.id"
 
                 option value="" Select Neighborhood
 
@@ -65,19 +65,27 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
             button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(parent.neighborhood_ids) && parent.neighborhood_ids.length < 3" ng-click="addItem(parent.neighborhood_ids)" Add another
 
   section.margin-top-1.margin-bottom-3
-    h5.c-black Child care provider type
+    h5.c-black ng-class="{ error: searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid }" Child care provider type
 
-    a href="#"  What are the differences?
-    .row.margin-top-1
-      .columns.large-6.medium-12
-        .checkbox.checkbox-button
-          input type="checkbox" id="care-type-1" name="care_type_ids[]" checklist-value="1" checklist-model="parent.children[0].care_type_ids"
+    .margin-bottom-1
+      a href="#"  What are the differences?
+
+    .row
+      .columns.small-12 ng-show="searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid"
+        small.error
+          span.fa.fa-exclamation-circle
+          |  Select at least 1 type of provider
+
+      .columns.medium-6
+        .checkbox.checkbox-single.checkbox-button
+          input type="checkbox" id="care-type-1" name="care_type_ids" checklist-value="1" checklist-model="parent.children[0].care_type_ids" ng-required="parent.children[0].care_type_ids.length < 1"
           label for="care-type-1"
             span.fa.fa-home
             | Family Child Care
-      .columns.large-6.medium-12
-        .checkbox.checkbox-button
-          input type="checkbox" id="care-type-2" name="care_type_ids[]" checklist-value="2" checklist-model="parent.children[0].care_type_ids"
+
+      .columns.medium-6
+        .checkbox.checkbox-single.checkbox-button
+          input type="checkbox" id="care-type-2" name="care_type_ids" checklist-value="2" checklist-model="parent.children[0].care_type_ids" ng-required="parent.children[0].care_type_ids.length < 1"
           label for="care-type-2"
             span.fa.fa-building-o
             | Child Care Center
@@ -115,7 +123,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_open_weeks}}"
           span ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
             .checkbox.checkbox-week.checkbox-left
-              input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule-week-{{schedule_week.name}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
+              input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule_week_{{schedule_week.name | attribute}}" checklist-value="schedule_week.id" checklist-model="parent.children[0].schedule_week_ids"
               label for="schedule-week-{{schedule_week.name | attribute}}"
                 | {{schedule_week.name}}
             div.clearfix ng-if="$index + 1 % 3 == 0"
@@ -132,7 +140,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         #day-schedule-panel.clearfix role="tabpanel" aria-labelledby="day-schedule-heading" aria-hidden="{{!is_open_days}}"
           span ng-repeat="schedule_day in (data.schedule_days_array | sortDays) track by schedule_day.id"
             .checkbox.checkbox-day.checkbox-left
-              input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule-day-{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
+              input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule_day_{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="parent.children[0].schedule_day_ids"
               label for="schedule-day-{{schedule_day.name | attribute}}"
                 | {{schedule_day.name | abbreviateDay}}
             div.clearfix ng-if="$index == 4"
@@ -141,30 +149,39 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
     h5.c-black.margin-bottom-none About you
     a href="#"
       small Why are we asking for your information?
-    label.large.c-black.text-normal.margin-top-2
-      ' Your name
-      input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name" ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
-      small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)" Invalid entry
+    label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
+      | Your name
+      input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name"
+      small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
+        span.fa.fa-exclamation-circle
+        |  Select at least 1 type of provider
 
 
-    h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid || searchForm.email.$invalid) }"
+    h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
       | Email address <em>or</em> phone
+
     tabset.tabs-inline role="tablist"
       tab select="setContactType('email')"
         tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'email'}}" controls="email-tab" Email address
 
         #email-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'email'}}"
           label.show-for-sr for="email" Email
-          input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="(searchForm.email.$dirty && parentFieldModeEmail)"
-          small.error ng-show="parentFieldModeEmail && searchForm.email.$invalid" Email or phone number is required
+          input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="parent.phone === ''"
+          small.error ng-show="searchForm.email.$dirty && searchForm.email.$invalid"
+            span.fa.fa-exclamation-circle
+            | Email or phone number is required
 
       tab select="setContactType('phone')"
         tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'phone'}}" controls="phone-tab" Phone
 
         #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
           label.show-for-sr for="phone" Phone
-          input#phone.radius type="text" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="(searchForm.phone.$dirty && !parentFieldModeEmail)"
-          small.error ng-show="!parentFieldModeEmail && searchForm.phone.$invalid" Phone number or email is required
+
+          input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid"
+
+          small.error ng-show="searchForm.phone.$dirty && searchForm.phone.$invalid"
+            span.fa.fa-exclamation-circle
+            | Phone number or email is required
 
     label.large.c-black.text-normal.margin-top-1 for="zip-code"
       | Home zip code
@@ -174,16 +191,20 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
       .columns.large-5
         input#zip-code.radius type="text" placeholder="5 digit zip code"
 
-    h6.c-black.text-normal.margin-top-2 Reasons for considering child care
+    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.care_reason_ids.length < 1 || parent.care_reason_ids[0] == '') }" Reasons for considering child care
 
     .repeater-container ng-repeat="care_reason in parent.care_reason_ids track by $index"
       label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
-      select.radius id="care-reason-{{$index + 1}}" name="care-reason-{{$index + 1}}" ng-model="parent.care_reason_ids[$index]" ng-options="care_reason.id as care_reason.name for care_reason in data.care_reasons_array track by care_reason.id"
+      select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.care_reason_ids[$index]" ng-options="care_reason.id as care_reason.name for care_reason in data.care_reasons_array track by care_reason.id"
         option [value="" disabled] Select Care Reason
 
       button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.care_reason_ids, $index)" Remove
 
     button.inline type="button" aria-label="Add another care reason" ng-show="hasFinalValue(parent.care_reason_ids) && parent.care_reason_ids.length < 3" ng-click="addItem(parent.care_reason_ids)" Add another
+
+    small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reason_ids.length < 1 || parent.care_reason_ids[0] == '')"
+      span.fa.fa-exclamation-circle
+      | Selecting a care reason is required
 
     label.large.c-black.text-normal.margin-top-2 for="found-option"
       | How did you hear about us?
@@ -191,13 +212,17 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         small.optional Optional
 
     .repeater-container
-      select#found-option.radius name="found-option" ng-model="parent.found_option_id" ng-options="found_option.id as found_option.name for found_option in data.found_options_array track by found_option.id"
+      select#found-option.radius name="found_option" ng-model="parent.found_option_id" ng-options="found_option.id as found_option.name for found_option in data.found_options_array track by found_option.id"
         option value="" Select
 
   section.margin-top-2
+    small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
+      span.fa.fa-exclamation-circle
+      | You must agree to the terms of service to continue
+
     .checkbox.checkbox-single
-      input#agreement name="agreement" type="checkbox" value="1"
-      label.c-black for="agreement"
+      input#agree [name="agree" type="checkbox" ng-model="agree" ng-true-value="true" ng-false-value="false" required]
+      label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
         strong I agree to the following:
     p.padding-left-2
       small
@@ -205,7 +230,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         a href="#"  Read our referral policies and disclaimers.
 
     .checkbox.checkbox-single
-      input#subscribe name="subscribe" type="checkbox" value="1"
+      input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"
       label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
     input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Search"
