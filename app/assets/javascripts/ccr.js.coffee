@@ -1,5 +1,6 @@
 angular.module 'CCR', [
     'templates',
+    'ngAria',
     'ui.router',
     'uiGmapgoogle-maps',
     'ngCookies',
