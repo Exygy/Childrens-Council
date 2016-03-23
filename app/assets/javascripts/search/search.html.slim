@@ -11,9 +11,9 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
   section.row.vert-offset-top-2
     .columns.large-8.medium-12
       label.title-label Child's age ( when care will be needed )
-      div [ui-slider min="0" max="60" ng-model="parent.children[0].age" use-decimals]
+      div [ui-slider min="0" max="60" ng-model="parent.children[0].age_months" use-decimals]
       span
-        | {{parent.children[0].age | ageToYearsAndMonths}}
+        | {{parent.children[0].age_months | ageToYearsAndMonths}}
 
   section.row.vert-offset-top-2
     .columns.large-8.medium-12
@@ -88,7 +88,7 @@ form name="searchForm" ng-submit="submitSearch()" novalidate=""
         small.optional OPTIONAL
       .row
         .columns.large-5
-          input placeholder="5 digit zip code" type="text" ng-model="parent.zip_code" ng-required="false"
+          input placeholder="5 digit zip code" type="text" ng-model="parent.home_zip_code" ng-required="false"
       label.title-label.text-normal.vert-offset-top-2 Reasons for considering child care
       ul.no-bullet.vert-offset-bottom-0
         li

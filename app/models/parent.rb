@@ -14,6 +14,8 @@
 #  home_zip_code   :string(5)
 #  api_key         :string
 #  full_name       :string
+#  random_seed     :float
+#  near_address    :string
 #
 # Indexes
 #
@@ -29,9 +31,11 @@ class Parent < ActiveRecord::Base
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
   has_and_belongs_to_many :care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
+  has_many :children
   has_and_belongs_to_many :neighborhoods
   has_and_belongs_to_many :zip_codes
   before_create :set_api_key
+  before_create :set_random_seed
 
   has_paper_trail
 
@@ -46,7 +50,17 @@ class Parent < ActiveRecord::Base
     self[:last_name] = full_name_array[1] if full_name_array.length > 1
   end
 
+  private
+
   def set_api_key
     self.api_key = Devise.friendly_token.first(20)
+  end
+
+  def set_random_seed
+    self.random_seed = random_from_range(-1, 1)
+  end
+
+  def random_from_range (min, max)
+    rand * (max-min) + min
   end
 end

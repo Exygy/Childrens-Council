@@ -6,11 +6,12 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  schedule_year_id :integer
-#  age_year         :integer          not null
-#  age_month        :integer          not null
+#  age_months       :integer          not null
+#  parent_id        :integer
 #
 # Indexes
 #
+#  index_children_on_parent_id         (parent_id)
 #  index_children_on_schedule_year_id  (schedule_year_id)
 #
 

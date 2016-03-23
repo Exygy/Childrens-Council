@@ -14,6 +14,8 @@
 #  home_zip_code   :string(5)
 #  api_key         :string
 #  full_name       :string
+#  random_seed     :float
+#  near_address    :string
 #
 # Indexes
 #

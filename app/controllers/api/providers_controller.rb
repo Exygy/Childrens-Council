@@ -22,10 +22,10 @@ module Api
       # meals_included: true - many to many but mainly is there any entry
 
       provider_count = providers.size
-      Provider.connection.execute "SELECT setseed(0.67)"
+      Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
       render json: {
         total: provider_count,
-        providers: providers.select('random()').order('random()').page(params[:page]).per(params[:per_page]),
+        providers: providers.select(['*', 'random()']).order('random()').page(params[:page]).per(params[:per_page]),
       }, status: 200
     end
 

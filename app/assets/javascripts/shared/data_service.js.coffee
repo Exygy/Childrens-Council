@@ -13,19 +13,19 @@ DataService = ($rootScope, HttpService) ->
     full_name: ''
     email: ''
     phone: ''
-    zip_code: ''
+    home_zip_code: ''
     near_address: ''
     neighborhood_ids: ['']
     zip_code_ids: ['']
     care_reason_ids: ['']
-    found_option: 0
+    found_option_id: 0
     language_ids: [''],
     children: [
       {
-        age: 30
-        care_type_ids: []
-        schedule_day_ids: [2, 3, 4, 5, 6] # Default to weekdays
-        schedule_week_ids: [1] # Default to Full Time
+        age_months: 30,
+        care_type_attributes: []
+        children_schedule_days_attributes: [ {schedule_day_id: 2}, {schedule_day_id: 3}, {schedule_day_id: 4}, {schedule_day_id: 5}, {schedule_day_id: 6} ] # Default to weekdays
+        schedule_week_attributes: [] # Default to Full Time
         schedule_year_id: 1 # Default to Year Round
       }
     ]
@@ -35,11 +35,11 @@ DataService = ($rootScope, HttpService) ->
 
   @getSearchParams = ->
     search_params = {
-      ages: [@parent.children[0].age],
-      care_type_ids: @parent.children[0].care_type_ids,
+      ages: [@parent.children[0].age_months],
+      # care_type_ids: @parent.children[0].care_type_attributes,
       language_ids: @parent.language_ids
-      schedule_day_ids: @parent.children[0].schedule_day_ids
-      schedule_week_ids: @parent.children[0].schedule_week_ids
+      schedule_day_ids: @parent.children[0].children_schedule_days_attributes
+      # schedule_week_ids: @parent.children[0].schedule_week_attributes
       schedule_year_ids: [@parent.children[0].schedule_year_id]
     }
     search_params[@settings.location_type] = @parent[@settings.location_type]

@@ -24,13 +24,32 @@ module Api
 
     def find_or_create_parent
       result = Parent.where(valid_parent_params).first_or_create do |record|
-        parent_params.keys.each do |key|
+        available_attributes = Parent.new.attributes.keys & valid_parent_params.keys.map(&:to_s)
+        available_attributes.each do |key|
           param = send("parent_param_#{key}")
           record[key.to_sym] = param if param
         end
       end
       result.full_name = parent_param_full_name if parent_param_full_name
       result.save() # will not trigger a second SQL query unless full_name has changed
+
+      # save relation objects
+      valid_association_attributes = Parent.reflect_on_all_associations().collect(&:name).map(&:to_s) & parent_params.keys
+      valid_association_attributes.each do |key|
+        params = send("parent_param_#{key}")
+        klass = key.capitalize.singularize.constantize
+        if params.is_a?(Array)
+          params.each do |param|
+            obj = klass.create(param)
+
+            puts obj.inspect
+            puts obj.errors.inspect
+
+            result.send(key) << obj
+          end
+        end
+      end
+
       result
     end
 
@@ -54,7 +73,28 @@ module Api
     end
 
     def parent_params
-      params.include?(:parent) ? params[:parent] : {}
+      if params.include?(:parent)
+        params.require(:parent).permit(
+          :first_name,
+          :last_name,
+          :email,
+          :phone,
+          :near_address,
+          :found_option_id,
+          :address,
+          :home_zip_code,
+          :api_key,
+          :full_name,
+          :children => [
+            :age_months,
+            :schedule_year_id,
+            :children_schedule_days_attributes => [
+              :schedule_day_id
+            ]
+          ])
+      else
+        {}
+      end
     end
 
     def parent_param_phone
