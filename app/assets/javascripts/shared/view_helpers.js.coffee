@@ -123,8 +123,9 @@ AgeToYearsAndMonths = () ->
   (age_in_months) ->
     years = Math.floor age_in_months / 12
     months = age_in_months % 12
-    age_text = "#{years} yrs"
-    age_text += " #{months} mon" if months
+    age_text = ''
+    age_text += "#{years} yrs " if years
+    age_text += "#{months} mon" if months
     age_text
 angular.module('CCR').filter('ageToYearsAndMonths', AgeToYearsAndMonths)
 
