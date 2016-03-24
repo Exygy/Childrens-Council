@@ -68,7 +68,9 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
     h5.c-black ng-class="{ error: searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid }" Child care provider type
 
     .margin-bottom-1
-      a href="#"  What are the differences?
+      a href="#" ng-click="settings.show_care_type_differences = !settings.show_care_type_differences"
+        span ng-hide="settings.show_care_type_differences" What are the differences?
+        span ng-show="settings.show_care_type_differences" Hide the differences
 
     .row
       .columns.small-12 ng-show="searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid"
@@ -83,12 +85,18 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
             span.fa.fa-home
             | Family Child Care
 
+        p.margin-left-small.margin-right-small.fade ng-show="settings.show_care_type_differences"
+          small Typically takes place in a childcare provider's home and is required to complete CPR, First Aid, and Health and Safety Classes. All adults living in the home must be fingerprinted.
+
       .columns.medium-6
         .checkbox.checkbox-single.checkbox-button
           input type="checkbox" id="care-type-2" name="care_type_ids" checklist-value="2" checklist-model="filters.care_type_ids" ng-required="filters.care_type_ids.length < 1"
           label for="care-type-2"
             span.fa.fa-building-o
             | Child Care Center
+
+        p.margin-left-small.margin-right-small.fade ng-show="settings.show_care_type_differences"
+          small Typically takes place in a commercial building, school, or religious institution. All staff must complete Early Childhood Education and be fingerprinted.
 
   section.margin-top-2
     h5.c-black Schedule needs
@@ -147,8 +155,15 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
 
   section.margin-top-3.panel.radius
     h5.c-black.margin-bottom-none About you
-    a href="#"
+
+    a href="#" ng-click="settings.show_why_asking = !settings.show_why_asking"
       small Why are we asking for your information?
+
+    p.fade ng-show="settings.show_why_asking"
+      small
+        | Children's Council of San Francisco is a nonprofit organization that collects and reports anonymous statistics in order to provide better service and fulfill funding requirements. Be assured that your personal information below will remain private.
+        a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
+
     label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
       | Your name
       input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name"
@@ -221,13 +236,13 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
       | You must agree to the terms of service to continue
 
     .checkbox.checkbox-single
-      input#agree [name="agree" type="checkbox" ng-model="agree" ng-true-value="true" ng-false-value="false" required]
+      input#agree [name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required]
       label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
         strong I agree to the following:
     p.padding-left-2
       small
         | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
-        a href="#"  Read our referral policies and disclaimers.
+        a href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Childrens-Council-databse-policy-English.pdf" target="_blank"  Read our referral policies and disclaimers.
 
     .checkbox.checkbox-single
       input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"

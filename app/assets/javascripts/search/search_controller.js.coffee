@@ -3,7 +3,8 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
-  $scope.agree = false
+  $scope.settings.show_care_type_differences = false
+  $scope.settings.show_why_asking = false
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm

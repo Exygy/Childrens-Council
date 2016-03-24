@@ -16,6 +16,7 @@
 //= require lodash/lodash
 //= require angular
 //= require angular-aria/angular-aria.js
+//= require angular-animate/angular-animate.js
 //= require angular-simple-logger
 //= require angular-google-maps
 //= require angular-ui-router
