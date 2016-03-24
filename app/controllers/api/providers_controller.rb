@@ -3,7 +3,7 @@ module Api
     def index
       # Include associated provider models where we need information for display in the results list
       # (prevents individual join queries for each provider)
-      providers = Provider.preload(:licenses, :schedule_hours, :subsidies)
+      providers = Provider
       providers = providers.search_by_zip_code_ids(provider_param_zip_code_ids) if provider_param_zip_code_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
@@ -21,11 +21,17 @@ module Api
       # special_needs: [1,2,3] - foreign_key
       # meals_included: true - many to many but mainly is there any entry
 
-      provider_count = providers.size
-      Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
+      # randomize result order unless searching by near by address
+      unless provider_param_near_address
+        Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
+        providers = providers.eager_load(:licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
+      else
+        providers = providers.pre_load(:licenses, :schedule_hours, :subsidies)
+      end
+
       render json: {
-        total: provider_count,
-        providers: providers.select(['*', 'random()']).order('random()').page(params[:page]).per(params[:per_page]),
+        total: providers.size,
+        providers: providers.page(params[:page]).per(params[:per_page]),
       }, status: 200
     end
 
