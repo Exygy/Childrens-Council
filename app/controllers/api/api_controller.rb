@@ -83,6 +83,9 @@ module Api
           :api_key,
           :full_name,
           :subscribe,
+          parents_care_reasons_attributes: [
+            :care_reason_id
+          ],
           children: [
             :age_months,
             :schedule_year_id,

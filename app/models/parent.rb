@@ -30,8 +30,13 @@ class Parent < ActiveRecord::Base
   validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
   has_and_belongs_to_many :care_reasons
+  accepts_nested_attributes_for :parents_care_reasons
   belongs_to :found_option, foreign_key: :found_option_id
+
   has_many :children
+  accepts_nested_attributes_for :children
+
+
   has_and_belongs_to_many :neighborhoods
   has_and_belongs_to_many :zip_codes
   before_create :set_api_key

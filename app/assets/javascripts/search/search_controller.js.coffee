@@ -1,5 +1,6 @@
 SearchController = ($scope, $state, SearchService) ->
   $scope.parent = SearchService.parent
+  $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
   $scope.agree = false
