@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323233043) do
+ActiveRecord::Schema.define(version: 20160323220141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20160323233043) do
   add_index "children", ["parent_id"], name: "index_children_on_parent_id", using: :btree
   add_index "children", ["schedule_year_id"], name: "index_children_on_schedule_year_id", using: :btree
 
+  create_table "children_schedule_day", id: false, force: :cascade do |t|
+    t.integer  "schedule_day_id", null: false
+    t.integer  "child_id",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "children_schedule_day", ["child_id", "schedule_day_id"], name: "index_children_schedule_day_on_child_id_and_schedule_day_id", using: :btree
+  add_index "children_schedule_day", ["schedule_day_id", "child_id"], name: "index_children_schedule_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
+
   create_table "children_schedule_week", id: false, force: :cascade do |t|
     t.integer  "schedule_week_id", null: false
     t.integer  "child_id",         null: false
@@ -66,16 +76,6 @@ ActiveRecord::Schema.define(version: 20160323233043) do
 
   add_index "children_schedule_week", ["child_id", "schedule_week_id"], name: "index_children_schedules_week_on_c_id_and_sw_id", using: :btree
   add_index "children_schedule_week", ["schedule_week_id", "child_id"], name: "index_children_schedules_week_on_sw_id_and_c_id", unique: true, using: :btree
-
-  create_table "children_schedules_day", id: false, force: :cascade do |t|
-    t.integer  "schedule_day_id", null: false
-    t.integer  "child_id",        null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "children_schedules_day", ["child_id", "schedule_day_id"], name: "index_children_schedules_day_on_child_id_and_schedule_day_id", using: :btree
-  add_index "children_schedules_day", ["schedule_day_id", "child_id"], name: "index_children_schedules_day_on_schedule_day_id_and_child_id", unique: true, using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false

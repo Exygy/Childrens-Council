@@ -20,11 +20,9 @@ class Child < ActiveRecord::Base
 
   has_and_belongs_to_many :care_types
   has_and_belongs_to_many :schedule_week, join_table: 'children_schedule_week'
+  has_and_belongs_to_many :schedule_days, join_table: 'children_schedule_day'
 
-  has_many :children_schedule_days
-  has_and_belongs_to_many :schedule_days, through: :children_schedule_days
-
-  accepts_nested_attributes_for :children_schedule_days, :schedule_week, :care_types
+  accepts_nested_attributes_for :children_schedule_days, :children_schedule_week, :care_types
 
   belongs_to :schedule_year
   belongs_to :parent

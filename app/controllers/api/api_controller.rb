@@ -41,10 +41,6 @@ module Api
         if params.is_a?(Array)
           params.each do |param|
             obj = klass.create(param)
-
-            puts obj.inspect
-            puts obj.errors.inspect
-
             result.send(key) << obj
           end
         end
@@ -85,11 +81,15 @@ module Api
           :home_zip_code,
           :api_key,
           :full_name,
+          :subscribe,
           :children => [
             :age_months,
             :schedule_year_id,
             :children_schedule_days_attributes => [
               :schedule_day_id
+            ],
+            :children_schedule_week_attributes => [
+              :schedule_week_id
             ]
           ])
       else

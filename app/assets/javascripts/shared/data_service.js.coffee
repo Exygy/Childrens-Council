@@ -25,8 +25,16 @@ DataService = ($rootScope, HttpService) ->
       {
         age_months: 30,
         care_type_attributes: []
-        children_schedule_days_attributes: [ {schedule_day_id: 2}, {schedule_day_id: 3}, {schedule_day_id: 4}, {schedule_day_id: 5}, {schedule_day_id: 6} ] # Default to weekdays
-        schedule_week_attributes: [] # Default to Full Time
+        children_schedule_days_attributes: [
+            {schedule_day_id: 2},
+            {schedule_day_id: 3},
+            {schedule_day_id: 4},
+            {schedule_day_id: 5},
+            {schedule_day_id: 6}
+          ] # Default to weekdays
+        children_schedule_week_attributes: [
+            {schedule_week_id: 2}
+          ] # Default to Full Time
         schedule_year_id: 1 # Default to Year Round
       }
     ]
