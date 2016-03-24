@@ -39,6 +39,7 @@ module Api
         params = send("parent_param_#{key}")
         klass = key.capitalize.singularize.constantize
         if params.is_a?(Array)
+          result.send(key).destroy_all
           params.each do |param|
             obj = klass.create(param)
             result.send(key) << obj
@@ -82,14 +83,17 @@ module Api
           :api_key,
           :full_name,
           :subscribe,
-          :children => [
+          children: [
             :age_months,
             :schedule_year_id,
-            :children_schedule_days_attributes => [
+            children_schedule_days_attributes: [
               :schedule_day_id
             ],
-            :children_schedule_week_attributes => [
+            children_schedule_weeks_attributes: [
               :schedule_week_id
+            ],
+            children_care_types_attributes: [
+              :care_type_id
             ]
           ])
       else
