@@ -1,5 +1,7 @@
 ResultsController = ($scope, $location, $state, ResultsService, ProviderService) ->
   $scope.data = ResultsService.data
+  $scope.settings = ResultsService.settings
+  $scope.parent = ResultsService.parent
 
   $scope.nextPage = ->
     console.log "start loader animation"

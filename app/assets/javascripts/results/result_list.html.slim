@@ -1,11 +1,12 @@
 .row.c-base.margin-bottom-2
-  .large-6.medium-6.small-6.columns
+  .small-6.columns
     small
       span Sort by:
       span.margin-left-small
-        em Random
-        i.fa.fa-info-circle.margin-left-small
-  .large-6.medium-6.small-6.columns.text-right
+        em ng-hide="settings.location_type == 'near_address' && parent.near_address" Random
+        em ng-show="settings.location_type == 'near_address' && parent.near_address" Distance
+        span.fa.fa-info-circle.margin-left-small
+  .small-6.columns.text-right
     small
       | Showing
       strong
@@ -38,20 +39,26 @@ ul.no-bullet ng-repeat="provider in data.providers"
       span.item-detail
         span.fa.fa-phone-square.c-base
         '  {{ provider.phone | formatPhoneNumber }}
+
       span.item-detail
         span.fa.fa-clock-o.c-base
         '  {{ provider.schedule_hours | scheduleHoursToSummary }}
+
     p
-      a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
+      a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
         ' {{ provider.url }}
+
     p.margin-top-small
       ' {{ provider.description }}
+
     p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
+
     p.c-base
-      | Check history &amp; reports:
-      a.c-blue-soft href="#"  Lic #384001082
-      | &amp;
-      a.c-blue-soft href="#"  #294001291
+      | Check history / reports:
+      span ng-repeat="license in provider.licenses track by license.id"
+        a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"  Lic \#{{ license.number }}
+        span ng-if="$index < provider.licenses.length - 1"  &amp;
+
   hr.margin-top-2.margin-bottom-2
 
 ul.pager.button-group.radius.margin-bottom-3

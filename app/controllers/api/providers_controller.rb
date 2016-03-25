@@ -22,11 +22,11 @@ module Api
       # meals_included: true - many to many but mainly is there any entry
 
       # randomize result order unless searching by near by address
-      unless provider_param_near_address
-        Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
-        providers = providers.eager_load(:licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
+      if provider_param_near_address
+        # providers = providers.includes(:care_type, :licenses, :schedule_hours, :subsidies)
       else
-        providers = providers.pre_load(:licenses, :schedule_hours, :subsidies)
+        Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
+        providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
       end
 
       render json: {

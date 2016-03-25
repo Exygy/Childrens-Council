@@ -15,40 +15,38 @@ DataService = ($rootScope, HttpService) ->
     phone: ''
     home_zip_code: ''
     near_address: ''
-    neighborhood_ids: ['']
-    zip_code_ids: ['']
-    found_option_id: 0
-    language_ids: ['']
     agree: false
-    subscribe: 0
+    subscribe: false
     parents_care_reasons_attributes: ['']
+    parents_found_option_attributes: {}
     children: [
       {
-        age_months: null,
+        age_months: 30,
         children_care_types_attributes: []
         children_schedule_days_attributes: []
         children_schedule_weeks_attributes: []
-        schedule_year_id: null # Default to Year Round
+        schedule_year_id: null
       }
     ]
   }
 
   @filters = {
-    age_months: 30
-    care_reason_ids: ['']
     care_type_ids: []
+    language_ids: ['']
+    neighborhood_ids: ['']
     schedule_day_ids: [2,3,4,5,6] # Default to weekdays
     schedule_week_ids: [1] # Default to Full Time
-    schedule_year_id: [1]
+    schedule_year_id: 1 # Default to Year Round
+    zip_code_ids: ['']
   }
 
   @current_page = 1
 
   @getLocation = ->
     if @settings.location_type == 'near_address'
-      @parent.near_address + ', San Francisco, CA'
+      if @parent.near_address then @parent.near_address + ', San Francisco, CA' else null
     else
-      @parent[@settings.location_type]
+      @filters[@settings.location_type]
 
   @getParent = ->
     # build Parent obj
@@ -75,14 +73,19 @@ DataService = ($rootScope, HttpService) ->
 
 
   @getSearchParams = ->
-    search_params = @filters
+    search_params = {}
+    search_params.ages = [@parent.children[0].age_months]
+    search_params.language_ids = @filters.language_ids
+    search_params.schedule_day_ids = @filters.schedule_day_ids
+    search_params.schedule_week_ids = @filters.schedule_week_ids
+    search_params.schedule_year_ids = [@filters.schedule_year_id]
     search_params[@settings.location_type] = @getLocation()
     search_params
 
   @cleanEmptyParams = (params) ->
     deepFilter params, (value, key) ->
-      # Filter out empty strings and arrays
-      if (value and value.length <= 0) or value[0] == '' then false else true
+      # Filter out empty values and arrays
+      if !value or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
 
   @queryParams = ->
     @cleanEmptyParams {

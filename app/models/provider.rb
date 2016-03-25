@@ -92,8 +92,8 @@ class Provider < ActiveRecord::Base
   after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
   before_save :calculate_ages
 
-  def as_json(options={})
-    super(include: :schedule_hours)
+  def as_json(options = {})
+    super(include: [:licenses, :schedule_hours])
   end
 
   def facility?
@@ -105,7 +105,7 @@ class Provider < ActiveRecord::Base
       super
     else
       # Get last name and first initial only for family care providers
-      self[:name][/.+,\s*\w{1}/] + '.'
+      self[:name].present? ? self[:name][/.+,\s*\w{1}/] + '.' : self[:name]
     end
   end
 

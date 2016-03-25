@@ -1,47 +1,49 @@
 nav.section-nav ng-controller="ResultFilterController"
   h2 Filters
 
+  a.right href="#" Edit
+
   ul
     li
       b Desired locations
       p ng-if="filters[settings.location_type]" {{ filters[settings.location_type] }}
       p ng-if="!filters[settings.location_type]" ANY
-    li
-      b Costs ($ per month)
+    / li
+    /   b Costs ($ per month)
 
-    li
-      b Financial Assistance
+    / li
+    /   b Financial Assistance
 
-    li
-      b Care Approach
-      ul.children ng-if="filters.care_type_ids.length"
-        li ng-repeat="care_type_id in filters.care_type_ids"
-          ' {{ care_type_id | careTypeIdToName }}
-      p ng-if="!filters.care_type_ids.length" Any
+    / li
+    /   b Care Approach
+    /   ul.children ng-if="filters.care_type_ids.length"
+    /     li ng-repeat="care_type_id in filters.care_type_ids"
+    /       ' {{ care_type_id | careTypeIdToName }}
+    /   p ng-if="!filters.care_type_ids.length" Any
 
-    li
-      b Language Program
-      ul.children ng-if="filters.language_ids.length"
-        li ng-repeat="language_id in filters.language_ids"
-          ' {{ language_id | languageIdToName }}
-      p ng-if="!filters.language_ids.length" Any
+    / li
+    /   b Language Program
+    /   ul.children ng-if="filters.language_ids.length"
+    /     li ng-repeat="language_id in filters.language_ids"
+    /       ' {{ language_id | languageIdToName }}
+    /   p ng-if="!filters.language_ids.length" Any
 
-    li
-      b Religous Program
-      p Any
-    li
-      b Parent CO-OP
-      p Any
-    li
-      b Meals Included
-      p Any
-    li
-      b Potty Training
-      p Any
+    / li
+    /   b Religous Program
+    /   p Any
+    / li
+    /   b Parent CO-OP
+    /   p Any
+    / li
+    /   b Meals Included
+    /   p Any
+    / li
+    /   b Potty Training
+    /   p Any
     li
       b Provider Type
       p Any
 
-    h2 Childrens
-      p
-        ' {{ filters }}
+    / h2 Childrens
+    /   p
+    /     ' {{ filters }}
