@@ -23,31 +23,9 @@ module Api
     end
 
     def find_or_create_parent
-      result = Parent.where(valid_parent_params).first_or_create do |record|
-        available_attributes = Parent.new.attributes.keys & valid_parent_params.keys.map(&:to_s)
-        available_attributes.each do |key|
-          param = send("parent_param_#{key}")
-          record[key.to_sym] = param if param
-        end
-      end
-      result.full_name = parent_param_full_name if parent_param_full_name
-      result.save() # will not trigger a second SQL query unless full_name has changed
-
-      # save relation objects
-      valid_association_attributes = Parent.reflect_on_all_associations().collect(&:name).map(&:to_s) & parent_params.keys
-      valid_association_attributes.each do |key|
-        params = send("parent_param_#{key}")
-        klass = key.capitalize.singularize.constantize
-        if params.is_a?(Array)
-          result.send(key).destroy_all
-          params.each do |param|
-            obj = klass.create(param)
-            result.send(key) << obj
-          end
-        end
-      end
-
-      result
+      parent = Parent.where(valid_parent_params).first_or_create
+      parent.update(parent_params)
+      parent
     end
 
     def raise_not_authorized!
@@ -83,10 +61,12 @@ module Api
           :api_key,
           :full_name,
           :subscribe,
+          :found_option_id,
+          # :agree,
           parents_care_reasons_attributes: [
             :care_reason_id
           ],
-          children: [
+          children_attributes: [
             :age_months,
             :schedule_year_id,
             children_schedule_days_attributes: [

@@ -14,9 +14,9 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
     .row
       .medium-7.columns
         .ui-slider-container
-          #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="parent.children[0].age_months" use-decimals aria-labeledBy="ageLabel"]
-            span.age-label style="left:{{(parent.children[0].age_months / 60) * 100}}%;"
-              | {{ parent.children[0].age_months | ageToYearsAndMonths }}
+          #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="filters.age_months" use-decimals aria-labeledBy="ageLabel"]
+            span.age-label style="left:{{(filters.age_months / 60) * 100}}%;"
+              | {{ filters.age_months | ageToYearsAndMonths }}
             span.age-min 0
             span.age-max 5+ yrs
             - 4.times do |i|
@@ -228,7 +228,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
         small.optional Optional
 
     .repeater-container
-      select#found-option.radius name="found_option" ng-model="parent.parents_found_option_attributes.found_option_id" ng-options="found_option.id as found_option.name for found_option in data.found_options_array track by found_option.id"
+      select#found-option.radius name="found_option" ng-model="parent.found_option_id" ng-options="found_option.id as found_option.name for found_option in data.found_options_array track by found_option.id"
         option value="" Select
 
   section.margin-top-2

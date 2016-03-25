@@ -23,7 +23,7 @@ module Api
 
       # randomize result order unless searching by near by address
       if provider_param_near_address
-        # providers = providers.includes(:care_type, :licenses, :schedule_hours, :subsidies)
+        providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies)
       else
         Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
         providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')

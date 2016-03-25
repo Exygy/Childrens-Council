@@ -17,9 +17,9 @@ DataService = ($rootScope, HttpService) ->
     near_address: ''
     agree: false
     subscribe: false
+    found_option_id: null
     parents_care_reasons_attributes: ['']
-    parents_found_option_attributes: {}
-    children: [
+    children_attributes: [
       {
         age_months: 30,
         children_care_types_attributes: []
@@ -31,6 +31,7 @@ DataService = ($rootScope, HttpService) ->
   }
 
   @filters = {
+    age_months: 30
     care_type_ids: []
     language_ids: ['']
     neighborhood_ids: ['']
@@ -53,28 +54,28 @@ DataService = ($rootScope, HttpService) ->
 
     # @parent.language_ids = @filters.language_ids
 
-    # build children[0]
-    @parent.children[0].schedule_year_id = @filters.schedule_year_id[0]
-    @parent.children[0].age_months = @filters.age_months
+    # build children_attributes
+    @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id[0]
+    @parent.children_attributes[0].age_months = @filters.age_months
 
-    @parent.children[0].children_care_types_attributes = []
+    @parent.children_attributes[0].children_care_types_attributes = []
     for care_type_id in @filters.care_type_ids
-      @parent.children[0].children_care_types_attributes.push { care_type_id: care_type_id }
+      @parent.children_attributes[0].children_care_types_attributes.push { care_type_id: care_type_id }
 
-    @parent.children[0].children_schedule_days_attributes = []
+    @parent.children_attributes[0].children_schedule_days_attributes = []
     for schedule_day_id in @filters.schedule_day_ids
-      @parent.children[0].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
+      @parent.children_attributes[0].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
 
-    @parent.children[0].children_schedule_weeks_attributes = []
+    @parent.children_attributes[0].children_schedule_weeks_attributes = []
     for schedule_week_id in @filters.schedule_week_ids
-      @parent.children[0].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
+      @parent.children_attributes[0].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
 
     @parent
 
 
   @getSearchParams = ->
     search_params = {}
-    search_params.ages = [@parent.children[0].age_months]
+    search_params.ages = [@parent.children_attributes[0].age_months]
     search_params.care_type_ids = @filters.care_type_ids
     search_params.language_ids = @filters.language_ids
     search_params.schedule_day_ids = @filters.schedule_day_ids
