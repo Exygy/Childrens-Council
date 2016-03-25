@@ -75,6 +75,7 @@ DataService = ($rootScope, HttpService) ->
   @getSearchParams = ->
     search_params = {}
     search_params.ages = [@parent.children[0].age_months]
+    search_params.care_type_ids = @filters.care_type_ids
     search_params.language_ids = @filters.language_ids
     search_params.schedule_day_ids = @filters.schedule_day_ids
     search_params.schedule_week_ids = @filters.schedule_week_ids
