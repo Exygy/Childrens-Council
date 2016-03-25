@@ -126,7 +126,7 @@ section.content.row.margin-bottom-5.new-page
     .single_provider_map
       span.label-gray.lighter
         ' {{ provider.neighborhood_id|neighborhoodIdToName }}
-      span
+      spa ng-if="provider.care_type_id | isFacility"
         '  {{ provider.address_1 }}
         '  {{ provider.address_2 }}
         '  {{ provider.city_id|cityIdToName }}
