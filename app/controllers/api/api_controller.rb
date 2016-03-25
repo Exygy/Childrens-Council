@@ -7,7 +7,7 @@ module Api
     private
 
     def check_parent_credentials
-      @current_parent = find_or_create_parent if parent_params_valid?
+      @current_parent = get_parent if parent_params_valid?
       raise_not_authorized! unless @current_parent and @current_parent.persisted?
     end
 
@@ -22,8 +22,10 @@ module Api
       response.headers['Cc-Apikey'] = @current_parent.api_key
     end
 
-    def find_or_create_parent
+    def get_parent
       parent = Parent.where(valid_parent_params).first_or_create
+      parent.care_reasons.destroy_all
+      parent.children.destroy_all
       parent.update(parent_params)
       parent
     end
