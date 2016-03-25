@@ -58,17 +58,18 @@ DataService = ($rootScope, HttpService) ->
     @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id[0]
     @parent.children_attributes[0].age_months = @filters.age_months
 
-    @parent.children_attributes[0].children_care_types_attributes = []
-    for care_type_id in @filters.care_type_ids
-      @parent.children_attributes[0].children_care_types_attributes.push { care_type_id: care_type_id }
-
-    @parent.children_attributes[0].children_schedule_days_attributes = []
-    for schedule_day_id in @filters.schedule_day_ids
-      @parent.children_attributes[0].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
-
-    @parent.children_attributes[0].children_schedule_weeks_attributes = []
-    for schedule_week_id in @filters.schedule_week_ids
-      @parent.children_attributes[0].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
+    if @filters.care_type_ids
+      @parent.children_attributes[0].children_care_types_attributes = []
+      for care_type_id in @filters.care_type_ids
+        @parent.children_attributes[0].children_care_types_attributes.push { care_type_id: care_type_id }
+    if @filters.schedule_day_ids
+      @parent.children_attributes[0].children_schedule_days_attributes = []
+      for schedule_day_id in @filters.schedule_day_ids
+        @parent.children_attributes[0].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
+    if @filters.schedule_week_ids
+      @parent.children_attributes[0].children_schedule_weeks_attributes = []
+      for schedule_week_id in @filters.schedule_week_ids
+        @parent.children_attributes[0].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
 
     @parent
 
