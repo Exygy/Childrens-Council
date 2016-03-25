@@ -44,12 +44,16 @@ DataService = ($rootScope, HttpService) ->
 
   @current_page = 1
 
+  @getLocation = ->
+    if @settings.location_type == 'near_address'
+      @parent.near_address + ', San Francisco, CA'
+    else
+      @parent[@settings.location_type]
+
   @getParent = ->
     # build Parent obj
 
     # @parent.language_ids = @filters.language_ids
-
-    @parent[@settings.location_type] = @filters[@settings.location_type]
 
     # build children[0]
     @parent.children[0].schedule_year_id = @filters.schedule_year_id[0]
@@ -72,7 +76,7 @@ DataService = ($rootScope, HttpService) ->
 
   @getSearchParams = ->
     search_params = @filters
-    search_params[@settings.location_type] = @filters[@settings.location_type]
+    search_params[@settings.location_type] = @getLocation()
     search_params
 
   @cleanEmptyParams = (params) ->
