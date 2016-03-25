@@ -32,7 +32,7 @@ DataService = ($rootScope, HttpService) ->
 
   @filters = {
     age_months: 30
-    care_type_ids: []
+    care_type_ids: null
     language_ids: ['']
     neighborhood_ids: ['']
     schedule_day_ids: [2,3,4,5,6] # Default to weekdays
