@@ -36,7 +36,6 @@ class Parent < ActiveRecord::Base
   has_many :children
   accepts_nested_attributes_for :children
 
-
   has_and_belongs_to_many :neighborhoods
   has_and_belongs_to_many :zip_codes
   before_create :set_api_key
@@ -62,10 +61,10 @@ class Parent < ActiveRecord::Base
   end
 
   def set_random_seed
-    self.random_seed = random_from_range(-1, 1)
+    self[:random_seed] = random_from_range(-1, 1)
   end
 
   def random_from_range (min, max)
-    rand * (max-min) + min
+    rand * (max - min) + min
   end
 end

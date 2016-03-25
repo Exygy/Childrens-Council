@@ -15,8 +15,8 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
       .medium-7.columns
         .ui-slider-container
           #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="parent.children[0].age_months" use-decimals aria-labeledBy="ageLabel"]
-            span.age-label style="left:{{(filters.age_months / 60) * 100}}%;"
-              | {{ filters.age_months | ageToYearsAndMonths }}
+            span.age-label style="left:{{(parent.children[0].age_months / 60) * 100}}%;"
+              | {{ parent.children[0].age_months | ageToYearsAndMonths }}
             span.age-min 0
             span.age-max 5+ yrs
             - 4.times do |i|
@@ -170,7 +170,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
       input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name"
       small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
         span.fa.fa-exclamation-circle
-        |  Select at least 1 type of provider
+        |  Your name is required
 
 
     h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
