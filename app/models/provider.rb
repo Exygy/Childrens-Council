@@ -100,6 +100,15 @@ class Provider < ActiveRecord::Base
     care_type ? care_type.facility : false
   end
 
+  def name
+    if facility?
+      super
+    else
+      # Get last name and first initial only for family care providers
+      self[:name][/.+,\s*\w{1}/] + '.'
+    end
+  end
+
   def geocodable_address_string
     full_address_array.flatten.compact.join(', ')
   end
