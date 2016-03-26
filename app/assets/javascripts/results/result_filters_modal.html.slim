@@ -1,0 +1,10 @@
+h3 I'm a modal!
+ul
+  li ng-repeat="item in items"
+    a ng-click="selected.item = item">{{ item }}
+
+| Selected:
+  b {{ selected.item }}
+button class="button secondary" ng-click="reposition()" Reset top position
+button class="button" ng-click="ok()" OK
+a class="close-reveal-modal" ng-click="cancel()" ×

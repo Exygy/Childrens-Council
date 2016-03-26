@@ -1,4 +1,4 @@
-SearchController = ($scope, $state, SearchService) ->
+SearchController = ($scope, $state, SearchService, $modal) ->
   $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
@@ -37,5 +37,11 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.setContactType = (type) ->
     $scope.settings.contact_type = type
 
-SearchController.$inject = ['$scope', '$state', 'SearchService']
+  $scope.open = () ->
+    $modal.open {
+      templateUrl: 'results/result_filters_modal.html'
+      controller: 'ResultFiltersModalController'
+    }
+
+SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal']
 angular.module('CCR').controller('SearchController', SearchController)

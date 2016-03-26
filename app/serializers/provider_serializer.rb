@@ -67,11 +67,4 @@ class ProviderSerializer < ActiveModel::Serializer
 
   attributes :schedule_days, :schedule_hours
   attributes :languages, :licenses
-
-  has_many :languages
-  has_many :licenses
-  has_many :programs
-  has_many :schedule_hours
-  has_many :schedule_weeks
-  has_many :subsidies
 end
