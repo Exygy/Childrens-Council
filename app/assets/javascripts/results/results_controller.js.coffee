@@ -19,11 +19,11 @@ ResultsController = ($scope, $location, $state, ResultsService, ProviderService)
       console.log "stop loader animation"
 
   $scope.isFirstPage = () ->
-    $scope.search_data.current_page == 1
+    $scope.search_result_data.current_page == 1
 
   $scope.isLastPage = () ->
-    total_number_of_pages = Math.ceil $scope.search_data.totalProviders/$scope.search_data.providersPerPage
-    $scope.search_data.current_page == total_number_of_pages
+    total_number_of_pages = Math.ceil $scope.search_result_data.totalProviders/$scope.search_result_data.providersPerPage
+    $scope.search_result_data.current_page == total_number_of_pages
 
   $scope.goToProvider = (provider_id) ->
     $state.go('provider', {id: provider_id})

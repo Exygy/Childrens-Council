@@ -4,14 +4,14 @@ MapController = ($scope, $q, $timeout, uiGmapIsReady) ->
     fitBounds = (map) ->
       bounds = new google.maps.LatLngBounds()
 
-      for provider in $scope.data.providers
+      for provider in $scope.search_result_data.providers
         bounds.extend new google.maps.LatLng(provider.latitude, provider.longitude)
 
       $timeout (->
         map.fitBounds bounds
       ), 100
 
-    $q.all([uiGmapIsReady.promise(), $scope.data.providers.$promise]).then (datas) ->
+    $q.all([uiGmapIsReady.promise(), $scope.search_result_data.providers.$promise]).then (datas) ->
       fitBounds datas[0][0].map
 
 MapController.$inject = ['$scope', '$q', '$timeout', 'uiGmapIsReady']
