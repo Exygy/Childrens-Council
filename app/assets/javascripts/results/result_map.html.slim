@@ -1,6 +1,30 @@
 .map_canvas ng-controller="MapController"
-  ui-gmap-google-map center='map.center' zoom='map.zoom'
-    ui-gmap-marker ng-repeat="marker in (data.providers | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+  ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.mapControl' bounds='map.bounds'
+    ui-gmap-markers models="(search_result_data.providers | toMarkers)" coords="'coords'"
+      ui-gmap-windows models="(search_result_data.providers | toMarkers)" coords="'coords'" templateParameter="'options'" templateUrl="'map_popover'"
+        div ng-non-bindable=""
+          p
+            ' {{ name }}
+          p
+            span ng-if="care_type_id | IsFacility"
+              ' {{ address_1 }}
+              ' {{ address_2 }}
+            span ng-if="!(care_type_id | IsFacility)"
+              ' {{ cross_street_1 }}
+              ' {{ cross_street_2 }}
+            ' {{ neighborhood_id | neighborhoodIdToName }}
+            ' {{ city_id | cityIdToName }}
+            ' {{ state_id | stateIdToAbbr }}
+            ' {{ zip_code_id | zipCodeIdToName }}
+
+          a href="{{url | prefixUrl}}" target="_blank"
+            ' {{ url }}
+          p
+            ' {{ phone | formatPhoneNumber }}
+
+          p
+            ' {{ schedule_hours | scheduleHoursToSummary }}
+
 
 button ng-click="prevPage()" Prev Page
 button ng-click="nextPage()" Next Page

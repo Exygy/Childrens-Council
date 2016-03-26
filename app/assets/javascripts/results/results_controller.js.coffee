@@ -1,5 +1,5 @@
 ResultsController = ($scope, $location, $state, ResultsService, ProviderService) ->
-  $scope.data = ResultsService.data
+  $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
 
@@ -13,12 +13,17 @@ ResultsController = ($scope, $location, $state, ResultsService, ProviderService)
     ResultsService.prevPage () ->
       console.log "stop loader animation"
 
+  $scope.postSearch = ->
+    console.log "start loader animation"
+    ResultsService.postSearch () ->
+      console.log "stop loader animation"
+
   $scope.isFirstPage = () ->
-    $scope.data.current_page == 1
+    $scope.search_data.current_page == 1
 
   $scope.isLastPage = () ->
-    total_number_of_pages = Math.ceil $scope.data.totalProviders/$scope.data.providersPerPage
-    $scope.data.current_page == total_number_of_pages
+    total_number_of_pages = Math.ceil $scope.search_data.totalProviders/$scope.search_data.providersPerPage
+    $scope.search_data.current_page == total_number_of_pages
 
   $scope.goToProvider = (provider_id) ->
     $state.go('provider', {id: provider_id})

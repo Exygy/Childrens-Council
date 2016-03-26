@@ -33,6 +33,7 @@ DataService = ($rootScope, HttpService) ->
   @filters = {
     age_months: 30
     care_type_ids: null
+    near_address: null
     language_ids: ['']
     neighborhood_ids: ['']
     schedule_day_ids: [2,3,4,5,6] # Default to weekdays
@@ -53,6 +54,7 @@ DataService = ($rootScope, HttpService) ->
     # build Parent obj
 
     # @parent.language_ids = @filters.language_ids
+    @parent.near_address = @filters.near_address
 
     # build children_attributes
     @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id[0]

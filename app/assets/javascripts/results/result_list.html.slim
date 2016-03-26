@@ -10,12 +10,12 @@
     small
       | Showing
       strong
-        '  {{ data.providersPerPage*(data.current_page-1) != 0 ? data.providersPerPage*(data.current_page-1) : 1 }}
+        '  {{ search_result_data.providersPerPage*(search_result_data.current_page-1) != 0 ? search_result_data.providersPerPage*(search_result_data.current_page-1) : 1 }}
         '  -
-        '  {{ data.providersPerPage*data.current_page < data.totalProviders ? data.providersPerPage*data.current_page : data.totalProviders }}
-      |  of {{ data.totalProviders }} results
+        '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
+      |  of {{ search_result_data.totalProviders }} results
 
-ul.no-bullet ng-repeat="provider in data.providers"
+ul.no-bullet ng-repeat="provider in search_result_data.providers"
   li.results-item
     .provider-type ng-switch="provider.care_type_id | isFacility"
       div ng-switch-when="true"
@@ -65,8 +65,8 @@ ul.pager.button-group.radius.margin-bottom-3
   li
     a ng-click="prevPage()" ng-disabled="isFirstPage()"
       i.fa.fa-chevron-left.margin-right-small
-      small Previous {{ data.providersPerPage }}
+      small Previous {{ search_result_data.providersPerPage }}
   li
     a ng-click="nextPage()" ng-disabled="isLastPage()"
-      small Next {{ data.providersPerPage }}
+      small Next {{ search_result_data.providersPerPage }}
       i.fa.fa-chevron-right.margin-left-small

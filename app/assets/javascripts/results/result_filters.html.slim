@@ -1,13 +1,14 @@
 nav.section-nav ng-controller="ResultFilterController"
   h2 Filters
 
-  a.right href="#" Edit
+  a href="#" data-reveal-id="filtersModal" Edit
 
   ul
     li
       b Desired locations
       p ng-if="filters[settings.location_type]" {{ filters[settings.location_type] }}
       p ng-if="!filters[settings.location_type]" ANY
+
     / li
     /   b Costs ($ per month)
 
@@ -40,10 +41,20 @@ nav.section-nav ng-controller="ResultFilterController"
     / li
     /   b Potty Training
     /   p Any
+
     li
       b Provider Type
-      p Any
+      p ng-if="filters.care_type_ids.length"
+        ' {{ filters.care_type_ids | careTypeIdsToNames }}
+      p ng-if="!filters.care_type_ids.length" ANY
 
-    / h2 Childrens
-    /   p
-    /     ' {{ filters }}
+  h2 Childrens
+  ul
+    li ng-repeat="child in parent.children_attributes track by $index"
+      p Child {{ $index + 1 }}
+      b
+        ' {{ child.age_months | ageToYearsAndMonths }}
+
+  h2 Filters
+  p
+    ' {{ filters }}

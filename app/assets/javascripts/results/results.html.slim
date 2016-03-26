@@ -6,3 +6,13 @@ button ng-click="toggleView()" Map / List
   .large-8.medium-8.columns
     .map_view ng-if="view_mode.map" ng-include="'results/result_map.html'"
     .list_view ng-show="view_mode.list" ng-include="'results/result_list.html'"
+
+
+
+  #filtersModal.reveal-modal data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
+    h2#modalTitle Filters
+    span ng-controller="SearchController"
+      span ng-include="'search/search_filters_form.html'"
+      button ng-click="postSearch()" Search
+
+    a.close-reveal-modal aria-label="Close" &#215;

@@ -9,6 +9,10 @@ ResultsService = ($http, DataService) ->
     DataService.current_page--
     DataService.performSearch callback
 
+  @postSearch = (callback) ->
+    DataService.current_page = 1
+    @performSearch callback
+
   @
 
 ResultsService.$inject = ['$http', 'DataService']
