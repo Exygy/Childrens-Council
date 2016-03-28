@@ -5,6 +5,7 @@ ToMarkers = () ->
         providers[index]['title'] = provider.name
         providers[index]['isIconVisibleOnClick'] = true
         providers[index]['closeClick'] = 'none'
+        providers[index]['marker_icon'] = 'icon_url_should_vary_based_on_provider_type'
 
         # this to prevent the digest loop to go crazy
         unless providers[index]['coords']
@@ -12,7 +13,7 @@ ToMarkers = () ->
             latitude: provider.latitude,
             longitude: provider.longitude
           }
-        
+
     return providers
 
 angular.module('CCR').filter('toMarkers', ToMarkers)

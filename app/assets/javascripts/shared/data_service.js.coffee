@@ -46,7 +46,7 @@ DataService = ($rootScope, HttpService) ->
 
   @getLocation = ->
     if @settings.location_type == 'near_address'
-      if @parent.near_address then @parent.near_address + ', San Francisco, CA' else null
+      if @filters.near_address then @filters.near_address + ', San Francisco, CA' else null
     else
       @filters[@settings.location_type]
 
@@ -77,8 +77,9 @@ DataService = ($rootScope, HttpService) ->
 
 
   @getSearchParams = ->
+    # this function should not exist, it temporarly exists until we get to filters by many children feature
     search_params = {}
-    search_params.ages = @filters.age_months
+    search_params.ages = [@filters.age_months]
     search_params.care_type_ids = @filters.care_type_ids
     search_params.language_ids = @filters.language_ids
     search_params.schedule_day_ids = @filters.schedule_day_ids

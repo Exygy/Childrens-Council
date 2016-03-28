@@ -1,7 +1,25 @@
+.row.c-base.margin-bottom-2
+  .small-6.columns
+    small
+      span Sort by:
+      span.margin-left-small
+        em ng-hide="settings.location_type == 'near_address' && parent.near_address" Random
+        em ng-show="settings.location_type == 'near_address' && parent.near_address" Distance
+        span.fa.fa-info-circle.margin-left-small
+  .small-6.columns.text-right
+    small
+      | Showing
+      strong
+        '  {{ search_result_data.providersPerPage*(search_result_data.current_page-1) != 0 ? search_result_data.providersPerPage*(search_result_data.current_page-1) : 1 }}
+        '  -
+        '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
+      |  of {{ search_result_data.totalProviders }} results
+
 .map_canvas ng-controller="MapController"
-  ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.mapControl' bounds='map.bounds'
-    ui-gmap-markers models="(search_result_data.providers | toMarkers)" coords="'coords'"
-      ui-gmap-windows models="(search_result_data.providers | toMarkers)" coords="'coords'" templateParameter="'options'" templateUrl="'map_popover'"
+  ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.control' bounds='map.bounds'
+    ui-gmap-markers models="(search_result_data.providers | toMarkers)" coords="'self'" fit="true" icon="marker_icon"
+      ui-gmap-windows models="(search_result_data.providers | toMarkers)" coords="'self'" control='map.windows_control' templateParameter="'options'" isIconVisibleOnClick="true" closeClick="none" doRebuildAll="true"
+
         div ng-non-bindable=""
           p
             ' {{ name }}
