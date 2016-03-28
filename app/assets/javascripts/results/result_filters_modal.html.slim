@@ -1,10 +1,6 @@
-h3 I'm a modal!
-ul
-  li ng-repeat="item in items"
-    a ng-click="selected.item = item">{{ item }}
+h2 Filters
+span ng-controller="SearchController"
+  span ng-include="'search/search_filters_form.html'"
+  button.button ng-click="postSearch()" Search
 
-| Selected:
-  b {{ selected.item }}
-button class="button secondary" ng-click="reposition()" Reset top position
-button class="button" ng-click="ok()" OK
 a class="close-reveal-modal" ng-click="cancel()" ×
