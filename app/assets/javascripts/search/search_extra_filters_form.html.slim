@@ -1,25 +1,24 @@
+span ng-include="'search/search_location_filter.html'"
+
 section.margin-top-2
-  h5#age-label.c-black Child's age ( when care will be needed )
+  h5#age-label.c-black Cost per month
   .row
     .medium-7.columns
       .ui-slider-container
-        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="filters.age_months" use-decimals aria-labeledBy="ageLabel"]
-          span.age-label style="left:{{(filters.age_months / 60) * 100}}%;"
-            | {{ filters.age_months | ageToYearsAndMonths }}
+        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="3000" ng-model="filters.cost_per_month" use-decimals aria-labeledBy="ageLabel"]
+          span.age-label style="left:{{(filters.cost_per_month / 3000) * 100}}%;"
+            | ${{ filters.cost_per_month }}
           span.age-min 0
-          span.age-max 5+ yrs
+          span.age-max $3,000
           - 4.times do |i|
             span.tick class="tick-#{i + 1}"
 
 
 
-span ng-include="'search/search_location_filter.html'"
-span ng-include="'search/search_care_provider_type_filter.html'"
-
 
 
 section.margin-top-2
-  h5.c-black Schedule needs
+  h5.c-black Provides financial assistance
 
   p.c-base When do you need childcare? Customize to your schedule's needs.
 
@@ -72,3 +71,12 @@ section.margin-top-2
             label for="schedule-day-{{schedule_day.name | attribute}}"
               | {{schedule_day.name | abbreviateDay}}
           div.clearfix ng-if="$index == 4"
+
+
+
+
+
+
+
+
+span ng-include="'search/search_care_provider_type_filter.html'"

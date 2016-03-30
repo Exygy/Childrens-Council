@@ -1,0 +1,42 @@
+section.margin-top-2
+  h5.c-black Desired locations
+  tabset.tabs-inline role="tablist"
+    tab select="setLocationType('near_address')"
+      tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'near_address'}}" controls="address-tab" Closest to an address
+
+      #address-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'near_address'}}"
+        .medium-8.columns
+          label.show-for-sr for="near-address" Search by distance from an address in San Francisco
+          input#near-address type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="filters.near_address"
+          .address-city , San Francisco, CA
+
+    tab select="setLocationType('zip_code_ids')"
+      tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'zip_code_ids'}}" controls="zip-code-tab" By zip code
+
+      #zip-code-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'zip_code_ids'}}"
+        .medium-5.columns
+          .repeater-container ng-repeat="zip_code in filters.zip_code_ids track by $index"
+            ui-select.repeater-input ng-model="filters.zip_code_ids[$index]" theme="selectize" aria-label="Select zip code"
+                ui-select-match placeholder="Zip code" allow-clear="true"
+                  | {{$select.selected.zip}}
+                ui-select-choices repeat="zip_code.id as zip_code in (data.zip_codes_array | filter: $select.search) track by zip_code.id"
+                  | {{zip_code.zip}}
+
+            button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zip_code_ids, $index)" Remove
+
+          button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zip_code_ids) && filters.zip_code_ids.length < 3" ng-click="addItem(filters.zip_code_ids)" Add another
+
+    tab select="setLocationType('neighborhood_ids')"
+      tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'neighborhood_ids'}}" controls="neighborhood-tab" By neighborhood
+      #neighborhood-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'neighborhood_ids'}}"
+
+        .medium-7.columns
+          .repeater-container ng-repeat="neighborhood in filters.neighborhood_ids track by $index"
+            label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
+            select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="filters.neighborhood_ids[$index]" ng-options="neighborhood.id as neighborhood.name for neighborhood in data.neighborhoods_array track by neighborhood.id"
+
+              option value="" Select Neighborhood
+
+            button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(filters.neighborhood_ids, $index)" Remove
+
+          button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(filters.neighborhood_ids) && filters.neighborhood_ids.length < 3" ng-click="addItem(filters.neighborhood_ids)" Add another
