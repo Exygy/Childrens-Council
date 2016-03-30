@@ -24,9 +24,11 @@ module Api
 
     def get_parent
       parent = Parent.where(valid_parent_params).first_or_create
-      parent.care_reasons.destroy_all
-      parent.children.destroy_all
-      parent.update(parent_params)
+      if has_parent_data
+        parent.care_reasons.destroy_all
+        parent.children.destroy_all
+        parent.update(parent_params)
+      end
       parent
     end
 
@@ -36,6 +38,10 @@ module Api
 
     def parent_params_valid?
       ( parent_param_api_key ) or ( parent_param_full_name and (parent_param_email or parent_param_phone) )
+    end
+
+    def has_parent_data
+      !parent_param_api_key and parent_param_full_name and (parent_param_email or parent_param_phone)
     end
 
     def valid_parent_params
