@@ -37,6 +37,7 @@ module Api
 
     def show
       provider = Provider.eager_load(
+        :care_type,
         :languages,
         :licenses,
         :meals,
