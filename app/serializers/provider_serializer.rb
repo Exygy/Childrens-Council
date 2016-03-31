@@ -64,7 +64,6 @@ class ProviderSerializer < ActiveModel::Serializer
   attributes :ssn, :tax_id, :created_at, :updated_at, :latitude, :longitude
   attributes :schedule_year_id, :zip_code_id, :care_type_id, :description
   attributes :licensed_ages, :neighborhood_id, :mail_zip_code
-
   attributes :schedule_days, :schedule_hours
-  attributes :languages, :licenses
+  attributes :languages, :licenses, :programs
 end

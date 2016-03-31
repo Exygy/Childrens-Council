@@ -163,3 +163,40 @@ SortDays = () ->
         'saturday'
       ].indexOf(day.name.toLowerCase())
 angular.module('CCR').filter('sortDays', SortDays)
+
+programsWithProgramTypeByName = ($rootScope) ->
+  (programs, program_type_name) ->
+    programs = []
+    for index, program_type of $rootScope.data['program_types']
+      if program_type.name == program_type_name
+        for program of programs
+          if program.program_type_id == program_type.id
+            programs.push program.name
+    if programs.length then programs.join(', ') else 'None'
+
+programsWithProgramTypeByName.$inject = ['$rootScope']
+angular.module('CCR').filter('programsWithProgramTypeByName', programsWithProgramTypeByName)
+
+HasProgramByName = () ->
+  (programs, program_name) ->
+    has_program = 'No'
+    for program in programs
+      if program.name == program_name
+        has_program = 'Yes'
+    has_program
+angular.module('CCR').filter('hasProgramByName', HasProgramByName)
+
+Capitalize = () ->
+  (input) ->
+    if input then input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() else ''
+angular.module('CCR').filter('capitalize', Capitalize)
+
+ToAgeFromInMonths = () ->
+  (license) ->
+    license.age_from_year * 12 + license.age_from_month
+angular.module('CCR').filter('toAgeFromInMonths', ToAgeFromInMonths)
+
+ToAgeToInMonths = () ->
+  (license) ->
+    license.age_to_year * 12 + license.age_to_month
+angular.module('CCR').filter('toAgeToInMonths', ToAgeToInMonths)

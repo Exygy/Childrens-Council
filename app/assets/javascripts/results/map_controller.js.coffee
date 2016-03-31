@@ -25,14 +25,6 @@ MapController = ($scope, $q, $timeout, uiGmapIsReady) ->
       map = $scope.map.control.getGMap()
       fitBounds map
 
-      # if $scope.map.windows_control.newModels
-      #   console.log $scope.map.windows_control
-      #   $scope.map.windows_control.clean()
-      #   $scope.map.windows_control.newModels $scope.search_result_data.providers
-      #   $scope.map.windows_control.updateModels $scope.search_result_data.providers
-
-
-
 
 MapController.$inject = ['$scope', '$q', '$timeout', 'uiGmapIsReady']
 angular.module('CCR').controller('MapController', MapController)
