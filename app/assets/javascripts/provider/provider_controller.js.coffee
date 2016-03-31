@@ -4,6 +4,7 @@ ProviderController = ($scope, $state, ProviderService, _, FOUNDATION_SETTINGS) -
 
   # Initialize foundation js plugins and set width for sticky sidebar nav
   $scope.$on '$viewContentLoaded', (event) ->
+    $(document.getElementById('content')).before($('.page-header'))
     $(document).foundation(FOUNDATION_SETTINGS)
     setSideNavWidth()
     $(window).on 'resize', _.debounce(setSideNavWidth, 400)

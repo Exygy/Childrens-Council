@@ -1,4 +1,24 @@
-section.content.row.margin-bottom-5.new-page
+header.page-header.padding-top-2
+  .row
+    .small-10.columns
+      ul.breadcrumbs
+        li
+          a ui-sref="search" Find Child Care
+        li
+          a ui-sref="results" Search Results
+        li.current
+          a ui-sref="provider"
+            | {{provider.name}}
+
+    .small-2.columns.text-right
+      a href="javascript:window.print()" Print
+
+  .row
+    .small-12.columns
+      h1
+        | {{provider.name}}
+
+section.content.row.margin-bottom-5
   .medium-4.columns.show-for-medium-up
     .bg-white data-magellan-expedition="fixed"
       nav.panel.bg-cyan-lighter

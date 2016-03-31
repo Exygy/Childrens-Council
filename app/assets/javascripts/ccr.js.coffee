@@ -70,7 +70,9 @@ angular.module 'CCR', [
 hideSidebar = () ->
   $(document.getElementById('main')).addClass 'expanded'
   $(document.getElementById('sidebar')).addClass 'hide'
+  $(document.getElementById('content')).addClass 'providers'
 
 showSidebar = () ->
   $(document.getElementById('main')).removeClass 'expanded'
   $(document.getElementById('sidebar')).removeClass 'hide'
+  $(document.getElementById('content')).removeClass 'providers'
