@@ -34,7 +34,13 @@ DataService = ($rootScope, HttpService) ->
     age_months: 30
     care_type_ids: null
     near_address: null
+    parent_coop: null
+    include_meals: null
+    potty_trained: null
     language_ids: ['']
+    program_ids: ['']
+    subsidy_ids: ['']
+    religion_ids: ['']
     neighborhood_ids: ['']
     schedule_day_ids: [2,3,4,5,6] # Default to weekdays
     schedule_week_ids: [1] # Default to Full Time
@@ -75,7 +81,6 @@ DataService = ($rootScope, HttpService) ->
 
     @parent
 
-
   @getSearchParams = ->
     # this function should not exist, it temporarly exists until we get to filters by many children feature
     search_params = {}
@@ -85,13 +90,18 @@ DataService = ($rootScope, HttpService) ->
     search_params.schedule_day_ids = @filters.schedule_day_ids
     search_params.schedule_week_ids = @filters.schedule_week_ids
     search_params.schedule_year_ids = [@filters.schedule_year_id]
+    search_params.parent_coop = @filters.parent_coop
+    search_params.include_meals = @filters.include_meals
+    search_params.potty_trained = @filters.potty_trained
+    search_params.subsidy_ids = @filters.subsidy_ids
+    search_params.program_ids = @filters.program_ids.concat( @filters.religion_ids )
     search_params[@settings.location_type] = @getLocation()
     search_params
 
   @cleanEmptyParams = (params) ->
     deepFilter params, (value, key) ->
       # Filter out empty values and arrays
-      if !value or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
+      if !value? or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
 
   @queryParams = ->
     @cleanEmptyParams {

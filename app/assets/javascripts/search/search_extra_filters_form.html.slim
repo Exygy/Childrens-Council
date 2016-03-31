@@ -1,82 +1,78 @@
 span ng-include="'search/search_location_filter.html'"
 
-section.margin-top-2
-  h5#age-label.c-black Cost per month
-  .row
-    .medium-7.columns
-      .ui-slider-container
-        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="3000" ng-model="filters.cost_per_month" use-decimals aria-labeledBy="ageLabel"]
-          span.age-label style="left:{{(filters.cost_per_month / 3000) * 100}}%;"
-            | ${{ filters.cost_per_month }}
-          span.age-min 0
-          span.age-max $3,000
-          - 4.times do |i|
-            span.tick class="tick-#{i + 1}"
-
-
-
-
+/section.margin-top-2
+/  h5#age-label.c-black Cost per month
+/  .row
+/    .medium-7.columns
+/      .ui-slider-container
+/        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="3000" ng-model="filters.cost_per_month" use-decimals aria-labeledBy="ageLabel"]
+/          span.age-label style="left:{{(filters.cost_per_month / 3000) * 100}}%;"
+/            | ${{ filters.cost_per_month }}
+/          span.age-min 0
+/          span.age-max $3,000
+/          - 4.times do |i|
+/            span.tick class="tick-#{i + 1}"
 
 section.margin-top-2
-  h5.c-black Provides financial assistance
+  h6.c-black.text-normal.margin-top-2 Care Approach
+  .repeater-container ng-repeat="subsidy_id in filters.subsidy_ids track by $index"
+    select.radius id="subsidy-id-{{$index + 1}}" name="subsidy_id_{{$index + 1}}" ng-model="filters.subsidy_ids[$index]"
+      option [value="" disabled] Select Care Approach
+      option ng-repeat="subsidy in data.subsidies_array track by $index" value="{{ subsidy.id }}"
+        ' {{ subsidy.name }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.subsidy_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.subsidy_ids) && filters.subsidy_ids.length < 3" ng-click="addItem(filters.subsidy_ids)" Add another
 
-  p.c-base When do you need childcare? Customize to your schedule's needs.
+section.margin-top-2
+  h6.c-black.text-normal.margin-top-2 Language Immersion Programs
+  .repeater-container ng-repeat="program in filters.program_ids track by $index"
+    select.radius id="program-id-{{$index + 1}}" name="program_id_{{$index + 1}}" ng-model="filters.program_ids[$index]"
+      option [value="" disabled] Select Language Immersion Program
+      option ng-repeat="program in (data.programs_array | programsByProgramType:'Immersion Program') track by $index" value="{{ program.id }}"
+        ' {{ program.name }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.program_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.program_ids) && filters.program_ids.length < 3" ng-click="addItem(filters.program_ids)" Add another
 
-  accordion close-others="false" role="tablist"
-    accordion-group is-open="is_open_years"
-      accordion-heading
-        #annual-schedule-heading role="tab" aria-controls="annual-schedule-panel"
-          | All year round
-          .right.toggle ng-switch="is_open_years"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
+section.margin-top-2
+  h6.c-black.text-normal.margin-top-2 Languages spoken
+  .repeater-container ng-repeat="language_id in filters.language_ids track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.language_ids[$index]"
+      option [value="" disabled] Select Spoken Language
+      option ng-repeat="language in data.languages_array track by $index" value="{{ language.id }}"
+        ' {{ language.name }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.language_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.language_ids) && filters.language_ids.length < 3" ng-click="addItem(filters.language_ids)" Add another
 
-      #annual-schedule-panel.button-group role="tabpanel" aria-labelledby="annual-schedule-heading" aria-hidden="{{!is_open_years}}"
-        button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="filters.schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-light']"
-          | {{schedule_year.name}}
+section.margin-top-2
+  h6.c-black.text-normal.margin-top-2 Religious program
+  .repeater-container ng-repeat="language_id in filters.religion_ids track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.religion_ids[$index]"
+      option [value="" disabled] Select Religious program
+      option ng-repeat="program in (data.programs_array | programsByProgramType:'Quality Improvement Program') track by $index" value="{{ program.id }}"
+        ' {{ program.name }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.religion_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religion_ids) && filters.religion_ids.length < 3" ng-click="addItem(filters.religion_ids)" Add another
 
-    accordion-group is-open="is_open_weeks"
-      accordion-heading
-        #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | Full-time
-          small.c-base ng-show="filters.schedule_week_ids.length < 2"
-            |  (Evening, overnight, and more options available)
-          .right.toggle ng-switch="is_open_weeks"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
-
-      #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_open_weeks}}"
-        span ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
-          .checkbox.checkbox-week.checkbox-left
-            input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule_week_{{schedule_week.name | attribute}}" checklist-value="schedule_week.id" checklist-model="filters.schedule_week_ids"
-            label for="schedule-week-{{schedule_week.name | attribute}}"
-              | {{schedule_week.name}}
-          div.clearfix ng-if="$index + 1 % 3 == 0"
-
-    accordion-group is-open="is_open_days"
-      accordion-heading
-        #day-schedule-heading role="tab" aria-controls="day-schedule-panel"
-          | Monday - Friday
-          .right.toggle ng-switch="is_open_days"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
-
-      #day-schedule-panel.clearfix role="tabpanel" aria-labelledby="day-schedule-heading" aria-hidden="{{!is_open_days}}"
-        span ng-repeat="schedule_day in (data.schedule_days_array | sortDays) track by schedule_day.id"
-          .checkbox.checkbox-day.checkbox-left
-            input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule_day_{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="filters.schedule_day_ids"
-            label for="schedule-day-{{schedule_day.name | attribute}}"
-              | {{schedule_day.name | abbreviateDay}}
-          div.clearfix ng-if="$index == 4"
+section.margin-top-2
+  h5.c-black Parent Co-Op
+  #parent-coop-panel.button-group
+    button type="button" ng-model="filters.parent_coop" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No Preference
+    button type="button" ng-model="filters.parent_coop" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" Yes
+    button type="button" ng-model="filters.parent_coop" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No
 
 
+section.margin-top-2
+  h5.c-black Meals included in tuition
+  #meals-included-panel.button-group
+    button type="button" ng-model="filters.include_meals" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No Preference
+    button type="button" ng-model="filters.include_meals" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" Yes
+    button type="button" ng-model="filters.include_meals" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No
 
 
-
-
-
+section.margin-top-2
+  h5.c-black Potty training support
+  #potty-training-panel.button-group
+    button type="button" ng-model="filters.potty_trained" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No Preference
+    button type="button" ng-model="filters.potty_trained" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" Yes
 
 span ng-include="'search/search_care_provider_type_filter.html'"

@@ -164,18 +164,18 @@ SortDays = () ->
       ].indexOf(day.name.toLowerCase())
 angular.module('CCR').filter('sortDays', SortDays)
 
-programsWithProgramTypeByName = ($rootScope) ->
+ProgramsWithProgramTypeByName = ($rootScope) ->
   (programs, program_type_name) ->
-    programs = []
+    retained_programs = []
     for index, program_type of $rootScope.data['program_types']
       if program_type.name == program_type_name
         for program of programs
           if program.program_type_id == program_type.id
-            programs.push program.name
-    if programs.length then programs.join(', ') else 'None'
+            retained_programs.push program.name
+    if retained_programs.length then retained_programs.join(', ') else 'None'
 
-programsWithProgramTypeByName.$inject = ['$rootScope']
-angular.module('CCR').filter('programsWithProgramTypeByName', programsWithProgramTypeByName)
+ProgramsWithProgramTypeByName.$inject = ['$rootScope']
+angular.module('CCR').filter('programsWithProgramTypeByName', ProgramsWithProgramTypeByName)
 
 HasProgramByName = () ->
   (programs, program_name) ->
@@ -200,3 +200,16 @@ ToAgeToInMonths = () ->
   (license) ->
     license.age_to_year * 12 + license.age_to_month
 angular.module('CCR').filter('toAgeToInMonths', ToAgeToInMonths)
+
+ProgramsByProgramType = ($rootScope) ->
+  (programs, program_type_name) ->
+    retained_programs = []
+    for program_type in $rootScope.data['program_types_array']
+      if program_type.name == program_type_name
+        for program in programs
+          if program.program_type_id == program_type.id
+            retained_programs.push program
+    retained_programs
+
+ProgramsWithProgramTypeByName.$inject = ['$rootScope']
+angular.module('CCR').filter('programsByProgramType', ProgramsByProgramType)
