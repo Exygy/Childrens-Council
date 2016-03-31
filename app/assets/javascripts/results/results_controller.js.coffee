@@ -1,7 +1,14 @@
-ResultsController = ($scope, $location, $state, ResultsService, ProviderService) ->
+ResultsController = ($scope, $location, $state, $controller, ResultsService, ProviderService) ->
+  $controller 'ApplicationController', {$scope: $scope}
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
+
+  # Init sticky sidebar nav after ng-includes loads sidebar markup
+  $scope.$on '$includeContentLoaded', (event, src) ->
+    if src.indexOf 'result_filters' > -1
+      $scope.initFoundation()
+      $scope.setSideNavWidth()
 
   $scope.nextPage = ->
     console.log "start loader animation"
@@ -40,5 +47,5 @@ ResultsController = ($scope, $location, $state, ResultsService, ProviderService)
     $scope.view_mode.map = !$scope.view_mode.map
     $scope.view_mode.list = !$scope.view_mode.list
 
-ResultsController.$inject = ['$scope', '$location', '$state', 'ResultsService', 'ProviderService']
+ResultsController.$inject = ['$scope', '$location', '$state', '$controller', 'ResultsService', 'ProviderService']
 angular.module('CCR').controller('ResultsController', ResultsController)
