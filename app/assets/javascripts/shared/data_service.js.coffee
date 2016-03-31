@@ -41,6 +41,7 @@ DataService = ($rootScope, HttpService) ->
     program_ids: ['']
     subsidy_ids: ['']
     religion_ids: ['']
+    care_approach_ids: ['']
     neighborhood_ids: ['']
     schedule_day_ids: [2,3,4,5,6] # Default to weekdays
     schedule_week_ids: [1] # Default to Full Time
@@ -81,6 +82,16 @@ DataService = ($rootScope, HttpService) ->
 
     @parent
 
+  @concatProgramsIds = ->
+    program_ids = []
+    if @filters.program_ids.length and @filters.program_ids[0] != ''
+      program_ids = program_ids.concat @filters.program_ids
+    if @filters.religion_ids.length and @filters.religion_ids[0] != ''
+      program_ids = program_ids.concat @filters.religion_ids
+    if @filters.care_approach_ids.length and @filters.care_approach_ids[0] != ''
+      program_ids = program_ids.concat @filters.care_approach_ids
+    program_ids
+
   @getSearchParams = ->
     # this function should not exist, it temporarly exists until we get to filters by many children feature
     search_params = {}
@@ -94,7 +105,7 @@ DataService = ($rootScope, HttpService) ->
     search_params.nutrition_program = @filters.nutrition_program
     search_params.potty_training = @filters.potty_training
     search_params.subsidy_ids = @filters.subsidy_ids
-    search_params.program_ids = @filters.program_ids.concat( @filters.religion_ids )
+    search_params.program_ids = @concatProgramsIds()
     search_params[@settings.location_type] = @getLocation()
     search_params
 

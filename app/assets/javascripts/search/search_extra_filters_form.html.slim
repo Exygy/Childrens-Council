@@ -13,15 +13,46 @@ span ng-include="'search/search_location_filter.html'"
 /          - 4.times do |i|
 /            span.tick class="tick-#{i + 1}"
 
+
+
+
+
+section.margin-top-2
+  h5.c-black Provides financial assistance
+
+  accordion close-others="false" role="tablist"
+    accordion-group is-open="is_subsidies"
+      accordion-heading
+        #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
+          | Any (all options)
+          .right.toggle ng-switch="is_subsidies"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
+
+      #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_subsidies}}"
+        span ng-repeat="subsidy in data.subsidies track by subsidy.id"
+          .checkbox.checkbox-subsidy
+            input type="checkbox" id="subsidy-{{subsidy.name | attribute}}" name="subsidy_{{subsidy.name | attribute}}" checklist-value="subsidy.id" checklist-model="filters.subsidy_ids"
+            label for="subsidy-{{subsidy.name | attribute}}"
+              b
+                | {{subsidy.name}}
+              br
+              span description of some sort?
+
+
+
+
+
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Care Approach
-  .repeater-container ng-repeat="subsidy_id in filters.subsidy_ids track by $index"
-    select.radius id="subsidy-id-{{$index + 1}}" name="subsidy_id_{{$index + 1}}" ng-model="filters.subsidy_ids[$index]"
+  .repeater-container ng-repeat="care_approach_id in filters.care_approach_ids track by $index"
+    select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.care_approach_ids[$index]"
       option [value="" disabled] Select Care Approach
-      option ng-repeat="subsidy in data.subsidies_array track by $index" value="{{ subsidy.id }}"
-        ' {{ subsidy.name }}
-    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.subsidy_ids, $index)" Remove
-  button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.subsidy_ids) && filters.subsidy_ids.length < 3" ng-click="addItem(filters.subsidy_ids)" Add another
+      option ng-repeat="care_approach in (data.programs_array | programsByProgramType:'Care Approach') track by $index" value="{{ care_approach.id }}"
+        ' {{ care_approach.name }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.care_approach_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.care_approach_ids) && filters.care_approach_ids.length < 3" ng-click="addItem(filters.care_approach_ids)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Language Immersion Programs
@@ -48,7 +79,7 @@ section.margin-top-2
   .repeater-container ng-repeat="language_id in filters.religion_ids track by $index"
     select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.religion_ids[$index]"
       option [value="" disabled] Select Religious program
-      option ng-repeat="program in (data.programs_array | programsByProgramType:'Quality Improvement Program') track by $index" value="{{ program.id }}"
+      option ng-repeat="program in (data.programs_array | programsByProgramType:'Religious Program') track by $index" value="{{ program.id }}"
         ' {{ program.name }}
     button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.religion_ids, $index)" Remove
   button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religion_ids) && filters.religion_ids.length < 3" ng-click="addItem(filters.religion_ids)" Add another
@@ -60,14 +91,12 @@ section.margin-top-2
     button type="button" ng-model="filters.co_op" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" Yes
     button type="button" ng-model="filters.co_op" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No
 
-
 section.margin-top-2
   h5.c-black Meals included in tuition
   #meals-included-panel.button-group
     button type="button" ng-model="filters.nutrition_program" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No Preference
     button type="button" ng-model="filters.nutrition_program" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" Yes
     button type="button" ng-model="filters.nutrition_program" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-light']" No
-
 
 section.margin-top-2
   h5.c-black Potty training support
