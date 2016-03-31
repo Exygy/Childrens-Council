@@ -23,13 +23,13 @@ angular.module 'CCR', [
         onEnter: showSidebar,
       })
       .state('results', {
-        url: '/providers',
+        url: '/providers/',
         templateUrl: 'results/results.html',
         controller: 'ResultsController',
         onEnter: hideSidebar,
       })
       .state('provider', {
-        url: '/providers/:id',
+        url: '/providers/:id/',
         templateUrl: 'provider/provider.html',
         controller: 'ProviderController',
         onEnter: hideSidebar,
@@ -62,7 +62,9 @@ angular.module 'CCR', [
 hideSidebar = () ->
   $(document.getElementById('main')).addClass 'expanded'
   $(document.getElementById('sidebar')).addClass 'hide'
+  $(document.getElementById('content')).addClass 'providers'
 
 showSidebar = () ->
   $(document.getElementById('main')).removeClass 'expanded'
   $(document.getElementById('sidebar')).removeClass 'hide'
+  $(document.getElementById('content')).removeClass 'providers'

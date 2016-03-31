@@ -1,8 +1,24 @@
-button ng-click="toggleView()" Map / List
+header.page-header.padding-top-2
+  .row
+    .small-10.columns
+      ul.breadcrumbs
+        li
+          a ui-sref="search" Find Child Care
+        li.current
+          a ui-sref="results" Search Results
+
+    .small-2.columns.text-right
+      a href="javascript:window.print()" Print list
+
+  .row
+    .small-10.columns
+      h1 We found {{ search_result_data.totalProviders }} providers
+    .small-2.columns
+      button ng-click="toggleView()" Map / List
 
 .row
-  .large-4.medium-4.columns ng-include="'results/result_filters.html'"
+  .medium-4.columns.show-for-medium-up ng-include="'results/result_filters.html'"
 
-  .large-8.medium-8.columns
+  .medium-8.columns
     .map_view ng-if="view_mode.map" ng-include="'results/result_map.html'"
     .list_view ng-show="view_mode.list" ng-include="'results/result_list.html'"

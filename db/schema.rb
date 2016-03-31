@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323220141) do
+ActiveRecord::Schema.define(version: 20160331200813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20160323220141) do
   add_index "programs_providers", ["provider_id", "program_id"], name: "index_programs_providers_on_provider_id_and_program_id", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.text     "name",                                 null: false
+    t.text     "name",                                  null: false
     t.text     "alternate_name"
     t.text     "contact_name"
     t.text     "phone"
@@ -237,15 +237,15 @@ ActiveRecord::Schema.define(version: 20160323220141) do
     t.integer  "mail_state_id"
     t.text     "ssn"
     t.text     "tax_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "schedule_year_id"
     t.integer  "zip_code_id"
     t.integer  "care_type_id"
     t.text     "description"
-    t.integer  "licensed_ages",         default: [],                array: true
+    t.integer  "licensed_ages",         default: [],                 array: true
     t.integer  "neighborhood_id"
     t.string   "mail_zip_code"
     t.boolean  "accepting_referrals",   default: true
@@ -253,6 +253,9 @@ ActiveRecord::Schema.define(version: 20160323220141) do
     t.integer  "meal_sponsor_id"
     t.integer  "english_capability"
     t.integer  "preferred_language_id"
+    t.boolean  "potty_training",        default: false
+    t.boolean  "co_op",                 default: false
+    t.boolean  "nutrition_program",     default: false
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
