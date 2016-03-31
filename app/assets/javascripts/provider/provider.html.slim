@@ -1,128 +1,113 @@
 section.content.row.margin-bottom-5.new-page
-  .large-4.medium-4.columns
-    .sidebar-block
-      nav
-        ul
-          li.active
-            a href="#about"
-              | About
-              i.fa.fa-chevron-right
-          li
-            a href="#general_information"
-              | General Information
-              i.fa.fa-chevron-right
-          li
-            a href="#location"
-              | Location
-              i.fa.fa-chevron-right
-          li
-            a href="#hours_of_operation"
-              | Hours of Operation
-              i.fa.fa-chevron-right
-          li
-            a href="#license_and_ages_served"
-              | License & Ages Served
-              i.fa.fa-chevron-right
-          li
-            a href="#language_options"
-              | Language Options
-              i.fa.fa-chevron-right
-          li
-            a href="#financial_assitance"
-              | Financial Assistance
-              i.fa.fa-chevron-right
-    .margin-top-3
-      .c-base.margin-bottom-2
-        .side-col-container.results-item
-          .side-col
-            i.fa.fa-normal.fa-file-pdf-o.c-red
-          a href="#"
-            strong
-              | Download our
-              em Tips on Choosing Child Care
-            | (PDF, 289kb)
-          p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
-  .large-8.medium-8.columns
-    h3#about.text-capitalize.margin-bottom-1 About
+  .medium-4.columns.show-for-medium-up
+    .bg-white data-magellan-expedition="fixed"
+      nav.panel.bg-cyan-lighter
+        ul.side-nav
+          li data-magellan-arrival="about"
+            a href="#about" About
+          li data-magellan-arrival="general-information"
+            a href="#general-information" General Information
+          li data-magellan-arrival="location"
+            a href="#location" Location
+          li data-magellan-arrival="hours"
+            a href="#hours" Hours of Operation
+          li data-magellan-arrival="licenses"
+            a href="#licenses" License & Ages Served
+          li data-magellan-arrival="languages"
+            a href="#languages" Language Options
+          li data-magellan-arrival="financial-assistance"
+            a href="#financial-assistance" Financial Assistance
+
+      span.fa.fa-file-pdf-o.c-red.info-icon
+      .c-base.margin-left-2
+        a href="#"
+          strong
+            | Download our
+            em  Tips on Choosing Child Care
+          |  (PDF, 289kb)
+
+        p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
+
+  .medium-8.columns
+    a name="about"
+    h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+
     p
       ' {{provider.description}}
-    h3#general_information.text-capitalize.margin-top-3.margin-bottom-1 General Information
+
+    a name="general-information"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="general-information" General Information
+
     .color-icons
       .row
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-globe
+        .columns.medium-6
+          span.fa.fa-globe.info-icon
+          .margin-left-2
             span.label-gray.lighter Website
             a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-envelope
+
+        .columns.medium-6
+          span.fa.fa-envelope.info-icon
+          .margin-left-2
             span.label-gray.lighter Email
             a href="mailto:{{ provider.email }}" {{ provider.email }}
       hr
       .row
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-phone-square
+        .columns.medium-6
+          span.fa.fa-phone-square.info-icon
+          .margin-left-2
             span.label-gray.lighter Phone
             span
               ' {{ provider.phone | formatPhoneNumber }}
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-user
+        .columns.medium-6
+          span.fa.fa-user.info-icon
+          .margin-left-2
             span.label-gray.lighter Owner
             a href="#" TODO: Jeniffer L.
       hr
       .row
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-heart
+        .columns.medium-6
+          span.fa.fa-heart.info-icon
+          .margin-left-2
             span.label-gray.lighter
               ' Care Approach
               a href="#" Learn more
             span Montessori
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-book
+        .columns.medium-6
+          span.fa.fa-book.info-icon
+          .margin-left-2
             span.label-gray.lighter Religious Program
             span None
       hr
       .row
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-users
+        .columns.medium-6
+          span.fa.fa-users.info-icon
+          .margin-left-2
             span.label-gray.lighter Parent Co-Op
             span Yes
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-cutlery
+        .columns.medium-6
+          span.fa.fa-cutlery.info-icon
+          .margin-left-2
             span.label-gray.lighter Meals included in tuition
             span Yes
       hr
       .row
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-smile-o
+        .columns.medium-6
+          span.fa.fa-smile-o.info-icon
+          .margin-left-2
             span.label-gray.lighter Potty Traning support
             span Yes
-        .columns.medium-6.small-12
-          .side-col-container.results-item
-            .side-col
-              i.fa.fa-normal.fa-building
+        .columns.medium-6
+          span.fa.fa-building.info-icon
+          .margin-left-2
             span.label-gray.lighter Child care provider type
             span
               ' {{ provider.care_type_id | careTypeIdToName }}
       hr
-    h3#location.text-capitalize.margin-top-3.margin-bottom-1 Location
+
+    a name="location"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="location" Location
+
     .single_provider_map
       span.label-gray.lighter
         ' {{ provider.neighborhood_id|neighborhoodIdToName }}
@@ -137,7 +122,9 @@ section.content.row.margin-bottom-5.new-page
       ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options'
       ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
 
-    h3#hours_of_operation.text-capitalize.margin-top-3.margin-bottom-1 Hours of Operation
+    a name="hours"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="hours" Hours of Operation
+
     table.table-centered.table-hours
 
       thead
@@ -156,7 +143,9 @@ section.content.row.margin-bottom-5.new-page
               span
                 ' {{schedule_hour.end_time| date:'h:mm a':'UTC'}}
 
-    h3#license_and_ages_served.text-capitalize.margin-top-3.margin-bottom-1 License & Ages Served
+    a name="licenses"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="licenses" License & Ages Served
+
     table.table-lines
       thead
         tr
@@ -178,41 +167,44 @@ section.content.row.margin-bottom-5.new-page
             span
               ' {{license.capacity}}
 
-    h3#language_options.text-capitalize.margin-top-3.margin-bottom-1 Language Options
+    a name="languages"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="languages" Language Options
 
     span.label-gray.lighter
       ' Language Immersion Programs
-      i.fa.fa-info-circle
+      i.fa-circle.info-icon
     p Chinse, Spanish.
     hr
     span.label-gray.lighter
       ' Language Spoken
-      i.fa.fa-info-circle
+      i.fa-circle.info-icon
     p Chinese, Spanish, Russian
 
-    h3#financial_assitance.text-capitalize.margin-top-3.margin-bottom-1 Financial Assistance
+    a name="financial-assistance"
+    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
+
     table.table-lines
       tr
         td
-          i.fa.fa-normal.c-green-yellow.fa-check-circle
+          i.fa.c-green-yellow.fa-check-circle.info-icon
         td CalWORKs (provider accepts CalWORKs vouchers / payments)
         td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.c-green-yellow.fa-check-circle
+          i.fa.c-green-yellow.fa-check-circle.info-icon
         td Head Start and Early Head Start
         td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.c-green-yellow.fa-check-circle
+          i.fa.c-green-yellow.fa-check-circle.info-icon
         td Preschool for All
         td.text-right.text-no-wrap
           a href="#"  Show details
       tr
         td
-          i.fa.fa-normal.c-green-yellow.fa-check-circle
+          i.fa.c-green-yellow.fa-check-circle.info-icon
         td
           | Scholarships
           .c-base.margin-top-small Full or partial tuition discount offered via private funding per provider.

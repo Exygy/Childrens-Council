@@ -11,6 +11,14 @@ angular.module 'CCR', [
     'ui.slider',
   ]
   .constant '_', window._
+  .constant 'FOUNDATION_SETTINGS', {
+    'magellan-expedition': {
+      threshold: 0
+      destination_threshold: 50
+      fixed_top: 20
+      offset_by_height: false
+    }
+  }
   .constant 'deepFilter', window.deepFilter
   .constant 'CC_COOKIE', 'cc_api_key'
   .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->

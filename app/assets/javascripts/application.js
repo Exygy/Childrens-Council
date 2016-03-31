@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require foundation/js/foundation/foundation.js
+//= require foundation/js/foundation/foundation.magellan.js
 //= require lodash/lodash
 //= require angular
 //= require angular-aria/angular-aria.js
