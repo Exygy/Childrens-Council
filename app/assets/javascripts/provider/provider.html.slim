@@ -122,7 +122,13 @@ section.content.row.margin-bottom-5
             span
               ' {{ provider.programs | hasProgramByName: "Potty training" }}
         .columns.medium-6
-          span.fa.fa-building.info-icon
+          div ng-switch="provider.care_type_id | isFacility"
+            div ng-switch-when="true"
+              span.fa.fa-building.c-gainsboro.info-icon
+              .show-for-sr Child Care Center
+            div ng-switch-when="false"
+              span.fa.fa-home.c-gainsboro.info-icon
+              .show-for-sr Family Child Care
           .margin-left-2
             span.label-gray.lighter Child care provider type
             span
