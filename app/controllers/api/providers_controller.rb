@@ -3,7 +3,7 @@ module Api
     def index
       # Include associated provider models where we need information for display in the results list
       # (prevents individual join queries for each provider)
-      providers = Provider
+      providers = Provider.accepting_referrals.active
       providers = providers.where(co_op: provider_param_co_op) if provider_param_co_op
       providers = providers.where(nutrition_program: provider_param_nutrition_program) if provider_param_nutrition_program
       providers = providers.where(potty_training: provider_param_potty_training) if provider_param_potty_training
@@ -17,14 +17,8 @@ module Api
       providers = providers.search_by_schedule_week_ids(provider_param_schedule_week_ids) if provider_param_schedule_week_ids
       providers = providers.search_by_schedule_day_ids(provider_param_schedule_day_ids) if provider_param_schedule_day_ids
       providers = providers.search_by_care_type_ids(provider_param_care_type_ids) if provider_param_care_type_ids
-
-
-
-
       providers = providers.search_by_program_ids(provider_param_program_ids) if provider_param_program_ids
       providers = providers.search_by_subsidy_ids(provider_param_subsidy_ids) if provider_param_subsidy_ids
-
-
 
 
       # randomize result order unless searching by near by address
