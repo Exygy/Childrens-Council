@@ -1,7 +1,7 @@
 DataService = ($rootScope, HttpService) ->
   @data = {
     totalProviders: 0
-    providersPerPage: 25
+    providersPerPage: 15
     providers: []
   }
 
