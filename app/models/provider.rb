@@ -41,6 +41,9 @@
 #  meal_sponsor_id       :integer
 #  english_capability    :integer
 #  preferred_language_id :integer
+#  potty_training        :boolean          default(FALSE)
+#  co_op                 :boolean          default(FALSE)
+#  nutrition_program     :boolean          default(FALSE)
 #
 # Indexes
 #
