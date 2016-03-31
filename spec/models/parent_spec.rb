@@ -16,6 +16,7 @@
 #  full_name       :string
 #  random_seed     :float
 #  near_address    :string
+#  subscribe       :boolean
 #
 # Indexes
 #

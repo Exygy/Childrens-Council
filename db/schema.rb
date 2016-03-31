@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331200813) do
+ActiveRecord::Schema.define(version: 20160331211412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(version: 20160331200813) do
     t.string   "full_name"
     t.float    "random_seed"
     t.string   "near_address"
+    t.boolean  "subscribe"
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree

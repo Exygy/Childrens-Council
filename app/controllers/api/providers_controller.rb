@@ -4,6 +4,9 @@ module Api
       # Include associated provider models where we need information for display in the results list
       # (prevents individual join queries for each provider)
       providers = Provider
+      providers = providers.where(co_op: provider_param_co_op) if provider_param_co_op
+      providers = providers.where(nutrition_program: provider_param_nutrition_program) if provider_param_nutrition_program
+      providers = providers.where(potty_training: provider_param_potty_training) if provider_param_potty_training
       providers = providers.search_by_zip_code_ids(provider_param_zip_code_ids) if provider_param_zip_code_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
       providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
@@ -15,11 +18,14 @@ module Api
       providers = providers.search_by_schedule_day_ids(provider_param_schedule_day_ids) if provider_param_schedule_day_ids
       providers = providers.search_by_care_type_ids(provider_param_care_type_ids) if provider_param_care_type_ids
 
-      # rate: shit show?
-      # financial_assistance: [1,2,3] foreign_key
-      # child_care_philisophie: [1,2,3] foreign_key
-      # special_needs: [1,2,3] - foreign_key
-      # meals_included: true - many to many but mainly is there any entry
+
+
+
+      providers = providers.search_by_program_ids(provider_param_program_ids) if provider_param_program_ids
+      providers = providers.search_by_subsidy_ids(provider_param_subsidy_ids) if provider_param_subsidy_ids
+
+
+
 
       # randomize result order unless searching by near by address
       if provider_param_near_address
@@ -55,6 +61,18 @@ module Api
     def provider_params
       params.require(:providers).permit(
         :near_address,
+        :co_op,
+        :nutrition_program,
+        :potty_training,
+
+
+
+        subsidy_ids: [],
+        program_ids: [],
+
+
+
+
         ages: [],
         care_type_ids: [],
         language_ids: [],

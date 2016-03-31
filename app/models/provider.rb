@@ -194,6 +194,14 @@ class Provider < ActiveRecord::Base
       where { care_type_id.in(my { care_type_ids }) }
     end
 
+    def search_by_program_ids(program_ids)
+      joins(:programs).where(programs: { id: program_ids }).distinct
+    end
+
+    def search_by_subsidy_ids(subsidy_ids)
+      joins(:subsidies).where(subsidies: { id: subsidy_ids } ).distinct
+    end
+
     def search_by_ages(ages)
       query_param = '{' + ages.join(',') + '}'
       where('licensed_ages @> ?', query_param)
