@@ -23,13 +23,13 @@ angular.module 'CCR', [
         onEnter: showSidebar,
       })
       .state('results', {
-        url: '/providers',
+        url: '/providers/',
         templateUrl: 'results/results.html',
         controller: 'ResultsController',
         onEnter: hideSidebar,
       })
       .state('provider', {
-        url: '/providers/:id',
+        url: '/providers/:id/',
         templateUrl: 'provider/provider.html',
         controller: 'ProviderController',
         onEnter: hideSidebar,
