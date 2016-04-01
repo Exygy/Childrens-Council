@@ -20,5 +20,18 @@ FactoryGirl.define do
   factory :meal do
     association :meal_type
     association :provider
+
+    factory :meal_by_facility do
+      provided_by_facility true
+    end
+
+    factory :meal_by_parent do
+      provided_by_parent true
+    end
+
+    factory :meal_by_facility_or_parent do
+      provided_by_facility true
+      provided_by_parent true
+    end
   end
 end

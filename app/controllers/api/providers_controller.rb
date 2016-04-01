@@ -1,11 +1,8 @@
 module Api
   class ProvidersController < ApiController
     def index
-      # Include associated provider models where we need information for display in the results list
-      # (prevents individual join queries for each provider)
       providers = Provider.accepting_referrals.active
       providers = providers.where(co_op: provider_param_co_op) if provider_param_co_op
-      providers = providers.where(nutrition_program: provider_param_nutrition_program) if provider_param_nutrition_program
       providers = providers.where(potty_training: provider_param_potty_training) if provider_param_potty_training
       providers = providers.search_by_zip_code_ids(provider_param_zip_code_ids) if provider_param_zip_code_ids
       providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
@@ -19,13 +16,16 @@ module Api
       providers = providers.search_by_care_type_ids(provider_param_care_type_ids) if provider_param_care_type_ids
       providers = providers.search_by_program_ids(provider_param_program_ids) if provider_param_program_ids
       providers = providers.search_by_subsidy_ids(provider_param_subsidy_ids) if provider_param_subsidy_ids
+      # providers = providers.search_by_meals_included(provider_param_meals_included) if provider_param_meals_included
 
-
-      # randomize result order unless searching by near by address
+      # randomize result order per user unless searching by near by address
       if provider_param_near_address
+        # Preload associated provider models where we need information for display in the results list
+        # (prevents individual join queries for each provider)
         providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies)
       else
         Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
+        # eager_load rather than preload here, otherwise random sorting doesn't work
         providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
       end
 
@@ -56,7 +56,7 @@ module Api
       params.require(:providers).permit(
         :near_address,
         :co_op,
-        :nutrition_program,
+        :meals_included,
         :potty_training,
 
 

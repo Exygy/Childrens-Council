@@ -92,7 +92,7 @@ RSpec.describe Provider, type: :model do
   it { expect(provider.latitude).to eq(40.7143528) }
   it { expect(provider.longitude).to eq(-74.0059731) }
 
-  describe '.facility?' do
+  describe '#facility?' do
     let!(:facility_care_type) { FactoryGirl.create(:care_type, facility: true) }
     let!(:non_facility_care_type) { FactoryGirl.create(:care_type, facility: false) }
     let(:facility_provider) { FactoryGirl.build(:provider) }
@@ -104,6 +104,18 @@ RSpec.describe Provider, type: :model do
 
       expect(facility_provider.facility?).to be true
       expect(non_facility_provider.facility?).to be false
+    end
+  end
+
+  describe '#meals_included?' do
+    let(:provider_with_facility_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_facility)]) }
+    let(:provider_with_parent_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_parent)]) }
+    let(:provider_without_meals) { FactoryGirl.build(:provider, meals: []) }
+
+    it 'returns whether a provider provides any meals' do
+      expect(provider_with_facility_meals.meals_included?).to be true
+      expect(provider_with_parent_meals.meals_included?).to be false
+      expect(provider_without_meals.meals_included?).to be false
     end
   end
 
@@ -274,6 +286,26 @@ RSpec.describe Provider, type: :model do
       expect(Provider.search_by_days_and_hours(second_search_params).count).to be 2
       expect(Provider.search_by_days_and_hours(third_search_params).count).to be 1
       expect(Provider.search_by_days_and_hours(fourth_search_params).count).to be 1
+    end
+  end
+
+  describe '.search_by_meals_included' do
+    let!(:provider_with_facility_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_facility)]) }
+    let!(:provider_with_parent_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_parent)]) }
+    let!(:provider_with_facility_or_parent_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_facility_or_parent)]) }
+    let!(:provider_with_facility_and_parent_meals) { FactoryGirl.build(:provider, meals: [FactoryGirl.build(:meal_by_facility), FactoryGirl.build(:meal_by_parent)]) }
+    let!(:provider_without_meals) { FactoryGirl.build(:provider, meals: []) }
+
+    context 'when meals_included is false' do
+      it 'returns providers who provide one or more meals' do
+        expect(Provider.search_by_meals_included(true).count).to be 3
+      end
+    end
+
+    context 'when meals_included is false' do
+      it 'returns providers who have only parent provided meals' do
+        expect(Provider.search_by_meals_included(false).count).to be 1
+      end
     end
   end
 end
