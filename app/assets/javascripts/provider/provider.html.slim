@@ -193,9 +193,8 @@ section.content.row.margin-bottom-5
       tbody
         tr  ng-repeat="license in provider.licenses track by $index"
           td
-            a href="#"
-              |#
-              |{{license.number}}
+            a href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{license.number}}#detailview" target="_blank"
+              | \#{{license.number}}
           td
             span
               |{{license.license_type | capitalize}}: {{license | toAgeFromInMonths | ageToYearsAndMonths}} - {{license | toAgeToInMonths | ageToYearsAndMonths}}
