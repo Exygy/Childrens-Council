@@ -172,7 +172,7 @@ ProgramsWithProgramTypeByName = ($rootScope) ->
         for program of programs
           if program.program_type_id == program_type.id
             retained_programs.push program.name
-    if retained_programs.length then retained_programs.join(', ') else 'None'
+    if retained_programs.length then retained_programs.join(', ') else null
 
 ProgramsWithProgramTypeByName.$inject = ['$rootScope']
 angular.module('CCR').filter('programsWithProgramTypeByName', ProgramsWithProgramTypeByName)

@@ -19,7 +19,7 @@ header.page-header.padding-top-2
         | {{provider.name}}
 
 section.content.row.margin-bottom-5
-  .medium-4.columns.show-for-medium-up
+  .large-4.columns.show-for-large-up
     .bg-white data-magellan-expedition="fixed"
       nav.panel.bg-cyan-lighter
         ul.side-nav
@@ -48,7 +48,7 @@ section.content.row.margin-bottom-5
 
         p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
 
-  .medium-8.columns
+  .large-8.columns
     a name="about"
     h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
 
@@ -58,82 +58,80 @@ section.content.row.margin-bottom-5
     a name="general-information"
     h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="general-information" General Information
 
-    .color-icons
-      .row
-        .columns.medium-6
-          span.fa.fa-globe.info-icon
-          .margin-left-2
-            span.label-gray.lighter Website
-            a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
+    .row.info-grid
+      .columns.medium-6 ng-if="provider.url"
+        span.fa.fa-globe.info-icon
+        .margin-left-2
+          span.label-gray.lighter Website
+          a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
 
-        .columns.medium-6
-          span.fa.fa-envelope.info-icon
-          .margin-left-2
-            span.label-gray.lighter Email
-            a href="mailto:{{ provider.email }}" {{ provider.email }}
-      hr
-      .row
-        .columns.medium-6
-          span.fa.fa-phone-square.info-icon
-          .margin-left-2
-            span.label-gray.lighter Phone
-            span
-              ' {{ provider.phone | formatPhoneNumber }}
-        .columns.medium-6
-          span.fa.fa-user.info-icon
-          .margin-left-2
-            span.label-gray.lighter Owner
-            a href="#" {{ provider.contact_name }}
-      hr
-      .row
-        .columns.medium-6
-          span.fa.fa-heart.info-icon
-          .margin-left-2
-            span.label-gray.lighter
-              ' Care Approach
-              a href="#" Learn more
-            span
-              ' {{ provider.programs | programsWithProgramTypeByName: "Care Approach" }}
-        .columns.medium-6
-          span.fa.fa-book.info-icon
-          .margin-left-2
-            span.label-gray.lighter Religious Program
-            span
-              ' {{ provider.programs | programsWithProgramTypeByName: "Religious Program" }}
-      hr
-      .row
-        .columns.medium-6
-          span.fa.fa-users.info-icon
-          .margin-left-2
-            span.label-gray.lighter Parent Co-Op
-            span
-              ' {{ provider.programs | hasProgramByName: "Co-Op" }}
-        .columns.medium-6
-          span.fa.fa-cutlery.info-icon
-          .margin-left-2
-            span.label-gray.lighter Meals included in tuition
-            span Yes
-      hr
-      .row
-        .columns.medium-6
-          span.fa.fa-smile-o.info-icon
-          .margin-left-2
-            span.label-gray.lighter Potty Traning support
-            span
-              ' {{ provider.programs | hasProgramByName: "Potty training" }}
-        .columns.medium-6
-          div ng-switch="provider.care_type_id | isFacility"
-            div ng-switch-when="true"
-              span.fa.fa-building.c-gainsboro.info-icon
-              .show-for-sr Child Care Center
-            div ng-switch-when="false"
-              span.fa.fa-home.c-gainsboro.info-icon
-              .show-for-sr Family Child Care
-          .margin-left-2
-            span.label-gray.lighter Child care provider type
-            span
-              ' {{ provider.care_type_id | careTypeIdToName }}
-      hr
+      .columns.medium-6 ng-if="provider.email"
+        span.fa.fa-envelope.info-icon
+        .margin-left-2
+          span.label-gray.lighter Email
+          a href="mailto:{{ provider.email }}" {{ provider.email }}
+
+      .columns.medium-6 ng-if="provider.phone"
+        span.fa.fa-phone-square.info-icon
+        .margin-left-2
+          span.label-gray.lighter Phone
+          span
+            ' {{ provider.phone | formatPhoneNumber }}
+
+      .columns.medium-6 ng-if="provider.contact_name"
+        span.fa.fa-user.info-icon
+        .margin-left-2
+          span.label-gray.lighter Owner
+          span
+            ' {{ provider.contact_name }}
+
+      .columns.medium-6 ng-if="provider.programs | programsWithProgramTypeByName: 'Care Approach'"
+        span.fa.fa-heart.info-icon
+        .margin-left-2
+          span.label-gray.lighter
+            ' Care Approach
+            a href="#" Learn more
+          span
+            ' {{ provider.programs | programsWithProgramTypeByName: "Care Approach" }}
+
+      .columns.medium-6 ng-if="provider.programs | programsWithProgramTypeByName: 'Religious Program'"
+        span.fa.fa-book.info-icon
+        .margin-left-2
+          span.label-gray.lighter Religious Program
+          span
+            ' {{ provider.programs | programsWithProgramTypeByName: "Religious Program" }}
+
+      .columns.medium-6 ng-if="provider.co_op"
+        span.fa.fa-users.info-icon
+        .margin-left-2
+          span.label-gray.lighter Parent Co-Op
+          span Yes
+
+      .columns.medium-6
+        span.fa.fa-cutlery.info-icon
+        .margin-left-2
+          span.label-gray.lighter Meals included in tuition
+          span ng-if="provider.meals_included" Yes
+          span ng-if="!provider.meals_included" No
+
+      .columns.medium-6 ng-if="provider.potty_training"
+        span.fa.fa-smile-o.info-icon
+        .margin-left-2
+          span.label-gray.lighter Potty Training Support
+          span Yes
+
+      .columns.medium-6
+        div ng-switch="provider.care_type_id | isFacility"
+          div ng-switch-when="true"
+            span.fa.fa-building.c-gainsboro.info-icon
+            .show-for-sr Child Care Center
+          div ng-switch-when="false"
+            span.fa.fa-home.c-gainsboro.info-icon
+            .show-for-sr Family Child Care
+        .margin-left-2
+          span.label-gray.lighter Child care provider type
+          span
+            ' {{ provider.care_type_id | careTypeIdToName }}
 
     a name="location"
     h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="location" Location
@@ -202,35 +200,41 @@ section.content.row.margin-bottom-5
             span
               |{{license.capacity}}
 
-    a name="languages"
-    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="languages" Language Options
+    div ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') && (provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program'"
+      a name="languages"
+      h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="languages" Language Options
 
-    span.label-gray.lighter
-      ' Language Immersion Programs
-      i.fa.fa-info-circle
-    p
-      ' {{ provider.programs | programsWithProgramTypeByName: "Immersion Program" }}
-    hr
-    span.label-gray.lighter
-      ' Language Spoken
-      i.fa.fa-info-circle
-    p
-      ' {{ provider.programs | programsWithProgramTypeByName: "Quality Improvement Program" }}
+      div ng-if="provider.programs | programsWithProgramTypeByName: 'Immersion Program'"
+        span.label-gray.lighter
+          ' Language Immersion Programs
+          span.fa.fa-info-circle
+        p
+          ' {{ provider.programs | programsWithProgramTypeByName: 'Immersion Program' }}
 
-    a name="financial-assistance"
-    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
+      hr ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') && (provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program'"
 
-    accordion close-others="false" role="tablist"
-      accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="subsidy in provider.subsidies track by subsidy.id"
-        accordion-heading
-          div id="{{subsidy.name | attribute}}-heading" role="tab" aria-controls="{{subsidy.name | attribute}}-panel"
-            span.fa.c-green-yellow.fa-check-circle
-            span.margin-left-1
-              | {{subsidy.name}}
-            .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="subsidy.description"
-              span ng-switch-when="false" Show
-              span ng-switch-when="true" Hide
-              |  details
+      div ng-if="programsWithProgramTypeByName: 'Quality Improvement Program'"
+        span.label-gray.lighter
+          ' Language Spoken
+          span.fa.fa-info-circle
+        p
+          ' {{ provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program' }}
+
+    div ng-if="provider.subsidies.length"
+      a name="financial-assistance"
+      h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
+
+      accordion close-others="false" role="tablist"
+        accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="subsidy in provider.subsidies track by subsidy.id"
+          accordion-heading
+            div id="{{subsidy.name | attribute}}-heading" role="tab" aria-controls="{{subsidy.name | attribute}}-panel"
+              span.fa.c-green-yellow.fa-check-circle
+              span.margin-left-1
+                | {{subsidy.name}}
+              .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="subsidy.description"
+                span ng-switch-when="false" Show
+                span ng-switch-when="true" Hide
+                |  details
 
         .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
           | {{subsidy.description}}
