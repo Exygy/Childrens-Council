@@ -2,7 +2,6 @@ ToMarkers = () ->
   (providers) ->
     if providers
       for provider, index in providers
-        providers[index]['title'] = provider.name
         providers[index]['isIconVisibleOnClick'] = true
         providers[index]['closeClick'] = 'none'
         providers[index]['marker_icon'] = 'icon_url_should_vary_based_on_provider_type'

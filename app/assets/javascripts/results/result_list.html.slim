@@ -15,33 +15,6 @@
         '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
       |  of {{ search_result_data.totalProviders }} results
 
-ul.no-bullet ng-repeat="provider in search_result_data.providers"
-  li.results-item
-    .provider-type ng-switch="provider.care_type_id | isFacility"
-      div ng-switch-when="true"
-        span.fa.fa-building.c-gainsboro
-        .show-for-sr Child Care Center
-      div ng-switch-when="false"
-        span.fa.fa-home.c-gainsboro
-        .show-for-sr Family Child Care
-    h2.item-title
-      a ng-click="goToProvider(provider.id)" {{ provider.name }}
-    p
-      span ng-if="provider.care_type_id | isFacility"
-        '  {{ provider.address_1 }}
-        '  {{ provider.address_2 }},
-      span ng-if="!(provider.care_type_id | isFacility)"
-        '  {{ provider.cross_street_1 }}
-        '  &amp;
-        '  {{ provider.cross_street_2 }},
-      span
-        '  {{ provider.city_id|cityIdToName }}
-        '  {{ provider.state_id|stateIdToAbbr }}
-        ' {{ provider.zip_code_id|zipCodeIdToName }}
-      a ng-click="toggleMap(provider)"
-        span ng-if="!provider.map" See map
-        span ng-if="provider.map" Hide map
-
 .loading ng-show="loading"
 
 div ng-hide="loading"

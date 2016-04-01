@@ -20,7 +20,7 @@ CareTypeIdsToNames = ($rootScope) ->
     for care_type_id in care_type_ids
       if $rootScope.data['care_types'][care_type_id]
         care_type_names.push $rootScope.data['care_types'][care_type_id].name
-    care_type_names.join(', ')
+    EntitiesToString(care_type_names)
 
 CareTypeIdsToNames.$inject = ['$rootScope']
 angular.module('CCR').filter('careTypeIdsToNames', CareTypeIdsToNames)
@@ -172,7 +172,7 @@ ProgramsWithProgramTypeByName = ($rootScope) ->
         for program of programs
           if program.program_type_id == program_type.id
             retained_programs.push program.name
-    if retained_programs.length then retained_programs.join(', ') else null
+    if retained_programs.length then EntitiesToString(care_type_namesretained_programs) else null
 
 ProgramsWithProgramTypeByName.$inject = ['$rootScope']
 angular.module('CCR').filter('programsWithProgramTypeByName', ProgramsWithProgramTypeByName)
@@ -220,3 +220,53 @@ OrderByWeekDays = () ->
     _.sortBy(schedule_hours, 'schedule_day_id')
 
 angular.module('CCR').filter('orderByWeekDays', OrderByWeekDays)
+
+SubsidiesToFilterTitle = ($rootScope) ->
+  (subsidy_ids) ->
+    if subsidy_ids.length and subsidy_ids[0] != ''
+      names = []
+      for subsidy_id in subsidy_ids
+        names.push $rootScope.data['subsidies'][subsidy_id].name
+      EntitiesToString(names)
+    else
+      'Any (all options)'
+
+SubsidiesToFilterTitle.$inject = ['$rootScope']
+angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
+
+ProviderName = ($rootScope) ->
+  (provider) ->
+    FormatProviderName(provider, $rootScope, provider.name)
+
+ProviderName.$inject = ['$rootScope']
+angular.module('CCR').filter('providerName', ProviderName)
+
+ProviderContactName = ($rootScope) ->
+  (provider) ->
+    FormatProviderName(provider, $rootScope, provider.contact_name)
+
+ProviderContactName.$inject = ['$rootScope']
+angular.module('CCR').filter('providerContactName', ProviderContactName)
+
+FormatProviderName = (provider, rootScope, name) ->
+  if rootScope.data['care_types'][provider.care_type_id].name == 'Family Child Care'
+    names = name.split(',')
+    if names.length == 2
+      first_name = names[1]
+      last_name = names[0]
+      return last_name + ' ' + first_name[0]
+    if names.length == 1
+      names = name.split(' ')
+      first_name = names[1]
+      last_name = names[0]
+      return last_name + ' ' + first_name[0]
+  else
+    return name
+
+EntitiesToString = (entities) ->
+  string = ''
+  for entity, index in entities
+    string += entity
+    if index+1 != entities.length
+      string += if index+2 == entities.length then ' and ' else ', '
+  string

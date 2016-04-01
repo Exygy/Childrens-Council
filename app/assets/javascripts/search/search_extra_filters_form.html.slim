@@ -24,21 +24,22 @@ section.margin-top-2
     accordion-group is-open="is_subsidies"
       accordion-heading
         #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | Any (all options)
+          | {{ filters.subsidy_ids | subsidiesToFilterTitle }}
           .right.toggle ng-switch="is_subsidies"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
             |  options
 
       #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_subsidies}}"
-        span ng-repeat="subsidy in data.subsidies track by subsidy.id"
+        span ng-repeat="subsidy in (data.subsidies_array | filter:{display: true}) track by subsidy.id"
           .checkbox.checkbox-subsidy
             input type="checkbox" id="subsidy-{{subsidy.name | attribute}}" name="subsidy_{{subsidy.name | attribute}}" checklist-value="subsidy.id" checklist-model="filters.subsidy_ids"
             label for="subsidy-{{subsidy.name | attribute}}"
               b
                 | {{subsidy.name}}
-              br
-              span description of some sort?
+            p.c-base
+              small
+                | {{subsidy.description}}
 
 
 
