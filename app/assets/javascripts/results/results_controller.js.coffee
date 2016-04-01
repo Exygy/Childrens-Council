@@ -1,4 +1,4 @@
-ResultsController = ($scope, $location, $state, $controller, ResultsService, ProviderService) ->
+ResultsController = ($scope, $location, $state, $controller, $anchorScroll, ResultsService, ProviderService) ->
   $controller 'ApplicationController', {$scope: $scope}
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
@@ -11,19 +11,27 @@ ResultsController = ($scope, $location, $state, $controller, ResultsService, Pro
       $scope.setSideNavWidth()
 
   $scope.nextPage = ->
-    console.log "start loader animation"
-    ResultsService.nextPage () ->
-      console.log "stop loader animation"
+    if !$scope.isLastPage()
+      scrollToTop()
+      console.log "start loader animation"
+      ResultsService.nextPage () ->
+        console.log "stop loader animation"
 
   $scope.prevPage = ->
-    console.log "start loader animation"
-    ResultsService.prevPage () ->
-      console.log "stop loader animation"
+    if !$scope.isFirstPage()
+      scrollToTop()
+      console.log "start loader animation"
+      ResultsService.prevPage () ->
+        console.log "stop loader animation"
 
   $scope.postSearch = ->
+    scrollToTop()
     console.log "start loader animation"
     ResultsService.postSearch () ->
       console.log "stop loader animation"
+
+  scrollToTop = ->
+    $anchorScroll('search-results-wrapper')
 
   $scope.isFirstPage = () ->
     $scope.search_result_data.current_page == 1
@@ -47,5 +55,7 @@ ResultsController = ($scope, $location, $state, $controller, ResultsService, Pro
     $scope.view_mode.map = !$scope.view_mode.map
     $scope.view_mode.list = !$scope.view_mode.list
 
-ResultsController.$inject = ['$scope', '$location', '$state', '$controller', 'ResultsService', 'ProviderService']
+  scrollToTop()
+
+ResultsController.$inject = ['$scope', '$location', '$state', '$controller', '$anchorScroll', 'ResultsService', 'ProviderService']
 angular.module('CCR').controller('ResultsController', ResultsController)

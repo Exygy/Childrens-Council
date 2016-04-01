@@ -3,6 +3,7 @@ DataService = ($rootScope, HttpService) ->
     totalProviders: 0
     providersPerPage: 15
     providers: []
+    is_loading: false
   }
 
   @settings = {
@@ -131,7 +132,10 @@ DataService = ($rootScope, HttpService) ->
 
   @performSearch = (callback) =>
     that = @
+    that.data.providers = []
+    that.data.is_loading = true
     @serverRequest (response) ->
+      that.data.is_loading = false
       if response.data
         that.data.providers = response.data.providers
         that.data.totalProviders = response.data.total

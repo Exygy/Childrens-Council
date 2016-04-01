@@ -213,3 +213,10 @@ ProgramsByProgramType = ($rootScope) ->
 
 ProgramsWithProgramTypeByName.$inject = ['$rootScope']
 angular.module('CCR').filter('programsByProgramType', ProgramsByProgramType)
+
+OrderByWeekDays = () ->
+  (schedule_hours) ->
+    schedule_hours
+    _.sortBy(schedule_hours, 'schedule_day_id')
+
+angular.module('CCR').filter('orderByWeekDays', OrderByWeekDays)

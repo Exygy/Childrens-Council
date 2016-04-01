@@ -1,4 +1,4 @@
-header.page-header.padding-top-2
+header#provider-content-wrapper.page-header.padding-top-2
   .row
     .small-10.columns
       ul.breadcrumbs
@@ -164,12 +164,12 @@ section.content.row.margin-bottom-5
 
       thead
         tr
-          th ng-repeat="schedule_hour in provider.schedule_hours track by $index"
+          th ng-repeat="schedule_hour in (provider.schedule_hours|orderByWeekDays) track by $index"
             span.label-gray
               | {{ schedule_hour.schedule_day_id|scheduleDayIdToName }}
       tbody
         tr
-          td ng-repeat="schedule_hour in provider.schedule_hours track by $index"
+          td ng-repeat="schedule_hour in (provider.schedule_hours|orderByWeekDays) track by $index"
             span ng-if="schedule_hour.closed" Closed
             span ng-if="!schedule_hour.closed"
               span

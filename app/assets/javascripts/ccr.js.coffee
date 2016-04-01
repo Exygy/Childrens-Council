@@ -7,6 +7,7 @@ angular.module 'CCR', [
     'ngCookies',
     'mm.foundation',
     'checklist-model',
+    'truncate',
     'ui.select',
     'ui.slider',
   ]

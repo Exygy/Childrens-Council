@@ -15,6 +15,10 @@
         '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
       |  of {{ search_result_data.totalProviders }} results
 
+
+.loader ng-show="search_result_data.is_loading"
+  img
+
 ul.no-bullet ng-repeat="provider in search_result_data.providers"
   li.results-item
     .provider-type ng-switch="provider.care_type_id | isFacility"
@@ -59,7 +63,7 @@ ul.no-bullet ng-repeat="provider in search_result_data.providers"
         ' {{ provider.url }}
 
     p.margin-top-small
-      ' {{ provider.description }}
+      ' {{ provider.description | words:25 }}
 
     p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
 
