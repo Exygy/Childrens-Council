@@ -1,4 +1,5 @@
-SearchController = ($scope, $state, SearchService) ->
+SearchController = ($scope, $state, $controller, SearchService) ->
+  $controller 'ApplicationController', {$scope: $scope}
   $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
@@ -37,5 +38,5 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.setContactType = (type) ->
     $scope.settings.contact_type = type
 
-SearchController.$inject = ['$scope', '$state', 'SearchService']
+SearchController.$inject = ['$scope', '$state', '$controller', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)

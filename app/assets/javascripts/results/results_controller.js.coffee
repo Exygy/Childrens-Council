@@ -3,6 +3,7 @@ ResultsController = ($scope, $location, $state, $controller, ResultsService, Pro
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
+  $scope.loading = false
 
   # Init sticky sidebar nav after ng-includes loads sidebar markup
   $scope.$on '$includeContentLoaded', (event, src) ->
@@ -11,19 +12,19 @@ ResultsController = ($scope, $location, $state, $controller, ResultsService, Pro
       $scope.setSideNavWidth()
 
   $scope.nextPage = ->
-    console.log "start loader animation"
+    $scope.loading = true
     ResultsService.nextPage () ->
-      console.log "stop loader animation"
+      $scope.loading = false
 
   $scope.prevPage = ->
-    console.log "start loader animation"
+    $scope.loading = true
     ResultsService.prevPage () ->
-      console.log "stop loader animation"
+      $scope.loading = false
 
   $scope.postSearch = ->
-    console.log "start loader animation"
+    $scope.loading = true
     ResultsService.postSearch () ->
-      console.log "stop loader animation"
+      $scope.loading = false
 
   $scope.isFirstPage = () ->
     $scope.search_result_data.current_page == 1

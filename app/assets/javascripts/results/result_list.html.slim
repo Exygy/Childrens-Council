@@ -15,68 +15,71 @@
         '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
       |  of {{ search_result_data.totalProviders }} results
 
-ul.no-bullet ng-repeat="provider in search_result_data.providers"
-  li.results-item
-    .provider-type ng-switch="provider.care_type_id | isFacility"
-      div ng-switch-when="true"
-        span.fa.fa-building.c-gainsboro
-        .show-for-sr Child Care Center
-      div ng-switch-when="false"
-        span.fa.fa-home.c-gainsboro
-        .show-for-sr Family Child Care
-    h2.item-title
-      a ng-click="goToProvider(provider.id)" {{ provider.name }}
-    p
-      span ng-if="provider.care_type_id | isFacility"
-        '  {{ provider.address_1 }}
-        '  {{ provider.address_2 }},
-      span ng-if="!(provider.care_type_id | isFacility)"
-        '  {{ provider.cross_street_1 }}
-        '  &amp;
-        '  {{ provider.cross_street_2 }},
-      span
-        '  {{ provider.city_id|cityIdToName }}
-        '  {{ provider.state_id|stateIdToAbbr }}
-        ' {{ provider.zip_code_id|zipCodeIdToName }}
-      a ng-click="toggleMap(provider)"
-        span ng-if="!provider.map" See map
-        span ng-if="provider.map" Hide map
+.loading ng-show="loading"
 
-    ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options' ng-if="provider.map"
-      ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+div ng-hide="loading"
+  ul.no-bullet ng-repeat="provider in search_result_data.providers"
+    li.results-item
+      .provider-type ng-switch="provider.care_type_id | isFacility"
+        div ng-switch-when="true"
+          span.fa.fa-building.c-gainsboro
+          .show-for-sr Child Care Center
+        div ng-switch-when="false"
+          span.fa.fa-home.c-gainsboro
+          .show-for-sr Family Child Care
+      h2.item-title
+        a ng-click="goToProvider(provider.id)" {{ provider.name }}
+      p
+        span ng-if="provider.care_type_id | isFacility"
+          '  {{ provider.address_1 }}
+          '  {{ provider.address_2 }},
+        span ng-if="!(provider.care_type_id | isFacility)"
+          '  {{ provider.cross_street_1 }}
+          '  &amp;
+          '  {{ provider.cross_street_2 }},
+        span
+          '  {{ provider.city_id|cityIdToName }}
+          '  {{ provider.state_id|stateIdToAbbr }}
+          ' {{ provider.zip_code_id|zipCodeIdToName }}
+        a ng-click="toggleMap(provider)"
+          span ng-if="!provider.map" See map
+          span ng-if="provider.map" Hide map
 
-    p
-      span.item-detail
-        span.fa.fa-phone-square.c-base
-        '  {{ provider.phone | formatPhoneNumber }}
+      ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options' ng-if="provider.map"
+        ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
 
-      span.item-detail
-        span.fa.fa-clock-o.c-base
-        '  {{ provider.schedule_hours | scheduleHoursToSummary }}
+      p
+        span.item-detail
+          span.fa.fa-phone-square.c-base
+          '  {{ provider.phone | formatPhoneNumber }}
 
-    p
-      a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
-        ' {{ provider.url }}
+        span.item-detail
+          span.fa.fa-clock-o.c-base
+          '  {{ provider.schedule_hours | scheduleHoursToSummary }}
 
-    p.margin-top-small
-      ' {{ provider.description }}
+      p
+        a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
+          ' {{ provider.url }}
 
-    p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
+      p.margin-top-small
+        ' {{ provider.description }}
 
-    p.c-base
-      | Check history / reports:
-      span ng-repeat="license in provider.licenses track by license.id"
-        a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"  Lic \#{{ license.number }}
-        span ng-if="$index < provider.licenses.length - 1"  &amp;
+      p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
 
-  hr.margin-top-2.margin-bottom-2
+      p.c-base
+        | Check history / reports:
+        span ng-repeat="license in provider.licenses track by license.id"
+          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"  Lic \#{{ license.number }}
+          span ng-if="$index < provider.licenses.length - 1"  &amp;
 
-ul.pager.button-group.radius.margin-bottom-3
-  li
-    a ng-click="prevPage()" ng-disabled="isFirstPage()"
-      i.fa.fa-chevron-left.margin-right-small
-      small Previous {{ search_result_data.providersPerPage }}
-  li
-    a ng-click="nextPage()" ng-disabled="isLastPage()"
-      small Next {{ search_result_data.providersPerPage }}
-      i.fa.fa-chevron-right.margin-left-small
+    hr.margin-top-2.margin-bottom-2
+
+  ul.pager.button-group.radius.margin-bottom-3
+    li
+      a ng-click="prevPage()" ng-disabled="isFirstPage()"
+        i.fa.fa-chevron-left.margin-right-small
+        small Previous {{ search_result_data.providersPerPage }}
+    li
+      a ng-click="nextPage()" ng-disabled="isLastPage()"
+        small Next {{ search_result_data.providersPerPage }}
+        i.fa.fa-chevron-right.margin-left-small
