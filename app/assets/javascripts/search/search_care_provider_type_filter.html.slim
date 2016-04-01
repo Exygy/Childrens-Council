@@ -2,9 +2,7 @@ section.margin-top-1.margin-bottom-3
   h5.c-black ng-class="{ error: searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid }" Child care provider type
 
   .margin-bottom-1
-    a href="#" ng-click="settings.show_care_type_differences = !settings.show_care_type_differences"
-      span ng-hide="settings.show_care_type_differences" What are the differences?
-      span ng-show="settings.show_care_type_differences" Hide the differences
+    a href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank" What are the differences?
 
   .row
     .columns.small-12 ng-show="searchForm.care_type_ids.$dirty && searchForm.care_type_ids.$invalid"
@@ -19,15 +17,9 @@ section.margin-top-1.margin-bottom-3
           span.fa.fa-home
           | Family Child Care
 
-      p.margin-left-small.margin-right-small.fade ng-show="settings.show_care_type_differences"
-        small Typically takes place in a childcare provider's home and is required to complete CPR, First Aid, and Health and Safety Classes. All adults living in the home must be fingerprinted.
-
     .columns.medium-6
       .checkbox.checkbox-single.checkbox-button
         input type="checkbox" id="care-type-2" name="care_type_ids" checklist-value="2" checklist-model="filters.care_type_ids" ng-required="filters.care_type_ids.length < 1"
         label for="care-type-2"
           span.fa.fa-building-o
           | Child Care Center
-
-      p.margin-left-small.margin-right-small.fade ng-show="settings.show_care_type_differences"
-        small Typically takes place in a commercial building, school, or religious institution. All staff must complete Early Childhood Education and be fingerprinted.

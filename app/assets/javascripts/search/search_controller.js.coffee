@@ -4,7 +4,6 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
-  $scope.settings.show_care_type_differences = false
   $scope.settings.show_why_asking = false
 
   validateForm = () ->
