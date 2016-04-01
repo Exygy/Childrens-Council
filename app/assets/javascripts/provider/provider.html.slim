@@ -220,30 +220,17 @@ section.content.row.margin-bottom-5
     a name="financial-assistance"
     h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
 
-    table.table-lines
-      tr
-        td
-          i.fa.c-green-yellow.fa-check-circle.info-icon
-        td CalWORKs (provider accepts CalWORKs vouchers / payments)
-        td.text-right.text-no-wrap
-          a href="#"  Show details
-      tr
-        td
-          i.fa.c-green-yellow.fa-check-circle.info-icon
-        td Head Start and Early Head Start
-        td.text-right.text-no-wrap
-          a href="#"  Show details
-      tr
-        td
-          i.fa.c-green-yellow.fa-check-circle.info-icon
-        td Preschool for All
-        td.text-right.text-no-wrap
-          a href="#"  Show details
-      tr
-        td
-          i.fa.c-green-yellow.fa-check-circle.info-icon
-        td
-          | Scholarships
-          .c-base.margin-top-small Full or partial tuition discount offered via private funding per provider.
-        td.text-right.text-no-wrap
-          a href="#"  Hide details
+    accordion close-others="false" role="tablist"
+      accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="subsidy in provider.subsidies track by subsidy.id"
+        accordion-heading
+          div id="{{subsidy.name | attribute}}-heading" role="tab" aria-controls="{{subsidy.name | attribute}}-panel"
+            span.fa.c-green-yellow.fa-check-circle
+            span.margin-left-1
+              | {{subsidy.name}}
+            .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="subsidy.description"
+              span ng-switch-when="false" Show
+              span ng-switch-when="true" Hide
+              |  details
+
+        .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
+          | {{subsidy.description}}
