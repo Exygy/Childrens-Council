@@ -34,7 +34,7 @@ section.margin-top-2
             |  options
 
       #annual-schedule-panel.button-group role="tabpanel" aria-labelledby="annual-schedule-heading" aria-hidden="{{!is_open_years}}"
-        button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="filters.schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-light']"
+        button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="filters.schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']"
           | {{schedule_year.name}}
 
     accordion-group is-open="is_open_weeks"

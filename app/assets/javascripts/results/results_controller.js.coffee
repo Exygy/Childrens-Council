@@ -3,6 +3,7 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
+  $scope.loading = false
 
   # Init sticky sidebar nav after ng-includes loads sidebar markup
   $scope.$on '$includeContentLoaded', (event, src) ->
@@ -13,22 +14,22 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $scope.nextPage = ->
     if !$scope.isLastPage()
       scrollToTop()
-      console.log "start loader animation"
+      $scope.loading = true
       ResultsService.nextPage () ->
-        console.log "stop loader animation"
+        $scope.loading = false
 
   $scope.prevPage = ->
     if !$scope.isFirstPage()
       scrollToTop()
-      console.log "start loader animation"
+      $scope.loading = true
       ResultsService.prevPage () ->
-        console.log "stop loader animation"
+        $scope.loading = false
 
   $scope.postSearch = ->
     scrollToTop()
-    console.log "start loader animation"
+    $scope.loading = true
     ResultsService.postSearch () ->
-      console.log "stop loader animation"
+      $scope.loading = false
 
   scrollToTop = ->
     $anchorScroll('search-results-wrapper')

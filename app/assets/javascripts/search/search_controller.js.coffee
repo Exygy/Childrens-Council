@@ -1,9 +1,9 @@
-SearchController = ($scope, $state, SearchService) ->
+SearchController = ($scope, $state, $controller, SearchService) ->
+  $controller 'ApplicationController', {$scope: $scope}
   $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
-  $scope.settings.show_care_type_differences = false
   $scope.settings.show_why_asking = false
 
   validateForm = () ->
@@ -37,5 +37,5 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.setContactType = (type) ->
     $scope.settings.contact_type = type
 
-SearchController.$inject = ['$scope', '$state', 'SearchService']
+SearchController.$inject = ['$scope', '$state', '$controller', 'SearchService']
 angular.module('CCR').controller('SearchController', SearchController)

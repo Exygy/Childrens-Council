@@ -1,6 +1,7 @@
-ApplicationController = ($scope, _) ->
-  # DOM minipulation that needs to happen after view markup is loaded
+ApplicationController = ($scope, $rootScope, _) ->
+  # DOM manipulation that needs to happen after view markup is loaded
   $scope.$on '$viewContentLoaded', (event) ->
+    $rootScope.state_loading = false
     $content = $(document.getElementById('content'))
     $content.siblings('.page-header').remove()
     $content.before($('.page-header'))
@@ -22,5 +23,5 @@ ApplicationController = ($scope, _) ->
     $side_nav = $('[data-magellan-expedition]')
     $side_nav.width $side_nav.parents('.columns').width() if $side_nav.length
 
-ApplicationController.$inject = ['$scope', '_']
+ApplicationController.$inject = ['$scope', '$rootScope', '_']
 angular.module('CCR').controller('ApplicationController', ApplicationController)
