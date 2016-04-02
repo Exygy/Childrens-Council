@@ -65,15 +65,19 @@ div ng-hide="loading"
         a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
           ' {{ provider.url }}
 
-      p.margin-top-small
-        ' {{ provider.description }}
+      p.c-base
+        | Financial assistance:
+        span ng-if="provider.subsidies.length" ng-repeat="subsidy in provider.subsidies track by subsidy.id"
+          |  {{subsidy.name}}
+          span ng-if="$index < provider.subsidies.length - 1" ,
 
-      p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
+        span ng-hide="provider.subsidies.length"  check with provider.
 
       p.c-base
         | Check history / reports:
         span ng-repeat="license in provider.licenses track by license.id"
-          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"  Lic \#{{ license.number }}
+          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"
+            |  \#{{ license.number }}
           span ng-if="$index < provider.licenses.length - 1"  &amp;
 
     hr.margin-top-2.margin-bottom-2

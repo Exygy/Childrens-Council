@@ -96,7 +96,7 @@ class Provider < ActiveRecord::Base
   before_save :calculate_ages
 
   def as_json(options = {})
-    super(include: [:licenses, :schedule_hours])
+    super(include: [:licenses, :schedule_hours, :subsidies])
   end
 
   def facility?
