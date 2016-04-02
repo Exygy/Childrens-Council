@@ -2,6 +2,7 @@ ResultFilterController = ($scope, $modal, ResultsService) ->
   $scope.filters = ResultsService.filters
   $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
+  $scope.settings.show_more_filters = false
 
   $scope.openResultFiltersModal = () ->
     $modal.open {
