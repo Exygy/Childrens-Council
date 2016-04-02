@@ -7,7 +7,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  description :text
-#  display     :boolean
+#  display     :boolean          default(FALSE)
 #
 
 require 'rails_helper'
