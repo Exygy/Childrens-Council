@@ -211,7 +211,7 @@ ProgramsByProgramType = ($rootScope) ->
             retained_programs.push program
     retained_programs
 
-ProgramsWithProgramTypeByName.$inject = ['$rootScope']
+ProgramsByProgramType.$inject = ['$rootScope']
 angular.module('CCR').filter('programsByProgramType', ProgramsByProgramType)
 
 OrderByWeekDays = () ->
