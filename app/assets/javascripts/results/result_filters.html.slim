@@ -22,10 +22,7 @@
 
       li
         h4 Care Approach
-        ul.children ng-if="filters.care_type_ids.length"
-          li ng-repeat="care_type_id in filters.care_type_ids"
-            ' {{ care_type_id | careTypeIdToName }}
-        p ng-show="!filters.care_type_ids.length" Any
+        p Any
 
       li
         h4 Language Program
