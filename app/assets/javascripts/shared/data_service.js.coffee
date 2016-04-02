@@ -40,7 +40,7 @@ DataService = ($rootScope, HttpService) ->
     potty_training: null
     language_ids: ['']
     program_ids: ['']
-    subsidy_ids: ['']
+    subsidy_ids: []
     religion_ids: ['']
     care_approach_ids: ['']
     neighborhood_ids: ['']

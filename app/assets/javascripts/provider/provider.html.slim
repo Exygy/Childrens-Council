@@ -8,7 +8,7 @@ header#provider-content-wrapper.page-header.padding-top-2
           a ui-sref="results" Search Results
         li.current
           a ui-sref="provider"
-            | {{provider.name}}
+            | {{provider | providerName}}
 
     .small-2.columns.text-right
       a href="javascript:window.print()" Print
@@ -16,7 +16,7 @@ header#provider-content-wrapper.page-header.padding-top-2
   .row
     .small-12.columns
       h1
-        | {{provider.name}}
+        | {{provider | providerName}}
 
 section.content.row.margin-bottom-5
   .large-4.columns.show-for-large-up
@@ -83,7 +83,7 @@ section.content.row.margin-bottom-5
         .margin-left-2
           span.label-gray.lighter Owner
           span
-            ' {{ provider.contact_name }}
+            ' {{ provider | providerContactName }}
 
       .columns.medium-6 ng-if="provider.programs | programsWithProgramTypeByName: 'Care Approach'"
         span.fa.fa-heart.info-icon
