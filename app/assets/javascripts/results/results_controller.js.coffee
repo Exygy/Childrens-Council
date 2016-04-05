@@ -42,6 +42,7 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
     $scope.search_result_data.current_page == total_number_of_pages
 
   $scope.goToProvider = (provider_id) ->
+    $scope.loading = true
     $state.go('provider', {id: provider_id})
 
   $scope.toggleMap = (provider) ->
