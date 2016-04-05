@@ -286,7 +286,7 @@ EntitiesToString = (entities) ->
     string += entity
     if index+1 != entities.length
       string += if index+2 == entities.length then ' and ' else ', '
-  string
+  if string != '' then string else 'None'
 
 BooleanFilterToText = ->
   (bool_filter) ->
@@ -319,3 +319,20 @@ ScheduleDayIdsToText = ($rootScope) ->
 
 ScheduleDayIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)
+
+ScheduleWeekIdsToText = ($rootScope) ->
+  (schedule_week_ids) ->
+    weeks = []
+    for schedule_week_id in schedule_week_ids
+      weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
+    return EntitiesToString(weeks)
+
+ScheduleWeekIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('scheduleWeekIdsToText', ScheduleWeekIdsToText)
+
+ScheduleYearIdToText = ($rootScope) ->
+  (schedule_year_id) ->
+    $rootScope.data['schedule_years'][schedule_year_id].name
+
+ScheduleYearIdToText.$inject = ['$rootScope']
+angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)

@@ -22,7 +22,7 @@ section.margin-top-2
     accordion-group is-open="is_open_years"
       accordion-heading
         #annual-schedule-heading role="tab" aria-controls="annual-schedule-panel"
-          | All year round
+          | {{ modal_filters.schedule_year_id | scheduleYearIdToText }}
           .right.toggle ng-switch="is_open_years"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
@@ -35,7 +35,7 @@ section.margin-top-2
     accordion-group is-open="is_open_weeks"
       accordion-heading
         #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | Full-time
+          | {{ modal_filters.schedule_week_ids | scheduleWeekIdsToText }}
           small.c-base ng-show="modal_filters.schedule_week_ids.length < 2"
             |  (Evening, overnight, and more options available)
           .right.toggle ng-switch="is_open_weeks"
