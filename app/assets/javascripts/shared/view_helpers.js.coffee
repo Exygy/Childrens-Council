@@ -27,11 +27,16 @@ angular.module('CCR').filter('careTypeIdsToNames', CareTypeIdsToNames)
 
 IsFacility = ($rootScope) ->
   (care_type_id) ->
-    if $rootScope.data['care_types'][care_type_id]
-      $rootScope.data['care_types'][care_type_id].facility
+    ProviderIsFacility($rootScope, care_type_id)
 
 IsFacility.$inject = ['$rootScope']
 angular.module('CCR').filter('isFacility', IsFacility)
+
+ProviderIsFacility = ($rootScope, care_type_id) ->
+  if $rootScope.data['care_types'][care_type_id]
+    $rootScope.data['care_types'][care_type_id].facility
+  else
+    false
 
 LanguageIdToName = ($rootScope) ->
   (language_id) ->
@@ -249,17 +254,19 @@ ProviderContactName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
-  if rootScope.data['care_types'][provider.care_type_id].name == 'Family Child Care'
+  if !ProviderIsFacility(rootScope, provider.care_type_id)
+    # /.+,\s*\w{1}/
+
     names = name.split(',')
     if names.length == 2
-      first_name = names[1]
+      first_name = names[1].trim()
       last_name = names[0]
-      return last_name + ' ' + first_name[0]
+      return last_name + ' ' + first_name[0] + '.'
     if names.length == 1
       names = name.split(' ')
-      first_name = names[1]
+      first_name = names[1].trim()
       last_name = names[0]
-      return last_name + ' ' + first_name[0]
+      return last_name + ' ' + first_name[0] + '.'
   else
     return name
 

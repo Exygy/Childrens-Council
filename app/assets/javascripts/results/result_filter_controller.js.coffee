@@ -9,5 +9,14 @@ ResultFilterController = ($scope, $modal, ResultsService) ->
       controller: 'ResultFiltersModalController'
     }
 
+  $scope.openChildModal = (child_id) ->
+    $modal.open {
+      templateUrl: 'results/child_filter_modal.html'
+      controller: 'ChildModalController'
+      resolve:
+         childId: ->
+           child_id
+    }
+
 ResultFilterController.$inject = ['$scope', '$modal', 'ResultsService']
 angular.module('CCR').controller('ResultFilterController', ResultFilterController)

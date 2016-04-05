@@ -1,0 +1,77 @@
+h2 Add another child
+
+section.margin-top-2
+  h5#age-label.c-black Child's age ( when care will be needed )
+  .row
+    .medium-7.columns
+      .ui-slider-container
+        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="modal_filters.age_months" use-decimals aria-labeledBy="ageLabel"]
+          span.age-label style="left:{{(modal_filters.age_months / 60) * 100}}%;"
+            | {{ modal_filters.age_months | ageToYearsAndMonths }}
+          span.age-min 0
+          span.age-max 5+ yrs
+          - 4.times do |i|
+            span.tick class="tick-#{i + 1}"
+
+
+
+section.margin-top-2
+  h5.c-black Schedule needs
+
+  p.c-base When do you need childcare? Customize to your schedule's needs.
+
+  accordion close-others="false" role="tablist"
+    accordion-group is-open="is_open_years"
+      accordion-heading
+        #annual-schedule-heading role="tab" aria-controls="annual-schedule-panel"
+          | All year round
+          .right.toggle ng-switch="is_open_years"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
+
+      #annual-schedule-panel.button-group role="tabpanel" aria-labelledby="annual-schedule-heading" aria-hidden="{{!is_open_years}}"
+        button type="button" ng-repeat="schedule_year in data.schedule_years_array track by schedule_year.id" ng-model="modal_filters.schedule_year_id" btn-radio="schedule_year.id" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']"
+          | {{schedule_year.name}}
+
+    accordion-group is-open="is_open_weeks"
+      accordion-heading
+        #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
+          | Full-time
+          small.c-base ng-show="modal_filters.schedule_week_ids.length < 2"
+            |  (Evening, overnight, and more options available)
+          .right.toggle ng-switch="is_open_weeks"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
+
+      #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_open_weeks}}"
+        span ng-repeat="schedule_week in data.schedule_weeks_array track by schedule_week.id"
+          .checkbox.checkbox-week.checkbox-left
+            input type="checkbox" id="schedule-week-{{schedule_week.name | attribute}}" name="schedule_week_{{schedule_week.name | attribute}}" checklist-value="schedule_week.id" checklist-model="modal_filters.schedule_week_ids"
+            label for="schedule-week-{{schedule_week.name | attribute}}"
+              | {{schedule_week.name}}
+          div.clearfix ng-if="$index + 1 % 3 == 0"
+
+    accordion-group is-open="is_open_days"
+      accordion-heading
+        #day-schedule-heading role="tab" aria-controls="day-schedule-panel"
+          | Monday - Friday
+          .right.toggle ng-switch="is_open_days"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
+
+      #day-schedule-panel.clearfix role="tabpanel" aria-labelledby="day-schedule-heading" aria-hidden="{{!is_open_days}}"
+        span ng-repeat="schedule_day in (data.schedule_days_array | sortDays) track by schedule_day.id"
+          .checkbox.checkbox-day.checkbox-left
+            input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule_day_{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="modal_filters.schedule_day_ids"
+            label for="schedule-day-{{schedule_day.name | attribute}}"
+              | {{schedule_day.name | abbreviateDay}}
+          div.clearfix ng-if="$index == 4"
+
+
+
+button.large.round.button.text-uppercase.margin-top-3 ng-click="postSearch()" Add
+a ng-click="cancel()" Cancel
+a.close-reveal-modal ng-click="cancel()" ×

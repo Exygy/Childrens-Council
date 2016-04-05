@@ -27,6 +27,7 @@ DataService = ($rootScope, HttpService) ->
         children_schedule_days_attributes: []
         children_schedule_weeks_attributes: []
         schedule_year_id: null
+        selected: true
       }
     ]
   }
@@ -65,7 +66,7 @@ DataService = ($rootScope, HttpService) ->
     @parent.near_address = @filters.near_address
 
     # build children_attributes
-    @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id[0]
+    @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id
     @parent.children_attributes[0].age_months = @filters.age_months
 
     if @filters.care_type_ids

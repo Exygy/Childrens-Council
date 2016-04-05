@@ -5,7 +5,7 @@
       span.margin-left-small
         em ng-hide="settings.location_type == 'near_address' && parent.near_address" Random
         em ng-show="settings.location_type == 'near_address' && parent.near_address" Distance
-        span.fa.fa-info-circle.margin-left-small
+        span.fa.fa-info-circle.margin-left-small tooltip="TOOLTIP TO DESIGN"
   .small-6.columns.text-right
     small
       | Showing
@@ -28,7 +28,7 @@ div ng-hide="loading"
           span.fa.fa-home.c-gainsboro
           .show-for-sr Family Child Care
       h2.item-title
-        a ng-click="goToProvider(provider.id)" {{ provider.name }}
+        a ng-click="goToProvider(provider.id)" {{provider | providerName}}
       p
         span ng-if="provider.care_type_id | isFacility"
           '  {{ provider.address_1 }}
@@ -57,16 +57,12 @@ div ng-hide="loading"
           span.fa.fa-clock-o.c-base
           '  {{ provider.schedule_hours | scheduleHoursToSummary }}
 
-
-      p.margin-top-small
-        ' {{ provider.description | words:25 }}
-
       p
         a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
           ' {{ provider.url }}
 
       p.margin-top-small
-        ' {{ provider.description }}
+        ' {{ provider.description | words:25 }}
 
       p.c-base Financial assistance: CalWorks, Head Start & Early Head Start.
 
