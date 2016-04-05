@@ -12,43 +12,55 @@
         p ng-if="!filters[settings.location_type]" Any
 
       / li
-      /   b Costs ($ per month)
-
-      / li
-      /   b Financial Assistance
-
-      / li
-      /   b Care Approach
-      /   ul.children ng-if="filters.care_type_ids.length"
-      /     li ng-repeat="care_type_id in filters.care_type_ids"
-      /       ' {{ care_type_id | careTypeIdToName }}
-      /   p ng-if="!filters.care_type_ids.length" Any
-
-      / li
-      /   b Language Program
-      /   ul.children ng-if="filters.language_ids.length"
-      /     li ng-repeat="language_id in filters.language_ids"
-      /       ' {{ language_id | languageIdToName }}
-      /   p ng-if="!filters.language_ids.length" Any
-
-      / li
-      /   b Religous Program
-      /   p Any
-      / li
-      /   b Parent CO-OP
-      /   p Any
-      / li
-      /   b Meals Included
-      /   p Any
-      / li
-      /   b Potty Training
-      /   p Any
+      /   h4 Costs ($ per month)
 
       li
-        h4 Provider Type
-        p ng-if="filters.care_type_ids.length"
-          ' {{ filters.care_type_ids | careTypeIdsToNames }}
-        p ng-if="!filters.care_type_ids.length" Any
+        h4 Financial Assistance
+        p
+          | {{ filters.subsidy_ids | subsidiesToFilterTitle }}
+          span ng-hide="filters.subsidy_ids.length"
+
+      li
+        h4 Care Approach
+        p Any
+
+      li
+        h4 Language Program
+        ul.children ng-if="filters.language_ids.length && filters.language_ids[0].length"
+          li ng-repeat="language_id in filters.language_ids"
+            ' {{ language_id | languageIdToName }}
+        p ng-hide="filters.language_ids.length && filters.language_ids[0].length" Any
+
+      li
+        h4 Languages Spoken
+        p Any
+
+      div ng-show="settings.show_more_filters"
+        li
+          h4 Religous Program
+          p Any
+
+        li
+          h4 Parent CO-OP
+          p Any
+
+        li
+          h4 Meals Included
+          p Any
+
+        li
+          h4 Potty Training
+          p Any
+
+        li
+          h4 Provider Type
+          p ng-show="filters.care_type_ids.length"
+            ' {{ filters.care_type_ids | careTypeIdsToNames }}
+          p ng-hide="filters.care_type_ids.length" Any
+
+      a.text-uppercase href="#" ng-click="settings.show_more_filters = !settings.show_more_filters"
+        span ng-hide="settings.show_more_filters" Show more
+        span ng-show="settings.show_more_filters" Show less
 
     hr.margin-bottom-2
 

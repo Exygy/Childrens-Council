@@ -37,7 +37,7 @@ DataService = ($rootScope, HttpService) ->
     care_type_ids: null
     near_address: null
     co_op: null
-    nutrition_program: null
+    meals_included: null
     potty_training: null
     language_ids: ['']
     program_ids: ['']
@@ -104,7 +104,7 @@ DataService = ($rootScope, HttpService) ->
     search_params.schedule_week_ids = @filters.schedule_week_ids
     search_params.schedule_year_ids = [@filters.schedule_year_id]
     search_params.co_op = @filters.co_op
-    search_params.nutrition_program = @filters.nutrition_program
+    search_params.meals_included = @filters.meals_included
     search_params.potty_training = @filters.potty_training
     search_params.subsidy_ids = @filters.subsidy_ids
     search_params.program_ids = @concatProgramsIds()

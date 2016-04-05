@@ -96,7 +96,7 @@ class Provider < ActiveRecord::Base
   before_save :calculate_ages
 
   def as_json(options = {})
-    super(include: [:licenses, :schedule_hours])
+    super(include: [:licenses, :schedule_hours, :subsidies])
   end
 
   def facility?
@@ -156,6 +156,16 @@ class Provider < ActiveRecord::Base
     self.licensed_ages = ages.uniq
   end
 
+  def meals_included?
+    if meals.present?
+      meals.each do |meal|
+        return true if meal.provided_by_facility
+      end
+    end
+
+    false
+  end
+
   # CLASS METHODS
   class << self
     def accepting_referrals
@@ -199,7 +209,7 @@ class Provider < ActiveRecord::Base
     end
 
     def search_by_subsidy_ids(subsidy_ids)
-      joins(:subsidies).where(subsidies: { id: subsidy_ids } ).distinct
+      joins(:subsidies).where(subsidies: { id: subsidy_ids }).distinct
     end
 
     def search_by_ages(ages)
@@ -230,6 +240,15 @@ class Provider < ActiveRecord::Base
         }
       }
       where { id.in my { results } }
+    end
+
+    def search_by_meals_included(meals_included)
+      if meals_included
+        joins(:meals).where(meals: { provided_by_facility: true }).distinct
+      else
+        provider_ids_with_facility_meals = select(:id).joins(:meals).where(meals: { provided_by_facility: true }).distinct
+        joins(:meals).where(meals: { provided_by_facility: false }).where.not(id: provider_ids_with_facility_meals).distinct
+      end
     end
 
     private
