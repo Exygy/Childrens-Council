@@ -67,7 +67,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
 
     .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
       label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
-      select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.parents_care_reasons_attributes[$index].care_reason_id"
+      select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.parents_care_reasons_attributes[$index].care_reason_id" ng-required="true"
         option [value="" disabled] Select Care Reason
         option ng-repeat="care_reason in data.care_reasons_array track by care_reason.id" value="{{ care_reason.id }}"
           ' {{ care_reason.name }}
