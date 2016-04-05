@@ -42,15 +42,18 @@
 
         li
           h4 Parent CO-OP
-          p Any
+          p
+            ' {{ filters.co_op | booleanFilterToText }}
 
         li
           h4 Meals Included
-          p Any
+          p
+            ' {{ filters.meals_included | booleanFilterToText }}
 
         li
           h4 Potty Training
-          p Any
+          p
+            ' {{ filters.potty_training | booleanFilterToText }}
 
         li
           h4 Provider Type
@@ -77,10 +80,6 @@
           small
             | {{ child.age_months | ageToYearsAndMonths }}
         a ng-click="openChildModal($index)" Edit
-
-    pre
-      ' {{ parent.children_attributes }}
-
 
   .c-base.margin-top-2
     a href="#"

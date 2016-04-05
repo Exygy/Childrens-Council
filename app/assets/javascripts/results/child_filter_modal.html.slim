@@ -13,8 +13,6 @@ section.margin-top-2
           - 4.times do |i|
             span.tick class="tick-#{i + 1}"
 
-
-
 section.margin-top-2
   h5.c-black Schedule needs
 
@@ -72,6 +70,8 @@ section.margin-top-2
 
 
 
-button.large.round.button.text-uppercase.margin-top-3 ng-click="postSearch()" Add
+button.large.round.button.text-uppercase.margin-top-3 ng-click="postSearch()"
+  span ng-if="!is_editing" Add
+  span ng-if="is_editing" Edit
 a ng-click="cancel()" Cancel
 a.close-reveal-modal ng-click="cancel()" ×

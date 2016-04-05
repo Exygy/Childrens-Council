@@ -17,9 +17,10 @@ angular.module('CCR').filter('careTypeIdToName', CareTypeIdToName)
 CareTypeIdsToNames = ($rootScope) ->
   (care_type_ids) ->
     care_type_names = []
-    for care_type_id in care_type_ids
-      if $rootScope.data['care_types'][care_type_id]
-        care_type_names.push $rootScope.data['care_types'][care_type_id].name
+    if care_type_ids
+      for care_type_id in care_type_ids
+        if $rootScope.data['care_types'][care_type_id]
+          care_type_names.push $rootScope.data['care_types'][care_type_id].name
     EntitiesToString(care_type_names)
 
 CareTypeIdsToNames.$inject = ['$rootScope']
@@ -172,11 +173,12 @@ angular.module('CCR').filter('sortDays', SortDays)
 ProgramsWithProgramTypeByName = ($rootScope) ->
   (programs, program_type_name) ->
     retained_programs = []
-    for index, program_type of $rootScope.data['program_types']
-      if program_type.name == program_type_name
-        for program of programs
-          if program.program_type_id == program_type.id
-            retained_programs.push program.name
+    if $rootScope.data['program_types']
+      for index, program_type of $rootScope.data['program_types']
+        if program_type.name == program_type_name
+          for program of programs
+            if program.program_type_id == program_type.id
+              retained_programs.push program.name
     if retained_programs.length then EntitiesToString(care_type_namesretained_programs) else null
 
 ProgramsWithProgramTypeByName.$inject = ['$rootScope']
@@ -209,11 +211,12 @@ angular.module('CCR').filter('toAgeToInMonths', ToAgeToInMonths)
 ProgramsByProgramType = ($rootScope) ->
   (programs, program_type_name) ->
     retained_programs = []
-    for program_type in $rootScope.data['program_types_array']
-      if program_type.name == program_type_name
-        for program in programs
-          if program.program_type_id == program_type.id
-            retained_programs.push program
+    if $rootScope.data['program_types_array']
+      for program_type in $rootScope.data['program_types_array']
+        if program_type.name == program_type_name
+          for program in programs
+            if program.program_type_id == program_type.id
+              retained_programs.push program
     retained_programs
 
 ProgramsByProgramType.$inject = ['$rootScope']
@@ -256,7 +259,6 @@ angular.module('CCR').filter('providerContactName', ProviderContactName)
 FormatProviderName = (provider, rootScope, name) ->
   if !ProviderIsFacility(rootScope, provider.care_type_id)
     # /.+,\s*\w{1}/
-
     names = name.split(',')
     if names.length == 2
       first_name = names[1].trim()
@@ -277,3 +279,14 @@ EntitiesToString = (entities) ->
     if index+1 != entities.length
       string += if index+2 == entities.length then ' and ' else ', '
   string
+
+BooleanFilterToText = ->
+  (bool_filter) ->
+    if bool_filter?
+      if bool_filter
+        'Yes'
+      else
+        'No'
+    else
+      'Any'
+angular.module('CCR').filter('booleanFilterToText', BooleanFilterToText)

@@ -23,18 +23,19 @@ DataService = ($rootScope, HttpService) ->
     children_attributes: [
       {
         age_months: 30,
+        care_type_ids: null
         children_care_types_attributes: []
+        schedule_day_ids: [2,3,4,5,6]
         children_schedule_days_attributes: []
+        schedule_week_ids: [1]
         children_schedule_weeks_attributes: []
-        schedule_year_id: null
+        schedule_year_id: 1
         selected: true
       }
     ]
   }
 
   @filters = {
-    age_months: 30
-    care_type_ids: null
     near_address: null
     co_op: null
     meals_included: null
@@ -45,9 +46,6 @@ DataService = ($rootScope, HttpService) ->
     religion_ids: ['']
     care_approach_ids: ['']
     neighborhood_ids: ['']
-    schedule_day_ids: [2,3,4,5,6] # Default to weekdays
-    schedule_week_ids: [1] # Default to Full Time
-    schedule_year_id: 1 # Default to Year Round
     zip_code_ids: ['']
   }
 
@@ -55,34 +53,29 @@ DataService = ($rootScope, HttpService) ->
 
   @getLocation = ->
     if @settings.location_type == 'near_address'
-      if @filters.near_address then @filters.near_address + ', San Francisco, CA' else null
+      if @filters.near_address and @filters.near_address.indexOf(', San Francisco, CA') == -1
+        @filters.near_address + ', San Francisco, CA'
+      else
+        @filters.near_address
     else
       @filters[@settings.location_type]
 
-  @getParent = ->
-    # build Parent obj
+  @buildChildren = ->
+    for child, index in @parent.children_attributes
+      @parent.children_attributes[index].children_care_types_attributes = []
+      if child.care_type_ids
+        for care_type_id in child.care_type_ids
+          @parent.children_attributes[index].children_care_types_attributes.push { care_type_id: care_type_id }
 
-    # @parent.language_ids = @filters.language_ids
-    @parent.near_address = @filters.near_address
+      @parent.children_attributes[index].children_schedule_days_attributes = []
+      if child.schedule_day_ids
+        for schedule_day_id in child.schedule_day_ids
+          @parent.children_attributes[index].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
 
-    # build children_attributes
-    @parent.children_attributes[0].schedule_year_id = @filters.schedule_year_id
-    @parent.children_attributes[0].age_months = @filters.age_months
-
-    if @filters.care_type_ids
-      @parent.children_attributes[0].children_care_types_attributes = []
-      for care_type_id in @filters.care_type_ids
-        @parent.children_attributes[0].children_care_types_attributes.push { care_type_id: care_type_id }
-    if @filters.schedule_day_ids
-      @parent.children_attributes[0].children_schedule_days_attributes = []
-      for schedule_day_id in @filters.schedule_day_ids
-        @parent.children_attributes[0].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
-    if @filters.schedule_week_ids
-      @parent.children_attributes[0].children_schedule_weeks_attributes = []
-      for schedule_week_id in @filters.schedule_week_ids
-        @parent.children_attributes[0].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
-
-    @parent
+      @parent.children_attributes[index].children_schedule_weeks_attributes = []
+      if child.schedule_week_ids
+        for schedule_week_id in child.schedule_week_ids
+          @parent.children_attributes[index].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
 
   @concatProgramsIds = ->
     program_ids = []
@@ -95,18 +88,8 @@ DataService = ($rootScope, HttpService) ->
     program_ids
 
   @getSearchParams = ->
-    # this function should not exist, it temporarly exists until we get to filters by many children feature
-    search_params = {}
-    search_params.ages = [@filters.age_months]
-    search_params.care_type_ids = @filters.care_type_ids
-    search_params.language_ids = @filters.language_ids
-    search_params.schedule_day_ids = @filters.schedule_day_ids
-    search_params.schedule_week_ids = @filters.schedule_week_ids
-    search_params.schedule_year_ids = [@filters.schedule_year_id]
-    search_params.co_op = @filters.co_op
-    search_params.meals_included = @filters.meals_included
-    search_params.potty_training = @filters.potty_training
-    search_params.subsidy_ids = @filters.subsidy_ids
+    @buildChildren()
+    search_params = @filters
     search_params.program_ids = @concatProgramsIds()
     search_params[@settings.location_type] = @getLocation()
     search_params
@@ -116,12 +99,22 @@ DataService = ($rootScope, HttpService) ->
       # Filter out empty values and arrays
       if !value? or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
 
+  @getCleanedParent = ->
+    parent = angular.copy @parent
+    delete parent.agree
+    for child, index in parent.children_attributes
+      delete parent.children_attributes[index].schedule_day_ids
+      delete parent.children_attributes[index].schedule_week_ids
+      delete parent.children_attributes[index].selected
+      # delete parent.children_attributes[index].care_type_ids
+    parent
+
   @queryParams = ->
     @cleanEmptyParams {
       page: @current_page
       per_page: @data.providersPerPage
       providers: @getSearchParams()
-      parent: @getParent()
+      parent: @getCleanedParent()
     }
 
   @httpParams = ->
