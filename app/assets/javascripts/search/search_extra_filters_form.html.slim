@@ -57,13 +57,13 @@ section.margin-top-2
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Language Immersion Programs
-  .repeater-container ng-repeat="program in filters.program_ids track by $index"
-    select.radius id="program-id-{{$index + 1}}" name="program_id_{{$index + 1}}" ng-model="filters.program_ids[$index]"
+  .repeater-container ng-repeat="program in filters.language_immersion_ids track by $index"
+    select.radius id="program-id-{{$index + 1}}" name="program_id_{{$index + 1}}" ng-model="filters.language_immersion_ids[$index]"
       option value="" Select Language Immersion Program
       option ng-repeat="program in (data.programs_array | programsByProgramType:'Immersion Program') track by $index" value="{{ program.id }}"
         ' {{ program.name }}
-    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.program_ids, $index)" Remove
-  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.program_ids) && filters.program_ids.length < 3" ng-click="addItem(filters.program_ids)" Add another
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.language_immersion_ids, $index)" Remove
+  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.language_immersion_ids) && filters.language_immersion_ids.length < 3" ng-click="addItem(filters.language_immersion_ids)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Languages spoken
@@ -78,7 +78,7 @@ section.margin-top-2
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Religious program
   .repeater-container ng-repeat="language_id in filters.religion_ids track by $index"
-    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.religion_ids[$index]"
+    select.radius id="religion-id-{{$index + 1}}" name="religion_id_{{$index + 1}}" ng-model="filters.religion_ids[$index]"
       option value="" Select Religious program
       option ng-repeat="program in (data.programs_array | programsByProgramType:'Religious Program') track by $index" value="{{ program.id }}"
         ' {{ program.name }}

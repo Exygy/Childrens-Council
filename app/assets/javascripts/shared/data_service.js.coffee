@@ -41,8 +41,9 @@ DataService = ($rootScope, HttpService) ->
     meals_included: null
     potty_training: null
     language_ids: ['']
-    program_ids: ['']
+    program_ids: []
     subsidy_ids: []
+    language_immersion_ids: ['']
     religion_ids: ['']
     care_approach_ids: ['']
     neighborhood_ids: ['']
@@ -79,8 +80,8 @@ DataService = ($rootScope, HttpService) ->
 
   @concatProgramsIds = ->
     program_ids = []
-    if @filters.program_ids.length and @filters.program_ids[0] != ''
-      program_ids = program_ids.concat @filters.program_ids
+    if @filters.language_immersion_ids.length and @filters.language_immersion_ids[0] != ''
+      program_ids = program_ids.concat @filters.language_immersion_ids
     if @filters.religion_ids.length and @filters.religion_ids[0] != ''
       program_ids = program_ids.concat @filters.religion_ids
     if @filters.care_approach_ids.length and @filters.care_approach_ids[0] != ''
@@ -89,8 +90,11 @@ DataService = ($rootScope, HttpService) ->
 
   @getSearchParams = ->
     @buildChildren()
-    search_params = @filters
+    search_params = angular.copy @filters
     search_params.program_ids = @concatProgramsIds()
+    delete search_params.language_immersion_ids
+    delete search_params.religion_ids
+    delete search_params.care_approach_ids
     search_params[@settings.location_type] = @getLocation()
     search_params
 
