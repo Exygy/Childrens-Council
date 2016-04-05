@@ -23,10 +23,10 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate]
 
     label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
       | Your name
-      input.radius placeholder="First and last name" type="text" name="full_name" required="" ng-model="parent.full_name"
+      input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
       small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
         span.fa.fa-exclamation-circle
-        |  Your name is required
+        |  Your first name and last name are required
 
 
     h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
