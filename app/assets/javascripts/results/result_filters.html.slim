@@ -22,23 +22,32 @@
 
       li
         h4 Care Approach
-        p Any
+        ul.religions ng-if="filters.care_approach_ids.length && filters.care_approach_ids[0].length"
+          li ng-repeat="care_approach_id in filters.care_approach_ids"
+            ' {{ care_approach_id | programIdToName }}
+        p ng-hide="filters.care_approach_ids.length && filters.care_approach_ids[0].length" Any
 
       li
         h4 Language Program
+        ul.children ng-if="filters.program_ids.length && filters.program_ids[0].length"
+          li ng-repeat="program_id in filters.program_ids"
+            ' {{ program_id | programIdToName }}
+        p ng-hide="filters.program_ids.length && filters.program_ids[0].length" Any
+
+      li
+        h4 Languages Spoken
         ul.children ng-if="filters.language_ids.length && filters.language_ids[0].length"
           li ng-repeat="language_id in filters.language_ids"
             ' {{ language_id | languageIdToName }}
         p ng-hide="filters.language_ids.length && filters.language_ids[0].length" Any
 
-      li
-        h4 Languages Spoken
-        p Any
-
       div ng-show="settings.show_more_filters"
         li
           h4 Religous Program
-          p Any
+          ul.religions ng-if="filters.religion_ids.length && filters.religion_ids[0].length"
+            li ng-repeat="religion_id in filters.religion_ids"
+              ' {{ religion_id | programIdToName }}
+          p ng-hide="filters.religion_ids.length && filters.religion_ids[0].length" Any
 
         li
           h4 Parent CO-OP

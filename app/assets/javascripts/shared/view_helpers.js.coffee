@@ -14,6 +14,14 @@ CareTypeIdToName = ($rootScope) ->
 CareTypeIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('careTypeIdToName', CareTypeIdToName)
 
+ProgramIdToName = ($rootScope) ->
+  (program_id) ->
+    if $rootScope.data['programs'][program_id]
+      $rootScope.data['programs'][program_id].name
+
+ProgramIdToName.$inject = ['$rootScope']
+angular.module('CCR').filter('programIdToName', ProgramIdToName)
+
 CareTypeIdsToNames = ($rootScope) ->
   (care_type_ids) ->
     care_type_names = []
