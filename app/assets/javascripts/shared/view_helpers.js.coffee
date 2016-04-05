@@ -173,8 +173,8 @@ SortDays = () ->
         'wednesday'
         'thursday'
         'friday'
-        'sunday'
         'saturday'
+        'sunday'
       ].indexOf(day.name.toLowerCase())
 angular.module('CCR').filter('sortDays', SortDays)
 
@@ -298,3 +298,24 @@ BooleanFilterToText = ->
     else
       'Any'
 angular.module('CCR').filter('booleanFilterToText', BooleanFilterToText)
+
+ScheduleDayIdsToText = ($rootScope) ->
+  (schedule_day_ids) ->
+    days = []
+    for schedule_day_id in schedule_day_ids
+      days.push $rootScope.data['schedule_days'][schedule_day_id].name
+    days = days.sort (a, b) ->
+      week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      week_days.indexOf(a) - week_days.indexOf(b)
+    if days.length == 5 and days[0] == 'Monday' and days[days.length-1] == 'Friday'
+      return days[0] + ' - ' + days[days.length-1]
+    if days.length == 2 and days[0] == 'Saturday' and days[days.length-1] == 'Sunday'
+      return days[0] + ' - ' + days[days.length-1]
+    if days.length == 7
+      return 'All week'
+    if days.length == 7
+      return 'None'
+    return EntitiesToString(days)
+
+ScheduleDayIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)

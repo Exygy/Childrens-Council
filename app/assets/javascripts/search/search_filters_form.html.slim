@@ -55,7 +55,7 @@ section.margin-top-2
     accordion-group is-open="is_open_days"
       accordion-heading
         #day-schedule-heading role="tab" aria-controls="day-schedule-panel"
-          | Monday - Friday
+          | {{ parent.children_attributes[0].schedule_day_ids | scheduleDayIdsToText }}
           .right.toggle ng-switch="is_open_days"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
