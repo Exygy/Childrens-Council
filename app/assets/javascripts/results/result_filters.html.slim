@@ -8,7 +8,10 @@
     ul.no-bullet
       li
         h4 Desired locations
-        p ng-if="filters[settings.location_type]" {{ filters[settings.location_type] }}
+        p ng-if="filters[settings.location_type]"
+          | {{ filters[settings.location_type] }}
+          span ng-if="settings.location_type == 'near_address'", San Francisco, CA
+
         p ng-if="!filters[settings.location_type]" Any
 
       / li
@@ -76,19 +79,19 @@
 
     hr.margin-bottom-2
 
-    a.right ng-click="openChildModal()"
-      strong Add
+    /a.right ng-click="openChildModal()"
+    /strong Add
 
     h4 Child
 
     ul.no-bullet
       li ng-repeat="child in parent.children_attributes track by $index"
-        input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
-        label for="schedule-day-{{schedule_day.name | attribute}}"
+        /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
+        p for="schedule-day-{{schedule_day.name | attribute}}"
           | Child {{ $index+1 }}
           small
-            | {{ child.age_months | ageToYearsAndMonths }}
-        a ng-click="openChildModal($index)" Edit
+            '  - {{ child.age_months | ageToYearsAndMonths }}
+          a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2
     a href="#"

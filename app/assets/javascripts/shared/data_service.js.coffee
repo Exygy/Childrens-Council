@@ -91,6 +91,14 @@ DataService = ($rootScope, HttpService) ->
   @getSearchParams = ->
     @buildChildren()
     search_params = angular.copy @filters
+
+    # those params should be children specific when the feature is built
+    search_params.ages = [@parent.children_attributes[0].age_months]
+    search_params.schedule_year_ids = [@parent.children_attributes[0].schedule_year_id]
+    search_params.schedule_week_ids = @parent.children_attributes[0].schedule_week_ids
+    search_params.schedule_day_ids = @parent.children_attributes[0].schedule_day_ids
+    search_params.care_type_ids = @parent.children_attributes[0].care_type_ids
+
     search_params.program_ids = @concatProgramsIds()
     delete search_params.language_immersion_ids
     delete search_params.religion_ids

@@ -62,13 +62,8 @@ module Api
         :meals_included,
         :potty_training,
 
-
-
         subsidy_ids: [],
         program_ids: [],
-
-
-
 
         ages: [],
         care_type_ids: [],

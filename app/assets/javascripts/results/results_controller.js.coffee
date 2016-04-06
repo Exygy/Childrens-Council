@@ -2,6 +2,7 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $controller 'ApplicationController', {$scope: $scope}
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
+  $scope.filters = ResultsService.filters
   $scope.parent = ResultsService.parent
   $scope.loading = false
 
