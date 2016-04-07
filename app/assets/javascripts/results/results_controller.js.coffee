@@ -36,7 +36,7 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
     total_number_of_pages = Math.ceil $scope.search_result_data.totalProviders/$scope.search_result_data.providersPerPage
     $scope.search_result_data.current_page == total_number_of_pages
 
-  $scope.goToProvider = (provid er_id) ->
+  $scope.goToProvider = (provider_id) ->
     $scope.loading = true
     $state.go('provider', {id: provider_id})
 
