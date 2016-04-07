@@ -1,4 +1,4 @@
-.row.c-base.margin-bottom-2
+.row.c-base.margin-bottom-2 ng-if="search_result_data.providers.length"
   .small-6.columns
     small
       span Sort by:
@@ -20,7 +20,12 @@
 .loading ng-show="loading"
 
 div ng-hide="loading"
-  ul.no-bullet ng-repeat="provider in search_result_data.providers"
+
+  ul.no-bullet.no-result ng-if="!search_result_data.providers.length"
+    li.results-item.c-base
+      p No child care provider matches found
+
+  ul.no-bullet ng-if="search_result_data.providers.length" ng-repeat="provider in search_result_data.providers"
     li.results-item
       .provider-type ng-switch="provider.care_type_id | isFacility"
         div ng-switch-when="true"
@@ -83,7 +88,7 @@ div ng-hide="loading"
 
     hr.margin-top-2.margin-bottom-2
 
-  ul.pager.button-group.radius.margin-bottom-3
+  ul.pager.button-group.radius.margin-bottom-3 ng-if="search_result_data.providers.length"
     li
       a ng-click="prevPage()" ng-disabled="isFirstPage()"
         i.fa.fa-chevron-left.margin-right-small

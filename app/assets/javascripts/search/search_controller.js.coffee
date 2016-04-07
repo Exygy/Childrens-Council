@@ -5,6 +5,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
   $scope.settings.show_why_asking = false
+  $scope.loading = false
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -13,6 +14,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.submitSearch = ->
     validateForm()
     if $scope.searchForm.$valid
+      $scope.loading = true
       SearchService.postSearch () ->
         $state.go('results')
     else

@@ -1,5 +1,4 @@
 ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
-
   init = ->
     $scope.is_editing = childId?
     $scope.modal_filters =

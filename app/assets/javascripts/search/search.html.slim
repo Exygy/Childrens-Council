@@ -7,7 +7,9 @@ p.c-base
     a href="#" contact us via this quick form
     ' . A member of our Inclusion team will follow up to help.
 
-form [name="searchForm" ng-submit="submitSearch()" novalidate]
+.loading ng-show="loading"
+
+form [name="searchForm" ng-submit="submitSearch()" novalidat ng-hide="loading"]
   span ng-include="'search/search_filters_form.html'"
 
   section.panel.radius.margin-top-3.padding-2
