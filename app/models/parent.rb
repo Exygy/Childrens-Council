@@ -63,7 +63,7 @@ class Parent < ActiveRecord::Base
   end
 
   def set_random_seed
-    self[:random_seed] = random_from_range(-1, 1)
+    self.random_seed = random_from_range(-1, 1)
   end
 
   def random_from_range (min, max)
