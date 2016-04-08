@@ -14,7 +14,6 @@ ApplicationController = ($scope, $rootScope, _) ->
       'magellan-expedition': {
         threshold: 0
         destination_threshold: 50
-        fixed_top: 20
         offset_by_height: false
       }
     }

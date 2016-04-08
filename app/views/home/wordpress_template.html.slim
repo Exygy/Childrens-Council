@@ -1,7 +1,7 @@
 = javascript_include_tag 'application'
 
 div ng-app="CCR"
-  div [ui-view]
+  div [ng-hide="state_loading" ui-view]
 
   .loading ng-show="state_loading"
 

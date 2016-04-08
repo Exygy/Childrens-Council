@@ -35,7 +35,7 @@ div ng-hide="loading"
           span.fa.fa-home.c-gainsboro
           .show-for-sr Family Child Care
       h2.item-title
-        a ng-click="goToProvider(provider.id)" {{provider | providerName}}
+        a href="#" ui-sref="provider({id: provider.id})" {{provider | providerName}}
       p
         span ng-if="provider.care_type_id | isFacility"
           '  {{ provider.address_1 }}
