@@ -38,6 +38,7 @@ RSpec.describe Parent, type: :model do
   it { is_expected.to validate_length_of(:home_zip_code).is_equal_to 5 }
   it { is_expected.to be_valid }
   it { is_expected.to have_and_belong_to_many(:care_reasons) }
+  it { is_expected.to have_and_belong_to_many(:care_types) }
   it { is_expected.to belong_to(:found_option).with_foreign_key(:found_option_id) }
   it { is_expected.to have_and_belong_to_many(:neighborhoods) }
   it { is_expected.to have_and_belong_to_many(:zip_codes) }

@@ -18,11 +18,10 @@
 class Child < ActiveRecord::Base
   validates :age_months, presence: true, inclusion: { in: 0..215 }
 
-  has_and_belongs_to_many :care_types
   has_and_belongs_to_many :schedule_weeks, join_table: 'children_schedule_week'
   has_and_belongs_to_many :schedule_days, join_table: 'children_schedule_day'
 
-  accepts_nested_attributes_for :children_schedule_days, :children_schedule_weeks, :children_care_types
+  accepts_nested_attributes_for :children_schedule_days, :children_schedule_weeks
 
   belongs_to :schedule_year
   belongs_to :parent

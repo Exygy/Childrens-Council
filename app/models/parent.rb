@@ -32,7 +32,8 @@ class Parent < ActiveRecord::Base
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
 
   has_and_belongs_to_many :care_reasons
-  accepts_nested_attributes_for :parents_care_reasons
+  has_and_belongs_to_many :care_types
+  accepts_nested_attributes_for :parents_care_reasons, :parents_care_types
 
   has_many :children
   accepts_nested_attributes_for :children
