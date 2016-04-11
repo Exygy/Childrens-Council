@@ -140,12 +140,12 @@ DataService = ($rootScope, HttpService) ->
     that.data.providers = []
     that.data.is_loading = true
     @serverRequest (response) ->
-      that.data.is_loading = false
       if response.data
         that.data.providers = response.data.providers
         that.data.totalProviders = response.data.total
         that.data.current_page = that.current_page
       callback() if callback
+      that.data.is_loading = false
 
   @serverRequest = (callback) ->
     HttpService.http @httpParams(), callback

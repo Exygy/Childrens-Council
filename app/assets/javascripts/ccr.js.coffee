@@ -58,7 +58,7 @@ angular.module 'CCR', [
   ]
   .run ['$rootScope', ($rootScope) ->
     $rootScope.data = CCR_DATA
-    $rootScope.loading = false
+    $rootScope.state_loading = false
     $rootScope.$on '$stateChangeStart', (event) ->
       $rootScope.state_loading = true
       # state_loading set to false when $viewContentLoaded is triggered within each state controller

@@ -1,8 +1,8 @@
 = javascript_include_tag 'application'
 
 div ng-app="CCR"
-  div [ng-hide="state_loading" ui-view]
-
   .loading ng-show="state_loading"
+
+  div [ng-hide="state_loading" ui-view]
 
 = render partial: "javascript_data_object"
