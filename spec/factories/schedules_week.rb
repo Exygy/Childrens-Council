@@ -2,9 +2,9 @@
 #
 # Table name: schedules_week
 #
-#  id      :integer          not null, primary key
-#  name    :text             not null
-#  tooltip :string
+#  id          :integer          not null, primary key
+#  name        :text             not null
+#  description :text
 #
 
 FactoryGirl.define do
