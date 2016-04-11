@@ -28,9 +28,12 @@ module Api
         providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies)
       else
         Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
-        # eager_load rather than preload here, otherwise random sorting doesn't work
-        providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
+        # TODO: write inner join, since eager_load users an outer join and doesn't give all the results
+        # providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
+        providers = providers.select(['providers.*', 'random()']).order('random()')
       end
+
+
 
       render json: {
         total: providers.size,
