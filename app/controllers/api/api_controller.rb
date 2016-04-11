@@ -26,6 +26,7 @@ module Api
       parent = Parent.where(valid_parent_params).first_or_create
       if has_parent_data
         parent.care_reasons.destroy_all
+        parent.care_types.destroy_all
         parent.children.destroy_all
         parent.update(parent_params)
       end
