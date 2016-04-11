@@ -23,7 +23,8 @@ div ng-hide="loading"
 
   ul.no-bullet.no-result ng-if="!search_result_data.providers.length"
     li.results-item.c-base
-      p No child care provider matches found
+      h2 No child care provider matches found.
+      p Try changing filters for a less specific search.
 
   ul.no-bullet ng-if="search_result_data.providers.length" ng-repeat="provider in search_result_data.providers"
     li.results-item
