@@ -17,9 +17,9 @@
         '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
       |  of {{ search_result_data.totalProviders }} results
 
-.loading ng-show="loading"
+.loading ng-show="search_result_data.is_loading"
 
-div ng-hide="loading"
+div ng-hide="search_result_data.is_loading"
 
   ul.no-bullet.no-result ng-if="!search_result_data.providers.length"
     li.results-item.c-base
