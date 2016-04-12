@@ -4,7 +4,6 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $scope.settings = ResultsService.settings
   $scope.filters = ResultsService.filters
   $scope.parent = ResultsService.parent
-  $scope.loading = ResultsService.data.is_loading
 
   # Init sticky sidebar nav after ng-includes loads sidebar markup
   $scope.$on '$includeContentLoaded', (event, src) ->
