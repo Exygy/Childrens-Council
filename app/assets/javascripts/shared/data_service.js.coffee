@@ -102,6 +102,9 @@ DataService = ($rootScope, HttpService) ->
     delete search_params.language_immersion_ids
     delete search_params.religion_ids
     delete search_params.care_approach_ids
+    delete search_params.near_address
+    delete search_params.zip_code_ids
+    delete search_params.neighborhood_ids
     search_params[@settings.location_type] = @getLocation()
     search_params
 

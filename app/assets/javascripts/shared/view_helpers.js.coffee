@@ -335,3 +335,23 @@ ScheduleYearIdToText = ($rootScope) ->
 
 ScheduleYearIdToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
+
+NeighborhoodIdsToText = ($rootScope) ->
+  (neighborhood_ids) ->
+    neighborhoods = []
+    for neighborhood_id in neighborhood_ids
+      neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
+    return EntitiesToString(neighborhoods)
+
+NeighborhoodIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
+
+ZipCodeIdsToText = ($rootScope) ->
+  (zip_code_ids) ->
+    zip_codes = []
+    for zip_code_id in zip_code_ids
+      zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
+    return EntitiesToString(zip_codes)
+
+ZipCodeIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('zipCodeIdsToText', ZipCodeIdsToText)
