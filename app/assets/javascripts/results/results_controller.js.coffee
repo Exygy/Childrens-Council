@@ -1,4 +1,4 @@
-ResultsController = ($scope, $location, $state, $controller, $anchorScroll, ResultsService, ProviderService) ->
+ResultsController = ($scope, $location, $state, $controller, $anchorScroll, ResultsService, ProviderService, $timeout) ->
   $controller 'ApplicationController', {$scope: $scope}
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
@@ -22,10 +22,6 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
       scrollToTop()
       ResultsService.prevPage()
 
-  $scope.postSearch = ->
-    scrollToTop()
-    ResultsService.postSearch()
-
   scrollToTop = ->
     $anchorScroll('search-results-wrapper')
 
@@ -48,7 +44,7 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
     $scope.view_mode.map = !$scope.view_mode.map
     $scope.view_mode.list = !$scope.view_mode.list
 
-  scrollToTop()
+  $timeout scrollToTop()
 
-ResultsController.$inject = ['$scope', '$location', '$state', '$controller', '$anchorScroll', 'ResultsService', 'ProviderService']
+ResultsController.$inject = ['$scope', '$location', '$state', '$controller', '$anchorScroll', 'ResultsService', 'ProviderService', '$timeout']
 angular.module('CCR').controller('ResultsController', ResultsController)
