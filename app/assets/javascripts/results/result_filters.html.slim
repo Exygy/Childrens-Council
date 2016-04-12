@@ -9,8 +9,9 @@
       li
         h4 Desired locations
         p ng-if="filters[settings.location_type]"
-          | {{ filters[settings.location_type] }}
-          span ng-if="settings.location_type == 'near_address'", San Francisco, CA
+          span ng-if="settings.location_type == 'neighborhood_ids'" {{ filters.neighborhood_ids | neighborhoodIdsToText }}
+          span ng-if="settings.location_type == 'zip_code_ids'" {{ filters.zip_code_ids | zipCodeIdsToText }}
+          span ng-if="settings.location_type == 'near_address'" {{ filters.near_address }}, San Francisco, CA
 
         p ng-if="!filters[settings.location_type]" Any
 
@@ -79,19 +80,40 @@
 
     hr.margin-bottom-2
 
-    /a.right ng-click="openChildModal()"
-    /strong Add
+    a.right ng-click="openChildModal()"
+      strong Edit
 
-    h4 Child
+    h3.margin-bottom-2 Child
 
     ul.no-bullet
-      li ng-repeat="child in parent.children_attributes track by $index"
-        /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
-        p for="schedule-day-{{schedule_day.name | attribute}}"
-          | Child {{ $index+1 }}
-          small
-            '  - {{ child.age_months | ageToYearsAndMonths }}
-          a.right ng-click="openChildModal($index)" Edit
+      li
+        h4 Age
+        p
+          | {{ parent.children_attributes[0].age_months | ageToYearsAndMonths }}
+
+      li
+        h4 Annual Schedule
+        p
+          | {{ parent.children_attributes[0].schedule_year_id | scheduleYearIdToText }}
+
+      li
+        h4 Weekly Schedule
+        p
+          | {{ parent.children_attributes[0].schedule_week_ids | scheduleWeekIdsToText }}
+
+      li
+        h4 Days Open
+        p
+          | {{ parent.children_attributes[0].schedule_day_ids | scheduleDayIdsToText }}
+
+    / ul.no-bullet
+    /   li ng-repeat="child in parent.children_attributes track by $index"
+    /     /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
+    /     p for="schedule-day-{{schedule_day.name | attribute}}"
+    /       | Child {{ $index+1 }}
+    /       small
+    /         '  - {{ child.age_months | ageToYearsAndMonths }}
+    /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2
     a href="#"

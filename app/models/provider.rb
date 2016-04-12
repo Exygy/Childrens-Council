@@ -243,7 +243,7 @@ class Provider < ActiveRecord::Base
     end
 
     def search_by_meals_included(meals_included)
-      if meals_included
+      if meals_included.to_i == 1
         joins(:meals).where(meals: { provided_by_facility: true }).distinct
       else
         provider_ids_with_facility_meals = select(:id).joins(:meals).where(meals: { provided_by_facility: true }).distinct

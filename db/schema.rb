@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406234403) do
+ActiveRecord::Schema.define(version: 20160411220403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,15 @@ ActiveRecord::Schema.define(version: 20160406234403) do
     t.boolean "facility", default: false
   end
 
-  create_table "care_types_children", id: false, force: :cascade do |t|
+  create_table "care_types_parents", id: false, force: :cascade do |t|
     t.integer  "care_type_id", null: false
-    t.integer  "child_id",     null: false
+    t.integer  "parent_id",    null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  add_index "care_types_children", ["care_type_id", "child_id"], name: "index_care_types_children_on_care_type_id_and_child_id", unique: true, using: :btree
-  add_index "care_types_children", ["child_id", "care_type_id"], name: "index_care_types_children_on_child_id_and_care_type_id", using: :btree
+  add_index "care_types_parents", ["care_type_id", "parent_id"], name: "index_care_types_parents_on_care_type_id_and_parent_id", unique: true, using: :btree
+  add_index "care_types_parents", ["parent_id", "care_type_id"], name: "index_care_types_parents_on_parent_id_and_care_type_id", using: :btree
 
   create_table "children", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -333,8 +333,8 @@ ActiveRecord::Schema.define(version: 20160406234403) do
   end
 
   create_table "schedules_week", force: :cascade do |t|
-    t.text   "name",    null: false
-    t.string "tooltip"
+    t.text "name",        null: false
+    t.text "description"
   end
 
   create_table "schedules_year", force: :cascade do |t|

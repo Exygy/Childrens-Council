@@ -94,3 +94,14 @@
 #   { name: 'Dinner' },
 #   { name: 'Late' },
 # ])
+
+FoundOption.create([
+  { name: "Children's Council website" },
+  { name: "Email from Children's Council" },
+  { name: 'Flyer/brochure' },
+  { name: 'Referral' },
+  { name: 'Search engine' },
+  { name: 'Word of mouth' },
+  { name: 'Bus ad' },
+  { name: 'Other' },
+])

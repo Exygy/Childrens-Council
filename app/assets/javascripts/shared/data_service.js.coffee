@@ -20,11 +20,10 @@ DataService = ($rootScope, HttpService) ->
     subscribe: false
     found_option_id: null
     parents_care_reasons_attributes: ['']
+    parents_care_types_attributes: []
     children_attributes: [
       {
         age_months: 30,
-        care_type_ids: null
-        children_care_types_attributes: []
         schedule_day_ids: [2,3,4,5,6]
         children_schedule_days_attributes: []
         schedule_week_ids: [1]
@@ -48,6 +47,7 @@ DataService = ($rootScope, HttpService) ->
     care_approach_ids: ['']
     neighborhood_ids: ['']
     zip_code_ids: ['']
+    care_type_ids: []
   }
 
   @current_page = 1
@@ -61,13 +61,12 @@ DataService = ($rootScope, HttpService) ->
     else
       @filters[@settings.location_type]
 
+  @buildParent = ->
+    @parent.parents_care_types_attributes = @filters.care_type_ids.map (care_type_id) ->
+      { 'care_type_id': care_type_id }
+
   @buildChildren = ->
     for child, index in @parent.children_attributes
-      @parent.children_attributes[index].children_care_types_attributes = []
-      if child.care_type_ids
-        for care_type_id in child.care_type_ids
-          @parent.children_attributes[index].children_care_types_attributes.push { care_type_id: care_type_id }
-
       @parent.children_attributes[index].children_schedule_days_attributes = []
       if child.schedule_day_ids
         for schedule_day_id in child.schedule_day_ids
@@ -89,6 +88,7 @@ DataService = ($rootScope, HttpService) ->
     program_ids
 
   @getSearchParams = ->
+    @buildParent()
     @buildChildren()
     search_params = angular.copy @filters
 
@@ -97,12 +97,14 @@ DataService = ($rootScope, HttpService) ->
     search_params.schedule_year_ids = [@parent.children_attributes[0].schedule_year_id]
     search_params.schedule_week_ids = @parent.children_attributes[0].schedule_week_ids
     search_params.schedule_day_ids = @parent.children_attributes[0].schedule_day_ids
-    search_params.care_type_ids = @parent.children_attributes[0].care_type_ids
 
     search_params.program_ids = @concatProgramsIds()
     delete search_params.language_immersion_ids
     delete search_params.religion_ids
     delete search_params.care_approach_ids
+    delete search_params.near_address
+    delete search_params.zip_code_ids
+    delete search_params.neighborhood_ids
     search_params[@settings.location_type] = @getLocation()
     search_params
 
@@ -113,12 +115,12 @@ DataService = ($rootScope, HttpService) ->
 
   @getCleanedParent = ->
     parent = angular.copy @parent
+    delete parent.care_type_ids
     delete parent.agree
     for child, index in parent.children_attributes
       delete parent.children_attributes[index].schedule_day_ids
       delete parent.children_attributes[index].schedule_week_ids
       delete parent.children_attributes[index].selected
-      # delete parent.children_attributes[index].care_type_ids
     parent
 
   @queryParams = ->

@@ -1,12 +1,9 @@
-ProviderController = ($scope, $state, $controller, $anchorScroll, ProviderService) ->
+ProviderController = ($scope, $state, $controller, $anchorScroll, ProviderService, $timeout) ->
   $controller 'ApplicationController', {$scope: $scope}
   $scope.provider = ProviderService.provider
   $scope.provider.map = ProviderService.providerMap($scope.provider)
 
-  scrollToTop = ->
-    $anchorScroll('provider-content-wrapper')
+  $timeout $anchorScroll()
 
-  scrollToTop()
-
-ProviderController.$inject = ['$scope', '$state', '$controller', '$anchorScroll', 'ProviderService']
+ProviderController.$inject = ['$scope', '$state', '$controller', '$anchorScroll', 'ProviderService', '$timeout']
 angular.module('CCR').controller('ProviderController', ProviderController)

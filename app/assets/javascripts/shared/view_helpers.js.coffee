@@ -266,17 +266,16 @@ angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
   if !ProviderIsFacility(rootScope, provider.care_type_id)
-    # /.+,\s*\w{1}/
     names = name.split(',')
-    if names.length == 2
+    if names.length >= 2
       first_name = names[1].trim()
       last_name = names[0]
-      return last_name + ' ' + first_name[0] + '.'
-    if names.length == 1
+    else
       names = name.split(' ')
-      first_name = names[1].trim()
-      last_name = names[0]
-      return last_name + ' ' + first_name[0] + '.'
+      first_name = names[0]
+      last_name = names[1].trim()
+
+    "#{first_name} #{last_name[0]}."
   else
     return name
 
@@ -336,3 +335,23 @@ ScheduleYearIdToText = ($rootScope) ->
 
 ScheduleYearIdToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
+
+NeighborhoodIdsToText = ($rootScope) ->
+  (neighborhood_ids) ->
+    neighborhoods = []
+    for neighborhood_id in neighborhood_ids
+      neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
+    return EntitiesToString(neighborhoods)
+
+NeighborhoodIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
+
+ZipCodeIdsToText = ($rootScope) ->
+  (zip_code_ids) ->
+    zip_codes = []
+    for zip_code_id in zip_code_ids
+      zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
+    return EntitiesToString(zip_codes)
+
+ZipCodeIdsToText.$inject = ['$rootScope']
+angular.module('CCR').filter('zipCodeIdsToText', ZipCodeIdsToText)

@@ -1,4 +1,4 @@
-ResultFiltersModalController = ($scope, ResultsService, $modalInstance) ->
+ResultFiltersModalController = ($scope, ResultsService, $modalInstance, $anchorScroll) ->
   cached_filters = null
 
   init = ->
@@ -10,6 +10,7 @@ ResultFiltersModalController = ($scope, ResultsService, $modalInstance) ->
   $scope.postSearch = ->
     ResultsService.postSearch()
     $modalInstance.close()
+    $anchorScroll('search-results-wrapper')
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
@@ -21,5 +22,5 @@ ResultFiltersModalController = ($scope, ResultsService, $modalInstance) ->
 
   init()
 
-ResultFiltersModalController.$inject = ['$scope', 'ResultsService', '$modalInstance']
+ResultFiltersModalController.$inject = ['$scope', 'ResultsService', '$modalInstance', '$anchorScroll']
 angular.module('CCR').controller('ResultFiltersModalController', ResultFiltersModalController)

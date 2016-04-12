@@ -298,13 +298,13 @@ RSpec.describe Provider, type: :model do
 
     context 'when meals_included is false' do
       it 'returns providers who provide one or more meals' do
-        expect(Provider.search_by_meals_included(true).count).to be 3
+        expect(Provider.search_by_meals_included(1).count).to be 3
       end
     end
 
     context 'when meals_included is false' do
       it 'returns providers who have only parent provided meals' do
-        expect(Provider.search_by_meals_included(false).count).to be 1
+        expect(Provider.search_by_meals_included(0).count).to be 1
       end
     end
   end

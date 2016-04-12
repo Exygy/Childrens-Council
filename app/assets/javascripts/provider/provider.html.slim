@@ -23,7 +23,7 @@ section.content.row.margin-bottom-5
     .bg-white data-magellan-expedition="fixed"
       nav.panel.bg-cyan-lighter
         ul.side-nav
-          li data-magellan-arrival="about"
+          li data-magellan-arrival="about" ng-if="provider.description"
             a href="#about" About
           li data-magellan-arrival="general-information"
             a href="#general-information" General Information
@@ -33,9 +33,9 @@ section.content.row.margin-bottom-5
             a href="#hours" Hours of Operation
           li data-magellan-arrival="licenses"
             a href="#licenses" License & Ages Served
-          li data-magellan-arrival="languages"
+          li data-magellan-arrival="languages" ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') || provider.languages.length"
             a href="#languages" Language Options
-          li data-magellan-arrival="financial-assistance"
+          li data-magellan-arrival="financial-assistance" ng-if="provider.subsidies.length"
             a href="#financial-assistance" Financial Assistance
 
       span.fa.fa-file-pdf-o.c-red.info-icon
@@ -49,14 +49,15 @@ section.content.row.margin-bottom-5
         p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.
 
   .large-8.columns
-    a name="about"
-    h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+    .margin-bottom-3 ng-if="provider.description"
+      a name="about"
+      h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
 
-    p
-      ' {{provider.description}}
+      p
+        ' {{provider.description}}
 
     a name="general-information"
-    h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="general-information" General Information
+    h3.text-capitalize.margin-bottom-1 data-magellan-destination="general-information" General Information
 
     .row.info-grid
       .columns.medium-6 ng-if="provider.url"
@@ -200,7 +201,7 @@ section.content.row.margin-bottom-5
             span
               |{{license.capacity}}
 
-    div ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') && (provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program')"
+    div ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') || provider.languages.length"
       a name="languages"
       h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="languages" Language Options
 
@@ -213,12 +214,14 @@ section.content.row.margin-bottom-5
 
       hr ng-if="(provider.programs | programsWithProgramTypeByName: 'Immersion Program') && (provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program')"
 
-      div ng-if="programsWithProgramTypeByName: 'Quality Improvement Program'"
+      div ng-if="provider.languages.length"
         span.label-gray.lighter
-          ' Language Spoken
+          ' Language(s) Spoken
           span.fa.fa-info-circle
         p
-          ' {{ provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program' }}
+          span ng-repeat="language in provider.languages track by language.id"
+            |  {{language.name}}
+            span ng-if="$index < provider.languages.length - 1" ,
 
     div ng-if="provider.subsidies.length"
       a name="financial-assistance"

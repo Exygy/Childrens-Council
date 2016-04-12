@@ -26,6 +26,7 @@ module Api
       parent = Parent.where(valid_parent_params).first_or_create
       if has_parent_data
         parent.care_reasons.destroy_all
+        parent.care_types.destroy_all
         parent.children.destroy_all
         parent.update(parent_params)
       end
@@ -74,6 +75,9 @@ module Api
           parents_care_reasons_attributes: [
             :care_reason_id
           ],
+          parents_care_types_attributes: [
+            :care_type_id
+          ],
           children_attributes: [
             :age_months,
             :schedule_year_id,
@@ -83,9 +87,6 @@ module Api
             children_schedule_weeks_attributes: [
               :schedule_week_id
             ],
-            children_care_types_attributes: [
-              :care_type_id
-            ]
           ])
       else
         {}
