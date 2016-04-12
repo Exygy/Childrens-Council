@@ -89,12 +89,12 @@ div ng-hide="loading"
 
     hr.margin-top-2.margin-bottom-2
 
-  ul.pager.button-group.radius.margin-bottom-3 ng-if="search_result_data.providers.length"
+  ul.pager.radius.margin-bottom-3 ng-if="search_result_data.providers.length"
     li
-      a ng-click="prevPage()" ng-disabled="isFirstPage()"
+      button ng-click="prevPage()" ng-disabled="isFirstPage()"
         i.fa.fa-chevron-left.margin-right-small
         small Previous {{ search_result_data.providersPerPage }}
     li
-      a ng-click="nextPage()" ng-disabled="isLastPage()"
+      button ng-click="nextPage()" ng-disabled="isLastPage()"
         small Next {{ search_result_data.providersPerPage }}
         i.fa.fa-chevron-right.margin-left-small
