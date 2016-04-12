@@ -301,8 +301,9 @@ angular.module('CCR').filter('booleanFilterToText', BooleanFilterToText)
 ScheduleDayIdsToText = ($rootScope) ->
   (schedule_day_ids) ->
     days = []
-    for schedule_day_id in schedule_day_ids
-      days.push $rootScope.data['schedule_days'][schedule_day_id].name
+    if schedule_day_ids?
+      for schedule_day_id in schedule_day_ids
+        days.push $rootScope.data['schedule_days'][schedule_day_id].name
     days = days.sort (a, b) ->
       week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       week_days.indexOf(a) - week_days.indexOf(b)
@@ -322,8 +323,9 @@ angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)
 ScheduleWeekIdsToText = ($rootScope) ->
   (schedule_week_ids) ->
     weeks = []
-    for schedule_week_id in schedule_week_ids
-      weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
+    if schedule_week_ids?
+      for schedule_week_id in schedule_week_ids
+        weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
     return EntitiesToString(weeks)
 
 ScheduleWeekIdsToText.$inject = ['$rootScope']
@@ -331,7 +333,8 @@ angular.module('CCR').filter('scheduleWeekIdsToText', ScheduleWeekIdsToText)
 
 ScheduleYearIdToText = ($rootScope) ->
   (schedule_year_id) ->
-    $rootScope.data['schedule_years'][schedule_year_id].name
+    if $rootScope.data['schedule_years'][schedule_year_id]?
+      $rootScope.data['schedule_years'][schedule_year_id].name
 
 ScheduleYearIdToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
@@ -339,8 +342,9 @@ angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
 NeighborhoodIdsToText = ($rootScope) ->
   (neighborhood_ids) ->
     neighborhoods = []
-    for neighborhood_id in neighborhood_ids
-      neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
+    if neighborhood_ids?
+      for neighborhood_id in neighborhood_ids
+        neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
     return EntitiesToString(neighborhoods)
 
 NeighborhoodIdsToText.$inject = ['$rootScope']
@@ -349,8 +353,9 @@ angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
 ZipCodeIdsToText = ($rootScope) ->
   (zip_code_ids) ->
     zip_codes = []
-    for zip_code_id in zip_code_ids
-      zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
+    if zip_code_ids?
+      for zip_code_id in zip_code_ids
+        zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
     return EntitiesToString(zip_codes)
 
 ZipCodeIdsToText.$inject = ['$rootScope']
