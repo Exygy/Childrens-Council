@@ -19,24 +19,22 @@ module Api
       providers = providers.search_by_schedule_week_ids(provider_param_schedule_week_ids) if provider_param_schedule_week_ids
       providers = providers.search_by_schedule_day_ids(provider_param_schedule_day_ids) if provider_param_schedule_day_ids
 
-
-
       # randomize result order per user unless searching by near by address
       if provider_param_near_address
         # Preload associated provider models where we need information for display in the results list
         # (prevents individual join queries for each provider)
+        provider_size = providers.size
         providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies)
       else
         Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
         # TODO: write inner join, since eager_load users an outer join and doesn't give all the results
         # providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
-        providers = providers.select(['providers.*', 'random()']).order('random()')
+        provider_size = providers.size
+        providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies).select(['providers.*', 'random()']).group('providers.id').order('random()')
       end
 
-
-
       render json: {
-        total: providers.size,
+        total: provider_size,
         providers: providers.page(params[:page]).per(params[:per_page]),
       }, status: 200
     end
