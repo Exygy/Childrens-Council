@@ -1,4 +1,4 @@
-.bg-white data-magellan-expedition="fixed"
+.bg-white
   .panel.filters ng-controller="ResultFilterController"
     a.right ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
       strong Edit
@@ -85,25 +85,19 @@
 
     h3.margin-bottom-2 Child
 
-    ul.no-bullet
+    ul.no-bullet.margin-bottom-none
       li
         h4 Age
         p
           | {{ parent.children_attributes[0].age_months | ageToYearsAndMonths }}
 
       li
-        h4 Annual Schedule
-        p
+        h4 Schedule
+        p.margin-bottom-none
           | {{ parent.children_attributes[0].schedule_year_id | scheduleYearIdToText }}
-
-      li
-        h4 Weekly Schedule
-        p
+          br
           | {{ parent.children_attributes[0].schedule_week_ids | scheduleWeekIdsToText }}
-
-      li
-        h4 Days Open
-        p
+          br
           | {{ parent.children_attributes[0].schedule_day_ids | scheduleDayIdsToText }}
 
     / ul.no-bullet
@@ -116,17 +110,17 @@
     /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2
-    a href="#"
+    a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank"
       strong For special needs: Contact Us
 
     p Our Inclusion Team specializes in finding child care for children with special needs.
 
-    a href="#"
+    a href="//www.childrenscouncil.org/families/overview/" target="_blank"
       strong I need help choosing a provider
 
     p Request free 1-on-1 counseling.
 
-    a href="#"
+    a href="//www.childrenscouncil.org/families/help-paying-for-child-care/financial-assistance/" target="_blank"
       strong Do I qualify for financial assistance?
 
     p Try our friendly income calculator
