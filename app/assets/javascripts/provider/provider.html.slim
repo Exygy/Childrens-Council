@@ -208,7 +208,7 @@ section.content.row.margin-bottom-5
       div ng-if="provider.programs | programsWithProgramTypeByName: 'Immersion Program'"
         span.label-gray.lighter
           ' Language Immersion Programs
-          span.fa.fa-info-circle
+          span.fa.fa-info-circle tooltip="Program curriculum is developed and delivered in multiple languages" tooltip-placement="right"
         p
           ' {{ provider.programs | programsWithProgramTypeByName: 'Immersion Program' }}
 
@@ -217,7 +217,7 @@ section.content.row.margin-bottom-5
       div ng-if="provider.languages.length"
         span.label-gray.lighter
           ' Language(s) Spoken
-          span.fa.fa-info-circle
+          span.fa.fa-info-circle tooltip="Languages child care provider/teachers speak" tooltip-placement="right"
         p
           span ng-repeat="language in provider.languages track by language.id"
             |  {{language.name}}
