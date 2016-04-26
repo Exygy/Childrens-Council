@@ -86,7 +86,9 @@ section.margin-top-2
   button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religion_ids) && filters.religion_ids.length < 3" ng-click="addItem(filters.religion_ids)" Add another
 
 section.margin-top-2
-  h5.c-black Parent Co-Op
+  h5.c-black
+    | Parent Co-Op
+    a.fa.fa-info-circle.c-base.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
   #parent-coop-panel.button-group
     button type="button" ng-model="filters.co_op" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
     button type="button" ng-model="filters.co_op" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
@@ -100,7 +102,9 @@ section.margin-top-2
     button type="button" ng-model="filters.meals_included" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No
 
 section.margin-top-2
-  h5.c-black Potty training support
+  h5.c-black
+    | Potty training support
+    a.fa.fa-info-circle.c-base.margin-left-small tooltip="Provider supports with child's potty training" tooltip-placement="right"
   #potty-training-panel.button-group
     button type="button" ng-model="filters.potty_training" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
     button type="button" ng-model="filters.potty_training" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
