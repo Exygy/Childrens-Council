@@ -59,13 +59,19 @@ module Api
     private
 
     def create_referral_log
+      if parent_params[:parents_care_reasons_attributes]
+        care_reason_ids = parent_params[:parents_care_reasons_attributes].collect{|pcra| pcra["care_reason_id"]}
+      else
+        care_reason_ids = @current_parent.care_reasons.collect(&:id)
+      end
+
       ReferralLog.create(
         params: params,
         parent: @current_parent,
         child_age_months: provider_param_ages.first,
         schedule_week_ids: provider_param_schedule_week_ids,
         schedule_year_id: provider_param_schedule_year_ids.first,
-        care_reason_ids: @current_parent.care_reasons.collect(&:id)
+        care_reason_ids: care_reason_ids
       )
     end
 
