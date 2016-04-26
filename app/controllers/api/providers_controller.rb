@@ -1,6 +1,6 @@
 module Api
   class ProvidersController < ApiController
-    before_action :create_referral_log
+    before_action :create_referral_log, only: :index
 
     def index
       providers = Provider.accepting_referrals.active
