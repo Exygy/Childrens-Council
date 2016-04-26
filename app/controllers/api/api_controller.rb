@@ -1,7 +1,6 @@
 module Api
   class ApiController < ApplicationController
     before_action :check_parent_credentials
-    before_action :create_referral_log
     after_action :send_apikey
 
     private
@@ -9,13 +8,6 @@ module Api
     def check_parent_credentials
       @current_parent = get_parent if parent_params_valid?
       raise_not_authorized! unless @current_parent and @current_parent.persisted?
-    end
-
-    def create_referral_log
-      ReferralLog.create(
-        params: params,
-        parent: @current_parent,
-      )
     end
 
     def send_apikey

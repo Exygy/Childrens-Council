@@ -1,5 +1,7 @@
 module Api
   class ProvidersController < ApiController
+    before_action :create_referral_log
+
     def index
       providers = Provider.accepting_referrals.active
       providers = providers.where(co_op: provider_param_co_op) if provider_param_co_op
@@ -55,6 +57,17 @@ module Api
     end
 
     private
+
+    def create_referral_log
+      ReferralLog.create(
+        params: params,
+        parent: @current_parent,
+        child_age_months: provider_param_ages.first,
+        schedule_week_ids: provider_param_schedule_week_ids,
+        schedule_year_id: provider_param_schedule_year_ids.first,
+        care_reason_ids: @current_parent.care_reasons.collect(&:id)
+      )
+    end
 
     def provider_params
       params.require(:providers).permit(
