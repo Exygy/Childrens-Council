@@ -2,48 +2,49 @@
 #
 # Table name: providers
 #
-#  id                    :integer          not null, primary key
-#  name                  :text             not null
-#  alternate_name        :text
-#  contact_name          :text
-#  phone                 :text
-#  phone_ext             :text
-#  phone_other           :text
-#  phone_other_ext       :text
-#  fax                   :text
-#  email                 :text
-#  url                   :text
-#  address_1             :text
-#  address_2             :text
-#  city_id               :integer
-#  state_id              :integer
-#  cross_street_1        :text
-#  cross_street_2        :text
-#  mail_address_1        :text
-#  mail_address_2        :text
-#  mail_city_id          :integer
-#  mail_state_id         :integer
-#  ssn                   :text
-#  tax_id                :text
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  latitude              :float
-#  longitude             :float
-#  schedule_year_id      :integer
-#  zip_code_id           :integer
-#  care_type_id          :integer
-#  description           :text
-#  licensed_ages         :integer          default([]), is an Array
-#  neighborhood_id       :integer
-#  mail_zip_code         :string
-#  accepting_referrals   :boolean          default(TRUE)
-#  meals_optional        :boolean          default(TRUE)
-#  meal_sponsor_id       :integer
-#  english_capability    :integer
-#  preferred_language_id :integer
-#  potty_training        :boolean          default(FALSE)
-#  co_op                 :boolean          default(FALSE)
-#  nutrition_program     :boolean          default(FALSE)
+#  id                               :integer          not null, primary key
+#  name                             :text             not null
+#  alternate_name                   :text
+#  contact_name                     :text
+#  phone                            :text
+#  phone_ext                        :text
+#  phone_other                      :text
+#  phone_other_ext                  :text
+#  fax                              :text
+#  email                            :text
+#  url                              :text
+#  address_1                        :text
+#  address_2                        :text
+#  city_id                          :integer
+#  state_id                         :integer
+#  cross_street_1                   :text
+#  cross_street_2                   :text
+#  mail_address_1                   :text
+#  mail_address_2                   :text
+#  mail_city_id                     :integer
+#  mail_state_id                    :integer
+#  ssn                              :text
+#  tax_id                           :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  schedule_year_id                 :integer
+#  zip_code_id                      :integer
+#  care_type_id                     :integer
+#  description                      :text
+#  licensed_ages                    :integer          default([]), is an Array
+#  neighborhood_id                  :integer
+#  mail_zip_code                    :string
+#  accepting_referrals              :boolean          default(TRUE)
+#  meals_optional                   :boolean          default(TRUE)
+#  meal_sponsor_id                  :integer
+#  english_capability               :integer
+#  preferred_language_id            :integer
+#  potty_training                   :boolean          default(FALSE)
+#  co_op                            :boolean          default(FALSE)
+#  nutrition_program                :boolean          default(FALSE)
+#  cached_geocodable_address_string :string
 #
 # Indexes
 #
@@ -94,6 +95,7 @@ class Provider < ActiveRecord::Base
   geocoded_by :geocodable_address_string
   after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
   before_save :calculate_ages
+  before_save :cache_geocodable_address_string
 
   def as_json(options = {})
     super(include: [:licenses, :schedule_hours, :subsidies])
@@ -114,6 +116,10 @@ class Provider < ActiveRecord::Base
 
   def geocodable_address_string
     full_address_array.flatten.compact.join(', ')
+  end
+
+  def cache_geocodable_address_string
+    self.cached_geocodable_address_string = geocodable_address_string
   end
 
   def full_address_array
