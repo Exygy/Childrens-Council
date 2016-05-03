@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'CORS Preflight Request via OPTIONS HTTP method' do
   before :each do
-    @allowed_origin = 'ccsf.wpengine.com'
+    @allowed_origin = 'www.childrenscouncil.org'
     @forbidden_origin = 'exygy.com'
     @allowed_path = '/api/search'
     @forbidden_path = '/api/foo'
