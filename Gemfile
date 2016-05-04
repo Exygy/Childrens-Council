@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # to manage cache / memcache
 gem 'dalli'
-gem 'actionpack-action_caching'
+gem 'actionpack-action_caching', '~> 0.4.0', :git => 'https://github.com/rails/actionpack-action_caching.git'
 
 # Server
 gem 'puma'
