@@ -1,7 +1,7 @@
 module Api
   class ProvidersController < ApiController
     before_action :create_referral_log, only: :index
-    #caches_action :show, expires_in: 12.hour
+    caches_action :show, expires_in: 12.hour
 
     def index
       providers = Provider.accepting_referrals.active
