@@ -11,7 +11,7 @@ section.margin-top-2
           .address-city , San Francisco, CA
 
     tab select="setLocationType('zip_code_ids')"
-      tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'zip_code_ids'}}" controls="zip-code-tab" By zip code
+      tab-heading role="tab" tabindex="1" aria-selected="{{settings.location_type === 'zip_code_ids'}}" controls="zip-code-tab" By zip code
 
       #zip-code-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'zip_code_ids'}}"
         .medium-5.columns
@@ -27,7 +27,7 @@ section.margin-top-2
           button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zip_code_ids) && filters.zip_code_ids.length < 3" ng-click="addItem(filters.zip_code_ids)" Add another
 
     tab select="setLocationType('neighborhood_ids')"
-      tab-heading role="tab" tabindex="0" aria-selected="{{settings.location_type === 'neighborhood_ids'}}" controls="neighborhood-tab" By neighborhood
+      tab-heading role="tab" tabindex="2" aria-selected="{{settings.location_type === 'neighborhood_ids'}}" controls="neighborhood-tab" By neighborhood
       #neighborhood-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'neighborhood_ids'}}"
 
         .medium-7.columns
