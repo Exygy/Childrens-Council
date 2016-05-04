@@ -28,8 +28,8 @@ section.margin-top-2
 
     tab select="setLocationType('neighborhood_ids')"
       tab-heading role="tab" tabindex="2" aria-selected="{{settings.location_type === 'neighborhood_ids'}}" controls="neighborhood-tab" By neighborhood
-      #neighborhood-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'neighborhood_ids'}}"
 
+      #neighborhood-tab.row role="tabpanel" aria-hidden="{{settings.location_type !== 'neighborhood_ids'}}"
         .medium-7.columns
           .repeater-container ng-repeat="neighborhood in filters.neighborhood_ids track by $index"
             label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
