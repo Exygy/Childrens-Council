@@ -83,7 +83,7 @@ div ng-hide="search_result_data.is_loading"
       p.c-base
         | Check history / reports:
         span ng-repeat="license in provider.licenses track by license.id"
-          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}#detailview" target="_blank"
+          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}/810#detailview" target="_blank"
             |  \#{{ license.number }}
           span ng-if="$index < provider.licenses.length - 1"  &amp;
 
