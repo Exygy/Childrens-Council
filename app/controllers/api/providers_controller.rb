@@ -42,7 +42,7 @@ module Api
     end
 
     def show
-      provider = Provider.eager_load(
+      provider = Provider.preload(
         :care_type,
         :languages,
         :licenses,
