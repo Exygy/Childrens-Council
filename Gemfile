@@ -32,6 +32,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# to manage cache / memcache
+gem 'dalli'
+gem 'actionpack-action_caching'
+
 # Server
 gem 'puma'
 
