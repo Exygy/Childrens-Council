@@ -323,9 +323,10 @@ angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)
 ScheduleWeekIdsToText = ($rootScope) ->
   (schedule_week_ids) ->
     weeks = []
-    if schedule_week_ids?
+    if schedule_week_ids? and schedule_week_ids
       for schedule_week_id in schedule_week_ids
-        weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
+        if $rootScope.data['schedule_weeks'][schedule_week_id]
+          weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
     return EntitiesToString(weeks)
 
 ScheduleWeekIdsToText.$inject = ['$rootScope']
