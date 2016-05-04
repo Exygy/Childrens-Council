@@ -342,9 +342,10 @@ angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
 NeighborhoodIdsToText = ($rootScope) ->
   (neighborhood_ids) ->
     neighborhoods = []
-    if neighborhood_ids?
+    if neighborhood_ids? and neighborhood_ids
       for neighborhood_id in neighborhood_ids
-        neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
+        if $rootScope.data['neighborhoods'][neighborhood_id]
+          neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
     return EntitiesToString(neighborhoods)
 
 NeighborhoodIdsToText.$inject = ['$rootScope']
