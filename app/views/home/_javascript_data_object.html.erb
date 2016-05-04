@@ -1,4 +1,3 @@
-<% cache("CCR_DATA", expires_in: 24.hours) do %>
   <script>
     CCR_DATA = {
         <% [CareReason, CareType, City, FoundOption, Language, Neighborhood, Program, ProgramType, ScheduleDay, ScheduleWeek, ScheduleYear, State, Subsidy, ZipCode].each do |m| %>
@@ -8,4 +7,3 @@
         <% end %>
     }
   </script>
-<% end %>
