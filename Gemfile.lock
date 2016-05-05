@@ -155,6 +155,7 @@ GEM
     minitest (5.8.3)
     multi_json (1.11.2)
     nenv (0.2.0)
+    newrelic_rpm (3.11.2.286)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
@@ -349,6 +350,7 @@ DEPENDENCIES
   guard-teaspoon
   jquery-rails
   kaminari
+  newrelic_rpm
   paper_trail
   pg
   pg_search
