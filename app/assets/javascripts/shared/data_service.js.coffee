@@ -7,7 +7,7 @@ DataService = ($rootScope, HttpService) ->
   }
 
   @settings = {
-    location_type: 'zip_code_ids'
+    location_type: 'near_address'
   }
 
   @parent = {

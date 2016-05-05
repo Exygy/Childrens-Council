@@ -6,6 +6,13 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.settings.contact_type = ''
   $scope.settings.show_why_asking = false
   $scope.loading = SearchService.data.is_loading
+  $scope.location_tabs =
+    near_address:
+      active: $scope.settings.location_type == 'near_address'
+    zip_code_ids:
+      active: $scope.settings.location_type == 'zip_code_ids'
+    neighborhood_ids:
+      active: $scope.settings.location_type == 'neighborhood_ids'
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -34,6 +41,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
       false
 
   $scope.setLocationType = (type) ->
+    $scope.location_tabs[type].active = true
     $scope.settings.location_type = type
 
   $scope.setContactType = (type) ->
