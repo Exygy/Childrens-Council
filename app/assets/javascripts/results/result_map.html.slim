@@ -34,27 +34,20 @@ div ng-controller="MapController"
       ui-gmap-marker ng-repeat="provider in (search_result_data.providers | toMarkers)" coords="provider.coords" options="provider.options" fit="true" icon="provider.icon" events="provider.events" idkey="provider.id"
         ui-gmap-window
           .results-item.gmap-window
-            .provider-type ng-if="(provider.care_type_id | isFacility)"
-              span.fa.fa-building.c-gainsboro
-              .show-for-sr Child Care Center
-            .provider-type ng-if="!(provider.care_type_id | isFacility)"
-              span.fa.fa-home.c-gainsboro
-              .show-for-sr Family Child Care
+            .provider-type
+              span.fa.c-gainsboro class="{{ provider.gmap_icon }}"
+              .show-for-sr
+                ' {{ provider.gmap_icon_title }}
 
             h2.item-title
               a ng-href="/providers/{{provider.id}}" {{provider | providerName}}
+
             p
-              span ng-if="provider.care_type_id | isFacility"
-                '  {{ provider.address_1 }}
-                '  {{ provider.address_2 }},
-              span ng-if="!(provider.care_type_id | isFacility)"
-                '  {{ provider.cross_street_1 }}
-                '  &amp;
-                '  {{ provider.cross_street_2 }},
-              span
-                '  {{ provider.city_id|cityIdToName }}
-                '  {{ provider.state_id|stateIdToAbbr }}
-                ' {{ provider.zip_code_id|zipCodeIdToName }}
+              '  {{ provider.display_address }},
+              span ng-if="provider.city_id|cityIdToName"
+                '  {{ provider.city_id|cityIdToName }},
+              '  {{ provider.state_id|stateIdToAbbr }}
+              ' {{ provider.zip_code_id|zipCodeIdToName }}
             p
               span.item-detail
                 span.fa.fa-phone-square.c-base

@@ -42,10 +42,10 @@ IsFacility.$inject = ['$rootScope']
 angular.module('CCR').filter('isFacility', IsFacility)
 
 ProviderIsFacility = ($rootScope, care_type_id) ->
-  if $rootScope.data['care_types'][care_type_id]
-    $rootScope.data['care_types'][care_type_id].facility
+  if care_type_id? and $rootScope.data['care_types'][care_type_id]
+    return $rootScope.data['care_types'][care_type_id].facility
   else
-    false
+    return false
 
 LanguageIdToName = ($rootScope) ->
   (language_id) ->
