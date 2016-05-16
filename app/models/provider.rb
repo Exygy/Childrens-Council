@@ -203,7 +203,7 @@ class Provider < ActiveRecord::Base
     end
 
     def search_by_schedule_day_ids(schedule_day_ids)
-      joins(:schedule_hours).where(schedule_hours: { schedule_day_id: schedule_day_ids, closed: false }).distinct
+      search_by_days(schedule_day_ids)
     end
 
     def search_by_care_type_ids(care_type_ids)
@@ -225,6 +225,31 @@ class Provider < ActiveRecord::Base
 
     def search_by_language_ids(language_ids)
       joins(:languages).where(languages: { id: language_ids }).distinct
+    end
+
+    def search_by_days(query_params)
+      valid_days_size = query_params.size
+
+      logger.debug query_params
+      logger.debug valid_days_size
+
+
+      results = ScheduleHours.where(
+        (
+          ['("schedule_hours"."closed" = FALSE AND "schedule_hours"."schedule_day_id" = ?)'] * valid_days_size
+        ).join(' OR '),
+        *query_params,
+      )
+      results = results.select { schedule_hours.provider_id }
+      results = results.group { schedule_hours.provider_id }
+      results = results.having {
+        {
+          schedule_hours => {
+            count('*') => my { valid_days_size }
+          }
+        }
+      }
+      where { id.in my { results } }
     end
 
     def search_by_days_and_hours(days_and_hours)
