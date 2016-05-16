@@ -69,4 +69,4 @@ section.margin-top-2
             input type="checkbox" id="schedule-day-{{schedule_day.name | attribute}}" name="schedule_day_{{schedule_day.name | attribute}}" checklist-value="schedule_day.id" checklist-model="parent.children_attributes[0].schedule_day_ids"
             label for="schedule-day-{{schedule_day.name | attribute}}"
               | {{schedule_day.name | abbreviateDay}}
-          div.clearfix ng-if="$index == 4" style="clear:both;height:0px;"
+          div.clearfix.schedule_day_clearfix ng-if="$index == 4"
