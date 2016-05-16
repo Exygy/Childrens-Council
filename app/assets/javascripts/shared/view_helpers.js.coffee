@@ -225,7 +225,7 @@ ProgramsByProgramType = ($rootScope) ->
           for program in programs
             if program.program_type_id == program_type.id
               retained_programs.push program
-    retained_programs
+    retained_programs.sort (a,b) -> return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
 
 ProgramsByProgramType.$inject = ['$rootScope']
 angular.module('CCR').filter('programsByProgramType', ProgramsByProgramType)
