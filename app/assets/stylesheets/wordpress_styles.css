@@ -17,3 +17,11 @@
   width: 640px;
   height: 400px;
 }
+
+.pager li button.button-pressed {
+  background: linear-gradient(to bottom,#2794b3 0%,#2794b3 100%) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #f7f7f9 !important;
+}
+
+.results-item.gmap-window h2.item-title { font-size:1rem; }

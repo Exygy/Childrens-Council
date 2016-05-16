@@ -24,7 +24,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
         a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
 
     label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
-      | Your name
+      | Your name *
       input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
       small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
         span.fa.fa-exclamation-circle
@@ -32,7 +32,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
 
 
     h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
-      | Email address <em>or</em> phone
+      | Email address <em>or</em> phone *
 
     tabset.tabs-inline role="tablist"
       tab select="setContactType('email')"
@@ -65,7 +65,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
       .columns.large-5
         input#zip-code.radius type="text" placeholder="5 digit zip code" ng-model="parent.home_zip_code" ng-required="false"
 
-    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care
+    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
 
     .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
       label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
@@ -101,7 +101,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
     .checkbox.checkbox-single
       input#agree [name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required]
       label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
-        strong I agree to the following:
+        strong I agree to the following: *
     p.padding-left-2
       small
         | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.

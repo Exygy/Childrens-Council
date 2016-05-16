@@ -31,10 +31,6 @@
 		<!-- FOUNDATION -->
 		<link rel="stylesheet" type="text/css" href="http://ccsf.wpengine.com/wp-content/themes/CCSF/css/foundation.css" />
 
-
-
-
-
 		<!-- SCRIPTS -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		<script src="http://malsup.github.com/jquery.cycle2.js"></script>
@@ -298,13 +294,10 @@ img.emoji {
 	<div id="main" class="large-8 medium-8 medium-push-4 columns">
 		<h1>Search Our Database</h1>
 
-
-
+						<%= stylesheet_link_tag "wordpress_styles", media: "all", "data-turbolinks-track" => true %>
     				<%= javascript_include_tag 'application' %>
     				<div ng-app="CCR"><div ui-view=""></div></div>
     				<%= render partial: "javascript_data_object" %>
-
-
 
 	</div>
 

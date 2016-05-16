@@ -1,48 +1,69 @@
-.row.c-base.margin-bottom-2
-  .small-6.columns
-    small
-      span Sort by:
-      span.margin-left-small
-        em ng-hide="settings.location_type == 'near_address' && parent.near_address" Random
-        em ng-show="settings.location_type == 'near_address' && parent.near_address" Distance
-        span.fa.fa-info-circle.margin-left-small
-  .small-6.columns.text-right
-    small
-      | Showing
-      strong
-        '  {{ search_result_data.providersPerPage*(search_result_data.current_page-1) != 0 ? search_result_data.providersPerPage*(search_result_data.current_page-1) : 1 }}
-        '  -
-        '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
-      |  of {{ search_result_data.totalProviders }} results
+div ng-controller="MapController"
+  .row.c-base.margin-bottom-2
+    .small-6.columns
+      small
+        span Sort by:
+        span.margin-left-small
+          em ng-hide="settings.location_type == 'near_address' && filters.near_address" Random
+          em ng-show="settings.location_type == 'near_address' && filters.near_address" Distance
+          span.fa.fa-info-circle.margin-left-small
+    .small-6.columns.text-right
+      small
+        | Showing
+        strong
+          '  {{ search_result_data.providersPerPage*(search_result_data.current_page-1) != 0 ? search_result_data.providersPerPage*(search_result_data.current_page-1) : 1 }}
+          '  -
+          '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
+        |  of {{ search_result_data.totalProviders }} results
 
-.map_canvas ng-controller="MapController"
-  ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.control' bounds='map.bounds'
-    ui-gmap-markers models="(search_result_data.providers | toMarkers)" coords="'self'" fit="true" icon="marker_icon"
-      ui-gmap-windows models="(search_result_data.providers | toMarkers)" coords="'self'" control='map.windows_control' templateParameter="'options'" isIconVisibleOnClick="true" closeClick="none" doRebuildAll="true"
-
-        div ng-non-bindable=""
-          p
-            ' {{ name }}
-          p
-            span ng-if="care_type_id | IsFacility"
-              ' {{ address_1 }}
-              ' {{ address_2 }}
-            span ng-if="!(care_type_id | IsFacility)"
-              ' {{ cross_street_1 }}
-              ' {{ cross_street_2 }}
-            ' {{ neighborhood_id | neighborhoodIdToName }}
-            ' {{ city_id | cityIdToName }}
-            ' {{ state_id | stateIdToAbbr }}
-            ' {{ zip_code_id | zipCodeIdToName }}
-
-          a href="{{url | prefixUrl}}" target="_blank"
-            ' {{ url }}
-          p
-            ' {{ phone | formatPhoneNumber }}
-
-          p
-            ' {{ schedule_hours | scheduleHoursToSummary }}
+  .row
+    div style="position:absolute; right: 0; right: 7px; z-index: 10000; top: 10px; width:240px;"
+      ul.pager.radius.margin-bottom-3
+        li
+          button ng-click="prevPage()" ng-disabled="isFirstPage() || search_result_data.providers.length == 0"
+            i.fa.fa-chevron-left.margin-right-small
+            small Previous {{ search_result_data.providersPerPage }}
+        li
+          button ng-click="nextPage()" ng-disabled="isLastPage() || search_result_data.providers.length == 0"
+            small Next {{ search_result_data.providersPerPage }}
+            i.fa.fa-chevron-right.margin-left-small
 
 
-button ng-click="prevPage()" Prev Page
-button ng-click="nextPage()" Next Page
+  .map_canvas
+    ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.control' bounds='map.bounds' options='map.options'
+      ui-gmap-marker ng-repeat="provider in (search_result_data.providers | toMarkers)" coords="provider.coords" options="provider.options" fit="true" icon="provider.icon" events="provider.events" idkey="provider.id"
+        ui-gmap-window
+          .results-item.gmap-window
+            .provider-type ng-if="(provider.care_type_id | isFacility)"
+              span.fa.fa-building.c-gainsboro
+              .show-for-sr Child Care Center
+            .provider-type ng-if="!(provider.care_type_id | isFacility)"
+              span.fa.fa-home.c-gainsboro
+              .show-for-sr Family Child Care
+
+            h2.item-title
+              a ng-href="/providers/{{provider.id}}" {{provider | providerName}}
+            p
+              span ng-if="provider.care_type_id | isFacility"
+                '  {{ provider.address_1 }}
+                '  {{ provider.address_2 }},
+              span ng-if="!(provider.care_type_id | isFacility)"
+                '  {{ provider.cross_street_1 }}
+                '  &amp;
+                '  {{ provider.cross_street_2 }},
+              span
+                '  {{ provider.city_id|cityIdToName }}
+                '  {{ provider.state_id|stateIdToAbbr }}
+                ' {{ provider.zip_code_id|zipCodeIdToName }}
+            p
+              span.item-detail
+                span.fa.fa-phone-square.c-base
+                '  {{ provider.phone | formatPhoneNumber }}
+
+              span.item-detail
+                span.fa.fa-clock-o.c-base
+                '  {{ provider.schedule_hours | scheduleHoursToSummary }}
+
+            p ng-if="provider.url"
+              a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
+                ' {{ provider.url }}
