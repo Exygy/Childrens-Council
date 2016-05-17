@@ -239,5 +239,5 @@ section.content.row.margin-bottom-5
                 span ng-switch-when="true" Hide
                 |  details
 
-        .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
-          | {{subsidy.description}}
+          .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
+            | {{subsidy.description}}
