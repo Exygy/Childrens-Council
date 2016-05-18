@@ -49,7 +49,7 @@ div ng-hide="search_result_data.is_loading"
           '  {{ provider.city_id|cityIdToName }}
           '  {{ provider.state_id|stateIdToAbbr }}
           ' {{ provider.zip_code_id|zipCodeIdToName }}
-        a ng-click="toggleMap(provider)"
+        a.map_toggle ng-click="toggleMap(provider)"
           span ng-if="!provider.map" See map
           span ng-if="provider.map" Hide map
 
