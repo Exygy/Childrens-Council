@@ -27,3 +27,5 @@
 .results-item.gmap-window h2.item-title { font-size:1rem; }
 .schedule_day_clearfix { clear:both;height:0px; }
 .reveal-modal { z-index: 10000 !important; }
+.map-results-pager { position:absolute; right: 0; right: 7px; z-index: 10000; top: 10px; width:240px; }
+.loading.map_loader{ position: absolute; z-index: 1000000; background-color: rgba(255,255,255,0.4); width: 640px; min-height: 800px; }

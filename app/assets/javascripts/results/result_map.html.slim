@@ -16,8 +16,10 @@ div ng-controller="MapController"
           '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
         |  of {{ search_result_data.totalProviders }} results
 
+  .loading.map_loader ng-show="search_result_data.is_loading"
+
   .row
-    div style="position:absolute; right: 0; right: 7px; z-index: 10000; top: 10px; width:240px;"
+    .map-results-pager
       ul.pager.radius.margin-bottom-3
         li
           button ng-click="prevPage()" ng-disabled="isFirstPage() || search_result_data.providers.length == 0"
