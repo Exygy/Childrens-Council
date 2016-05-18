@@ -252,14 +252,20 @@ angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
 
 ProviderName = ($rootScope) ->
   (provider) ->
-    FormatProviderName(provider, $rootScope, provider.name)
+    if provider?
+      FormatProviderName(provider, $rootScope, provider.name)
+    else
+      ''
 
 ProviderName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerName', ProviderName)
 
 ProviderContactName = ($rootScope) ->
   (provider) ->
-    FormatProviderName(provider, $rootScope, provider.contact_name)
+    if provider?
+      FormatProviderName(provider, $rootScope, provider.contact_name)
+    else
+      ''
 
 ProviderContactName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerContactName', ProviderContactName)
