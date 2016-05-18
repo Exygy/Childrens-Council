@@ -11,7 +11,6 @@ MapController = ($scope, $q, $timeout, $location, $state, uiGmapIsReady, Results
         zoomControl: true
         zoomControlOptions:
             position: google.maps.ControlPosition.TOP_LEFT
-
     }
 
     fitBounds = (map) ->
