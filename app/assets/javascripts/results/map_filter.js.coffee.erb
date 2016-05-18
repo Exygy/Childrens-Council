@@ -4,7 +4,6 @@ ToMarkers = ($rootScope) ->
       for provider, index in providers
         providers[index]['isIconVisibleOnClick'] = true
         providers[index]['closeClick'] = 'none'
-        providers[index]['options'] = {}
 
         # this to prevent the digest loop to go crazy
         unless providers[index]['coords']
@@ -20,15 +19,18 @@ ToMarkers = ($rootScope) ->
             providers[index]['gmap_icon_title'] = "Child Care Center"
             providers[index]['display_address'] = provider.address_1
             providers[index]['display_address'] += ' ' + provider.address_2 if provider.address_2
-            providers[index]['options']['icon'] = '<%= image_path "facility_marker.png" %>'
+            unless providers[index]['options']
+              providers[index]['options'] = {
+                icon: '<%= image_path "facility_marker.png" %>'
+              }
           else
             providers[index]['gmap_icon'] = "fa-home"
             providers[index]['gmap_icon_title'] = "Family Child Care"
             providers[index]['display_address'] = provider.cross_street_1 + ' & ' + provider.cross_street_2
-            providers[index]['options']['icon'] = '<%= image_path "home_marker.png" %>'
-
-
-
+            unless providers[index]['options']
+              providers[index]['options'] = {
+                icon: '<%= image_path "home_marker.png" %>'
+              }
 
     return providers
 
