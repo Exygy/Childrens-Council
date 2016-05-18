@@ -266,14 +266,18 @@ angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
   if !ProviderIsFacility(rootScope, provider.care_type_id)
+    first_name = ''
+    last_name = ''
     names = name.split(',')
     if names.length >= 2
-      first_name = names[1].trim()
+      if names[1]?
+        first_name = names[1].trim()
       last_name = names[0]
     else
       names = name.split(' ')
       first_name = names[0]
-      last_name = names[1].trim()
+      if names[1]?
+        last_name = names[1].trim()
 
     "#{first_name} #{last_name[0]}."
   else
