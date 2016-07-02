@@ -33,7 +33,7 @@ module Api
         # TODO: write inner join, since eager_load users an outer join and doesn't give all the results
         # providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
         provider_size = providers.size
-        providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies).select(['providers.*', 'random()']).group('providers.id').order('random()')
+        providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['providers.*', 'random()']).group('providers.id').order('random()')
       end
 
       render json: {

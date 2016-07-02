@@ -229,11 +229,6 @@ class Provider < ActiveRecord::Base
 
     def search_by_days(query_params)
       valid_days_size = query_params.size
-
-      logger.debug query_params
-      logger.debug valid_days_size
-
-
       results = ScheduleHours.where(
         (
           ['("schedule_hours"."closed" = FALSE AND "schedule_hours"."schedule_day_id" = ?)'] * valid_days_size
