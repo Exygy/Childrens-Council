@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/rails/actionpack-action_caching.git
-  revision: 30ae10cba0f0a573d5e6c6e46cae506558b70d33
-  specs:
-    actionpack-action_caching (1.1.0)
-      actionpack (>= 4.0.0, < 5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -329,7 +322,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack-action_caching!
   active_model_serializers
   angular-rails-templates
   annotate
