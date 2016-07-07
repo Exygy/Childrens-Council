@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
-    render 'index', layout: false
+    if Rails.env.development?
+      render 'index', layout: false
+    else
+      redirect_to 'http://www.childrenscouncil.org/families/find-child-care/child-care-referrals/child-care-search/'
+    end
   end
 
   def wordpress_template
