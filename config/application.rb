@@ -23,13 +23,10 @@ module ChildrensCouncil
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.middleware.insert_before 0, 'Rack::Cors' do
+    config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins 'http://www.childrenscouncil.org'
-        resource %r{/search|providers/*},
-                 headers: :any,
-                 methods: [:get, :post, :options],
-                 expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
 
