@@ -25,10 +25,21 @@ module ChildrensCouncil
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
+        origins ''
+        resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
+
+    # config.middleware.insert_before 0, 'Rack::Cors' do
+    #   allow do
+    #     origins 'http://www.childrenscouncil.org'
+    #     resource %r{/search|providers/*},
+    #              headers: :any,
+    #              methods: [:get, :post, :options],
+    #              expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
+    #   end
+    # end
+
 
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
