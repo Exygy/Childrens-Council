@@ -33,7 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 # to manage cache / memcache
-gem 'dalli'
+# gem 'dalli'
 
 # Server
 gem 'puma'
