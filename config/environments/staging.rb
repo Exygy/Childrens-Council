@@ -4,7 +4,7 @@ Rails.application.configure do
   # CORS configuration
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
-      origins 'http://www.childrenscouncil.org'
+      origins 'http://ccsf.wpengine.com'
       resource %r{/search|providers/*},
                headers: :any,
                methods: [:get, :post, :options],
