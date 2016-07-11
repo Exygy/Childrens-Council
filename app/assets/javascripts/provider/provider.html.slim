@@ -60,18 +60,17 @@ section.content.row.margin-bottom-5
     h3.text-capitalize.margin-bottom-1 data-magellan-destination="general-information" General Information
 
     .row.info-grid
-      .columns.medium-12
-        .columns.medium-6 ng-if="provider.url"
-          span.fa.fa-globe.info-icon
-          .margin-left-2
-            span.label-gray.lighter Website
-            a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
+      .columns.medium-6 ng-if="provider.url"
+        span.fa.fa-globe.info-icon
+        .margin-left-2
+          span.label-gray.lighter Website
+          a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
 
-        .columns.medium-6 ng-if="provider.email"
-          span.fa.fa-envelope.info-icon
-          .margin-left-2
-            span.label-gray.lighter Email
-            a href="mailto:{{ provider.email }}" {{ provider.email }}
+      .columns.medium-6 ng-if="provider.email"
+        span.fa.fa-envelope.info-icon
+        .margin-left-2
+          span.label-gray.lighter Email
+          a href="mailto:{{ provider.email }}" {{ provider.email }}
 
       .columns.medium-6 ng-if="provider.phone"
         span.fa.fa-phone-square.info-icon
