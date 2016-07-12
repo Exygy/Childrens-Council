@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-echo "Expiring Wordpress cache"
-curl http://www.childrenscouncil.org/families/find-child-care/child-care-referrals/child-care-search?expire_referral_cache=1
