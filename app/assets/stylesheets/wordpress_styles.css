@@ -45,3 +45,7 @@ a.map_toggle { margin-left: 5px; }
 .info-grid .columns {
   word-break: break-all;
 }
+
+.info-grid .columns.email-info:after {
+  content: none;
+}

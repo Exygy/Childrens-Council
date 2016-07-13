@@ -66,11 +66,14 @@ section.content.row.margin-bottom-5
           span.label-gray.lighter Website
           a href="{{ provider.url | prefixUrl }}" target="_blank" {{ provider.url }}
 
-      .columns.medium-6 ng-if="provider.email"
+      .columns.medium-6.email-info ng-if="false && provider.email"
         span.fa.fa-envelope.info-icon
         .margin-left-2
           span.label-gray.lighter Email
           a href="mailto:{{ provider.email }}" {{ provider.email }}
+
+      div style="clear:both" ng-if="provider.url && provider.email"
+      div style="clear:both;background-color:#ddd;height:1px;margin:0 1.25em;width:100%;" ng-if="provider.url && provider.email"
 
       .columns.medium-6 ng-if="provider.phone"
         span.fa.fa-phone-square.info-icon
