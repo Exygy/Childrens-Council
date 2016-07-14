@@ -1,4 +1,5 @@
 HttpService = ($http, $q) ->
+  @retry = true
   @request_canceler = null
 
   @http = (config, callback) ->
@@ -9,9 +10,22 @@ HttpService = ($http, $q) ->
     # modify URL for production
     base_url = "<%= Rails.env.production? ? 'http://childrens-council.dapper.childrenscouncil.org' : '' %><%= Rails.env.staging? ? 'http://childrens-council.herokuapp.com' : '' %>"
     config.url = base_url + config.url
-    # trigger HTTP request
-    $http(config).then (response) ->
+
+    successCallback = (response) ->
       callback(response) if callback
+
+    errorCallback = (response) ->
+      status = response.status
+      if status == 503
+        if @retry
+          $http(config).then(successCallback, errorCallback)
+          @retry = false
+        else
+          @retry = true
+          window.location = 'http://www.childrenscouncil.org/families/find-child-care/child-care-referrals/child-care-search/'
+
+    # trigger HTTP request
+    $http(config).then(successCallback, errorCallback)
   @
 
 HttpService.$inject = ['$http', '$q']
