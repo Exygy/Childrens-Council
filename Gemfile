@@ -37,6 +37,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Server
 gem 'puma'
+gem 'rack-timeout'
 
 # Model to json format
 gem 'active_model_serializers'
@@ -147,6 +148,5 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'rack-timeout'
   gem 'le'
 end
