@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from Rack::Timeout::RequestTimeoutError,
               Rack::Timeout::RequestExpiryError,
               with: :handle_timeout
-  end
+
   protected
 
   def handle_timeout(exception)
