@@ -37,6 +37,7 @@ Rails.application.configure do
 
   # Server assets from amazonaws
   # config.action_controller.asset_host = "//#{ENV['CLOUDFRONT_DOMAIN']}.cloudfront.net"
+  config.action_controller.asset_host = "//childrens-council.dapper.childrenscouncil.org/"
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
