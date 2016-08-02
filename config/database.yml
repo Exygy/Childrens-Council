@@ -85,4 +85,3 @@ staging:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  read_timeout: 1
