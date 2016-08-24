@@ -42,7 +42,7 @@ div ng-controller="MapController"
                 ' {{ provider.gmap_icon_title }}
 
             h2.item-title
-              a ng-href="/providers/{{provider.id}}" {{provider | providerName}}
+              a href="#" ui-sref="provider({id: {{provider.id}} })" {{provider | providerName}}
 
             p
               '  {{ provider.display_address }},

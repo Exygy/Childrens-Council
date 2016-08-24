@@ -33,12 +33,12 @@ a.map_toggle { margin-left: 5px; }
 
 .gm-style-iw {
    width: 350px !important;
-   top: 0 !important;
-   left: 0 !important;
+   top: 10px !important;
+   left: 17px !important;
    background-color: #fff;
-   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+   /*box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
    border: 1px solid rgba(72, 181, 233, 0.6);
-   border-radius: 2px 2px 0 0;
+   border-radius: 2px 2px 0 0;*/
 }
 
 
