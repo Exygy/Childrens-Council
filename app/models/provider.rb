@@ -73,23 +73,26 @@ class Provider < ActiveRecord::Base
   belongs_to :care_type
   belongs_to :city
   belongs_to :mail_city, class_name: 'City', foreign_key: :mail_city_id
-  belongs_to :state
   belongs_to :mail_state, class_name: 'State', foreign_key: :mail_state_id
-  belongs_to :zip_code
-  has_many :licenses
-  has_and_belongs_to_many :languages
-  belongs_to :preferred_language, class_name: 'Language', foreign_key: :preferred_language_id
-  has_many :meals, inverse_of: :provider
   belongs_to :meal_sponsor
   belongs_to :neighborhood
-  has_many :rates, inverse_of: :provider
+  belongs_to :preferred_language, class_name: 'Language', foreign_key: :preferred_language_id
   belongs_to :schedule_year
-  has_and_belongs_to_many :schedule_weeks, join_table: :providers_schedule_week
-  has_many :schedule_hours, class_name: 'ScheduleHours', inverse_of: :provider
+  belongs_to :state
+  belongs_to :zip_code
+
+  has_many :licenses
+  has_many :meals, inverse_of: :provider
+  has_many :rates, inverse_of: :provider
   has_many :schedule_days, through: :schedule_hours
+  has_many :schedule_hours, class_name: 'ScheduleHours', inverse_of: :provider
+
   has_one :status
-  has_and_belongs_to_many :subsidies
+  
+  has_and_belongs_to_many :languages
   has_and_belongs_to_many :programs
+  has_and_belongs_to_many :schedule_weeks, join_table: :providers_schedule_week
+  has_and_belongs_to_many :subsidies
 
   has_paper_trail
   geocoded_by :geocodable_address_string
