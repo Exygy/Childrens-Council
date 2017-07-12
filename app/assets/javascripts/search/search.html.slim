@@ -57,13 +57,14 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
             span.fa.fa-exclamation-circle
             | Phone number or email is required
 
-    label.large.c-black.text-normal.margin-top-1 for="zip-code"
-      | Home zip code
-      em
-        small.optional Optional
+    label.large.c-black.text-normal.margin-top-1 for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
+      | Home zip code *
     .row
       .columns.large-5
-        input#zip-code.radius type="text" placeholder="5 digit zip code" ng-model="parent.home_zip_code" ng-required="false"
+        input#zip-code.radius placeholder="5 digit zip code" type="text" name="home_zip_code" required="" validate-zip-code=""  ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
+          small.error ng-show="searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid"
+            span.fa.fa-exclamation-circle
+            | 5 digit zip code is required
 
     h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
 
