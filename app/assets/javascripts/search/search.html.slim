@@ -20,7 +20,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
 
     p.fade ng-show="settings.show_why_asking"
       small
-        | Children's Council of San Francisco is a nonprofit organization that collects and reports anonymous statistics in order to provide better service and fulfill funding requirements. Be assured that your personal information below will remain private.
+        | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
         a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
 
     label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
@@ -57,13 +57,14 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
             span.fa.fa-exclamation-circle
             | Phone number or email is required
 
-    label.large.c-black.text-normal.margin-top-1 for="zip-code"
-      | Home zip code
-      em
-        small.optional Optional
+    label.large.c-black.text-normal.margin-top-1 for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
+      | Home zip code *
     .row
       .columns.large-5
-        input#zip-code.radius type="text" placeholder="5 digit zip code" ng-model="parent.home_zip_code" ng-required="false"
+        input#zip-code.radius placeholder="5 digit zip code" type="text" name="home_zip_code" required="" validate-zip-code=""  ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
+          small.error ng-show="searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid"
+            span.fa.fa-exclamation-circle
+            | 5 digit zip code is required
 
     h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
 

@@ -45,6 +45,8 @@
 #  co_op                            :boolean          default(FALSE)
 #  nutrition_program                :boolean          default(FALSE)
 #  cached_geocodable_address_string :string
+#  vacancy                          :integer
+#  vacancydate                      :date
 #
 # Indexes
 #

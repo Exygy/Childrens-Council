@@ -65,6 +65,10 @@ div ng-hide="search_result_data.is_loading"
           span.fa.fa-clock-o.c-base
           '  {{ provider.schedule_hours | scheduleHoursToSummary }}
 
+
+        span.item-detail2
+          span.fa.fa-circle-thin
+          '  Total Vacancy: {{ provider.vacancy }} as of {{ provider.vacancydate | date:'MMMM d, y'}}
       p
         a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
           ' {{ provider.url }}
