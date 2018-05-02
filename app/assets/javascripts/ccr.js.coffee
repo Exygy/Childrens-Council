@@ -1,15 +1,15 @@
 angular.module 'CCR', [
-    'templates',
-    'ngAria',
-    'ngAnimate',
-    'ui.router',
-    'uiGmapgoogle-maps',
-    'ngCookies',
-    'mm.foundation',
-    'checklist-model',
-    'truncate',
-    'ui.select',
-    'ui.slider',
+  'templates',
+  'ngAria',
+  'ngAnimate',
+  'ui.router',
+  'uiGmapgoogle-maps',
+  'ngCookies',
+  'mm.foundation',
+  'checklist-model',
+  'truncate',
+  'ui.select',
+  'ui.slider',
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter
@@ -43,9 +43,9 @@ angular.module 'CCR', [
   ]
   .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
     uiGmapGoogleMapApiProvider.configure(
-        key: 'AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I',
-        v: '3.22', #defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
+      key: 'AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I',
+      v: '3.22', #defaults to latest 3.X anyhow
+      libraries: 'weather,geometry,visualization'
     )
   ]
   .config ['$httpProvider', ($httpProvider) ->

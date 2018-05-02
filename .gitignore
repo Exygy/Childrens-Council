@@ -21,7 +21,7 @@ bower_components
 
 config/database.yml
 
-Gemfile
 .idea/
 .idea/workspace.xml
 
+node_modules
