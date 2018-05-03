@@ -1,28 +1,25 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
+gem 'rails', '4.2.10'
+
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
+
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
+
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'coffee-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks' # Don't need when using AngularJS
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.0'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# interface with NDS API
 gem 'nds_api'
 
 # Use ActiveModel has_secure_password
@@ -41,40 +38,21 @@ gem 'nds_api'
 gem 'puma'
 gem 'rack-timeout'
 
-# Model to json format
-gem 'active_model_serializers'
-
-# paginate
-gem 'kaminari'
-
-# keep track of record history
-gem 'paper_trail'
-
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
 
 # Database
-gem 'pg'
-gem 'pg_search'
+gem 'pg', '~> 0.18'
 
 # Assets
 gem 'slim-rails'
 
 # NOTE: angular-rails-templates not yet compatible with sprockets >= 3.0
 # https://github.com/pitr/angular-rails-templates/issues/93
-gem 'angular-rails-templates'
-gem 'sprockets', '~> 2.12.4'
+gem 'angular-rails-templates' , '~> 1.0'
+gem 'sprockets', '~> 3.0'
 # Forked version of angular-rails-templates that works with sprockets >= 3.0
 # gem 'angular-rails4-templates'
-
-# Complete Ruby geocoding solution
-gem 'geocoder'
-
-# Easier way to write complex query
-gem 'squeel'
-
-# Authentication manager
-gem 'devise'
 
 gem 'newrelic_rpm'
 
@@ -88,7 +66,6 @@ group :development, :test do
   # `require 'should_not/rspec'` in rails_helper.rb
   gem 'should_not'
 
-  gem 'factory_girl_rails'
   gem 'faker'
 
   # `shoulda_helper.rb` and `require 'shoulda_helper'` in rails_helper.rb

@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: languages
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 # Commented out until admin interface is being built

@@ -17,6 +17,11 @@
 #  index_schedule_hours_on_provider_id_and_schedule_day_id  (provider_id,schedule_day_id)
 #  index_schedule_hours_on_schedule_day_id_and_provider_id  (schedule_day_id,provider_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (provider_id => providers.id)
+#  fk_rails_...  (schedule_day_id => schedules_day.id)
+#
 
 FactoryGirl.define do
   factory :schedule_hours do

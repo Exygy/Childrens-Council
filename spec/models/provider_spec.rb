@@ -61,6 +61,18 @@
 #  index_providers_on_state_id               (state_id)
 #  index_providers_on_zip_code_id            (zip_code_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (city_id => cities.id)
+#  fk_rails_...  (mail_city_id => cities.id)
+#  fk_rails_...  (mail_state_id => states.id)
+#  fk_rails_...  (meal_sponsor_id => meal_sponsors.id)
+#  fk_rails_...  (neighborhood_id => neighborhoods.id)
+#  fk_rails_...  (preferred_language_id => languages.id)
+#  fk_rails_...  (schedule_year_id => schedules_year.id)
+#  fk_rails_...  (state_id => states.id)
+#  fk_rails_...  (zip_code_id => zip_codes.id)
+#
 
 require 'rails_helper'
 

@@ -16,6 +16,11 @@
 #  index_statuses_on_provider_id       (provider_id)
 #  index_statuses_on_status_reason_id  (status_reason_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (provider_id => providers.id)
+#  fk_rails_...  (status_reason_id => status_reasons.id)
+#
 
 require 'rails_helper'
 

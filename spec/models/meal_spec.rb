@@ -15,6 +15,11 @@
 #  index_meals_on_meal_type_id_and_provider_id  (meal_type_id,provider_id)
 #  index_meals_on_provider_id_and_meal_type_id  (provider_id,meal_type_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (meal_type_id => meal_types.id)
+#  fk_rails_...  (provider_id => providers.id)
+#
 
 require 'rails_helper'
 

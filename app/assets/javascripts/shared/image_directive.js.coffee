@@ -10,8 +10,7 @@ CheckImageDirective = ($http) ->
           alert('image not exist')
           element.attr('src', attrs['ngDefault'])
         )
-      });
-    }
+      )
   }
 
 angular.module('CCR').directive('checkImage', CheckImageDirective)

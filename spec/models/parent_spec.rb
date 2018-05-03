@@ -22,6 +22,10 @@
 #
 #  index_parents_on_found_option_id  (found_option_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (found_option_id => found_options.id)
+#
 
 require 'rails_helper'
 
