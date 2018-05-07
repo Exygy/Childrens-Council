@@ -2,25 +2,25 @@
   "name": "childrens-council",
   "private": true,
   "dependencies": {
-    "angular": "1.5.2",
-    "angular-ui-router": "0.2.15",
+    "angular": "1.6.10",
+    "angular-ui-router": "1.0.15",
     "foundation": "5.5.3",
-    "angular-mocks": "1.4.8",
+    "angular-mocks": "1.6.10",
     "angular-google-maps": "2.3.2",
     "angular-paginate-anything": "4.1.2",
-    "angular-cookies": "1.4.9",
+    "angular-cookies": "1.6.10",
     "angular-foundation": "0.8.0",
     "checklist-model": "0.9.0",
     "deep-filter": "1.0.1",
     "ui-select": "angular-ui-select#0.14.9",
     "angular-ui-slider": "0.2.1",
     "jquery-ui": "jquery-ui#1.10.x",
-    "angular-aria": "1.5.2",
+    "angular-aria": "1.6.10",
     "ng-toggle": "https://github.com/zachsnow/ng-toggle.git",
-    "angular-animate": "1.5.2"
+    "angular-animate": "1.6.10"
   },
   "resolutions": {
     "jquery-ui": "1.11.4",
-    "angular": "1.5.2"
+    "angular": "1.6.10"
   }
 }

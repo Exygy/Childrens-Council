@@ -253,7 +253,7 @@ angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
 ProviderName = ($rootScope) ->
   (provider) ->
     if provider?
-      FormatProviderName(provider, $rootScope, provider.name)
+      FormatProviderName(provider, $rootScope, provider.centerName)
     else
       ''
 
@@ -271,7 +271,7 @@ ProviderContactName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
-  if !ProviderIsFacility(rootScope, provider.care_type_id)
+  if !ProviderIsFacility(rootScope, provider.centerType)
     first_name = ''
     last_name = ''
     names = name.split(',')

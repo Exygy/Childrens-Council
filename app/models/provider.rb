@@ -108,10 +108,4 @@ class Provider < ActiveRecord::Base
   has_and_belongs_to_many :schedule_weeks, join_table: :providers_schedule_week
   has_and_belongs_to_many :subsidies
 
-  has_paper_trail
-  geocoded_by :geocodable_address_string
-  after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
-  before_save :calculate_ages
-  before_save :cache_geocodable_address_string
-
 end
