@@ -31,22 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   def render_not_found
-    render_json(
-      status: 404,
-      message: 'The requested resource could not be found',
-    )
+    head 404
   end
 
   def render_unauthorized
-    render_json(
-      status: 401,
-      message: 'Unauthorized API key',
-    )
-  end
-
-  private
-
-  def render_json(hash)
-    render json: hash, status: hash[:status]
+     head 401
   end
 end

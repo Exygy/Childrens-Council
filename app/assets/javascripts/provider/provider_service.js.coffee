@@ -1,8 +1,5 @@
 ProviderService = (HttpService) ->
-  @provider = {}
-
-  @results = []
-  @getProvider = (id) ->
+  @get = (id, callback) ->
     that = @
     HttpService.http(
       {
@@ -12,13 +9,25 @@ ProviderService = (HttpService) ->
       (response) ->
         # // this callback will be called asynchronously
         # // when the response is available
-        that.provider = response.data.provider
+        provider = response.data
+
+        for address in provider.addresses
+          if address.type == "Physical Address" and address.status == "Active"
+            provider.address = address
+            provider.map = that.map(address.latitude, address.longitude)
+
+        if callback
+          callback(provider)
+
+      (error) ->
+        console.log("ERROR")
+        console.log(error)
     )
 
-  @providerMap = (provider) ->
+  @map = (latitude, longitude) ->
     center:
-      latitude: provider.latitude,
-      longitude: provider.longitude
+      latitude: latitude,
+      longitude: longitude
     ,
     zoom: 16,
     options:

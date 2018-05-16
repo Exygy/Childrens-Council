@@ -28,7 +28,7 @@ div ng-hide="search_result_data.is_loading"
 
   ul.no-bullet ng-if="search_result_data.providers.length" ng-repeat="provider in search_result_data.providers"
     li.results-item
-      .provider-type ng-switch="provider.care_type_id | isFacility"
+      .provider-type ng-switch="provider | isFacility"
         div ng-switch-when="true"
           span.fa.fa-building.c-gainsboro
           .show-for-sr Child Care Center
@@ -36,12 +36,13 @@ div ng-hide="search_result_data.is_loading"
           span.fa.fa-home.c-gainsboro
           .show-for-sr Family Child Care
       h2.item-title
-        a href="#" ui-sref="provider({id: provider.id})" {{provider | providerName}}
+        img ng-src="{{ provider.images.logo }}"
+        a href="#" ui-sref="provider({id: provider.id})" {{provider.name}}
       p
-        span ng-if="provider.care_type_id | isFacility"
+        span ng-if="provider | isFacility"
           '  {{ provider.address_1 }}
           '  {{ provider.address_2 }},
-        span ng-if="!(provider.care_type_id | isFacility)"
+        span ng-if="!(provider | isFacility)"
           '  {{ provider.cross_street_1 }}
           '  &amp;
           '  {{ provider.cross_street_2 }},

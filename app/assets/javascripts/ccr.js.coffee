@@ -30,15 +30,16 @@ angular.module 'CCR', [
         onEnter: hideSidebar,
       })
       .state('provider', {
-        url: '/providers/:id/',
-        templateUrl: 'provider/provider.html',
-        controller: 'ProviderController',
+        url: '/providers/:id',
+        component: 'provider',
         onEnter: hideSidebar,
-        resolve:
-          provider: ['$stateParams', 'ProviderService', ($stateParams, ProviderService) ->
-            ProviderService.getProvider($stateParams.id)
+        resolve: {
+          id: ['$stateParams', ($stateParams) ->
+            return $stateParams.id;
           ]
+        }
       })
+
     $urlRouterProvider.otherwise('/')
   ]
   .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
