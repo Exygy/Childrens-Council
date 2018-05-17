@@ -1,0 +1,18 @@
+BadgeService = ->
+  @url = (badge) ->
+
+    urls = {
+      'ccip': '<%= image_path "badges/ccip.svg" %>',
+      'fccqn': '<%= image_path "badges/fccqn.svg" %>',
+      'food': '<%= image_path "badges/food.svg" %>',
+      'healthy-apple': '<%= image_path "badges/healthy-apple.svg" %>',
+      'naeyc': '<%= image_path "badges/naeyc.svg" %>',
+      'nafcc': '<%= image_path "badges/nafcc.svg" %>',
+      'qris': '<%= image_path "badges/qris.svg" %>'
+    }
+
+    return urls[badge]
+  @
+
+BadgeService.$inject = []
+angular.module('CCR').service('BadgeService', BadgeService)

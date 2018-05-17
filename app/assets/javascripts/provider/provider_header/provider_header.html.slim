@@ -1,0 +1,39 @@
+header#provider-content-wrapper.page-header.padding-top-2
+  .row
+    .small-10.columns
+      ul.breadcrumbs
+        li
+          a ui-sref="search" Find Child Care
+        li
+          a ui-sref="results" Search Results
+        li.current
+          a ui-sref="provider"
+            | {{ $ctrl.provider | providerName }}
+
+    .small-2.columns.text-right
+      a href="javascript:window.print()" Print
+
+  .row
+    .small-12.columns
+      h1
+        | {{ $ctrl.provider | providerName }}
+  .row
+    .small-12.columns
+      img.headshot src="{{ $ctrl.provider.images.headshot }}" style="width:294px;height:240px;"
+      img.logo src="{{ $ctrl.provider.images.logo }}" style="width:100px;height:100px;"
+
+
+      span ng-repeat="badge_name in $ctrl.provider.attributes.local12"
+        span
+          badge name="badge_name"
+
+
+
+      ' {{ $ctrl.provider.attributes.local13 }}
+
+  .margin-bottom-3 ng-if="$ctrl.provider.generalInfo.generalComment"
+    a name="about"
+    h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+
+    p
+      ' {{ $ctrl.provider.generalInfo.generalComment }}

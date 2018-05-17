@@ -30,4 +30,6 @@
 //= require checklist-model
 //= require deep-filter/index.umd.js
 //= require ui-select/dist/select.js
+//= require ccr.js
+//= require api_interceptor.js
 //= require_tree .

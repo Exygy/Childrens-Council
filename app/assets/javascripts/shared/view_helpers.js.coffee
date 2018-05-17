@@ -55,14 +55,6 @@ LanguageIdToName = ($rootScope) ->
 LanguageIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('languageIdToName', LanguageIdToName)
 
-NeighborhoodIdToName = ($rootScope) ->
-  (neighborhood_id) ->
-    if $rootScope.data['neighborhoods'][neighborhood_id]
-      $rootScope.data['neighborhoods'][neighborhood_id].name
-
-NeighborhoodIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('neighborhoodIdToName', NeighborhoodIdToName)
-
 StateIdToName = ($rootScope) ->
   (state_id) ->
     if $rootScope.data['states'][state_id]
