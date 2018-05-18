@@ -2,6 +2,8 @@ div ng-if="provider"
 
   provider-header provider="provider"
 
+  .margin-bottom-3
+
   section.content.row.margin-bottom-5
 
     .large-4.columns.show-for-large-up
@@ -20,6 +22,10 @@ div ng-if="provider"
 
       rates rates="provider.rates"
 
+      meals provider="provider"
+
+      enrollment-process provider="provider"
+
       env-images urls="provider.images.env"
 
       license-and-ages id="provider.licenseId" capacity="provider.licenseCapacity"
@@ -27,3 +33,32 @@ div ng-if="provider"
       language-options provider="provider"
 
       financial-assistance provider="provider"
+
+
+
+
+
+css:
+  #content.providers {
+    margin-top: 0 !important;
+  }
+
+  #content.providers header.page-header::after {
+    content:" ";
+    background: #e7f3f7;
+    position: absolute;
+    left: 100%;
+    width: 1000%;
+    height: 100%;
+    top: 0;
+  }
+
+  #content.providers header.page-header::before {
+    content:" ";
+    background: #e7f3f7;
+    position: absolute;
+    right: 100%;
+    width: 1000%;
+    height: 100%;
+    top: 0;
+  }

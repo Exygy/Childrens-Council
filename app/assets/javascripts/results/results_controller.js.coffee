@@ -1,5 +1,4 @@
 ResultsController = ($scope, $location, $state, $controller, $anchorScroll, ResultsService, ProviderService, $timeout) ->
-  $controller 'ApplicationController', {$scope: $scope}
   $scope.search_result_data = ResultsService.data
   $scope.settings = ResultsService.settings
   $scope.filters = ResultsService.filters
@@ -46,4 +45,10 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $timeout scrollToTop()
 
 ResultsController.$inject = ['$scope', '$location', '$state', '$controller', '$anchorScroll', 'ResultsService', 'ProviderService', '$timeout']
-angular.module('CCR').controller('ResultsController', ResultsController)
+
+angular
+  .module('CCR')
+  .component('results', {
+    controller: ResultsController
+    templateUrl: "results/results.html"
+  })

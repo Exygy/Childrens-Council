@@ -72,7 +72,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
       label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
       select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.parents_care_reasons_attributes[$index].care_reason_id" ng-required="true"
         option [value="" disabled] Select Care Reason
-        option ng-repeat="care_reason in data.care_reasons_array track by care_reason.id" value="{{ care_reason.id }}"
+        option ng-repeat="care_reason in $root.data.care_reasons_array track by care_reason.id" value="{{ care_reason.id }}"
           ' {{ care_reason.name }}
 
       button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.parents_care_reasons_attributes, $index)" Remove
@@ -91,7 +91,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
     .repeater-container
       select#found-option.radius name="found_option" ng-model="parent.found_option_id"
         option value="" Select
-        option ng-repeat="found_option in data.found_options_array track by found_option.id" value="{{ found_option.id }}"
+        option ng-repeat="found_option in $root.data.found_options_array track by found_option.id" value="{{ found_option.id }}"
           ' {{ found_option.name }}
 
   section.margin-top-2
@@ -100,7 +100,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
       | You must agree to the terms of service to continue
 
     .checkbox.checkbox-single
-      input#agree [name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required]
+      input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
       label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
         strong I agree to the following: *
     p.padding-left-2

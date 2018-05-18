@@ -1,14 +1,13 @@
 ProviderController = ($anchorScroll, $controller, $scope, $state, $timeout, ProviderService) ->
   $ctrl = @
-  $controller 'ApplicationController', {$scope: $scope}
 
-  @$onInit = () ->
+  $ctrl.$onInit = () ->
     ProviderService.get $ctrl.id, (provider) ->
       $scope.provider = provider
 
   $timeout $anchorScroll()
 
-  return @
+  return $ctrl
 
 ProviderController.$inject = [
   '$anchorScroll',

@@ -19,14 +19,12 @@ angular.module 'CCR', [
     $stateProvider
       .state('search', {
         url: '/',
-        templateUrl: 'search/search.html',
-        controller: 'SearchController',
+        component: 'search',
         onEnter: showSidebar,
       })
       .state('results', {
-        url: '/providers/',
-        templateUrl: 'results/results.html',
-        controller: 'ResultsController',
+        url: '/providers',
+        component: 'results',
         onEnter: hideSidebar,
       })
       .state('provider', {
