@@ -3,7 +3,7 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
 
 .single_provider_map
   span.label-gray.lighter
-    ' {{ $ctrl.provider.attributes.local17 }}
+    ' {{ $ctrl.provider.attributes.local17.join(', ') }}
   span ng-if="$ctrl.provider | isFacility"
     '  {{ $ctrl.provider.address.street1 }}
     '  {{ $ctrl.provider.address.street2 }}
@@ -14,6 +14,6 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
     '  {{ $ctrl.provider.address.state }}
     '  {{ $ctrl.provider.address.zip }}
 
-.map.margin-top-2.hide-for-print ng-if="$ctrl.provider.map"
+.map.margin-top-2.hide-for-print ng-if="$ctrl.provider.map.center.latitude && $ctrl.provider.map.center.longitude"
   ui-gmap-google-map center='$ctrl.provider.map.center' zoom='$ctrl.provider.map.zoom' options='$ctrl.provider.map.options'
-    ui-gmap-marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+    ui-gmap-marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.providerId"

@@ -1,7 +1,18 @@
-EnvImagesController =  ->
+EnvImagesController = ($scope, $modal)  ->
+  $ctrl = @
+
+  $scope.openCarousel = () ->
+    $modal.open {
+      templateUrl: '/assets/provider/env_images/carousel/carousel.html'
+      controller: 'CarouselController'
+      resolve:
+        urls: ->
+           $ctrl.urls
+    }
+
   return @
 
-EnvImagesController.$inject = []
+EnvImagesController.$inject = ['$scope', '$modal']
 
 angular
   .module('CCR')

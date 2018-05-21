@@ -1,4 +1,4 @@
-header#provider-content-wrapper.page-header.padding-top-2
+header#provider-content-wrapper.infinite-background.page-header.padding-top-2
   .row
     .small-10.columns
       ul.breadcrumbs
@@ -30,7 +30,10 @@ header#provider-content-wrapper.page-header.padding-top-2
         ' {{ $ctrl.provider.generalInfo.generalComment }}
         ' {{ $ctrl.provider.attributes.local13 }}
 
-
       span ng-repeat="badge_name in $ctrl.provider.attributes.local12"
         span
           badge name="badge_name"
+
+      p.date
+        ' Profile last updated
+        ' {{ $ctrl.provider.statusChangeDate | date : 'MMM d, yyyy' }}

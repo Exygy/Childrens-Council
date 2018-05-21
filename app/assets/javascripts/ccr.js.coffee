@@ -10,6 +10,7 @@ angular.module 'CCR', [
   'truncate',
   'ui.select',
   'ui.slider',
+  'ui.carousel'
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter

@@ -27,6 +27,7 @@
 //= require angular-paginate-anything
 //= require angular-foundation
 //= require angular-ui-slider/src/slider.js
+//= require angular-ui-carousel
 //= require checklist-model
 //= require deep-filter/index.umd.js
 //= require ui-select/dist/select.js

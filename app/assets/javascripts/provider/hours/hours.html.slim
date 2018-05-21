@@ -13,8 +13,8 @@ table.table-centered.table-hours
       td ng-repeat="day in days track by $index"
         span ng-if="($ctrl.shiftDays | providerIsClosed:day)" Closed
         span ng-if="!($ctrl.shiftDays | providerIsClosed:day)"
-          span
-            ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
-          small.label-gray TO
-          span
-            ' {{ ( ($ctrl.shiftDays | shiftDay:day).endTime ) | formatProviderStartEndDate }}
+          ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
+          br
+          ' TO
+          br
+          ' {{ ( ($ctrl.shiftDays | shiftDay:day).endTime ) | formatProviderStartEndDate }}
