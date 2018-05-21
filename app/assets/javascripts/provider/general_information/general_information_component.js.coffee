@@ -9,5 +9,5 @@ angular
     bindings:
       provider: '<'
     controller: GeneralInformationController
-    templateUrl: "/assets/provider/general_information/general_information.html"
+    templateUrl: "provider/general_information/general_information.html"
   })
