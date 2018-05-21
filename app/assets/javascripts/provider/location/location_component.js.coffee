@@ -15,5 +15,5 @@ angular
     bindings:
       provider: '<'
     controller: LocationController
-    templateUrl: "/assets/provider/location/location.html"
+    templateUrl: "provider/location/location.html"
   })

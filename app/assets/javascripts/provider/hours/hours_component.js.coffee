@@ -12,5 +12,5 @@ angular
     bindings:
       shiftDays: '<'
     controller: HoursController
-    templateUrl: "/assets/provider/hours/hours.html"
+    templateUrl: "provider/hours/hours.html"
   })

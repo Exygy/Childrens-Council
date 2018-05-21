@@ -9,5 +9,5 @@ angular
     bindings:
       urls: '<'
     controller: LanguageOptionsController
-    templateUrl: "/assets/provider/language_options/language_options.html"
+    templateUrl: "provider/language_options/language_options.html"
   })

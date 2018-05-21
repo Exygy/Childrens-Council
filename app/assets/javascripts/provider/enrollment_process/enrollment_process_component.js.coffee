@@ -9,5 +9,5 @@ angular
     bindings:
       urls: '<'
     controller: EnrollmentProcessController
-    templateUrl: "/assets/provider/enrollment_process/enrollment_process.html"
+    templateUrl: "provider/enrollment_process/enrollment_process.html"
   })

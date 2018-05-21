@@ -10,5 +10,5 @@ angular
       id: '<',
       capacity: '<'
     controller: LicenseAndAgesController
-    templateUrl: "/assets/provider/license_and_ages/license_and_ages.html"
+    templateUrl: "provider/license_and_ages/license_and_ages.html"
   })

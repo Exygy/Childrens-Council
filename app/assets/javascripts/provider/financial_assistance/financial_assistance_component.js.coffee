@@ -9,5 +9,5 @@ angular
     bindings:
       provider: '<'
     controller: FinancialAssistanceController
-    templateUrl: "/assets/provider/financial_assistance/financial_assistance.html"
+    templateUrl: "provider/financial_assistance/financial_assistance.html"
   })

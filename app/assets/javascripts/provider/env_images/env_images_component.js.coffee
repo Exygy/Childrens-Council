@@ -20,5 +20,5 @@ angular
     bindings:
       urls: '<'
     controller: EnvImagesController
-    templateUrl: "/assets/provider/env_images/env_images.html"
+    templateUrl: "provider/env_images/env_images.html"
   })

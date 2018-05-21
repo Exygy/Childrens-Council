@@ -9,5 +9,5 @@ angular
     bindings:
       provider: '<'
     controller: ProviderNavigationController
-    templateUrl: "/assets/provider/provider_navigation/provider_navigation.html"
+    templateUrl: "provider/provider_navigation/provider_navigation.html"
   })

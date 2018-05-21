@@ -9,5 +9,5 @@ angular
     bindings:
       shifts: '<'
     controller: VacanciesController
-    templateUrl: "/assets/provider/vacancies/vacancies.html"
+    templateUrl: "provider/vacancies/vacancies.html"
   })

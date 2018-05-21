@@ -9,5 +9,5 @@ angular
     bindings:
       rates: '<'
     controller: RatesController
-    templateUrl: "/assets/provider/rates/rates.html"
+    templateUrl: "provider/rates/rates.html"
   })

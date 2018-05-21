@@ -15,5 +15,5 @@ angular
     bindings:
       provider: '<'
     controller: MealsController
-    templateUrl: "/assets/provider/meals/meals.html"
+    templateUrl: "provider/meals/meals.html"
   })
