@@ -3,12 +3,12 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="finan
 
 div ng-if="$ctrl.provider.generalInfo.local1.length"
   accordion close-others="false" role="tablist"
-    accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="subsidy in $ctrl.provider.subsidies track by subsidy.id"
+    accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="assistance in $ctrl.provider.generalInfo.local1 track by $index"
       accordion-heading
-        div id="{{subsidy.name | attribute}}-heading" role="tab" aria-controls="{{subsidy.name | attribute}}-panel"
+        div id="{{assistance}}-heading" role="tab" aria-controls="{{assistance}}-panel"
           span.fa.c-green-yellow.fa-check-circle
           span.margin-left-1
-            | {{subsidy.name}}
+            | {{assistance}}
           .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="subsidy.description"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
