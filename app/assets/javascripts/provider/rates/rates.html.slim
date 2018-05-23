@@ -3,7 +3,7 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="rates
 
 p Rates shown below are approximate and shownn by age group by full-time and part time rate. Please call providers to confirm details.
 
-table.table-centered.table-rates
+table.table.table-centered
 
   thead
     tr
@@ -15,5 +15,4 @@ table.table-centered.table-rates
       td
         ' {{ rate.ageGroup }}
       td
-        ' {{ rate.providerUID }}
-        ' {{ rate.shiftId }}
+        ' {{ displayRates(rate) }}

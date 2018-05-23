@@ -3,7 +3,7 @@ h3.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
 
 .row.info-grid
   .columns.medium-6 ng-if="$ctrl.provider.images.logo"
-    img.headshot src="{{ $ctrl.provider.images.logo }}" style="width:100px;height:100px;"
+    img.headshot ng-src="{{ $ctrl.provider.images.logo }}" style="width:100px;height:100px;"
 
 .row.info-grid
   .columns.medium-6 ng-if="$ctrl.provider.primaryOwner"

@@ -1,7 +1,7 @@
 a name="vacancies"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="vacancies" Vacancies
 
-table.table-centered.table-hours
+table.table.table-centered
 
   thead
     tr
@@ -9,16 +9,13 @@ table.table-centered.table-hours
         span.label-gray
           | {{ column }}
   tbody
-    tr ng-repeat="shift in $ctrl.shifts track by $index"
+    tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
       td
-        | {{ shift.local2 }}
+        | {{ enrollment.ageGroup }}
       td
-        | {{ shift.local3 }}
+        | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
       td
-        | {{ shift.local4 }}
-      td
-        | {{ shift.config5 }}
-      td
-        | {{ shift.config6 }}
-      td
-        | {{ shift.config10 }}
+        span ng-if="futureVacancy(enrollment.ageGroupTypeId)"
+          ' Open Vacancy {{ futureVacancy(enrollment.ageGroupTypeId) | date : 'MM/dd/yyyy' }}
+        span ng-if="!futureVacancy(enrollment.ageGroupTypeId)"
+          ' n/a

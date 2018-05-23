@@ -1,14 +1,13 @@
 BadgeService = ->
   @url = (badge) ->
-
     urls = {
-      'ccip': '<%= image_path "badges/ccip.svg" %>',
-      'fccqn': '<%= image_path "badges/fccqn.svg" %>',
-      'food': '<%= image_path "badges/food.svg" %>',
-      'healthy-apple': '<%= image_path "badges/healthy-apple.svg" %>',
-      'naeyc': '<%= image_path "badges/naeyc.svg" %>',
-      'nafcc': '<%= image_path "badges/nafcc.svg" %>',
-      'qris': '<%= image_path "badges/qris.svg" %>'
+      'CCIP': '<%= image_path "badges/ccip.svg" %>',
+      'FCC Quality Network': '<%= image_path "badges/fccqn.svg" %>',
+      'Child Care Food Program': '<%= image_path "badges/food.svg" %>',
+      'Healthy Apple Progam': '<%= image_path "badges/healthy-apple.svg" %>',
+      'NAEYC': '<%= image_path "badges/naeyc.svg" %>',
+      'NAFCC': '<%= image_path "badges/nafcc.svg" %>',
+      'QRIS': '<%= image_path "badges/qris.svg" %>'
     }
 
     return urls[badge]

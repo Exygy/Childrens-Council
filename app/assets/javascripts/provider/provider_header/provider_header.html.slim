@@ -8,31 +8,28 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-2
           a ui-sref="results" Search Results
         li.current
           a ui-sref="provider"
-            | {{ $ctrl.provider | providerName }}
+            | {{ $ctrl.provider.centerName }}
 
     .small-2.columns.text-right
       a href="javascript:window.print()" Print
 
   .row
-    .small-12.columns
+    .large-12.columns
       h1
-        | {{ $ctrl.provider | providerName }}
+        | {{ $ctrl.provider.centerName }}
 
   .row
-    .small-4.columns
-      img.headshot src="{{ $ctrl.provider.images.headshot }}" style="width:294px;height:240px;"
+    .large-4.columns
+      img.headshot src="{{ $ctrl.provider.images.headshot }}" style="max-width: 294px;max-height: 240px;width: 100%;"
 
-    .small-8.columns
+    .large-8.columns
       a name="about"
       h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
 
       p
         ' {{ $ctrl.provider.generalInfo.generalComment }}
-        ' {{ $ctrl.provider.attributes.local13 }}
 
-      span ng-repeat="badge_name in $ctrl.provider.attributes.local12"
-        span
-          badge name="badge_name"
+      badges attributes="$ctrl.provider.attributes"
 
       p.date
         ' Profile last updated

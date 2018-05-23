@@ -18,7 +18,7 @@ div ng-if="provider"
 
       hours shift-days="provider.shiftDays"
 
-      vacancies shifts="provider.shifts"
+      vacancies general-info="provider.generalInfo" enrollments="provider.enrollments"
 
       rates rates="provider.rates"
 
@@ -28,7 +28,7 @@ div ng-if="provider"
 
       env-images urls="provider.images.env"
 
-      license-and-ages id="provider.licenseId" capacity="provider.licenseCapacity"
+      license-and-ages general-info="provider.generalInfo" enrollments="provider.enrollments"      
 
       language-options provider="provider"
 

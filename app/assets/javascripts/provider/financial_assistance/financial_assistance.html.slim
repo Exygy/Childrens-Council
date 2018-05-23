@@ -1,10 +1,7 @@
 a name="financial-assistance"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
 
-div ng-if="$ctrl.provider.subsidies.length"
-  a name="financial-assistance"
-  h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
-
+div ng-if="$ctrl.provider.generalInfo.local1.length"
   accordion close-others="false" role="tablist"
     accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="subsidy in $ctrl.provider.subsidies track by subsidy.id"
       accordion-heading
@@ -19,3 +16,6 @@ div ng-if="$ctrl.provider.subsidies.length"
 
       .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
         | {{subsidy.description}}
+
+div ng-if="!$ctrl.provider.generalInfo.local1.length"
+  p No information provided

@@ -11,13 +11,14 @@ table.table-lines
       th
         span.label-gray.lighter Capacity
   tbody
-    tr  ng-if="$ctrl.provider.licenseId"
+    tr ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field]"
       td
-        a href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{$ctrl.provider.licenseId}}/510#detailview" target="_blank"
-          | \#{{$ctrl.provider.licenseId}}
+        a href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ $ctrl.generalInfo[license_field] }}/510#detailview" target="_blank"
+          | \#{{$ctrl.generalInfo[license_field]}}
       td
-        span age served
+        span
+          | {{  enrollmentField(license_field, 'ageGroup') }}
 
       td
         span
-          |{{$ctrl.provider.licenseCapacity}}
+          | {{  enrollmentField(license_field, 'licensedCapacity') }}
