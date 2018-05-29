@@ -24,12 +24,12 @@ angular.module 'CCR', [
         onEnter: showSidebar,
       })
       .state('results', {
-        url: '/providers',
+        url: '/providers/',
         component: 'results',
         onEnter: hideSidebar,
       })
       .state('provider', {
-        url: '/providers/:id',
+        url: '/providers/:id/',
         component: 'provider',
         onEnter: hideSidebar,
         resolve: {
