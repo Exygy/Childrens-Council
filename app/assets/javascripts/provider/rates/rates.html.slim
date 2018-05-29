@@ -15,4 +15,6 @@ table.table.table-centered
       td
         ' {{ rate.ageGroup }}
       td
-        ' {{ displayRates(rate) }}
+        span ng-repeat="r in (rate | formatRate)"
+          ' {{ r }}
+          br
