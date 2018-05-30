@@ -14,5 +14,5 @@ angular
     bindings:
       name: '<'
     controller: BadgeController
-    templateUrl: "badge/badge.html"
+    templateUrl: "badges/badge/badge.html"
   })
