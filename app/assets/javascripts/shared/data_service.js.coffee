@@ -144,9 +144,9 @@ DataService = ($rootScope, HttpService) ->
     that.data.is_loading = true
     @serverRequest (response) ->
       if response.data
-        that.data.providers = response.data.providers
-        that.data.totalProviders = response.data.total
-        that.data.current_page = that.current_page
+        that.data.providers = response.data.content
+        that.data.totalProviders = response.data.totalElements
+        that.data.current_page = that.data.number
       callback() if callback
       that.data.is_loading = false
 

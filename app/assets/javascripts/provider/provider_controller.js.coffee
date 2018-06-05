@@ -1,4 +1,4 @@
-ProviderController = ($anchorScroll, $controller, $scope, $state, $timeout, ProviderService) ->
+ProviderController = ($anchorScroll, $scope, $timeout, ProviderService) ->
   $ctrl = @
 
   $ctrl.$onInit = () ->
@@ -11,9 +11,7 @@ ProviderController = ($anchorScroll, $controller, $scope, $state, $timeout, Prov
 
 ProviderController.$inject = [
   '$anchorScroll',
-  '$controller',
   '$scope',
-  '$state',
   '$timeout',
   'ProviderService'
 ]

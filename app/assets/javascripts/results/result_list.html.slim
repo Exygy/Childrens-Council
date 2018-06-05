@@ -28,69 +28,7 @@ div ng-hide="search_result_data.is_loading"
 
   ul.no-bullet ng-if="search_result_data.providers.length" ng-repeat="provider in search_result_data.providers"
     li.results-item
-      .provider-type ng-switch="provider | isFacility"
-        div ng-switch-when="true"
-          span.fa.fa-building.c-gainsboro
-          .show-for-sr Child Care Center
-        div ng-switch-when="false"
-          span.fa.fa-home.c-gainsboro
-          .show-for-sr Family Child Care
-      h2.item-title
-        img ng-src="{{ provider.images.logo }}"
-        a href="#" ui-sref="provider({id: provider.id})" {{provider.name}}
-      p
-        span ng-if="provider | isFacility"
-          '  {{ provider.address_1 }}
-          '  {{ provider.address_2 }},
-        span ng-if="!(provider | isFacility)"
-          '  {{ provider.cross_street_1 }}
-          '  &amp;
-          '  {{ provider.cross_street_2 }},
-        span
-          '  {{ provider.city_id|cityIdToName }}
-          '  {{ provider.state_id|stateIdToAbbr }}
-          ' {{ provider.zip_code_id|zipCodeIdToName }}
-        a.map_toggle ng-click="toggleMap(provider)"
-          span ng-if="!provider.map" See map
-          span ng-if="provider.map" Hide map
-
-      ui-gmap-google-map center='provider.map.center' zoom='provider.map.zoom' options='provider.map.options' ng-if="provider.map"
-        ui-gmap-marker ng-repeat="marker in ([provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
-
-      p
-        span.item-detail
-          span.fa.fa-phone-square.c-base
-          '  {{ provider.phone | formatPhoneNumber }}
-
-        span.item-detail
-          span.fa.fa-clock-o.c-base
-          '  {{ provider.schedule_hours | scheduleHoursToSummary }}
-
-
-        span.item-detail2
-          span.fa.fa-circle-thin
-          '  Total Vacancy: {{ provider.vacancy }} as of {{ provider.vacancydate | date:'MMMM d, y'}}
-      p
-        a ng-href="{{ provider.url | prefixUrl }}" target="_blank" ng-if="provider.url"
-          ' {{ provider.url }}
-
-      p.margin-top-small
-        ' {{ provider.description | words:25 }}
-
-      p.c-base
-        | Financial assistance:
-        span ng-if="provider.subsidies.length" ng-repeat="subsidy in provider.subsidies track by subsidy.id"
-          |  {{subsidy.name}}
-          span ng-if="$index < provider.subsidies.length - 1" ,
-
-        span ng-hide="provider.subsidies.length"  check with provider.
-
-      p.c-base
-        | Check history / reports:
-        span ng-repeat="license in provider.licenses track by license.id"
-          a.c-blue-soft href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ license.number }}/510#detailview" target="_blank"
-            |  \#{{ license.number }}
-          span ng-if="$index < provider.licenses.length - 1"  &amp;
+      result provider="provider"
 
     hr.margin-top-2.margin-bottom-2
 
