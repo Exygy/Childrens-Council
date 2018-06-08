@@ -22,7 +22,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
     if $scope.searchForm.$valid
       $scope.loading = true
       SearchService.postSearch () ->
-        $state.go('results')
+        $state.go('results', {"product": 'test', "id": 123})
     else
       $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800);
     return

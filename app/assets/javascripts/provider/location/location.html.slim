@@ -5,14 +5,14 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
   span.label-gray.lighter
     ' {{ $ctrl.provider.attributes.local17.join(', ') }}
   span ng-if="$ctrl.provider | isFacility"
-    '  {{ $ctrl.provider.address.street1 }}
-    '  {{ $ctrl.provider.address.street2 }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
   span ng-if="!($ctrl.provider | isFacility)"
     '  {{ $ctrl.provider.generalInfo.config1 }}
   span
-    '  {{ $ctrl.provider.address.city }}
-    '  {{ $ctrl.provider.address.state }}
-    '  {{ $ctrl.provider.address.zip }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'city' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
 .map.margin-top-2.hide-for-print ng-if="$ctrl.provider.map.center.latitude && $ctrl.provider.map.center.longitude"
   ui-gmap-google-map center='$ctrl.provider.map.center' zoom='$ctrl.provider.map.zoom' options='$ctrl.provider.map.options'

@@ -1,4 +1,4 @@
-MapController = ($scope, $q, $timeout, $location, $state, uiGmapIsReady, ResultsService) ->
+ResultMapController = ($scope, $q, $timeout, $location, $state, uiGmapIsReady, ResultsService) ->
     $scope.map = {
       center:
         latitude: 37.7833
@@ -32,5 +32,13 @@ MapController = ($scope, $q, $timeout, $location, $state, uiGmapIsReady, Results
       fitBounds map
 
 
-MapController.$inject = ['$scope', '$q', '$timeout', '$location', '$state', 'uiGmapIsReady', 'ResultsService']
-angular.module('CCR').controller('MapController', MapController)
+ResultMapController.$inject = ['$scope', '$q', '$timeout', '$location', '$state', 'uiGmapIsReady', 'ResultsService']
+
+angular
+  .module('CCR')
+  .component('resultMap', {
+    bindings:
+      providers: '<'
+    controller: ResultMapController
+    templateUrl: "results/result_map/result_map.html"
+  })

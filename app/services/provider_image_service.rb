@@ -30,7 +30,7 @@ module ProviderImageService
     end
 
     def query_params_as_array
-      @provider_ids.collect{ |id| "#{param}=[]#{id}" }.join('&')
+      @provider_ids.collect{ |id| "#{param}[]=#{id}" }.join('&')
     end
 
     def multiple_provder_ids

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'wordpress_template' => 'home#wordpress_template'
 
+  get 'providers/' => 'home#index'
   get 'providers/:id' => 'home#index'
 
   root 'home#index'

@@ -129,7 +129,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    nds_api (0.1.1)
+    nds_api (0.1.4)
     nenv (0.3.0)
     newrelic_rpm (5.2.0.345)
     nokogiri (1.8.2)
@@ -299,7 +299,7 @@ DEPENDENCIES
   guard-teaspoon
   jquery-rails
   le
-  nds_api (~> 0.1.1)
+  nds_api (~> 0.1.4)
   newrelic_rpm
   paper_trail
   pg (~> 0.18)

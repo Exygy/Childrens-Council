@@ -1,19 +1,13 @@
-ScheduleHoursToSummary = ($rootScope, $filter) ->
+ScheduleHoursToSummary = ($filter) ->
   (schedule_hours) ->
 
     scheduleHourToString = (schedule_hour) ->
       if !schedule_hour.closed
-        start_date = $filter('date')(schedule_hour.start_time, 'h:mma', 'UTC')
-        end_date = $filter('date')(schedule_hour.end_time, 'h:mma', 'UTC')
+        start_date = $filter('date')(schedule_hour.startTime, 'h:mma', 'UTC')
+        end_date = $filter('date')(schedule_hour.endTime, 'h:mma', 'UTC')
         return start_date.replace(':00', '')+'-'+end_date.replace(':00', '')
       else
         false
-
-    scheduleDayToFirstChar = (schedule_hour) ->
-      day_first_char = false
-      if $rootScope.data['schedule_days'][schedule_hour.schedule_day_id]
-        day_first_char = $rootScope.data['schedule_days'][schedule_hour.schedule_day_id].name.charAt(0)
-      day_first_char
 
     week_days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
     summary_hours = {}
@@ -21,7 +15,7 @@ ScheduleHoursToSummary = ($rootScope, $filter) ->
       hour_key = scheduleHourToString(schedule_hour)
       if hour_key
         summary_hours[hour_key] = [] if !summary_hours[hour_key]
-        summary_hours[hour_key].push scheduleDayToFirstChar(schedule_hour)
+        summary_hours[hour_key].push schedule_hour.day.charAt(0)
 
     summary_hours_strings = []
     for hours,days of summary_hours
@@ -34,5 +28,5 @@ ScheduleHoursToSummary = ($rootScope, $filter) ->
           summary_hours_strings.push days[0]+', '+hours.toLowerCase()
     summary_hours_strings.join(' - ')
 
-ScheduleHoursToSummary.$inject = ['$rootScope', '$filter']
+ScheduleHoursToSummary.$inject = ['$filter']
 angular.module('CCR').filter('scheduleHoursToSummary', ScheduleHoursToSummary)

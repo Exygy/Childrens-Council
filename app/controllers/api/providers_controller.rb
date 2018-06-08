@@ -3,7 +3,8 @@ module Api
     before_action :create_referral_log, only: :index
 
     def index
-      render json: NDS.search_providers(search_params), status: 200
+      results = search_providers_with_images(search_params)
+      render json: results, status: 200
     end
 
     def show
@@ -13,6 +14,28 @@ module Api
     end
 
     private
+
+    # index
+
+    def search_providers_with_images(search_params)
+      @results = NDS.search_providers(search_params)
+
+      @results[:content].each do |provider_data|
+        provider_data[:images] = providers_images[provider_data["providerId"].to_s]
+      end
+
+      @results
+    end
+
+    def providers_images
+      @providers_images ||= ProviderImageService.get(provider_ids)
+    end
+
+    def provider_ids
+      @results[:content].collect{ |provider_data| provider_data["providerId"] }
+    end
+
+    # show
 
     def nds_provider
       NDS.provider_by_id(provider_id)
@@ -80,7 +103,7 @@ module Api
         "locationB": {},
       	"zip": "94114",
       	"attributesLocal17": [],
-      	"ageGroupServiced": 13,
+      	"ageGroupServiced": nil,
       	"ageGroup": nil,
       	"typeOfCare": nil,
       	"yearlySchedule": nil,

@@ -147,7 +147,7 @@ DataService = ($rootScope, HttpService) ->
         that.data.providers = response.data.content
         that.data.totalProviders = response.data.totalElements
         that.data.current_page = that.data.number
-      callback() if callback
+      callback(response.data) if callback
       that.data.is_loading = false
 
   @serverRequest = (callback) ->
