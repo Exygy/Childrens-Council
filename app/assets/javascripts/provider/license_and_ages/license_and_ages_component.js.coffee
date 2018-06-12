@@ -4,7 +4,6 @@ LicenseAndAgesController = ($scope) ->
   licenseToAgeGroupTypeId = (license_key) ->
     field_mapping =
       'config5': 102,
-      'MISSING': 104,
       'config7': 106,
       'config9': 108,
       'config11': 109
