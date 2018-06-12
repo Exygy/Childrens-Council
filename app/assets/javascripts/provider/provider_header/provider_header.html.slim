@@ -29,7 +29,11 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-2
       p
         ' {{ $ctrl.provider.generalInfo.generalComment }}
 
-      badges attributes="$ctrl.provider.attributes"
+      .row
+        .large-6.columns
+          badges attributes="$ctrl.provider.attributes" show-title="true"
+        .large-6.columns
+          qris-rating qris="$ctrl.provider.attributes.qualityRating"
 
       p.date
         ' Profile last updated

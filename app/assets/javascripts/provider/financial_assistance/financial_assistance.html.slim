@@ -9,13 +9,13 @@ div ng-if="$ctrl.provider.generalInfo.local1.length"
           span.fa.c-green-yellow.fa-check-circle
           span.margin-left-1
             | {{assistance}}
-          .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="subsidy.description"
+          .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="descriptions(assistance)"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
             |  details
 
-      .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="subsidy.description"
-        | {{subsidy.description}}
+      .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="descriptions(assistance)"
+        | {{ descriptions(assistance) }}
 
 div ng-if="!$ctrl.provider.generalInfo.local1.length"
   p No information provided

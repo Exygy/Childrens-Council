@@ -1,0 +1,8 @@
+h3
+  ' QRIS Rating
+  span.fa.fa-info-circle.margin-left-small.tip-top data-width="350" tooltip="Provide content." tooltip-placement="right"
+
+span.pull-right
+  span.fa.fa-star ng-repeat="star in [1,2,3,4,5]" ng-class="{yellow: (star <= $ctrl.qris)}"
+
+.cl

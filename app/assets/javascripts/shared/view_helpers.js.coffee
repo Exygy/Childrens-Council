@@ -271,7 +271,7 @@ angular.module('CCR').filter('providerIsClosed', ProviderIsClosed)
 
 SubsidiesToFilterTitle = ($rootScope) ->
   (subsidy_ids) ->
-    if subsidy_ids.length and subsidy_ids[0] != ''
+    if subsidy_ids and subsidy_ids.length and subsidy_ids[0] != ''
       names = []
       for subsidy_id in subsidy_ids
         names.push $rootScope.data['subsidies'][subsidy_id].name

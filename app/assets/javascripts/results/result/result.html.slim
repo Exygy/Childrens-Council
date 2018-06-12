@@ -16,7 +16,7 @@ h2.item-title
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
 
-badges attributes="$ctrl.provider.attributes"
+badges attributes="$ctrl.provider.attributes" show-title="false"
 
 .cl
 
@@ -44,7 +44,7 @@ ul.general-info
   li
     span.item-detail
       span.fa.fa-calendar-check-o.c-base
-      'Has current vacancies
+      '{{ $ctrl.provider | vacanciesSummary: 52 }}
 
   li
     span.item-detail

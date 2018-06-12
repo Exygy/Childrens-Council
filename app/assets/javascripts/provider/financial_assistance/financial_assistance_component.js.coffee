@@ -1,7 +1,11 @@
-FinancialAssistanceController =  ->
+FinancialAssistanceController = ($scope, FinancialAssistanceService) ->
+
+  $scope.descriptions = (name) ->
+    return FinancialAssistanceService.descriptions[name]
+
   return @
 
-FinancialAssistanceController.$inject = []
+FinancialAssistanceController.$inject = ['$scope', 'FinancialAssistanceService']
 
 angular
   .module('CCR')

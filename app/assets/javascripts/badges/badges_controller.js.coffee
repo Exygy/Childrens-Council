@@ -17,7 +17,8 @@ angular
   .module('CCR')
   .component('badges', {
     bindings:
-      attributes: '<'
+      attributes: '<',
+      showTitle: '<'
     controller: BadgesController
     templateUrl: "badges/badges.html"
   })

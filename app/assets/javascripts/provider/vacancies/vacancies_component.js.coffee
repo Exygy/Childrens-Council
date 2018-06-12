@@ -1,6 +1,9 @@
 VacanciesController = ($scope)  ->
   $ctrl = @
 
+  $scope.isFutureVacancy = (vacancy_date) ->
+    Date.parse(vacancy_date) > Date.now()
+
   $scope.futureVacancy = (key) ->
     field_mapping =
       102: 'config6',
@@ -9,7 +12,6 @@ VacanciesController = ($scope)  ->
       108: 'config10',
       109: 'config12'
     return $ctrl.generalInfo[field_mapping[key]]
-
 
   return @
 
@@ -22,5 +24,5 @@ angular
       generalInfo: '<',
       enrollments: '<'
     controller: VacanciesController
-    templateUrl: "vacancies/vacancies.html"
+    templateUrl: "provider/vacancies/vacancies.html"
   })

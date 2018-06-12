@@ -13,7 +13,10 @@ table.table.table-centered
       td
         | {{ enrollment.ageGroup }}
       td
-        | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
+        span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
+          | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
+        span ng-if="isFutureVacancy(enrollment.vacancyDate)"
+          'n/a
       td
         span ng-if="futureVacancy(enrollment.ageGroupTypeId)"
           ' Open Vacancy {{ futureVacancy(enrollment.ageGroupTypeId) | date : 'MM/dd/yyyy' }}
