@@ -7,12 +7,11 @@ ToMarkers = ($rootScope) ->
 
         # this to prevent the digest loop to go crazy
         unless providers[index]['coords']
-          providers[index]['coords'] = {
-            latitude: provider.address.latitude,
-            longitude: provider.address.longitude
-          }
+          for address in provider.addresses
+            if address.type == "Physical Address" and address.status == "Active"
+              providers[index]['coords'] = "37.7313399,-122.3933311" # address.latitude + "," + address.longitude
 
-        if providers[index].centerType != 0 
+        if providers[index].typeOfCare == "Child Care Center"
           providers[index]['gmap_icon'] = "fa-building"
           providers[index]['gmap_icon_title'] = "Child Care Center"
           providers[index]['display_address'] = provider.address.street1

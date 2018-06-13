@@ -7,10 +7,7 @@ LocationService = () ->
     return provider
 
   @map = (latitude, longitude) ->
-    center:
-      latitude: latitude,
-      longitude: longitude
-    ,
+    center: "37.7313399,-122.3933311", # latitude + "," + longitude
     zoom: 16,
     options:
       scrollwheel: false

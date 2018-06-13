@@ -10,7 +10,7 @@ table.table-centered.table-hours
           | {{ day | shortDayName | uppercase }}
   tbody
     tr
-      td ng-repeat="day in days track by $index"
+      td ng-repeat="day in days track by $index" ng-class="{'gray-background': ($ctrl.shiftDays | providerIsClosed:day)}"
         span ng-if="($ctrl.shiftDays | providerIsClosed:day)" Closed
         span ng-if="!($ctrl.shiftDays | providerIsClosed:day)"
           ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
