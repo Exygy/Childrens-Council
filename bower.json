@@ -18,7 +18,8 @@
     "jquery-ui": "jquery-ui#1.10.x",
     "ngmap": "1.18.4",
     "ng-toggle": "https://github.com/zachsnow/ng-toggle.git",
-    "ui-select": "angular-ui-select#0.14.9"
+    "ui-select": "angular-ui-select#0.14.9",
+    "lodash": "^4.17.10"
   },
   "resolutions": {
     "angular": "1.6.10",
