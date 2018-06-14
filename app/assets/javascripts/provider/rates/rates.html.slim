@@ -13,7 +13,7 @@ table.table.table-centered ng-if="$ctrl.rates.length"
   tbody
     tr ng-repeat="rate in $ctrl.rates"
       td
-        ' {{ rate.ageGroupType }}
+        ' {{ rate.ageGroup }} ({{ rate.ageGroupType }})
       td
         span ng-repeat="r in (rate | formatRate)"
           ' {{ r }}

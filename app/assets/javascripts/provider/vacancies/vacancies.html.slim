@@ -11,7 +11,7 @@ table.table.table-centered ng-if="$ctrl.enrollments.length"
   tbody
     tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
       td
-        | {{ enrollment.ageGroupType }}
+        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupType }})
       td
         span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
           | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
