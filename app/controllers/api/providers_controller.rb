@@ -10,6 +10,13 @@ module Api
     def show
       @provider = nds_provider
       @provider[:images] = provider_images
+
+      [:enrollments, :rates].each do |field|
+        @provider[field].each do |data_point|
+          data_point[:ageGroupType] = meta_data(data_point['ageGroupTypeId'])
+        end
+      end
+
       render json: @provider, status: 200
     end
 
@@ -18,13 +25,19 @@ module Api
     # index
 
     def search_providers_with_images(search_params)
-      @results = NDS.search_providers(search_params)
+      @results = NDS.search_providers(search_params, page: 2)
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
       end
 
       @results
+    end
+
+    def meta_data(age_group_type_id)
+      return @meta_data[age_group_type_id] if @meta_data and @meta_data[age_group_type_id]
+      @meta_data ||= {}
+      @meta_data[age_group_type_id] = NDS.get_agency_option(age_group_type_id).first["value"]
     end
 
     def providers_images
