@@ -38,6 +38,7 @@ angular
   .module('CCR')
   .component('providerMap', {
     bindings:
+      infoWindow: '<',
       providers: '<'
     controller: ProviderMapController
     templateUrl: "provider_map/provider_map.html"
