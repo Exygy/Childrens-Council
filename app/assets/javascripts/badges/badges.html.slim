@@ -1,7 +1,8 @@
-h3 ng-if="$ctrl.showTitle"
-  ' Quality Effort Badges
-  span.fa.fa-info-circle.margin-left-small.tip-top data-width="350" tooltip="To provide content" tooltip-placement="right"
+span ng-if="badges.length"
+  h3 ng-if="$ctrl.showTitle"
+    ' Quality Effort Badges
+    span.fa.fa-info-circle.margin-left-small.tip-top data-width="350" tooltip="To provide content" tooltip-placement="right"
 
-ul
-  li ng-repeat="badge in badges"
-    badge name="badge"
+  ul
+    li ng-repeat="badge in badges"
+      badge name="badge"

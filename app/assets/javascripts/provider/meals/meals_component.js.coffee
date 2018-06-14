@@ -1,13 +1,12 @@
-MealsController = (LocationService) ->
+MealsController = ->
   $ctrl = @
 
   @$onInit = () ->
-    $ctrl.provider = LocationService.mapify($ctrl.provider)
     return
 
   return @
 
-MealsController.$inject = ['LocationService']
+MealsController.$inject = []
 
 angular
   .module('CCR')

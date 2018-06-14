@@ -1,63 +1,37 @@
-.row.c-base.margin-bottom-2
+.row.c-base.margin-bottom-2 ng-if="providers.length"
   .small-6.columns
     small
       span Sort by:
       span.margin-left-small
         em ng-hide="settings.location_type == 'near_address' && filters.near_address" Random
         em ng-show="settings.location_type == 'near_address' && filters.near_address" Distance
-        span.fa.fa-info-circle.margin-left-small
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.location_type == 'near_address' && filters.near_address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.location_type == 'near_address' && filters.near_address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+
   .small-6.columns.text-right
     small
-      | Showing
+      ' Showing
       strong
-        '  {{ search_result_data.providersPerPage*(search_result_data.current_page-1) != 0 ? search_result_data.providersPerPage*(search_result_data.current_page-1) : 1 }}
-        '  -
-        '  {{ search_result_data.providersPerPage*search_result_data.current_page < search_result_data.totalProviders ? search_result_data.providersPerPage*search_result_data.current_page : search_result_data.totalProviders }}
-      |  of {{ search_result_data.totalProviders }} results
+        ' {{ number }} - {{ numberOfElements }}
+      ' of {{ totalElements }} results
 
-.loading.map_loader ng-show="search_result_data.is_loading"
+.loading ng-show="search_result_data.is_loading"
 
-.row
-  .map-results-pager
-    ul.pager.radius.margin-bottom-3
-      li
-        button ng-click="prevPage()" ng-disabled="isFirstPage() || search_result_data.providers.length == 0"
-          i.fa.fa-chevron-left.margin-right-small
-          small Previous {{ search_result_data.providersPerPage }}
-      li
-        button ng-click="nextPage()" ng-disabled="isLastPage() || search_result_data.providers.length == 0"
-          small Next {{ search_result_data.providersPerPage }}
-          i.fa.fa-chevron-right.margin-left-small
+div ng-hide="search_result_data.is_loading"
 
+  ul.no-bullet.no-result ng-if="!providers.length"
+    li.results-item.c-base
+      h2 No child care provider matches found.
+      p Try changing filters for a less specific search.
 
-.map_canvas
-  ui-gmap-google-map center='map.center' zoom='map.zoom' control='map.control' bounds='map.bounds' options='map.options'
-    ui-gmap-marker ng-repeat="provider in (search_result_data.providers | toMarkers)" coords="provider.coords" options="provider.options" fit="true" icon="provider.icon" events="provider.events" idkey="provider.id"
-      ui-gmap-window
-        .results-item.gmap-window
-          .provider-type
-            span.fa.c-gainsboro class="{{ provider.gmap_icon }}"
-            .show-for-sr
-              ' {{ provider.gmap_icon_title }}
+  provider-map providers="providers"
 
-          h2.item-title
-            a href="#" ui-sref="provider({id: {{provider.id}} })" {{provider | providerName}}
-
-          p
-            '  {{ provider.display_address }},
-            span ng-if="provider.city_id|cityIdToName"
-              '  {{ provider.city_id|cityIdToName }},
-            '  {{ provider.state_id|stateIdToAbbr }}
-            ' {{ provider.zip_code_id|zipCodeIdToName }}
-          p
-            span.item-detail
-              span.fa.fa-phone-square.c-base
-              '  {{ provider.phone | formatPhoneNumber }}
-
-            span.item-detail
-              span.fa.fa-clock-o.c-base
-              '  {{ provider.schedule_hours | scheduleHoursToSummary }}
-
-          p ng-if="provider.url"
-            a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
-              ' {{ provider.url }}
+  ul.pager.radius.margin-bottom-3 ng-if="providers.length"
+    li
+      button ng-click="prevPage()" ng-disabled="firstPage"
+        i.fa.fa-chevron-left.margin-right-small
+        small Previous {{ numberOfElements }}
+    li
+      button ng-click="nextPage()" ng-disabled="lastPage"
+        small Next {{ numberOfElements }}
+        i.fa.fa-chevron-right.margin-left-small

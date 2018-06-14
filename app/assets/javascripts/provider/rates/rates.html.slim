@@ -1,9 +1,9 @@
 a name="rates"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="rates" Rates
 
-p Rates shown below are approximate and shownn by age group by full-time and part time rate. Please call providers to confirm details.
+p ng-if="$ctrl.rates.length" Rates shown below are approximate and shownn by age group by full-time and part time rate. Please call providers to confirm details.
 
-table.table.table-centered
+table.table.table-centered ng-if="$ctrl.rates.length"
 
   thead
     tr

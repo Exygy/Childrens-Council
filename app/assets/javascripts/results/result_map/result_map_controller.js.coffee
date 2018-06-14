@@ -1,44 +1,35 @@
-ResultMapController = ($scope, $q, $timeout, $location, $state, uiGmapIsReady, ResultsService) ->
-    $scope.map = {
-      center:
-        latitude: 37.7833
-        longitude: -122.4167
-      zoom: 10
-      control: {}
-      windows_control: {}
-      options:
-        disableDefaultUI: true
-        zoomControl: true
-        zoomControlOptions:
-            position: google.maps.ControlPosition.TOP_LEFT
-    }
+ResultMapController = ($scope, $location) ->
+  $ctrl = @
 
-    fitBounds = (map) ->
-      bounds = new google.maps.LatLngBounds()
-      if $scope.search_result_data.providers.length
-          for provider in $scope.search_result_data.providers
-            bounds.extend new google.maps.LatLng(provider.latitude, provider.longitude)
-          $timeout (->
-            map.fitBounds bounds
-          ), 100
+  $ctrl.$onInit = ->
+    initResultList($ctrl.searchResultData)
 
-    uiGmapIsReady.promise(1).then (instances) ->
-      for inst in instances
-          map = inst.map
-          fitBounds map
+  $ctrl.$onChanges = ->
+    initResultList($ctrl.searchResultData)
 
-    $scope.$watch 'search_result_data.providers', () ->
-      map = $scope.map.control.getGMap()
-      fitBounds map
+  initResultList = (searchResultData) ->
+    $scope.providers = searchResultData.content
+    $scope.number = searchResultData.number
+    $scope.numberOfElements = searchResultData.numberOfElements
+    $scope.totalElements = searchResultData.totalElements
+    $scope.firstPage = searchResultData.first
+    $scope.lastPage = searchResultData.last
 
+  $scope.prevPage = ->
+    $location.search('page', $scope.number - 1)
 
-ResultMapController.$inject = ['$scope', '$q', '$timeout', '$location', '$state', 'uiGmapIsReady', 'ResultsService']
+  $scope.nextPage = ->
+    $location.search('page', $scope.number + 1)
+
+  return
+
+ResultMapController.$inject = ['$scope', '$location']
 
 angular
   .module('CCR')
   .component('resultMap', {
     bindings:
-      providers: '<'
+      searchResultData: '<'
     controller: ResultMapController
     templateUrl: "results/result_map/result_map.html"
   })

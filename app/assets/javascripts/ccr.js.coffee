@@ -41,13 +41,6 @@ angular.module 'CCR', [
 
     $urlRouterProvider.otherwise('/')
   ]
-  # .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
-  #   uiGmapGoogleMapApiProvider.configure(
-  #     key: 'AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I',
-  #     v: '3.22', #defaults to latest 3.X anyhow
-  #     libraries: 'weather,geometry,visualization'
-  #   )
-  # ]
   .config ['$httpProvider', ($httpProvider) ->
     # HTTP Access Control https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
     $httpProvider.defaults.useXDomain = true

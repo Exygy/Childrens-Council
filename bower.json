@@ -16,10 +16,10 @@
     "deep-filter": "1.0.1",
     "foundation": "5.5.3",
     "jquery-ui": "jquery-ui#1.10.x",
+    "lodash": "^4.17.10",
     "ngmap": "1.18.4",
     "ng-toggle": "https://github.com/zachsnow/ng-toggle.git",
-    "ui-select": "angular-ui-select#0.14.9",
-    "lodash": "^4.17.10"
+    "ui-select": "angular-ui-select#0.14.9"
   },
   "resolutions": {
     "angular": "1.6.10",

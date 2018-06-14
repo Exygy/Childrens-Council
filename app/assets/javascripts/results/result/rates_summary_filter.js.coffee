@@ -1,6 +1,6 @@
 RatesSummaryFilter = ->
   (rates) ->
-    console.log(rates)
+    # console.log(rates)
 
     return 'approximately $1500/month'
 

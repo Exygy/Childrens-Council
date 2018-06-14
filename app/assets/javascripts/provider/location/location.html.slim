@@ -10,12 +10,9 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
   span ng-if="!($ctrl.provider | isFacility)"
     '  {{ $ctrl.provider.generalInfo.config1 }}
   span
-    '  {{ $ctrl.provider.addresses | physicalAddress: 'city' }}
-    '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }}
+    ', {{ $ctrl.provider.addresses | physicalAddress: 'city' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }},
     '  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
 
-
-div map-lazy-load="//maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}" ng-if="$ctrl.provider.map.center"
-  map center="{{ $ctrl.provider.map.center }}" zoom="{{ $ctrl.provider.map.zoom }}"
-   marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" position="{{marker.coords}}" options="{{marker.options}}" events="{{marker.events}}" idkey="{{marker.providerId}}"
+provider-map providers="[$ctrl.provider]"
