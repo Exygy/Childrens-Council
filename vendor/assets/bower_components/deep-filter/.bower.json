@@ -1,0 +1,39 @@
+{
+  "name": "deep-filter",
+  "version": "1.0.1",
+  "description": "Recursively filters collection values (arrays and objects)",
+  "main": "index.umd.js",
+  "homepage": "https://github.com/IndigoUnited/js-deep-filter",
+  "authors": [
+    "IndigoUnited <hello@indigounited.com> (http://indigounited.com)"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "filter",
+    "deep",
+    "array",
+    "object",
+    "collection"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.1",
+    "commit": "42aaa420dfee571729f6e09e8fa9a3c8a79cd062"
+  },
+  "_source": "https://github.com/IndigoUnited/js-deep-filter.git",
+  "_target": "1.0.1",
+  "_originalSource": "deep-filter"
+}

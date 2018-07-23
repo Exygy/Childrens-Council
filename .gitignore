@@ -16,9 +16,6 @@
 !/log/.keep
 /tmp
 
-# Keep assets managed with bower out of version control
-bower_components
-
 config/database.yml
 
 .idea/

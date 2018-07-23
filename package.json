@@ -4,9 +4,7 @@
   "dependencies": {
     "bower": "latest"
   },
-  "scripts": {
-    "postinstall": "bower install bower.json"
-  },
+  "scripts": {},
   "name": "childrens-council",
   "version": "0.1.0"
 }
