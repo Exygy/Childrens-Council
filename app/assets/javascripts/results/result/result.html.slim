@@ -39,8 +39,8 @@ ul.general-info
       span.fa.fa-external-link.c-base
       a ng-href="{{ $ctrl.provider.url }}" target="_blank" ng-if="$ctrl.provider.url"
         '{{ $ctrl.provider.url }}
-      a ng-href="{{ $ctrl.provider.social }}" target="_blank" ng-if="$ctrl.provider.social"
-        '{{ $ctrl.provider.social | toSocialNetworkName }}
+      a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" ng-if="!$ctrl.provider.url && $ctrl.provider.generalInfo.socialMediaUrl"
+        '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
       span ng-if="!$ctrl.provider.url && !$ctrl.provider.social" n/a
 
   li
