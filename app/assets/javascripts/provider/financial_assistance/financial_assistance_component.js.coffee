@@ -1,7 +1,7 @@
 FinancialAssistanceController = ($scope, FinancialAssistanceService) ->
 
-  $scope.descriptions = (name) ->
-    return FinancialAssistanceService.descriptions[name]
+  @$onInit = () ->
+    $scope.descriptions = FinancialAssistanceService.descriptions
 
   return @
 

@@ -5,6 +5,7 @@ angular.module 'CCR', [
   'ngAria',
   'ngCookies',
   'ngMap',
+  'ngSanitize',
   'templates',
   'truncate',
   'ui.carousel',

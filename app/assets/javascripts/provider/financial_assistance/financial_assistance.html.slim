@@ -1,7 +1,7 @@
 a name="financial-assistance"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="financial-assistance" Financial Assistance
 
-div ng-if="$ctrl.provider.generalInfo.local1.length"
+div ng-if="$ctrl.provider.generalInfo.local1.length && descriptions"
   accordion close-others="false" role="tablist"
     accordion-group is-open="{{'is_open_' + $index}}" ng-repeat="assistance in $ctrl.provider.generalInfo.local1 track by $index"
       accordion-heading
@@ -9,13 +9,15 @@ div ng-if="$ctrl.provider.generalInfo.local1.length"
           span.fa.c-green-yellow.fa-check-circle
           span.margin-left-1
             | {{assistance}}
-          .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="descriptions(assistance)"
+          .right.toggle ng-switch="{{'is_open_' + $index}}" ng-if="descriptions[assistance]"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
             |  details
 
-      .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="descriptions(assistance)"
-        | {{ descriptions(assistance) }}
+      .c-base.margin-left-1 id="{{subsidy.name | attribute}}-panel" role="tabpanel" aria-labelledby="{{subsidy.name | attribute}}-heading" aria-hidden="{{! $eval('is_open_' + $index)}}" ng-if="descriptions[assistance]['description']"
+        p ng-bind-html="descriptions[assistance]['description']"
+        p ng-bind-html="link" ng-repeat="link in descriptions[assistance]['links']" ng-if="descriptions[assistance]['links']"
+
 
 div ng-if="!$ctrl.provider.generalInfo.local1.length"
   p No information provided

@@ -25,6 +25,7 @@
 //= require angular-rails-templates
 //= require angular-paginate-anything
 //= require angular-foundation
+//= require angular-sanitize
 //= require angular-ui-slider/src/slider.js
 //= require angular-ui-carousel
 //= require checklist-model
