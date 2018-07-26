@@ -30,9 +30,9 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-2
         ' {{ $ctrl.provider.generalInfo.generalComment }}
 
       .row
-        .small-6.columns
+        .small-9.columns style="padding-right:0"
           badges attributes="$ctrl.provider.attributes" show-title="true"
-        .small-6.columns
+        .small-3.columns style="padding-left:0"
           qris-rating qris="$ctrl.provider.attributes.qualityRating"
 
       p.date
