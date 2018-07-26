@@ -1,7 +1,7 @@
 module Api
   class ApiController < ApplicationController
-    before_action :check_parent_credentials
-    after_action :send_apikey
+    # before_action :check_parent_credentials
+    # after_action :send_apikey
 
     private
 

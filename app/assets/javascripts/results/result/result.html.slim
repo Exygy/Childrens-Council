@@ -1,0 +1,76 @@
+.logo
+  img ng-src="{{ $ctrl.provider.images.headshot }}"
+
+h2.item-title
+  a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider.centerName }}
+  span
+    '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
+  div ng-switch="$ctrl.provider | isFacility"
+    t.fa.fa-building.c-gainsboro ng-switch-when="true"
+    t ng-switch-when="true" Child Care Center
+    t.fa.fa-home.c-gainsboro ng-switch-when="false"
+    t ng-switch-when="false" Family Child Care
+
+.cl
+
+p
+  '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
+
+badges attributes="$ctrl.provider.attributes" show-title="false"
+
+.cl
+
+ul.general-info
+  li
+    span.item-detail
+      span.fa.fa-phone.c-base
+      span ng-if="$ctrl.provider.phone"
+        '{{ $ctrl.provider.phone | formatPhoneNumber }}
+      span ng-if="!$ctrl.provider.phone"
+        'n/a
+
+  li
+    span.item-detail
+      span.fa.fa-clock-o.c-base
+      '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
+
+  li
+    span.item-detail
+      span.fa.fa-external-link.c-base
+      a ng-href="{{ $ctrl.provider.url }}" target="_blank" ng-if="$ctrl.provider.url"
+        '{{ $ctrl.provider.url }}
+      a ng-href="{{ $ctrl.provider.social }}" target="_blank" ng-if="$ctrl.provider.social"
+        '{{ $ctrl.provider.social | toSocialNetworkName }}
+      span ng-if="!$ctrl.provider.url && !$ctrl.provider.social" n/a
+
+  li
+    span.item-detail
+      span.fa.fa-calendar-check-o.c-base
+      '{{ $ctrl.provider | vacanciesSummary: 52 }}
+
+  li
+    span.item-detail
+      span.fa.fa-usd.c-base
+      '{{ $ctrl.provider.rates | ratesToSummary }}
+
+  li
+    span.item-detail
+      span.fa.fa-map-marker.c-base
+      span ng-if="$ctrl.provider | isFacility"
+        |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+        |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+      span ng-if="!($ctrl.provider | isFacility)"
+        |{{ $ctrl.provider.generalInfo.config1 }}
+      |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+      a.map_toggle ng-click="show_map != show_map"
+        span ng-if="!show_map" See map
+        span ng-if="show_map" Hide map
+
+.cl
+
+ui-gmap-google-map center='$ctrl.provider.map.center' zoom='$ctrl.provider.map.zoom' options='$ctrl.provider.map.options' ng-if="show_map"
+  ui-gmap-marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+
+p.updated_at
+  ' Profile last updated March 18th 2018

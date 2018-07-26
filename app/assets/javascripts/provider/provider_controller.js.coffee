@@ -1,9 +1,26 @@
-ProviderController = ($scope, $state, $controller, $anchorScroll, ProviderService, $timeout) ->
-  $controller 'ApplicationController', {$scope: $scope}
-  $scope.provider = ProviderService.provider
-  $scope.provider.map = ProviderService.providerMap($scope.provider)
+ProviderController = ($anchorScroll, $scope, $timeout, ProviderService) ->
+  $ctrl = @
+
+  $ctrl.$onInit = () ->
+    ProviderService.get $ctrl.id, (provider) ->
+      $scope.provider = provider
 
   $timeout $anchorScroll()
 
-ProviderController.$inject = ['$scope', '$state', '$controller', '$anchorScroll', 'ProviderService', '$timeout']
-angular.module('CCR').controller('ProviderController', ProviderController)
+  return $ctrl
+
+ProviderController.$inject = [
+  '$anchorScroll',
+  '$scope',
+  '$timeout',
+  'ProviderService'
+]
+
+angular
+  .module('CCR')
+  .component('provider', {
+    bindings:
+      id: '<'
+    controller: ProviderController
+    templateUrl: "provider/provider.html"
+  })

@@ -1,0 +1,24 @@
+a name="vacancies"
+h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="vacancies" Vacancies
+
+table.table.table-centered ng-if="$ctrl.enrollments.length"
+
+  thead
+    tr
+      th ng-repeat="column in ['Age Group', 'Current Vacancies', 'Upcoming Vacancies']"
+        span.label-gray
+          | {{ column }}
+  tbody
+    tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
+      td
+        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupType }})
+      td
+        span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
+          | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
+        span ng-if="isFutureVacancy(enrollment.vacancyDate)"
+          'n/a
+      td
+        span ng-if="futureVacancy(enrollment.ageGroupTypeId)"
+          ' Open Vacancy {{ futureVacancy(enrollment.ageGroupTypeId) | date : 'MM/dd/yyyy' }}
+        span ng-if="!futureVacancy(enrollment.ageGroupTypeId)"
+          ' n/a

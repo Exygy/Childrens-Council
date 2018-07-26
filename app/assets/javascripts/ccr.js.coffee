@@ -1,15 +1,16 @@
 angular.module 'CCR', [
-    'templates',
-    'ngAria',
-    'ngAnimate',
-    'ui.router',
-    'uiGmapgoogle-maps',
-    'ngCookies',
-    'mm.foundation',
-    'checklist-model',
-    'truncate',
-    'ui.select',
-    'ui.slider',
+  'checklist-model',
+  'mm.foundation',
+  'ngAnimate',
+  'ngAria',
+  'ngCookies',
+  'ngMap',
+  'templates',
+  'truncate',
+  'ui.carousel',
+  'ui.select',
+  'ui.slider',
+  'ui.router'
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter
@@ -19,34 +20,26 @@ angular.module 'CCR', [
     $stateProvider
       .state('search', {
         url: '/',
-        templateUrl: 'search/search.html',
-        controller: 'SearchController',
+        component: 'search',
         onEnter: showSidebar,
       })
       .state('results', {
         url: '/providers/',
-        templateUrl: 'results/results.html',
-        controller: 'ResultsController',
+        component: 'results',
         onEnter: hideSidebar,
       })
       .state('provider', {
         url: '/providers/:id/',
-        templateUrl: 'provider/provider.html',
-        controller: 'ProviderController',
+        component: 'provider',
         onEnter: hideSidebar,
-        resolve:
-          provider: ['$stateParams', 'ProviderService', ($stateParams, ProviderService) ->
-            ProviderService.getProvider($stateParams.id)
+        resolve: {
+          id: ['$stateParams', ($stateParams) ->
+            return $stateParams.id;
           ]
+        }
       })
+
     $urlRouterProvider.otherwise('/')
-  ]
-  .config [ 'uiGmapGoogleMapApiProvider', (uiGmapGoogleMapApiProvider) ->
-    uiGmapGoogleMapApiProvider.configure(
-        key: 'AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I',
-        v: '3.22', #defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
-    )
   ]
   .config ['$httpProvider', ($httpProvider) ->
     # HTTP Access Control https://en.wikipedia.org/wiki/Cross-origin_resource_sharing

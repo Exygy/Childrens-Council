@@ -1,5 +1,4 @@
 SearchController = ($scope, $state, $controller, SearchService) ->
-  $controller 'ApplicationController', {$scope: $scope}
   $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
@@ -23,7 +22,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
     if $scope.searchForm.$valid
       $scope.loading = true
       SearchService.postSearch () ->
-        $state.go('results')
+        $state.go('results', {"product": 'test', "id": 123})
     else
       $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800);
     return
@@ -48,4 +47,10 @@ SearchController = ($scope, $state, $controller, SearchService) ->
     $scope.settings.contact_type = type
 
 SearchController.$inject = ['$scope', '$state', '$controller', 'SearchService']
-angular.module('CCR').controller('SearchController', SearchController)
+
+angular
+  .module('CCR')
+  .component('search', {
+    controller: SearchController
+    templateUrl: "search/search.html"
+  })

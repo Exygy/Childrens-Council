@@ -61,6 +61,18 @@
 #  index_providers_on_state_id               (state_id)
 #  index_providers_on_zip_code_id            (zip_code_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (city_id => cities.id)
+#  fk_rails_...  (mail_city_id => cities.id)
+#  fk_rails_...  (mail_state_id => states.id)
+#  fk_rails_...  (meal_sponsor_id => meal_sponsors.id)
+#  fk_rails_...  (neighborhood_id => neighborhoods.id)
+#  fk_rails_...  (preferred_language_id => languages.id)
+#  fk_rails_...  (schedule_year_id => schedules_year.id)
+#  fk_rails_...  (state_id => states.id)
+#  fk_rails_...  (zip_code_id => zip_codes.id)
+#
 
 class Provider < ActiveRecord::Base
   enum english_capability: {
@@ -90,224 +102,10 @@ class Provider < ActiveRecord::Base
   has_many :schedule_hours, class_name: 'ScheduleHours', inverse_of: :provider
 
   has_one :status
-  
+
   has_and_belongs_to_many :languages
   has_and_belongs_to_many :programs
   has_and_belongs_to_many :schedule_weeks, join_table: :providers_schedule_week
   has_and_belongs_to_many :subsidies
 
-  has_paper_trail
-  geocoded_by :geocodable_address_string
-  after_validation :geocode # , if: ->(obj){ obj.address.present? and obj.address_changed? }
-  before_save :calculate_ages
-  before_save :cache_geocodable_address_string
-
-  def as_json(options = {})
-    super(include: [:licenses, :schedule_hours, :subsidies])
-  end
-
-  def facility?
-    care_type ? care_type.facility : false
-  end
-
-  # def name
-  #   if facility?
-  #     super
-  #   else
-  #     # Get last name and first initial only for family care providers
-  #     self[:name].present? ? self[:name][/.+,\s*\w{1}/] + '.' : self[:name]
-  #   end
-  # end
-
-  def geocodable_address_string
-    full_address_array.flatten.compact.join(', ')
-  end
-
-  def cache_geocodable_address_string
-    self.cached_geocodable_address_string = geocodable_address_string
-  end
-
-  def full_address_array
-    r = []
-    r << street_address
-    r << city.name if city
-    r << state.name if state
-    r << zip_code.zip if zip_code
-    r
-  end
-
-  def street_address
-    address_array = []
-    # facility are geocoded by exact address
-    if self.facility?
-      address_array << address_1
-      address_array << address_2
-    end
-    # non facility are geocoded by cross streets
-    unless self.facility?
-      address_array << cross_street_1
-      address_array << '@' # mark street intersection
-      address_array << cross_street_2
-    end
-    address_array.compact
-  end
-
-  def calculate_ages
-    ages = []
-    if licenses.present?
-      licenses.each do |license|
-        next unless license.age_range
-
-        license.age_range.each do |age|
-          ages << age
-        end
-      end
-    end
-
-    self.licensed_ages = ages.uniq
-  end
-
-  def meals_included?
-    if meals.present?
-      meals.each do |meal|
-        return true if meal.provided_by_facility
-      end
-    end
-
-    false
-  end
-
-  # CLASS METHODS
-  class << self
-    def accepting_referrals
-      where(accepting_referrals: true)
-    end
-
-    def active
-      joins(:status).where(status: { status_type: Status.status_types[:active] })
-    end
-
-    def listed
-      active.accepting_referrals
-    end
-
-    def search_by_zip_code_ids(zip_code_ids)
-      where { zip_code_id.in(my { zip_code_ids }) }
-    end
-
-    def search_by_neighborhood_ids(neighborhoods)
-      where { neighborhood_id.in(my { neighborhoods }) }
-    end
-
-    def search_by_schedule_year_ids(schedule_year_ids)
-      where { schedule_year_id.in(my { schedule_year_ids }) }
-    end
-
-    def search_by_schedule_week_ids(schedule_week_ids)
-      joins(:schedule_weeks).where(schedule_weeks: { id: schedule_week_ids }).distinct
-    end
-
-    def search_by_schedule_day_ids(schedule_day_ids)
-      search_by_days(schedule_day_ids)
-    end
-
-    def search_by_care_type_ids(care_type_ids)
-      where { care_type_id.in(my { care_type_ids }) }
-    end
-
-    def search_by_program_ids(program_ids)
-      joins(:programs).where(programs: { id: program_ids }).distinct
-    end
-
-    def search_by_subsidy_ids(subsidy_ids)
-      joins(:subsidies).where(subsidies: { id: subsidy_ids }).distinct
-    end
-
-    def search_by_ages(ages)
-      query_param = '{' + ages.join(',') + '}'
-      where('licensed_ages @> ?', query_param)
-    end
-
-    def search_by_language_ids(language_ids)
-      joins(:languages).where(languages: { id: language_ids }).distinct
-    end
-
-    def search_by_days(query_params)
-      valid_days_size = query_params.size
-      results = ScheduleHours.where(
-        (
-          ['("schedule_hours"."closed" = FALSE AND "schedule_hours"."schedule_day_id" = ?)'] * valid_days_size
-        ).join(' OR '),
-        *query_params,
-      )
-      results = results.select { schedule_hours.provider_id }
-      results = results.group { schedule_hours.provider_id }
-      results = results.having {
-        {
-          schedule_hours => {
-            count('*') => my { valid_days_size }
-          }
-        }
-      }
-      where { id.in my { results } }
-    end
-
-    def search_by_days_and_hours(days_and_hours)
-      query_params = days_and_hours_to_query_params(days_and_hours)
-      valid_days_and_hours_size = valid_days_and_hours_size(days_and_hours)
-      results = ScheduleHours.where(
-        (
-          ['("schedule_hours"."start_time" <= ? AND "schedule_hours"."end_time" >= ? AND "schedule_hours"."schedule_day_id" = ?)'] * valid_days_and_hours_size
-        ).join(' OR '),
-        *query_params,
-      )
-      results = results.select { schedule_hours.provider_id }
-      results = results.group { schedule_hours.provider_id }
-      results = results.having {
-        {
-          schedule_hours => {
-            count('*') => my { valid_days_and_hours_size }
-          }
-        }
-      }
-      where { id.in my { results } }
-    end
-
-    def search_by_meals_included(meals_included)
-      if meals_included.to_i == 1
-        joins(:meals).where(meals: { provided_by_facility: true }).distinct
-      else
-        provider_ids_with_facility_meals = select(:id).joins(:meals).where(meals: { provided_by_facility: true }).distinct
-        joins(:meals).where(meals: { provided_by_facility: false }).where.not(id: provider_ids_with_facility_meals).distinct
-      end
-    end
-
-    private
-
-    def valid_days_and_hours_size(days_and_hours)
-      count = 0
-      days_and_hours.each do |day_and_hours|
-        next unless valid_day_and_hours?(day_and_hours)
-        count += 1
-      end
-      count
-    end
-
-    def days_and_hours_to_query_params(days_and_hours)
-      query_params = []
-      days_and_hours.each do |day_and_hours|
-        next unless valid_day_and_hours?(day_and_hours)
-        query_params << day_and_hours[:start_time]
-        query_params << day_and_hours[:end_time]
-        query_params << day_and_hours[:schedule_day_id]
-      end
-      query_params
-    end
-
-    def valid_day_and_hours?(day_and_hours)
-      day_and_hours.key?(:start_time) and
-        day_and_hours.key?(:end_time) and
-        day_and_hours.key?(:schedule_day_id)
-    end
-  end
 end

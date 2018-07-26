@@ -1,0 +1,20 @@
+a name="hours"
+h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="hours" Hours
+
+table.table-centered.table-hours
+
+  thead
+    tr
+      th ng-repeat="day in days track by $index"
+        span.label-gray
+          | {{ day | shortDayName | uppercase }}
+  tbody
+    tr
+      td ng-repeat="day in days track by $index" ng-class="{'gray-background': ($ctrl.shiftDays | providerIsClosed:day)}"
+        span ng-if="($ctrl.shiftDays | providerIsClosed:day)" Closed
+        span ng-if="!($ctrl.shiftDays | providerIsClosed:day)"
+          ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
+          br
+          ' TO
+          br
+          ' {{ ( ($ctrl.shiftDays | shiftDay:day).endTime ) | formatProviderStartEndDate }}

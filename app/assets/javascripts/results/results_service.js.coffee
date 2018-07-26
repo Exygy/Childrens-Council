@@ -1,6 +1,10 @@
 ResultsService = ($http, DataService) ->
   angular.extend ResultsService.prototype, DataService
 
+  @search = (params, callback) ->
+    @filters = params
+    @performSearch callback
+
   @nextPage = (callback) ->
     DataService.current_page++
     DataService.performSearch callback

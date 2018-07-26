@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="example.js"></script>
+    <script type="text/javascript" src="../../src/toggles.js"></script>
+    <style>
+      [ng-toggle].toggled.ng-toggle-hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body ng-app="example" ng-controller="ExampleCtrl">
+    <h1>Simple Example</h1>
+    <button ng-toggle="simple">
+      Simple toggle.
+    </button>
+    <div ng-toggled="simple">
+      Simple toggle content, look at that.
+    </div>
+
+    <h1>Interpolation Example</h1>
+    <div ng-repeat="button in buttons">
+      <button ng-toggle="button-{{ button.name }}">
+        {{ button.name }}
+      </button>
+      <div ng-toggled="button-{{ button.name }}">
+        {{ button.content }}
+      </div>
+    </div>
+
+    <h1>Group Example</h1>
+    <div ng-repeat="option in options">
+      <button ng-toggle="option-{{ option.name }}" ng-toggle-group="options">
+        {{ option.name }}
+      </button>
+    </div>
+    <div ng-repeat="option in options">
+      <div ng-toggled="option-{{ option.name }}">
+        {{ option.content }}
+      </div>
+    </div>
+
+    <h1>Uncloseable Group Example</h1>
+    <div ng-repeat="option in options">
+      <button ng-toggle="uncloseable-option-{{ option.name }}" ng-toggle-group="options" ng-toggle-closeable="false">
+        {{ option.name }}
+      </button>
+    </div>
+    <div ng-repeat="option in options">
+      <div ng-toggled="uncloseable-option-{{ option.name }}">
+        {{ option.content }}
+      </div>
+    </div>
+
+    <h1>Autoclose Example</h1>
+    <button ng-toggle="auto-close" ng-toggle-auto-close>
+      Auto-closing toggle.
+    </button>
+    <div ng-toggled="auto-close">
+      Click off me to close.
+    </div>
+
+    <h1>Default Example</h1>
+    <button ng-toggle="default" ng-toggle-default>Click to close</button>
+    <div ng-toggled="default">
+      Hey I'm open! I'm open!
+    </div>
+
+    <h1>Auto-hiding</h1>
+    <button ng-toggle="hiding" class="ng-toggle-hide">Open Sesame</button>
+    <div ng-toggled="hiding">
+      Now you see me, <button ng-toggle="hiding">Now you don't.</button>
+    </div>
+
+  </body>
+</html>

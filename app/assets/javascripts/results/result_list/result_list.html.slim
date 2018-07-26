@@ -1,0 +1,40 @@
+.row.c-base.margin-bottom-2 ng-if="providers.length"
+  .small-6.columns
+    small
+      span Sort by:
+      span.margin-left-small
+        em ng-hide="settings.location_type == 'near_address' && filters.near_address" Random
+        em ng-show="settings.location_type == 'near_address' && filters.near_address" Distance
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.location_type == 'near_address' && filters.near_address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.location_type == 'near_address' && filters.near_address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+
+  .small-6.columns.text-right
+    small
+      ' Showing
+      strong
+        ' {{ number }} - {{ numberOfElements }}
+      ' of {{ totalElements }} results
+
+.loading ng-show="search_result_data.is_loading"
+
+div ng-hide="search_result_data.is_loading"
+
+  ul.no-bullet.no-result ng-if="!providers.length"
+    li.results-item.c-base
+      h2 No child care provider matches found.
+      p Try changing filters for a less specific search.
+
+  ul.no-bullet ng-if="providers.length"
+    li.results-item ng-repeat="provider in providers"
+      result provider="provider"
+      hr.margin-bottom-2
+
+  ul.pager.radius.margin-bottom-3 ng-if="providers.length"
+    li
+      button ng-click="prevPage()" ng-disabled="firstPage"
+        i.fa.fa-chevron-left.margin-right-small
+        small Previous {{ numberOfElements }}
+    li
+      button ng-click="nextPage()" ng-disabled="lastPage"
+        small Next {{ numberOfElements }}
+        i.fa.fa-chevron-right.margin-left-small

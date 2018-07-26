@@ -1,0 +1,83 @@
+a name="general-information"
+h3.text-capitalize.margin-bottom-1 data-magellan-destination="general-information" General Information
+
+.row.info-grid
+  .columns.medium-6 ng-if="$ctrl.provider.images.logo"
+    img.headshot ng-src="{{ $ctrl.provider.images.logo }}" style="width:100px;height:100px;"
+
+.row.info-grid
+  .columns.medium-6 ng-if="$ctrl.provider.primaryOwner"
+    span.fa.fa-user.info-icon
+    .margin-left-2
+      span.label-gray.lighter Owner
+      span
+        ' {{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}.
+
+  .columns.medium-6
+    div ng-switch="$ctrl.provider | isFacility"
+      div ng-switch-when="true"
+        span.fa.fa-building.c-gainsboro.info-icon
+        .show-for-sr Child Care Center
+      div ng-switch-when="false"
+        span.fa.fa-home.c-gainsboro.info-icon
+        .show-for-sr Family Child Care
+    .margin-left-2
+      span.label-gray.lighter Child care provider type
+      span
+        ' {{ $ctrl.provider.typeOfCare }}
+
+  .columns.medium-6 ng-if="$ctrl.provider.phone"
+    span.fa.fa-phone-square.info-icon
+    .margin-left-2
+      span.label-gray.lighter Phone Number
+      span
+        ' {{ $ctrl.provider.phone | formatPhoneNumber }}
+
+  .columns.medium-6.email-info ng-if="$ctrl.provider.email"
+    span.fa.fa-envelope.info-icon
+    .margin-left-2
+      span.label-gray.lighter Email
+      a href="mailto:{{ $ctrl.provider.email }}" {{ $ctrl.provider.email }}
+
+  div style="clear:both" ng-if="$ctrl.provider.website && $ctrl.provider.email"
+  div style="clear:both;background-color:#ddd;height:1px;margin:0 1.25em;width:100%;" ng-if="$ctrl.provider.website && $ctrl.provider.email"
+
+  .columns.medium-6 ng-if="$ctrl.provider.website"
+    span.fa.fa-globe.info-icon
+    .margin-left-2
+      span.label-gray.lighter Website
+      a href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" {{ $ctrl.provider.website }}
+
+  .columns.medium-6 ng-if="$ctrl.provider.social"
+    span.fa.fa-globe.info-icon
+    .margin-left-2
+      span.label-gray.lighter Social Media
+      a href="{{ $ctrl.provider.social | prefixUrl }}" target="_blank" {{ $ctrl.provider.social | toSocialNetworkName }}
+
+  .columns.medium-6 ng-if="$ctrl.provider.generalInfo.local2"
+    span.fa.fa-heart.info-icon
+    .margin-left-2
+      span.label-gray.lighter
+        ' Care Approach
+        a href="//www.childrenscouncil.org/families/find-child-care/care-approach/" target="_blank" Learn more
+      span
+        ' {{ $ctrl.provider.generalInfo.local2.join(', ') }}
+
+  .columns.medium-6 ng-if="$ctrl.provider.programs | programsWithProgramTypeByName: 'Religious Program'"
+    span.fa.fa-book.info-icon
+    .margin-left-2
+      span.label-gray.lighter Religious Program
+      span
+        ' {{ $ctrl.provider.programs | programsWithProgramTypeByName: "Religious Program" }}
+
+  .columns.medium-6 ng-if="$ctrl.provider.co_op"
+    span.fa.fa-users.info-icon
+    .margin-left-2
+      span.label-gray.lighter Parent Co-Op
+      span Yes
+
+  .columns.medium-6 ng-if="$ctrl.provider.attributes | pottyTraining"
+    span.fa.fa-smile-o.info-icon
+    .margin-left-2
+      span.label-gray.lighter Potty Training Support
+      span Yes

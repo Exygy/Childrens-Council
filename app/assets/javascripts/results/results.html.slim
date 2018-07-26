@@ -1,4 +1,4 @@
-header#search-results-wrapper.page-header.padding-top-2
+rheader#search-results-wrapper.page-header.padding-top-2
   .row
     .small-10.columns
       ul.breadcrumbs
@@ -12,22 +12,22 @@ header#search-results-wrapper.page-header.padding-top-2
 
   .row
     .small-10.columns
-      h1 We found {{ search_result_data.totalProviders }} providers
+      h1 We found {{ search_result_data.totalElements }} providers
     .small-2.columns
       ul.pager.radius.margin-bottom-3
         li
-          button ng-click="toggleView('list')" ng-class="{'button-pressed': view_mode.list}"
+          button ng-click="show_map = false" ng-class="{'button-pressed': !show_map}"
             small List
         li
-          button ng-click="toggleView('map')" ng-class="{'button-pressed': view_mode.map}"
+          button ng-click="show_map = true" ng-class="{'button-pressed': show_map}"
             small Map
 
 .row
   .medium-4.columns.show-for-medium-up ng-include="'results/result_filters.html'"
 
   .medium-8.columns
-    .map_view ng-if="view_mode.map" ng-include="'results/result_map.html'"
-    .list_view ng-show="view_mode.list" ng-include="'results/result_list.html'"
+    result-map search-result-data="search_result_data" ng-if="show_map"
+    result-list search-result-data="search_result_data" ng-if="!show_map"
 
 .row
   .medium-4.columns

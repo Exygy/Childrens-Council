@@ -35,15 +35,15 @@ CareTypeIdsToNames.$inject = ['$rootScope']
 angular.module('CCR').filter('careTypeIdsToNames', CareTypeIdsToNames)
 
 IsFacility = ($rootScope) ->
-  (care_type_id) ->
-    ProviderIsFacility($rootScope, care_type_id)
+  (provider) ->
+    ProviderIsFacility($rootScope, provider)
 
 IsFacility.$inject = ['$rootScope']
 angular.module('CCR').filter('isFacility', IsFacility)
 
-ProviderIsFacility = ($rootScope, care_type_id) ->
-  if care_type_id? and $rootScope.data['care_types'][care_type_id]
-    return $rootScope.data['care_types'][care_type_id].facility
+ProviderIsFacility = ($rootScope, provider) ->
+  if provider
+    return provider.typeOfCare == "Child Care Center"
   else
     return false
 
@@ -54,14 +54,6 @@ LanguageIdToName = ($rootScope) ->
 
 LanguageIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('languageIdToName', LanguageIdToName)
-
-NeighborhoodIdToName = ($rootScope) ->
-  (neighborhood_id) ->
-    if $rootScope.data['neighborhoods'][neighborhood_id]
-      $rootScope.data['neighborhoods'][neighborhood_id].name
-
-NeighborhoodIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('neighborhoodIdToName', NeighborhoodIdToName)
 
 StateIdToName = ($rootScope) ->
   (state_id) ->
@@ -230,16 +222,56 @@ ProgramsByProgramType = ($rootScope) ->
 ProgramsByProgramType.$inject = ['$rootScope']
 angular.module('CCR').filter('programsByProgramType', ProgramsByProgramType)
 
-OrderByWeekDays = () ->
-  (schedule_hours) ->
-    schedule_hours
-    _.sortBy(schedule_hours, 'schedule_day_id')
+ShiftDay = () ->
+  (shiftDays, current_day) ->
+    for shiftDay in shiftDays
+      if shiftDay.day == current_day
+        return shiftDay
 
-angular.module('CCR').filter('orderByWeekDays', OrderByWeekDays)
+ShiftDay.$inject = []
+angular.module('CCR').filter('shiftDay', ShiftDay)
+
+ShortDayName = () ->
+  (day) ->
+    return day.substring(0, 3);
+
+ShortDayName.$inject = []
+angular.module('CCR').filter('shortDayName', ShortDayName)
+
+FormatProviderStartEndDate = ->
+  (date) ->
+    date_parts = date.split(':')
+    time = date_parts[0] + ':' + date_parts[1]
+    if (date_parts[0] - 12) > 0
+      ampm = "PM"
+      hour = date_parts[0] - 12
+      if hour == 0
+        hour = "12"
+    else
+      ampm = "AM"
+      hour = date_parts[0]
+    return hour + ':' + date_parts[1] + " " + ampm
+
+FormatProviderStartEndDate.$inject = []
+angular.module('CCR').filter('formatProviderStartEndDate', FormatProviderStartEndDate)
+
+
+
+ProviderIsClosed = () ->
+  (shiftDays, current_day) ->
+    closed = true
+    if shiftDays
+      for shiftDay in shiftDays
+        if shiftDay.day == current_day
+          closed = false
+    return closed
+
+ProviderIsClosed.$inject = []
+angular.module('CCR').filter('providerIsClosed', ProviderIsClosed)
 
 SubsidiesToFilterTitle = ($rootScope) ->
   (subsidy_ids) ->
-    if subsidy_ids.length and subsidy_ids[0] != ''
+    if subsidy_ids and subsidy_ids.length and subsidy_ids[0] != ''
       names = []
       for subsidy_id in subsidy_ids
         names.push $rootScope.data['subsidies'][subsidy_id].name
@@ -253,7 +285,7 @@ angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
 ProviderName = ($rootScope) ->
   (provider) ->
     if provider?
-      FormatProviderName(provider, $rootScope, provider.name)
+      FormatProviderName(provider, $rootScope, provider.centerName)
     else
       ''
 
@@ -271,23 +303,10 @@ ProviderContactName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
-  if !ProviderIsFacility(rootScope, provider.care_type_id)
-    first_name = ''
-    last_name = ''
-    names = name.split(',')
-    if names.length >= 2
-      if names[1]?
-        first_name = names[1].trim()
-      last_name = names[0]
-    else
-      names = name.split(' ')
-      first_name = names[0]
-      if names[1]?
-        last_name = names[1].trim()
-
-    "#{first_name} #{last_name[0]}."
+  if !ProviderIsFacility(rootScope, provider)
+    return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
   else
-    return name
+    return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
 
 EntitiesToString = (entities) ->
   string = ''
@@ -373,3 +392,16 @@ ZipCodeIdsToText = ($rootScope) ->
 
 ZipCodeIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('zipCodeIdsToText', ZipCodeIdsToText)
+
+
+PottyTraining = ($rootScope) ->
+  (provider_attributes) ->
+    potty_training = false
+    if provider_attributes and provider_attributes.environment
+      for environment in provider_attributes.environment
+        if environment == "Potty Training"
+          potty_training = true
+    return potty_training
+
+PottyTraining.$inject = ['$rootScope']
+angular.module('CCR').filter('pottyTraining', PottyTraining)

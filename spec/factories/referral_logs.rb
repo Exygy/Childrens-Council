@@ -16,6 +16,10 @@
 #
 #  index_referral_logs_on_parent_id  (parent_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => parents.id)
+#
 
 FactoryGirl.define do
   factory :referral_log do

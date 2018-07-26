@@ -3,76 +3,80 @@ module Api
     before_action :create_referral_log, only: :index
 
     def index
-      providers = Provider.accepting_referrals.active
-      providers = providers.where(co_op: provider_param_co_op) if provider_param_co_op
-      providers = providers.where(potty_training: provider_param_potty_training) if provider_param_potty_training
-      providers = providers.search_by_meals_included(provider_param_meals_included) if provider_param_meals_included
-      providers = providers.search_by_care_type_ids(provider_param_care_type_ids) if provider_param_care_type_ids
-      providers = providers.search_by_zip_code_ids(provider_param_zip_code_ids) if provider_param_zip_code_ids
-      providers = providers.search_by_neighborhood_ids(provider_param_neighborhood_ids) if provider_param_neighborhood_ids
-      providers = providers.near(provider_param_near_address, 20) if provider_param_near_address
-      providers = providers.search_by_days_and_hours(provider_param_open_days) if provider_param_open_days
-      providers = providers.search_by_language_ids(provider_param_language_ids) if provider_param_language_ids
-      providers = providers.search_by_program_ids(provider_param_program_ids) if provider_param_program_ids
-      providers = providers.search_by_subsidy_ids(provider_param_subsidy_ids) if provider_param_subsidy_ids
-      # those filters will change when filtering by children will be in place
-      providers = providers.search_by_ages(provider_param_ages) if provider_param_ages
-      providers = providers.search_by_schedule_year_ids(provider_param_schedule_year_ids) if provider_param_schedule_year_ids
-      providers = providers.search_by_schedule_week_ids(provider_param_schedule_week_ids) if provider_param_schedule_week_ids
-      providers = providers.search_by_schedule_day_ids(provider_param_schedule_day_ids) if provider_param_schedule_day_ids
-
-      # randomize result order per user unless searching by near by address
-      if provider_param_near_address
-        # Preload associated provider models where we need information for display in the results list
-        # (prevents individual join queries for each provider)
-        provider_size = providers.size
-        providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies)
-      else
-        Provider.connection.execute "SELECT setseed(#{@current_parent.random_seed})"
-        # TODO: write inner join, since eager_load users an outer join and doesn't give all the results
-        # providers = providers.eager_load(:care_type, :licenses, :schedule_hours, :subsidies).select(['*', 'random()']).order('random()')
-        provider_size = providers.size
-        providers = providers.preload(:care_type, :licenses, :schedule_hours, :subsidies).select(['providers.*', 'random()']).group('providers.id').order('random()')
-      end
-
-      render json: {
-        total: provider_size,
-        providers: providers.page(params[:page]).per(params[:per_page]),
-      }, status: 200
+      results = search_providers_with_images(search_params)
+      render json: results, status: 200
     end
 
     def show
-      provider = Provider.preload(
-        :care_type,
-        :languages,
-        :licenses,
-        :meals,
-        :programs,
-        :schedule_days,
-        :schedule_hours,
-        :schedule_weeks,
-        :subsidies,
-      ).find(params[:id])
-      render json: ProviderSerializer.new(provider), status: 200
+      @provider = nds_provider
+      @provider[:images] = provider_images
+
+      [:enrollments, :rates].each do |field|
+        @provider[field].each do |data_point|
+          data_point[:ageGroupType] = meta_data(data_point['ageGroupTypeId'])
+        end
+      end
+
+      render json: @provider, status: 200
     end
 
     private
 
-    def create_referral_log
-      if parent_params[:parents_care_reasons_attributes]
-        care_reason_ids = parent_params[:parents_care_reasons_attributes].collect{|pcra| pcra["care_reason_id"]}
-      else
-        care_reason_ids = @current_parent.care_reasons.collect(&:id)
+    # index
+
+    def search_providers_with_images(search_params)
+      @results = NDS.search_providers(search_params, page: 2)
+
+      @results[:content].each do |provider_data|
+        provider_data[:images] = providers_images[provider_data["providerId"].to_s]
       end
 
-      ReferralLog.create(
-        params: params,
-        parent: @current_parent,
-        child_age_months: provider_param_ages.first,
-        schedule_week_ids: provider_param_schedule_week_ids,
-        schedule_year_id: provider_param_schedule_year_ids.first,
-        care_reason_ids: care_reason_ids
-      )
+      @results
+    end
+
+    def meta_data(age_group_type_id)
+      return @meta_data[age_group_type_id] if @meta_data and @meta_data[age_group_type_id]
+      @meta_data ||= {}
+      @meta_data[age_group_type_id] = NDS.get_agency_option(age_group_type_id).first["value"]
+    end
+
+    def providers_images
+      @providers_images ||= ProviderImageService.get(provider_ids)
+    end
+
+    def provider_ids
+      @results[:content].collect{ |provider_data| provider_data["providerId"] }
+    end
+
+    # show
+
+    def nds_provider
+      NDS.provider_by_id(provider_id)
+    end
+
+    def provider_images
+      ProviderImageService.get(provider_id)
+    end
+
+    def provider_id
+      params[:id]
+    end
+
+    def create_referral_log
+      # if parent_params[:parents_care_reasons_attributes]
+      #   care_reason_ids = parent_params[:parents_care_reasons_attributes].collect{|pcra| pcra["care_reason_id"]}
+      # else
+      #   care_reason_ids = @current_parent.care_reasons.collect(&:id)
+      # end
+
+      # NDS.create_referral(
+      #         params: params,
+      #         parent: @current_parent,
+      #         child_age_months: provider_param_ages.first,
+      #         schedule_week_ids: provider_param_schedule_week_ids,
+      #         schedule_year_id: provider_param_schedule_year_ids.first,
+      #         care_reason_ids: care_reason_ids
+      #       )
     end
 
     def provider_params
@@ -105,6 +109,28 @@ module Api
       else
         super
       end
+    end
+
+    def search_params
+      { "locationA": {},
+        "locationB": {},
+      	"zip": "94114",
+      	"attributesLocal17": [],
+      	"ageGroupServiced": nil,
+      	"ageGroup": nil,
+      	"typeOfCare": nil,
+      	"yearlySchedule": nil,
+      	"weeklySchedule": [],
+      	"dailySchedule": {},
+      	"weeklyRate": {},
+        "monthlyRate": {},
+      	"generalLocal2": [],
+      	"financialAssist": [],
+      	"languages": [],
+      	"attributesLocal3": [],
+      	"meals": [],
+      	"environment": []
+      }
     end
   end
 end

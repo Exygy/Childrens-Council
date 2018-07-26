@@ -1,0 +1,33 @@
+ProviderMapService = () ->
+
+  @mapify = (providers) ->
+    map_providers = []
+    if providers
+      for provider, index in providers
+        for address in provider.addresses
+          if address.type == "Physical Address" # and address.status == "Active"
+            if parseFloat(address.latitude) != NaN && parseFloat(address.longitude) != NaN
+              provider.position = parseFloat(address.latitude) / 1000000 + "," + parseFloat(address.longitude) / 1000000
+
+            provider.isIconVisibleOnClick = true
+            provider.closeClick = 'none'
+
+            if provider.typeOfCare == "Child Care Center"
+              provider.gmap_icon = "fa-building"
+              provider.gmap_icon_title = "Child Care Center"
+              provider.display_address = address.street1
+              provider.display_address += ' ' + address.street2 if address.street2
+              provider.icon = '<%= image_path "facility_marker.png" %>'
+            else
+              provider.gmap_icon = "fa-home"
+              provider.gmap_icon_title = "Family Child Care"
+              provider.display_address = provider.generalInfo.config1
+              provider.icon = '<%= image_path "home_marker.png" %>'
+
+            map_providers.push provider if provider.position
+    return map_providers
+
+  @
+
+ProviderMapService.$inject = []
+angular.module('CCR').service('ProviderMapService', ProviderMapService)

@@ -1,0 +1,16 @@
+BadgesService = ->
+  @allowed = (badge) ->
+    return [
+      'CCIP/Build Your Business',
+      'Child Care Food Program',
+      'FCC Quality Network',
+      'Healthy Apple Progam',
+      'NAEYC',
+      'NAFCC',
+      'QRIS'
+    ].indexOf(badge) > -1
+
+  @
+
+BadgesService.$inject = []
+angular.module('CCR').service('BadgesService', BadgesService)
