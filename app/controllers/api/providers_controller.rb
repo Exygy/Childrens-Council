@@ -25,7 +25,7 @@ module Api
     # index
 
     def search_providers_with_images(search_params)
-      @results = NDS.search_providers(search_params, page: 2)
+      @results = NDS.search_providers(search_params) #, page: X
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
@@ -114,7 +114,7 @@ module Api
     def search_params
       { "locationA": {},
         "locationB": {},
-      	"zip": "94114",
+      	"zip": nil,
       	"attributesLocal17": [],
       	"ageGroupServiced": nil,
       	"ageGroup": nil,
@@ -126,7 +126,12 @@ module Api
         "monthlyRate": {},
       	"generalLocal2": [],
       	"financialAssist": [],
-      	"languages": [],
+      	# "languages": ['Khmu'],
+
+        "languages": ["Khmu"],
+	      "attributesLocal3": ["Khmu"],
+
+
       	"attributesLocal3": [],
       	"meals": [],
       	"environment": []
