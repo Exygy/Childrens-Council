@@ -1,4 +1,4 @@
-FormatRateFilter =  ->
+FormatRateFilter = ->
 
   displayRate = (rate_unit) ->
     return ['ftDaily','ftHourly','ftMonthly','ftOther','ftWeekly','ptDaily','ptHourly','ptMonthly','ptOther','ptWeekly'].indexOf(rate_unit) > -1
