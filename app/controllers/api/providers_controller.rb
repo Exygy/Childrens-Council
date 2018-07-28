@@ -8,16 +8,9 @@ module Api
     end
 
     def show
-      @provider = nds_provider
-      @provider[:images] = provider_images
-
-      [:enrollments, :rates].each do |field|
-        @provider[field].each do |data_point|
-          data_point[:ageGroupType] = meta_data(data_point['ageGroupTypeId'])
-        end
-      end
-
-      render json: @provider, status: 200
+      provider = nds_provider
+      provider[:images] = provider_images if provider
+      render json: provider, status: provider ? 200 : 404
     end
 
     private
@@ -29,7 +22,7 @@ module Api
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
-      end
+      end if @results[:content]
 
       @results
     end
@@ -51,7 +44,11 @@ module Api
     # show
 
     def nds_provider
-      NDS.provider_by_id(provider_id)
+      begin
+        NDS.provider_by_id(provider_id)
+      rescue OpenURI::HTTPError
+        false
+      end
     end
 
     def provider_images
@@ -126,11 +123,9 @@ module Api
         "monthlyRate": {},
       	"generalLocal2": [],
       	"financialAssist": [],
-      	# "languages": ['Khmu'],
 
         "languages": ["Khmu"],
-	      "attributesLocal3": ["Khmu"],
-
+	      "attributesLocal3": [],
 
       	"attributesLocal3": [],
       	"meals": [],
