@@ -1,6 +1,8 @@
-NDS = NdsApi::Client.new({
-  agency_key: 13011,
+# frozen_string_literal: true
+
+NDS = NdsApi::Client.new(
+  agency_key: 13_011,
   user: 'exygy',
-  password: 'SnowflakeFrog?',
+  password: 'testnaccrra',
   dev: true
-})
+)

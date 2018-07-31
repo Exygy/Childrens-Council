@@ -18,6 +18,8 @@
 
 config/database.yml
 
+vendor/assets/stylesheets/style.min.css
+
 .idea/
 .idea/workspace.xml
 
