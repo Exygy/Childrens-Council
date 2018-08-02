@@ -3,7 +3,7 @@ module Api
     before_action :create_referral_log, only: :index
 
     def index
-      results = search_providers_with_images(search_params)
+      results = search_providers_with_images(params[:providers])
       render json: results, status: 200
     end
 
@@ -78,23 +78,23 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        :near_address,
-        :co_op,
-        :meals_included,
-        :potty_training,
-
-        subsidy_ids: [],
-        program_ids: [],
-
-        ages: [],
-        care_type_ids: [],
-        language_ids: [],
-        neighborhoods: [],
-        open_days: [],
-        schedule_day_ids: [],
-        schedule_week_ids: [],
-        schedule_year_ids: [],
-        zip_code_ids: [],
+        # :near_address,
+        # :co_op,
+        # :meals_included,
+        # :potty_training,
+        #
+        # subsidy_ids: [],
+        # program_ids: [],
+        #
+        # ages: [],
+        # care_type_ids: [],
+        # language_ids: [],
+        attributesLocal17: [],
+        # open_days: [],
+        # schedule_day_ids: [],
+        # schedule_week_ids: [],
+        # schedule_year_ids: [],
+        # zip_code_ids: [],
       )
     end
 

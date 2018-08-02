@@ -57,14 +57,16 @@ DataService = ($rootScope, HttpService) ->
 
   @current_page = 1
 
-  @getLocation = ->
+  @setSearchLocation = (params) ->
     if @settings.location_type == 'near_address'
       if @filters.near_address and @filters.near_address.indexOf(', San Francisco, CA') == -1
-        @filters.near_address + ', San Francisco, CA'
+        params['locationA'] = @filters.near_address + ', San Francisco, CA'
       else
-        @filters.near_address
-    else
-      @filters[@settings.location_type]
+        params['locationA'] = @filters.near_address
+    else if @settings.location_type == 'zip_code_ids'
+      params['zip'] = @filters[@settings.location_type][0]
+    else if @settings.location_type == 'neighborhoods'
+      params['attributesLocal17'] = @filters[@settings.location_type]
 
   @buildParent = ->
     @parent.parents_care_types_attributes = @filters.care_type_ids.map (care_type_id) ->
@@ -110,7 +112,7 @@ DataService = ($rootScope, HttpService) ->
     delete search_params.near_address
     delete search_params.zip_code_ids
     delete search_params.neighborhoods
-    search_params[@settings.location_type] = @getLocation()
+    @setSearchLocation(search_params)
     search_params
 
   @cleanEmptyParams = (params) ->
