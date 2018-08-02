@@ -4,14 +4,7 @@ section.margin-top-2
   h5#age-label.c-black Child's age ( when care will be needed )
   .row
     .medium-7.columns
-      .ui-slider-container
-        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="60" ng-model="modal_filters.age_months" use-decimals aria-labeledBy="ageLabel"]
-          span.age-label style="left:{{(modal_filters.age_months / 60) * 100}}%;"
-            | {{ modal_filters.age_months | ageToYearsAndMonths }}
-          span.age-min 0
-          span.age-max 5+ yrs
-          - 4.times do |i|
-            span.tick class="tick-#{i + 1}"
+      childs-age model="modal_filters"
 
 section.margin-top-2
   h5.c-black Schedule needs

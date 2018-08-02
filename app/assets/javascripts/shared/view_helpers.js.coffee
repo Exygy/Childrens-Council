@@ -137,9 +137,9 @@ PrefixUrl = () ->
 angular.module('CCR').filter('prefixUrl', PrefixUrl)
 
 AgeToYearsAndMonths = () ->
-  (age_in_months) ->
-    years = Math.floor age_in_months / 12
-    months = age_in_months % 12
+  (ageInWeeks) ->
+    years = Math.floor ageInWeeks / 52
+    months = Math.floor (ageInWeeks * (3.0 / 13)) % 12
     age_text = ''
     age_text += "#{years} yrs " if years
     age_text += "#{months} mon" if months or (!years and !months)

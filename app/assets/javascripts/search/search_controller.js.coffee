@@ -6,7 +6,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.settings.contact_type = ''
   $scope.settings.show_why_asking = false
   $scope.loading = SearchService.data.is_loading
-  $scope.location_tabs =
+  $scope.locationTabs =
     near_address:
       active: $scope.settings.location_type == 'near_address'
     zip_code_ids:
@@ -41,7 +41,7 @@ SearchController = ($scope, $state, $controller, SearchService) ->
       false
 
   $scope.setLocationType = (type) ->
-    $scope.location_tabs[type].active = true
+    $scope.locationTabs[type].active = true
     $scope.settings.location_type = type
 
   $scope.setContactType = (type) ->

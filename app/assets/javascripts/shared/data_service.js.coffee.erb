@@ -26,9 +26,9 @@ DataService = ($rootScope, HttpService) ->
     found_option_id: null
     parents_care_reasons_attributes: ['']
     parents_care_types_attributes: []
-    children_attributes: [
+    children: [
       {
-        age_months: 30,
+        age_weeks: 130,
         schedule_day_ids: [2,3,4,5,6]
         children_schedule_days_attributes: []
         schedule_week_ids: [1]
@@ -40,6 +40,7 @@ DataService = ($rootScope, HttpService) ->
   }
 
   @filters = {
+    ageGroupServiced: null
     near_address: null
     co_op: null
     meals_included: null
@@ -50,7 +51,7 @@ DataService = ($rootScope, HttpService) ->
     language_immersion_ids: ['']
     religion_ids: ['']
     care_approach_ids: ['']
-    neighborhoods: ['']
+    attributesLocal17: ['']
     zip_code_ids: ['']
     care_type_ids: []
   }
@@ -63,26 +64,31 @@ DataService = ($rootScope, HttpService) ->
         params['locationA'] = @filters.near_address + ', San Francisco, CA'
       else
         params['locationA'] = @filters.near_address
+      delete params['zip_code_ids']
+      delete params['attributesLocal17']
     else if @settings.location_type == 'zip_code_ids'
       params['zip'] = @filters[@settings.location_type][0]
+      delete params['near_address']
+      delete params['attributesLocal17']
     else if @settings.location_type == 'neighborhoods'
-      params['attributesLocal17'] = @filters[@settings.location_type]
+      delete params['near_address']
+      delete params['zip_code_ids']
 
   @buildParent = ->
     @parent.parents_care_types_attributes = @filters.care_type_ids.map (care_type_id) ->
       { 'care_type_id': care_type_id }
 
   @buildChildren = ->
-    for child, index in @parent.children_attributes
-      @parent.children_attributes[index].children_schedule_days_attributes = []
+    for child, index in @parent.children
+      @parent.children[index].children_schedule_days_attributes = []
       if child.schedule_day_ids
         for schedule_day_id in child.schedule_day_ids
-          @parent.children_attributes[index].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
+          @parent.children[index].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
 
-      @parent.children_attributes[index].children_schedule_weeks_attributes = []
+      @parent.children[index].children_schedule_weeks_attributes = []
       if child.schedule_week_ids
         for schedule_week_id in child.schedule_week_ids
-          @parent.children_attributes[index].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
+          @parent.children[index].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
 
   @concatProgramsIds = ->
     program_ids = []
@@ -100,18 +106,15 @@ DataService = ($rootScope, HttpService) ->
     search_params = angular.copy @filters
 
     # those params should be children specific when the feature is built
-    search_params.ages = [@parent.children_attributes[0].age_months]
-    search_params.schedule_year_ids = [@parent.children_attributes[0].schedule_year_id]
-    search_params.schedule_week_ids = @parent.children_attributes[0].schedule_week_ids
-    search_params.schedule_day_ids = @parent.children_attributes[0].schedule_day_ids
+    search_params.ageGroupServiced = @parent.children[0].age_weeks
+    search_params.schedule_year_ids = [@parent.children[0].schedule_year_id]
+    search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
+    search_params.schedule_day_ids = @parent.children[0].schedule_day_ids
 
     search_params.program_ids = @concatProgramsIds()
     delete search_params.language_immersion_ids
     delete search_params.religion_ids
     delete search_params.care_approach_ids
-    delete search_params.near_address
-    delete search_params.zip_code_ids
-    delete search_params.neighborhoods
     @setSearchLocation(search_params)
     search_params
 
@@ -124,10 +127,10 @@ DataService = ($rootScope, HttpService) ->
     parent = angular.copy @parent
     delete parent.care_type_ids
     delete parent.agree
-    for child, index in parent.children_attributes
-      delete parent.children_attributes[index].schedule_day_ids
-      delete parent.children_attributes[index].schedule_week_ids
-      delete parent.children_attributes[index].selected
+    for child, index in parent.children
+      delete parent.children[index].schedule_day_ids
+      delete parent.children[index].schedule_week_ids
+      delete parent.children[index].selected
     parent
 
   @queryParams = ->

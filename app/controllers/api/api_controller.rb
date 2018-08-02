@@ -70,8 +70,8 @@ module Api
           parents_care_types_attributes: [
             :care_type_id
           ],
-          children_attributes: [
-            :age_months,
+          children: [
+            :age_weeks,
             :schedule_year_id,
             children_schedule_days_attributes: [
               :schedule_day_id

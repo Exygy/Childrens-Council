@@ -86,7 +86,7 @@ module Api
         # subsidy_ids: [],
         # program_ids: [],
         #
-        # ages: [],
+        :ageGroupServiced,
         # care_type_ids: [],
         # language_ids: [],
         attributesLocal17: [],

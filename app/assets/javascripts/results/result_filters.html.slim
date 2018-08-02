@@ -9,7 +9,7 @@
       li
         h4 Desired locations
         p ng-if="filters[settings.location_type]"
-          span ng-if="settings.location_type == 'neighborhoods'" {{ filters.neighborhoods }}
+          span ng-if="settings.location_type == 'neighborhoods'" {{ filters.attributesLocal17 }}
           span ng-if="settings.location_type == 'zip_code_ids'" {{ filters.zip_code_ids | zipCodeIdsToText }}
           span ng-if="settings.location_type == 'near_address'" {{ filters.near_address }}, San Francisco, CA
 
@@ -89,24 +89,24 @@
       li
         h4 Age
         p
-          | {{ parent.children_attributes[0].age_months | ageToYearsAndMonths }}
+          | {{ parent.children[0].age_weeks | ageToYearsAndMonths }}
 
       li
         h4 Schedule
         p.margin-bottom-none
-          | {{ parent.children_attributes[0].schedule_year_id | scheduleYearIdToText }}
+          | {{ parent.children[0].schedule_year_id | scheduleYearIdToText }}
           br
-          | {{ parent.children_attributes[0].schedule_week_ids | scheduleWeekIdsToText }}
+          | {{ parent.children[0].schedule_week_ids | scheduleWeekIdsToText }}
           br
-          | {{ parent.children_attributes[0].schedule_day_ids | scheduleDayIdsToText }}
+          | {{ parent.children[0].schedule_day_ids | scheduleDayIdsToText }}
 
     / ul.no-bullet
-    /   li ng-repeat="child in parent.children_attributes track by $index"
+    /   li ng-repeat="child in parent.children track by $index"
     /     /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
     /     p for="schedule-day-{{schedule_day.name | attribute}}"
     /       | Child {{ $index+1 }}
     /       small
-    /         '  - {{ child.age_months | ageToYearsAndMonths }}
+    /         '  - {{ child.age_weeks | ageToYearsAndMonths }}
     /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2
