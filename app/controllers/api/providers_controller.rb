@@ -87,6 +87,7 @@ module Api
         # program_ids: [],
         #
         :ageGroupServiced,
+        :zip,
         # care_type_ids: [],
         # language_ids: [],
         attributesLocal17: [],
@@ -94,7 +95,6 @@ module Api
         # schedule_day_ids: [],
         # schedule_week_ids: [],
         # schedule_year_ids: [],
-        # zip_code_ids: [],
       )
     end
 

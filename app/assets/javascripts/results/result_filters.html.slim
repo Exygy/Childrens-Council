@@ -8,12 +8,12 @@
     ul.no-bullet
       li
         h4 Desired locations
-        p ng-if="filters[settings.location_type]"
-          span ng-if="settings.location_type == 'neighborhoods'" {{ filters.attributesLocal17 }}
-          span ng-if="settings.location_type == 'zip_code_ids'" {{ filters.zip_code_ids | zipCodeIdsToText }}
-          span ng-if="settings.location_type == 'near_address'" {{ filters.near_address }}, San Francisco, CA
+        p ng-if="filters[settings.locationType]"
+          span ng-if="settings.locationType == 'neighborhoods'" {{ filters.attributesLocal17 }}
+          span ng-if="settings.locationType == 'zipCodes'" {{ filters.zipCodes }}
+          span ng-if="settings.locationType == 'near_address'" {{ filters.near_address }}, San Francisco, CA
 
-        p ng-if="!filters[settings.location_type]" Any
+        p ng-if="!filters[settings.locationType]" Any
 
       / li
       /   h4 Costs ($ per month)

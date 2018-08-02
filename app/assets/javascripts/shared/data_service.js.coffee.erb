@@ -3,6 +3,7 @@
 DataService = ($rootScope, HttpService) ->
   @filterData =
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    zipCodes: <%= api_service.filter_data('zip_codes') %>
 
   @data = {
     totalProviders: 0
@@ -12,7 +13,7 @@ DataService = ($rootScope, HttpService) ->
   }
 
   @settings = {
-    location_type: 'near_address'
+    locationType: 'near_address'
   }
 
   @parent = {
@@ -52,27 +53,33 @@ DataService = ($rootScope, HttpService) ->
     religion_ids: ['']
     care_approach_ids: ['']
     attributesLocal17: ['']
-    zip_code_ids: ['']
+    zip: ['']
     care_type_ids: []
   }
 
   @current_page = 1
 
   @setSearchLocation = (params) ->
-    if @settings.location_type == 'near_address'
-      if @filters.near_address and @filters.near_address.indexOf(', San Francisco, CA') == -1
-        params['locationA'] = @filters.near_address + ', San Francisco, CA'
+    if @settings.locationType == 'near_address'
+      if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
+        params.locationA = params.near_address + ', San Francisco, CA'
       else
-        params['locationA'] = @filters.near_address
-      delete params['zip_code_ids']
-      delete params['attributesLocal17']
-    else if @settings.location_type == 'zip_code_ids'
-      params['zip'] = @filters[@settings.location_type][0]
-      delete params['near_address']
-      delete params['attributesLocal17']
-    else if @settings.location_type == 'neighborhoods'
-      delete params['near_address']
-      delete params['zip_code_ids']
+        params.locationA = params.near_address
+      delete params.zip
+      delete params.attributesLocal17
+    else if @settings.locationType == 'zipCodes'
+      # We are allowing users to select multiple zip codes in the form,
+      # but the NDS API does not yet support searching by multiple zip
+      # codes, so we are passing through just the first selected zip code
+      # for now. We are keeping the form as-is because we believe the API
+      # will be updated to allow searching by multiple zip codes by the
+      # time we make this app live.
+      params.zip = params.zip[0]
+      delete params.near_address
+      delete params.attributesLocal17
+    else if @settings.locationType == 'neighborhoods'
+      delete params.near_address
+      delete params.zip
 
   @buildParent = ->
     @parent.parents_care_types_attributes = @filters.care_type_ids.map (care_type_id) ->

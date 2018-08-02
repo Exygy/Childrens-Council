@@ -381,19 +381,6 @@ NeighborhoodIdsToText = ($rootScope) ->
 NeighborhoodIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
 
-ZipCodeIdsToText = ($rootScope) ->
-  (zip_code_ids) ->
-    zip_codes = []
-    if zip_code_ids? and zip_code_ids
-      for zip_code_id in zip_code_ids
-        if $rootScope.data['zip_codes'][zip_code_id]
-          zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
-    return EntitiesToString(zip_codes)
-
-ZipCodeIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('zipCodeIdsToText', ZipCodeIdsToText)
-
-
 PottyTraining = ($rootScope) ->
   (provider_attributes) ->
     potty_training = false
