@@ -21,14 +21,14 @@ section.margin-top-2
             button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zip_code_ids, $index)" Remove
           button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zip_code_ids) && filters.zip_code_ids.length < 3" ng-click="addItem(filters.zip_code_ids)" Add another
 
-    tab ng-click="setLocationType('neighborhood_ids')" active="location_tabs.neighborhood_ids.active" heading="By neighborhood" tt="{{ settings.location_type == 'neighborhood_ids' }}"
+    tab ng-click="setLocationType('neighborhoods')" active="location_tabs.neighborhoods.active" heading="By neighborhood" tt="{{ settings.location_type == 'neighborhoods' }}"
       #neighborhood-tab.row role="tabpanel"
         .medium-7.columns
-          .repeater-container ng-repeat="neighborhood in filters.neighborhood_ids track by $index"
+          .repeater-container ng-repeat="neighborhood in filters.neighborhoods track by $index"
             label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
-            select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="filters.neighborhood_ids[$index]" ng-options="neighborhood.id as neighborhood.name for neighborhood in data.neighborhoods_array track by neighborhood.id"
+            select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="filters.neighborhoods[$index]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
 
               option value="" Select Neighborhood
 
-            button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(filters.neighborhood_ids, $index)" Remove
-          button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(filters.neighborhood_ids) && filters.neighborhood_ids.length < 3" ng-click="addItem(filters.neighborhood_ids)" Add another
+            button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(filters.neighborhoods, $index)" Remove
+          button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(filters.neighborhoods) && filters.neighborhoods.length < 3" ng-click="addItem(filters.neighborhoods)" Add another

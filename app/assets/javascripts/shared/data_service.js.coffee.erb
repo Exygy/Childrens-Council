@@ -1,4 +1,9 @@
+<% api_service = NdsApiService.new %>
+
 DataService = ($rootScope, HttpService) ->
+  @filterData =
+    neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+
   @data = {
     totalProviders: 0
     providersPerPage: 15
@@ -45,7 +50,7 @@ DataService = ($rootScope, HttpService) ->
     language_immersion_ids: ['']
     religion_ids: ['']
     care_approach_ids: ['']
-    neighborhood_ids: ['']
+    neighborhoods: ['']
     zip_code_ids: ['']
     care_type_ids: []
   }
@@ -104,7 +109,7 @@ DataService = ($rootScope, HttpService) ->
     delete search_params.care_approach_ids
     delete search_params.near_address
     delete search_params.zip_code_ids
-    delete search_params.neighborhood_ids
+    delete search_params.neighborhoods
     search_params[@settings.location_type] = @getLocation()
     search_params
 

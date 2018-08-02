@@ -1,4 +1,5 @@
 SearchController = ($scope, $state, $controller, SearchService) ->
+  $scope.filterData = SearchService.filterData
   $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
   $scope.settings = SearchService.settings
@@ -10,8 +11,8 @@ SearchController = ($scope, $state, $controller, SearchService) ->
       active: $scope.settings.location_type == 'near_address'
     zip_code_ids:
       active: $scope.settings.location_type == 'zip_code_ids'
-    neighborhood_ids:
-      active: $scope.settings.location_type == 'neighborhood_ids'
+    neighborhoods:
+      active: $scope.settings.location_type == 'neighborhoods'
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm

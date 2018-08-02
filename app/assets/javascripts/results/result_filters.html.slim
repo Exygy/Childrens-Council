@@ -9,7 +9,7 @@
       li
         h4 Desired locations
         p ng-if="filters[settings.location_type]"
-          span ng-if="settings.location_type == 'neighborhood_ids'" {{ filters.neighborhood_ids | neighborhoodIdsToText }}
+          span ng-if="settings.location_type == 'neighborhoods'" {{ filters.neighborhoods }}
           span ng-if="settings.location_type == 'zip_code_ids'" {{ filters.zip_code_ids | zipCodeIdsToText }}
           span ng-if="settings.location_type == 'near_address'" {{ filters.near_address }}, San Francisco, CA
 

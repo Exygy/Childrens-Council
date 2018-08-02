@@ -89,7 +89,7 @@ module Api
         ages: [],
         care_type_ids: [],
         language_ids: [],
-        neighborhood_ids: [],
+        neighborhoods: [],
         open_days: [],
         schedule_day_ids: [],
         schedule_week_ids: [],
