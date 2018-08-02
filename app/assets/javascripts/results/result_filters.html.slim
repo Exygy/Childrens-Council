@@ -70,9 +70,9 @@
 
         li
           h4 Provider Type
-          p ng-show="filters.care_type_ids.length"
-            ' {{ filters.care_type_ids | careTypeIdsToNames }}
-          p ng-hide="filters.care_type_ids.length" Any
+          p ng-show="filters.typeOfCare.length"
+            ' {{ filters.typeOfCare | careTypeIdsToNames }}
+          p ng-hide="filters.typeOfCare.length" Any
 
       a.text-uppercase href="#" ng-click="settings.show_more_filters = !settings.show_more_filters"
         span ng-hide="settings.show_more_filters" Show more

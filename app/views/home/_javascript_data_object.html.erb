@@ -1,6 +1,6 @@
 <script>
   CCR_DATA = {
-      <% [CareReason, CareType, City, FoundOption, Language, Program, ProgramType, ScheduleDay, ScheduleWeek, ScheduleYear, State, Subsidy].each do |m| %>
+      <% [CareReason, City, FoundOption, Language, Program, ProgramType, ScheduleDay, ScheduleWeek, ScheduleYear, State, Subsidy].each do |m| %>
         <% all = (m.name == "Language") ? m.order('name') : m.all %>
         "<%= m.name.underscore.pluralize %>_array": <%= all.to_json.html_safe%>,
         "<%= m.name.underscore.pluralize %>": <%= all.index_by(&:id).to_json.html_safe%>,

@@ -3,6 +3,7 @@
 DataService = ($rootScope, HttpService) ->
   @filterData =
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
 
   @data = {
@@ -26,7 +27,7 @@ DataService = ($rootScope, HttpService) ->
     subscribe: false
     found_option_id: null
     parents_care_reasons_attributes: ['']
-    parents_care_types_attributes: []
+    parents_care_types: []
     children: [
       {
         age_weeks: 130,
@@ -54,7 +55,7 @@ DataService = ($rootScope, HttpService) ->
     care_approach_ids: ['']
     attributesLocal17: ['']
     zip: ['']
-    care_type_ids: []
+    typeOfCare: []
   }
 
   @current_page = 1
@@ -81,9 +82,22 @@ DataService = ($rootScope, HttpService) ->
       delete params.near_address
       delete params.zip
 
+  @setTypeOfCare = (params) ->
+    if params.typeOfCare.length == 1
+      params.typeOfCare = params.typeOfCare[0]
+    else if params.typeOfCare.length == 2
+      # We are allowing users to select multiple types of care in the
+      # form, but the NDS API does not yet support searching by multiple
+      # types of care. So if the user selects both types of care (there
+      # are only two types), we convey that to the API as no selection
+      # for type of care, so that the API will search over all types of
+      # care. This functions correctly, but is semantically a bit odd. We
+      # believe that the API will be updated to allow searching by multiple
+      # types of care by the time we make this app live.
+      delete params.typeOfCare
+
   @buildParent = ->
-    @parent.parents_care_types_attributes = @filters.care_type_ids.map (care_type_id) ->
-      { 'care_type_id': care_type_id }
+    @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
 
   @buildChildren = ->
     for child, index in @parent.children
@@ -123,6 +137,7 @@ DataService = ($rootScope, HttpService) ->
     delete search_params.religion_ids
     delete search_params.care_approach_ids
     @setSearchLocation(search_params)
+    @setTypeOfCare(search_params)
     search_params
 
   @cleanEmptyParams = (params) ->

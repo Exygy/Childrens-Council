@@ -67,8 +67,8 @@ module Api
           parents_care_reasons_attributes: [
             :care_reason_id
           ],
-          parents_care_types_attributes: [
-            :care_type_id
+          parents_care_types: [
+            :type
           ],
           children: [
             :age_weeks,

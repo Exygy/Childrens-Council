@@ -87,8 +87,8 @@ module Api
         # program_ids: [],
         #
         :ageGroupServiced,
+        :typeOfCare,
         :zip,
-        # care_type_ids: [],
         # language_ids: [],
         attributesLocal17: [],
         # open_days: [],

@@ -3,7 +3,7 @@ ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
     $scope.is_editing = childId?
     $scope.modal_filters =
       age_weeks: 130
-      children_care_types_attributes: ResultsService.parent.children[0].children_care_types_attributes
+      children_care_types: ResultsService.parent.children[0].children_care_types
       schedule_day_ids: [2,3,4,5,6]
       schedule_week_ids: [1]
       schedule_year_id: 1
