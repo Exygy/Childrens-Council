@@ -73,12 +73,6 @@ module Api
           children: [
             :age_weeks,
             :yearlySchedule,
-            children_schedule_days: [
-              :day
-            ],
-            children_schedule_weeks_attributes: [
-              :schedule_week_id
-            ],
           ])
       else
         {}

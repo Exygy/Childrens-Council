@@ -13,14 +13,6 @@ ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
       child = angular.copy ResultsService.parent.children[childId]
       $scope.modal_filters = child
 
-      $scope.modal_filters.weeklySchedule = []
-      for children_schedule_day in child.children_schedule_days
-        $scope.modal_filters.weeklySchedule.push children_schedule_day.day
-
-      $scope.modal_filters.schedule_week_ids = []
-      for children_schedule_weeks_attribute in child.children_schedule_weeks_attributes
-        $scope.modal_filters.schedule_week_ids.push children_schedule_weeks_attribute.schedule_week_id
-
   $scope.postSearch = ->
     unless childId?
       childId = ResultsService.parent.children.length

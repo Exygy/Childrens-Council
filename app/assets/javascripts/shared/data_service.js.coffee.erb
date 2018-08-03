@@ -34,7 +34,6 @@ DataService = ($rootScope, HttpService) ->
       {
         age_weeks: 130,
         weeklySchedule: @filterData.days.slice(0, 5)
-        children_schedule_days: []
         schedule_week_ids: [1]
         children_schedule_weeks_attributes: []
         yearlySchedule: 'FULL_YEAR'
@@ -101,18 +100,6 @@ DataService = ($rootScope, HttpService) ->
   @buildParent = ->
     @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
 
-  @buildChildren = ->
-    for child, index in @parent.children
-      @parent.children[index].children_schedule_days = []
-      if child.weeklySchedule
-        for day in child.weeklySchedule
-          @parent.children[index].children_schedule_days.push { day: day }
-
-      @parent.children[index].children_schedule_weeks_attributes = []
-      if child.schedule_week_ids
-        for schedule_week_id in child.schedule_week_ids
-          @parent.children[index].children_schedule_weeks_attributes.push { schedule_week_id: schedule_week_id }
-
   @concatProgramsIds = ->
     program_ids = []
     if @filters.language_immersion_ids.length and @filters.language_immersion_ids[0] != ''
@@ -125,7 +112,6 @@ DataService = ($rootScope, HttpService) ->
 
   @getSearchParams = ->
     @buildParent()
-    @buildChildren()
     search_params = angular.copy @filters
 
     # those params should be children specific when the feature is built
