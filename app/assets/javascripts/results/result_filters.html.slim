@@ -94,7 +94,7 @@
       li
         h4 Schedule
         p.margin-bottom-none
-          | {{ parent.children[0].schedule_year_id | scheduleYearIdToText }}
+          | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
           br
           | {{ parent.children[0].schedule_week_ids | scheduleWeekIdsToText }}
           br

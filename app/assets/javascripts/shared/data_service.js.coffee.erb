@@ -4,6 +4,7 @@ DataService = ($rootScope, HttpService) ->
   @filterData =
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
+    yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
 
   @data = {
@@ -35,7 +36,7 @@ DataService = ($rootScope, HttpService) ->
         children_schedule_days_attributes: []
         schedule_week_ids: [1]
         children_schedule_weeks_attributes: []
-        schedule_year_id: 1
+        yearlySchedule: 'FULL_YEAR'
         selected: true
       }
     ]
@@ -128,7 +129,7 @@ DataService = ($rootScope, HttpService) ->
 
     # those params should be children specific when the feature is built
     search_params.ageGroupServiced = @parent.children[0].age_weeks
-    search_params.schedule_year_ids = [@parent.children[0].schedule_year_id]
+    search_params.yearlySchedule = @parent.children[0].yearlySchedule
     search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
     search_params.schedule_day_ids = @parent.children[0].schedule_day_ids
 

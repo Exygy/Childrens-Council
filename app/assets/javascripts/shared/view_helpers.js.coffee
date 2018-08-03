@@ -354,13 +354,13 @@ ScheduleWeekIdsToText = ($rootScope) ->
 ScheduleWeekIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleWeekIdsToText', ScheduleWeekIdsToText)
 
-ScheduleYearIdToText = ($rootScope) ->
-  (schedule_year_id) ->
-    if $rootScope.data['schedule_years'][schedule_year_id]?
-      $rootScope.data['schedule_years'][schedule_year_id].name
+ScheduleYearValueToLabel = (DataService) ->
+  (value) ->
+    sched = DataService.filterData.yearlySchedules.find((sched) -> sched.value == value)
+    sched.label if sched
 
-ScheduleYearIdToText.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
+ScheduleYearValueToLabel.$inject = ['DataService']
+angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
 NeighborhoodIdsToText = ($rootScope) ->
   (neighborhood_ids) ->

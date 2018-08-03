@@ -3,7 +3,4 @@ angular.module('CCR')
   bindings:
     model: '<'
   templateUrl: 'search/components/childs-age.html'
-  controller: ['SearchService', '$state', '$scope', (SearchService, $state, $scope) ->
-
-  ]
 }

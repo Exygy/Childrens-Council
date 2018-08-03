@@ -88,13 +88,13 @@ module Api
         #
         :ageGroupServiced,
         :typeOfCare,
+        :yearlySchedule,
         :zip,
         # language_ids: [],
         attributesLocal17: [],
         # open_days: [],
         # schedule_day_ids: [],
         # schedule_week_ids: [],
-        # schedule_year_ids: [],
       )
     end
 
