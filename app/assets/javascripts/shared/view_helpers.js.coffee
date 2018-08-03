@@ -6,14 +6,6 @@ CareReasonIdToName = ($rootScope) ->
 CareReasonIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('careReasonIdToName', CareReasonIdToName)
 
-ProgramIdToName = ($rootScope) ->
-  (program_id) ->
-    if $rootScope.data['programs'][program_id]
-      $rootScope.data['programs'][program_id].name
-
-ProgramIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('programIdToName', ProgramIdToName)
-
 CareTypeIdsToNames = (DataService) ->
   (ids) ->
     careTypeNames = []
@@ -382,3 +374,12 @@ PottyTraining = ($rootScope) ->
 
 PottyTraining.$inject = ['$rootScope']
 angular.module('CCR').filter('pottyTraining', PottyTraining)
+
+
+ToAgeGroupType = (DataService) ->
+  (age_group_type_id) ->
+    age_group_types = DataService.filterData['ageGroupTypes']
+    return age_group_types[age_group_type_id].value
+
+ToAgeGroupType.$inject = ['DataService']
+angular.module('CCR').filter('toAgeGroupType', ToAgeGroupType)

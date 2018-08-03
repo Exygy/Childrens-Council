@@ -11,14 +11,26 @@ table.table.first-column-40 ng-if="$ctrl.enrollments.length"
   tbody
     tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
       td.text-left
-        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupType }})
+        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupTypeId | toAgeGroupType }})
       td
         span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
-          | {{ enrollment.ftVacancies }} spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
+          span ng-if="enrollment.ftVacancies"
+            ' {{ enrollment.ftVacancies }} full-time
+          span ng-if="enrollment.ftVacancies && enrollment.ptVacancies"
+            ' and
+          span ng-if="enrollment.ptVacancies"
+            ' {{ enrollment.ftVacancies }} part-time
+          ' spots available as of {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
         span ng-if="isFutureVacancy(enrollment.vacancyDate)"
           'n/a
       td
-        span ng-if="futureVacancy(enrollment.ageGroupTypeId)"
-          ' Open Vacancy {{ futureVacancy(enrollment.ageGroupTypeId) | date : 'MM/dd/yyyy' }}
-        span ng-if="!futureVacancy(enrollment.ageGroupTypeId)"
-          ' n/a
+        span ng-if="isFutureVacancy(enrollment.vacancyDate)"
+          span ng-if="enrollment.ftVacancies"
+            ' {{ enrollment.ftVacancies }} full-time
+          span ng-if="enrollment.ftVacancies && enrollment.ptVacancies"
+            ' and
+          span ng-if="enrollment.ptVacancies"
+            ' {{ enrollment.ftVacancies }} part-time
+          ' spots available beginning {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
+        span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
+          'n/a
