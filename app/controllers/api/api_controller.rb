@@ -72,9 +72,9 @@ module Api
           ],
           children: [
             :age_weeks,
-            :schedule_year_id,
-            children_schedule_days_attributes: [
-              :schedule_day_id
+            :yearlySchedule,
+            children_schedule_days: [
+              :day
             ],
             children_schedule_weeks_attributes: [
               :schedule_week_id

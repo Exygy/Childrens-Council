@@ -2,6 +2,7 @@
 
 DataService = ($rootScope, HttpService) ->
   @filterData =
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
@@ -32,8 +33,8 @@ DataService = ($rootScope, HttpService) ->
     children: [
       {
         age_weeks: 130,
-        schedule_day_ids: [2,3,4,5,6]
-        children_schedule_days_attributes: []
+        weeklySchedule: @filterData.days.slice(0, 5)
+        children_schedule_days: []
         schedule_week_ids: [1]
         children_schedule_weeks_attributes: []
         yearlySchedule: 'FULL_YEAR'
@@ -102,10 +103,10 @@ DataService = ($rootScope, HttpService) ->
 
   @buildChildren = ->
     for child, index in @parent.children
-      @parent.children[index].children_schedule_days_attributes = []
-      if child.schedule_day_ids
-        for schedule_day_id in child.schedule_day_ids
-          @parent.children[index].children_schedule_days_attributes.push { schedule_day_id: schedule_day_id }
+      @parent.children[index].children_schedule_days = []
+      if child.weeklySchedule
+        for day in child.weeklySchedule
+          @parent.children[index].children_schedule_days.push { day: day }
 
       @parent.children[index].children_schedule_weeks_attributes = []
       if child.schedule_week_ids
@@ -131,7 +132,7 @@ DataService = ($rootScope, HttpService) ->
     search_params.ageGroupServiced = @parent.children[0].age_weeks
     search_params.yearlySchedule = @parent.children[0].yearlySchedule
     search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
-    search_params.schedule_day_ids = @parent.children[0].schedule_day_ids
+    search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
     search_params.program_ids = @concatProgramsIds()
     delete search_params.language_immersion_ids
@@ -151,7 +152,7 @@ DataService = ($rootScope, HttpService) ->
     delete parent.care_type_ids
     delete parent.agree
     for child, index in parent.children
-      delete parent.children[index].schedule_day_ids
+      delete parent.children[index].weeklySchedule
       delete parent.children[index].schedule_week_ids
       delete parent.children[index].selected
     parent

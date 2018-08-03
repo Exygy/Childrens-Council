@@ -98,7 +98,7 @@
           br
           | {{ parent.children[0].schedule_week_ids | scheduleWeekIdsToText }}
           br
-          | {{ parent.children[0].schedule_day_ids | scheduleDayIdsToText }}
+          | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
 
     / ul.no-bullet
     /   li ng-repeat="child in parent.children track by $index"

@@ -320,27 +320,24 @@ BooleanFilterToText = ->
       'Any'
 angular.module('CCR').filter('booleanFilterToText', BooleanFilterToText)
 
-ScheduleDayIdsToText = ($rootScope) ->
-  (schedule_day_ids) ->
-    days = []
-    if schedule_day_ids?
-      for schedule_day_id in schedule_day_ids
-        days.push $rootScope.data['schedule_days'][schedule_day_id].name
-    days = days.sort (a, b) ->
-      week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-      week_days.indexOf(a) - week_days.indexOf(b)
-    if days.length == 5 and days[0] == 'Monday' and days[days.length-1] == 'Friday'
-      return days[0] + ' - ' + days[days.length-1]
-    if days.length == 2 and days[0] == 'Saturday' and days[days.length-1] == 'Sunday'
-      return days[0] + ' - ' + days[days.length-1]
-    if days.length == 7
-      return 'All week'
-    if days.length == 7
-      return 'None'
-    return EntitiesToString(days)
+ScheduleDaysToText = (DataService) ->
+  (days) ->
+    if days?
+      allDays = DataService.filterData.days
+      days = days.sort (a, b) -> allDays.indexOf(a) - allDays.indexOf(b)
+      if days.length == 5 and days[0] == 'Monday' and days[days.length-1] == 'Friday'
+        return 'Monday - Friday'
+      else if days.length == 2 and days[0] == 'Saturday' and days[days.length-1] == 'Sunday'
+        return 'Saturday - Sunday'
+      else if days.length == 7
+        return 'All week'
+      else if days.length == 0
+        return 'None'
+      else
+        return EntitiesToString(days)
 
-ScheduleDayIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)
+ScheduleDaysToText.$inject = ['DataService']
+angular.module('CCR').filter('scheduleDaysToText', ScheduleDaysToText)
 
 ScheduleWeekIdsToText = ($rootScope) ->
   (schedule_week_ids) ->

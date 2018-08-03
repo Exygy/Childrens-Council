@@ -93,7 +93,7 @@ module Api
         # language_ids: [],
         attributesLocal17: [],
         # open_days: [],
-        # schedule_day_ids: [],
+        weeklySchedule: [],
         # schedule_week_ids: [],
       )
     end
