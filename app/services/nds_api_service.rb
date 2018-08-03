@@ -1,5 +1,6 @@
 class NdsApiService
   AGENCY_OPTION_TYPE_IDS = {
+    care_approaches: 8,
     neighborhoods: 15
   }
 

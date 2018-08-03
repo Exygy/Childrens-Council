@@ -49,6 +49,8 @@ SearchController = ($scope, $state, $controller, SearchService) ->
 
 SearchController.$inject = ['$scope', '$state', '$controller', 'SearchService']
 
+angular.module('CCR').controller('SearchController', SearchController)
+
 angular
   .module('CCR')
   .component('search', {

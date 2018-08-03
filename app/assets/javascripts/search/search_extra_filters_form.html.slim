@@ -13,10 +13,6 @@ span ng-include="'search/search_location_filter.html'"
 /          - 4.times do |i|
 /            span.tick class="tick-#{i + 1}"
 
-
-
-
-
 section.margin-top-2
   h5.c-black Provides financial assistance
 
@@ -43,13 +39,13 @@ section.margin-top-2
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Care Approach
-  .repeater-container ng-repeat="care_approach_id in filters.care_approach_ids track by $index"
-    select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.care_approach_ids[$index]"
+  .repeater-container ng-repeat="careApproach in filters.careApproaches"
+    select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
       option value="" Select Care Approach
-      option ng-repeat="care_approach in (data.programs_array | programsByProgramType:'Care Approach') track by $index" value="{{ care_approach.id }}"
-        ' {{ care_approach.name }}
-    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.care_approach_ids, $index)" Remove
-  button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.care_approach_ids) && filters.care_approach_ids.length < 3" ng-click="addItem(filters.care_approach_ids)" Add another
+      option ng-repeat="careApproach in (filterData.careApproaches | orderBy)" value="{{ careApproach }}"
+        ' {{ careApproach }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
+  button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Language Immersion Programs

@@ -26,10 +26,11 @@
 
       li
         h4 Care Approach
-        ul.no-bullet ng-if="filters.care_approach_ids.length && filters.care_approach_ids[0].length"
-          li ng-repeat="care_approach_id in filters.care_approach_ids"
-            ' {{ care_approach_id | programIdToName }}
-        p ng-hide="filters.care_approach_ids.length && filters.care_approach_ids[0].length" Any
+        ul.no-bullet ng-if="filters.careApproaches.length && filters.careApproaches[0].length"
+          li ng-repeat="careApproach in filters.careApproaches"
+            ' {{ careApproach }}
+        p ng-hide="filters.careApproaches.length && filters.careApproaches[0].length" Any
+          | {{ filters }}
 
       li
         h4 Language Program

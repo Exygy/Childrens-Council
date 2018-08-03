@@ -84,7 +84,6 @@ module Api
         # :potty_training,
         #
         # subsidy_ids: [],
-        # program_ids: [],
         #
         :ageGroupServiced,
         :typeOfCare,
@@ -92,6 +91,7 @@ module Api
         :zip,
         # language_ids: [],
         attributesLocal17: [],
+        careApproaches: [],
         # open_days: [],
         weeklySchedule: [],
         # schedule_week_ids: [],
