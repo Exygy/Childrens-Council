@@ -91,6 +91,7 @@ module Api
         :zip,
         # language_ids: [],
         attributesLocal17: [],
+        attributesLocal3: [],
         careApproaches: [],
         # open_days: [],
         weeklySchedule: [],

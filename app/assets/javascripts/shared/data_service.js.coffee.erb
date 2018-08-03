@@ -4,6 +4,7 @@ DataService = ($rootScope, HttpService) ->
   @filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
@@ -44,7 +45,8 @@ DataService = ($rootScope, HttpService) ->
 
   @filters = {
     ageGroupServiced: null
-    attributesLocal17: ['']
+    attributesLocal17: [''] # contains neighborhood names
+    attributesLocal3: [''] # contains language immersion program names
     careApproaches: ['']
     typeOfCare: []
     zip: ['']
@@ -55,7 +57,6 @@ DataService = ($rootScope, HttpService) ->
     language_ids: ['']
     program_ids: []
     subsidy_ids: []
-    language_immersion_ids: ['']
     religion_ids: ['']
   }
 
@@ -102,8 +103,6 @@ DataService = ($rootScope, HttpService) ->
 
   @concatProgramsIds = ->
     program_ids = []
-    if @filters.language_immersion_ids.length and @filters.language_immersion_ids[0] != ''
-      program_ids = program_ids.concat @filters.language_immersion_ids
     if @filters.religion_ids.length and @filters.religion_ids[0] != ''
       program_ids = program_ids.concat @filters.religion_ids
     program_ids
@@ -119,9 +118,7 @@ DataService = ($rootScope, HttpService) ->
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
     search_params.program_ids = @concatProgramsIds()
-    delete search_params.language_immersion_ids
     delete search_params.religion_ids
-    delete search_params.care_approach_ids
     @setSearchLocation(search_params)
     @setTypeOfCare(search_params)
     search_params

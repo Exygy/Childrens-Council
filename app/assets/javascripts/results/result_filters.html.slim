@@ -34,10 +34,10 @@
 
       li
         h4 Language Program
-        ul.no-bullet ng-if="filters.language_immersion_ids.length && filters.language_immersion_ids[0].length"
-          li ng-repeat="language_immersion_id in filters.language_immersion_ids"
-            ' {{ language_immersion_id | programIdToName }}
-        p ng-hide="filters.language_immersion_ids.length && filters.language_immersion_ids[0].length" Any
+        ul.no-bullet ng-if="filters.attributesLocal3.length && filters.attributesLocal3[0].length"
+          li ng-repeat="languageProgram in filters.attributesLocal3"
+            ' {{ languageProgram }}
+        p ng-hide="filters.attributesLocal3.length && filters.attributesLocal3[0].length" Any
 
       li
         h4 Languages Spoken

@@ -49,13 +49,13 @@ section.margin-top-2
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Language Immersion Programs
-  .repeater-container ng-repeat="program in filters.language_immersion_ids track by $index"
-    select.radius id="program-id-{{$index + 1}}" name="program_id_{{$index + 1}}" ng-model="filters.language_immersion_ids[$index]"
+  .repeater-container ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.attributesLocal3[$index]"
       option value="" Select Language Immersion Program
-      option ng-repeat="program in (data.programs_array | programsByProgramType:'Immersion Program') track by $index" value="{{ program.id }}"
-        ' {{ program.name }}
-    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.language_immersion_ids, $index)" Remove
-  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.language_immersion_ids) && filters.language_immersion_ids.length < 3" ng-click="addItem(filters.language_immersion_ids)" Add another
+      option ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy)" value="{{ languageProgram }}"
+        ' {{ languageProgram }}
+    button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.attributesLocal3, $index)" Remove
+  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.attributesLocal3) && filters.attributesLocal3.length < 3" ng-click="addItem(filters.attributesLocal3)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Languages spoken
