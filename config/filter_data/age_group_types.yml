@@ -1,0 +1,113 @@
+---
+102:
+  value: Birth to 1yr., 11mos.
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 1
+  creationTime: '2017-02-10 00:47:19'
+  createdBy: ''
+  lastModifiedTime: '2017-02-10 00:47:19'
+  lastModifiedBy: Test@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 102
+    sequenceId: 1
+103:
+  value: "-"
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 6
+  creationTime: '2017-02-10 00:55:17'
+  createdBy: ''
+  lastModifiedTime: '2018-05-23 19:48:27'
+  lastModifiedBy: Agency@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 103
+    sequenceId: 1
+104:
+  value: 18 Months - 36 Months
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 2
+  creationTime: '2017-02-10 00:55:33'
+  createdBy: ''
+  lastModifiedTime: '2017-03-21 17:10:01'
+  lastModifiedBy: Test@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 104
+    sequenceId: 1
+105:
+  value: "-"
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 3
+  creationTime: '2017-02-10 00:55:44'
+  createdBy: ''
+  lastModifiedTime: '2018-05-23 19:48:13'
+  lastModifiedBy: Agency@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 105
+    sequenceId: 1
+106:
+  value: 2yrs., 0mos. to 5yrs., 11mos.
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 1
+  creationTime: '2017-02-10 00:47:57'
+  createdBy: ''
+  lastModifiedTime: '2017-02-10 00:47:57'
+  lastModifiedBy: Test@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 106
+    sequenceId: 1
+107:
+  value: "-"
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 3
+  creationTime: '2017-02-10 00:56:08'
+  createdBy: ''
+  lastModifiedTime: '2018-05-23 19:48:36'
+  lastModifiedBy: Agency@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 107
+    sequenceId: 1
+108:
+  value: 6+yrs.
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 1
+  creationTime: '2017-02-10 00:48:21'
+  createdBy: ''
+  lastModifiedTime: '2017-02-10 00:48:21'
+  lastModifiedBy: Test@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 108
+    sequenceId: 1
+109:
+  value: "*FCC* All Ages"
+  systemFlag: false
+  endEffectiveDate: 
+  qualityRatingLink: 
+  version: 2
+  creationTime: '2017-02-10 00:56:22'
+  createdBy: ''
+  lastModifiedTime: '2017-04-11 20:52:52'
+  lastModifiedBy: Agency@13011
+  primaryKey:
+    agencyKey: '13011'
+    typeId: 109
+    sequenceId: 1

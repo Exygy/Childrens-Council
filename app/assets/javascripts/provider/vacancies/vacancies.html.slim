@@ -11,7 +11,7 @@ table.table.first-column-40 ng-if="$ctrl.enrollments.length"
   tbody
     tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
       td.text-left
-        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupType }})
+        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupTypeId | toAgeGroupType }})
       td
         span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
           span ng-if="enrollment.ftVacancies"
@@ -34,10 +34,3 @@ table.table.first-column-40 ng-if="$ctrl.enrollments.length"
           ' spots available beginning {{ enrollment.vacancyDate | date : 'MM/dd/yyyy' }}
         span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
           'n/a
-
-
-
-          / span ng-if="futureVacancy(enrollment.ageGroupTypeId)"
-          /   ' Open Vacancy {{ futureVacancy(enrollment.ageGroupTypeId) | date : 'MM/dd/yyyy' }}
-          / span ng-if="!futureVacancy(enrollment.ageGroupTypeId)"
-          /   ' n/a

@@ -374,3 +374,12 @@ PottyTraining = ($rootScope) ->
 
 PottyTraining.$inject = ['$rootScope']
 angular.module('CCR').filter('pottyTraining', PottyTraining)
+
+
+ToAgeGroupType = (DataService) ->
+  (age_group_type_id) ->
+    age_group_types = DataService.filterData['ageGroupTypes']
+    return age_group_types[age_group_type_id].value
+
+ToAgeGroupType.$inject = ['DataService']
+angular.module('CCR').filter('toAgeGroupType', ToAgeGroupType)

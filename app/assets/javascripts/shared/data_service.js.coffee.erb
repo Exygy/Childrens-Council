@@ -3,6 +3,7 @@
 DataService = ($rootScope, HttpService) ->
   @filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
+    ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>

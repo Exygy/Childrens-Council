@@ -14,7 +14,7 @@ class NdsApiService
   end
 
   def fetch_all_filter_data
-    AGENCY_OPTIONS.each { |id, type| fetch_filter_data(id) }
+    self.class::AGENCY_OPTIONS.each { |id, type| fetch_filter_data(id) }
   end
 
   def filter_data(type)
