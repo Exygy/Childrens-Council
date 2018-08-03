@@ -30,7 +30,6 @@
           li ng-repeat="careApproach in filters.careApproaches"
             ' {{ careApproach }}
         p ng-hide="filters.careApproaches.length && filters.careApproaches[0].length" Any
-          | {{ filters }}
 
       li
         h4 Language Program
@@ -49,10 +48,10 @@
       div ng-show="settings.show_more_filters"
         li
           h4 Religous Program
-          ul.no-bullet ng-if="filters.religion_ids.length && filters.religion_ids[0].length"
-            li ng-repeat="religion_id in filters.religion_ids"
-              ' {{ religion_id | programIdToName }}
-          p ng-hide="filters.religion_ids.length && filters.religion_ids[0].length" Any
+          ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
+            li ng-repeat="religiousPrograms in filters.religiousPrograms"
+              ' {{ religiousProgram }}
+          p ng-hide="filters.religiousPrograms.length && filters.religiousPrograms[0].length" Any
 
         li
           h4 Parent CO-OP

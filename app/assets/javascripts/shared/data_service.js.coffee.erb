@@ -6,6 +6,7 @@ DataService = ($rootScope, HttpService) ->
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
@@ -47,7 +48,9 @@ DataService = ($rootScope, HttpService) ->
     ageGroupServiced: null
     attributesLocal17: [''] # contains neighborhood names
     attributesLocal3: [''] # contains language immersion program names
+    generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
+    religiousPrograms: ['']
     typeOfCare: []
     zip: ['']
     near_address: null
@@ -55,9 +58,7 @@ DataService = ($rootScope, HttpService) ->
     meals_included: null
     potty_training: null
     language_ids: ['']
-    program_ids: []
     subsidy_ids: []
-    religion_ids: ['']
   }
 
   @current_page = 1
@@ -98,14 +99,21 @@ DataService = ($rootScope, HttpService) ->
       # types of care by the time we make this app live.
       delete params.typeOfCare
 
+  # The API field used to search for care approaches and religious programs
+  # is the same, so we concatenate these names into a single list.
+  @setPrograms = (params) ->
+    if params.careApproaches.length && params.careApproaches[0]
+      params.generalLocal2 = params.generalLocal2.concat(params.careApproaches)
+
+    if params.religiousPrograms.length && params.religiousPrograms[0]
+      params.generalLocal2 = params.generalLocal2.concat(params.religiousPrograms)
+
+    delete params.careApproaches
+    delete params.religiousPrograms
+    delete params.generalLocal2 if !params.generalLocal2.length
+
   @buildParent = ->
     @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
-
-  @concatProgramsIds = ->
-    program_ids = []
-    if @filters.religion_ids.length and @filters.religion_ids[0] != ''
-      program_ids = program_ids.concat @filters.religion_ids
-    program_ids
 
   @getSearchParams = ->
     @buildParent()
@@ -117,10 +125,9 @@ DataService = ($rootScope, HttpService) ->
     search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
-    search_params.program_ids = @concatProgramsIds()
-    delete search_params.religion_ids
     @setSearchLocation(search_params)
     @setTypeOfCare(search_params)
+    @setPrograms(search_params)
     search_params
 
   @cleanEmptyParams = (params) ->
