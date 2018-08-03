@@ -1,5 +1,8 @@
 a name="env_images"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="env_images" Environment Images
 
-span ng-repeat="(key, url) in $ctrl.urls"
+span ng-repeat="(key, url) in $ctrl.urls" ng-if="$ctrl.urls"
   img.env ng-src="{{url}}" ng-click="openCarousel()" style="width:294px;height:195px;"
+
+span ng-if="!$ctrl.urls"
+  ' No images provided by provider
