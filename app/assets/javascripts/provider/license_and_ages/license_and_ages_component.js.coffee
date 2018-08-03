@@ -11,6 +11,7 @@ LicenseAndAgesController = ($scope) ->
 
   $scope.enrollmentField = (license_key, field) ->
     age_group_type_id = licenseToAgeGroupTypeId(license_key)
+    return age_group_type_id if field == 'ageGroupTypeId'
     for enrollment in $ctrl.enrollments
       if enrollment.ageGroupTypeId == age_group_type_id
         return enrollment[field]

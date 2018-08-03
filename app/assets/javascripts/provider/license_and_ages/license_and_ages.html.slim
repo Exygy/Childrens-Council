@@ -17,7 +17,7 @@ table.table-lines
           | \#{{$ctrl.generalInfo[license_field]}}
       td
         span
-          | {{  enrollmentField(license_field, 'ageGroup') }}
+          | {{  enrollmentField(license_field, 'ageGroup') }}: {{  enrollmentField(license_field, 'ageGroupTypeId') | toAgeGroupType }}
 
       td
         span
