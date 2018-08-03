@@ -92,7 +92,7 @@ module Api
         # language_ids: [],
         attributesLocal17: [],
         attributesLocal3: [],
-        careApproaches: [],
+        generalLocal2: [],
         # open_days: [],
         weeklySchedule: [],
         # schedule_week_ids: [],
