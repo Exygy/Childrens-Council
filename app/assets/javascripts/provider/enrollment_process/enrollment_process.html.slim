@@ -8,9 +8,9 @@ p
   .column.small-6
     h5 Application Deadline
     p
-      | {{ $ctrl.provider.generalInfo.config3 ? $ctrl.provider.generalInfo.config3 : 'n/a'  }}
+      | {{ $ctrl.provider.generalInfo.config3 ? ($ctrl.provider.generalInfo.config3 | date: 'MM/dd/yyyy') : 'n/a'  }}
 
   .column.small-6
-    h5 Open Hour Tour Date
+    h5 Open House Tour Date
     p
-      | {{ $ctrl.provider.generalInfo.textField3 ? $ctrl.provider.generalInfo.textField3 : 'n/a'  }}
+      | {{ $ctrl.provider.attributes.textField3 ? ($ctrl.provider.attributes.textField3 | date: 'MM/dd/yyyy') : 'n/a'  }}
