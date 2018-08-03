@@ -1,4 +1,5 @@
 angular.module 'CCR', [
+  'angularMoment',
   'checklist-model',
   'mm.foundation',
   'ngAnimate',

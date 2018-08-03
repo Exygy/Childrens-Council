@@ -16,6 +16,7 @@
 //= require foundation/js/foundation/foundation.js
 //= require foundation/js/foundation/foundation.magellan.js
 //= require lodash/lodash
+//= require moment
 //= require angular
 //= require angular-aria/angular-aria.js
 //= require angular-animate/angular-animate.js
@@ -25,6 +26,7 @@
 //= require angular-rails-templates
 //= require angular-paginate-anything
 //= require angular-foundation
+//= require angular-moment
 //= require angular-sanitize
 //= require angular-ui-slider/src/slider.js
 //= require angular-ui-carousel

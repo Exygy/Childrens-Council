@@ -13,4 +13,4 @@ p
   .column.small-6
     h5 Open House Tour Date
     p
-      | {{ $ctrl.provider.attributes.textField3 ? ($ctrl.provider.attributes.textField3 | date: 'MM/dd/yyyy') : 'n/a'  }}
+      | {{ $ctrl.provider.attributes.textField3 ? (($ctrl.provider.attributes.textField3 | amParse:'MM/DD/YY') | amDateFormat: 'MM/DD/YYYY') : 'n/a'  }}
