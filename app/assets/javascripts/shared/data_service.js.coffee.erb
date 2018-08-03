@@ -1,0 +1,178 @@
+<% api_service = NdsApiService.new %>
+
+DataService = ($rootScope, HttpService) ->
+  @filterData =
+    careApproaches: <%= api_service.filter_data('care_approaches') %>
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
+    neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
+    yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
+    zipCodes: <%= api_service.filter_data('zip_codes') %>
+
+  @data = {
+    totalProviders: 0
+    providersPerPage: 15
+    providers: []
+    is_loading: false
+  }
+
+  @settings = {
+    locationType: 'near_address'
+  }
+
+  @parent = {
+    full_name: ''
+    email: ''
+    phone: ''
+    home_zip_code: ''
+    near_address: ''
+    agree: false
+    subscribe: false
+    found_option_id: null
+    parents_care_reasons_attributes: ['']
+    parents_care_types: []
+    children: [
+      {
+        age_weeks: 130,
+        weeklySchedule: @filterData.days.slice(0, 5)
+        schedule_week_ids: [1]
+        yearlySchedule: 'FULL_YEAR'
+        selected: true
+      }
+    ]
+  }
+
+  @filters = {
+    ageGroupServiced: null
+    attributesLocal17: [''] # contains neighborhood names
+    attributesLocal3: [''] # contains language immersion program names
+    careApproaches: ['']
+    typeOfCare: []
+    zip: ['']
+    near_address: null
+    co_op: null
+    meals_included: null
+    potty_training: null
+    language_ids: ['']
+    program_ids: []
+    subsidy_ids: []
+    religion_ids: ['']
+  }
+
+  @current_page = 1
+
+  @setSearchLocation = (params) ->
+    if @settings.locationType == 'near_address'
+      if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
+        params.locationA = params.near_address + ', San Francisco, CA'
+      else
+        params.locationA = params.near_address
+      delete params.zip
+      delete params.attributesLocal17
+    else if @settings.locationType == 'zipCodes'
+      # We are allowing users to select multiple zip codes in the form,
+      # but the NDS API does not yet support searching by multiple zip
+      # codes, so we are passing through just the first selected zip code
+      # for now. We are keeping the form as-is because we believe the API
+      # will be updated to allow searching by multiple zip codes by the
+      # time we make this app live.
+      params.zip = params.zip[0]
+      delete params.near_address
+      delete params.attributesLocal17
+    else if @settings.locationType == 'neighborhoods'
+      delete params.near_address
+      delete params.zip
+
+  @setTypeOfCare = (params) ->
+    if params.typeOfCare.length == 1
+      params.typeOfCare = params.typeOfCare[0]
+    else if params.typeOfCare.length == 2
+      # We are allowing users to select multiple types of care in the
+      # form, but the NDS API does not yet support searching by multiple
+      # types of care. So if the user selects both types of care (there
+      # are only two types), we convey that to the API as no selection
+      # for type of care, so that the API will search over all types of
+      # care. This functions correctly, but is semantically a bit odd. We
+      # believe that the API will be updated to allow searching by multiple
+      # types of care by the time we make this app live.
+      delete params.typeOfCare
+
+  @buildParent = ->
+    @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
+
+  @concatProgramsIds = ->
+    program_ids = []
+    if @filters.religion_ids.length and @filters.religion_ids[0] != ''
+      program_ids = program_ids.concat @filters.religion_ids
+    program_ids
+
+  @getSearchParams = ->
+    @buildParent()
+    search_params = angular.copy @filters
+
+    # those params should be children specific when the feature is built
+    search_params.ageGroupServiced = @parent.children[0].age_weeks
+    search_params.yearlySchedule = @parent.children[0].yearlySchedule
+    search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
+    search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+
+    search_params.program_ids = @concatProgramsIds()
+    delete search_params.religion_ids
+    @setSearchLocation(search_params)
+    @setTypeOfCare(search_params)
+    search_params
+
+  @cleanEmptyParams = (params) ->
+    deepFilter params, (value, key) ->
+      # Filter out empty values and arrays
+      if !value? or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
+
+  @getCleanedParent = ->
+    parent = angular.copy @parent
+    delete parent.care_type_ids
+    delete parent.agree
+    for child, index in parent.children
+      delete parent.children[index].weeklySchedule
+      delete parent.children[index].schedule_week_ids
+      delete parent.children[index].selected
+    parent
+
+  @queryParams = ->
+    @cleanEmptyParams {
+      page: @current_page
+      per_page: @data.providersPerPage
+      providers: @getSearchParams()
+      parent: @getCleanedParent()
+    }
+
+  @httpParams = ->
+    {
+      method: 'POST'
+      url: '/api/providers'
+      data: @queryParams()
+    }
+
+  @performSearch = (callback) =>
+    that = @
+    that.data.providers = []
+    that.data.is_loading = true
+    @serverRequest (response) ->
+      if response.data
+        that.data.providers = response.data.content
+        that.data.totalProviders = response.data.totalElements
+        that.data.current_page = that.data.number
+      callback(response.data) if callback
+      that.data.is_loading = false
+
+  @serverRequest = (callback) ->
+    HttpService.http @httpParams(), callback
+
+  @resetData = ->
+    @data.providers = []
+    @data.totalProviders = 0
+
+  @
+
+DataService.$inject = ['$rootScope', 'HttpService']
+angular.module('CCR').service('DataService', DataService)

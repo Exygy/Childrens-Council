@@ -67,18 +67,12 @@ module Api
           parents_care_reasons_attributes: [
             :care_reason_id
           ],
-          parents_care_types_attributes: [
-            :care_type_id
+          parents_care_types: [
+            :type
           ],
-          children_attributes: [
-            :age_months,
-            :schedule_year_id,
-            children_schedule_days_attributes: [
-              :schedule_day_id
-            ],
-            children_schedule_weeks_attributes: [
-              :schedule_week_id
-            ],
+          children: [
+            :age_weeks,
+            :yearlySchedule,
           ])
       else
         {}
