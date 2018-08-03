@@ -8,12 +8,12 @@
     ul.no-bullet
       li
         h4 Desired locations
-        p ng-if="filters[settings.location_type]"
-          span ng-if="settings.location_type == 'neighborhood_ids'" {{ filters.neighborhood_ids | neighborhoodIdsToText }}
-          span ng-if="settings.location_type == 'zip_code_ids'" {{ filters.zip_code_ids | zipCodeIdsToText }}
-          span ng-if="settings.location_type == 'near_address'" {{ filters.near_address }}, San Francisco, CA
+        p ng-if="filters[settings.locationType]"
+          span ng-if="settings.locationType == 'neighborhoods'" {{ filters.attributesLocal17 }}
+          span ng-if="settings.locationType == 'zipCodes'" {{ filters.zipCodes }}
+          span ng-if="settings.locationType == 'near_address'" {{ filters.near_address }}, San Francisco, CA
 
-        p ng-if="!filters[settings.location_type]" Any
+        p ng-if="!filters[settings.locationType]" Any
 
       / li
       /   h4 Costs ($ per month)
@@ -26,17 +26,18 @@
 
       li
         h4 Care Approach
-        ul.no-bullet ng-if="filters.care_approach_ids.length && filters.care_approach_ids[0].length"
-          li ng-repeat="care_approach_id in filters.care_approach_ids"
-            ' {{ care_approach_id | programIdToName }}
-        p ng-hide="filters.care_approach_ids.length && filters.care_approach_ids[0].length" Any
+        ul.no-bullet ng-if="filters.careApproaches.length && filters.careApproaches[0].length"
+          li ng-repeat="careApproach in filters.careApproaches"
+            ' {{ careApproach }}
+        p ng-hide="filters.careApproaches.length && filters.careApproaches[0].length" Any
+          | {{ filters }}
 
       li
         h4 Language Program
-        ul.no-bullet ng-if="filters.language_immersion_ids.length && filters.language_immersion_ids[0].length"
-          li ng-repeat="language_immersion_id in filters.language_immersion_ids"
-            ' {{ language_immersion_id | programIdToName }}
-        p ng-hide="filters.language_immersion_ids.length && filters.language_immersion_ids[0].length" Any
+        ul.no-bullet ng-if="filters.attributesLocal3.length && filters.attributesLocal3[0].length"
+          li ng-repeat="languageProgram in filters.attributesLocal3"
+            ' {{ languageProgram }}
+        p ng-hide="filters.attributesLocal3.length && filters.attributesLocal3[0].length" Any
 
       li
         h4 Languages Spoken
@@ -70,9 +71,9 @@
 
         li
           h4 Provider Type
-          p ng-show="filters.care_type_ids.length"
-            ' {{ filters.care_type_ids | careTypeIdsToNames }}
-          p ng-hide="filters.care_type_ids.length" Any
+          p ng-show="filters.typeOfCare.length"
+            ' {{ filters.typeOfCare | careTypeIdsToNames }}
+          p ng-hide="filters.typeOfCare.length" Any
 
       a.text-uppercase href="#" ng-click="settings.show_more_filters = !settings.show_more_filters"
         span ng-hide="settings.show_more_filters" Show more
@@ -89,24 +90,24 @@
       li
         h4 Age
         p
-          | {{ parent.children_attributes[0].age_months | ageToYearsAndMonths }}
+          | {{ parent.children[0].age_weeks | ageToYearsAndMonths }}
 
       li
         h4 Schedule
         p.margin-bottom-none
-          | {{ parent.children_attributes[0].schedule_year_id | scheduleYearIdToText }}
+          | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
           br
-          | {{ parent.children_attributes[0].schedule_week_ids | scheduleWeekIdsToText }}
+          | {{ parent.children[0].schedule_week_ids | scheduleWeekIdsToText }}
           br
-          | {{ parent.children_attributes[0].schedule_day_ids | scheduleDayIdsToText }}
+          | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
 
     / ul.no-bullet
-    /   li ng-repeat="child in parent.children_attributes track by $index"
+    /   li ng-repeat="child in parent.children track by $index"
     /     /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
     /     p for="schedule-day-{{schedule_day.name | attribute}}"
     /       | Child {{ $index+1 }}
     /       small
-    /         '  - {{ child.age_months | ageToYearsAndMonths }}
+    /         '  - {{ child.age_weeks | ageToYearsAndMonths }}
     /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2

@@ -6,14 +6,6 @@ CareReasonIdToName = ($rootScope) ->
 CareReasonIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('careReasonIdToName', CareReasonIdToName)
 
-CareTypeIdToName = ($rootScope) ->
-  (care_type_id) ->
-    if $rootScope.data['care_types'][care_type_id]
-      $rootScope.data['care_types'][care_type_id].name
-
-CareTypeIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('careTypeIdToName', CareTypeIdToName)
-
 ProgramIdToName = ($rootScope) ->
   (program_id) ->
     if $rootScope.data['programs'][program_id]
@@ -22,16 +14,17 @@ ProgramIdToName = ($rootScope) ->
 ProgramIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('programIdToName', ProgramIdToName)
 
-CareTypeIdsToNames = ($rootScope) ->
-  (care_type_ids) ->
-    care_type_names = []
-    if care_type_ids
-      for care_type_id in care_type_ids
-        if $rootScope.data['care_types'][care_type_id]
-          care_type_names.push $rootScope.data['care_types'][care_type_id].name
-    EntitiesToString(care_type_names)
+CareTypeIdsToNames = (DataService) ->
+  (ids) ->
+    careTypeNames = []
+    if ids
+      ids.forEach((id) ->
+        typeName = DataService.filterData.typesOfCare.find((type) -> type.id == id)
+        careTypeNames.push(typeName)
+      )
+    EntitiesToString(careTypeNames)
 
-CareTypeIdsToNames.$inject = ['$rootScope']
+CareTypeIdsToNames.$inject = ['DataService']
 angular.module('CCR').filter('careTypeIdsToNames', CareTypeIdsToNames)
 
 IsFacility = ($rootScope) ->
@@ -137,9 +130,9 @@ PrefixUrl = () ->
 angular.module('CCR').filter('prefixUrl', PrefixUrl)
 
 AgeToYearsAndMonths = () ->
-  (age_in_months) ->
-    years = Math.floor age_in_months / 12
-    months = age_in_months % 12
+  (ageInWeeks) ->
+    years = Math.floor ageInWeeks / 52
+    months = Math.floor (ageInWeeks * (3.0 / 13)) % 12
     age_text = ''
     age_text += "#{years} yrs " if years
     age_text += "#{months} mon" if months or (!years and !months)
@@ -327,27 +320,24 @@ BooleanFilterToText = ->
       'Any'
 angular.module('CCR').filter('booleanFilterToText', BooleanFilterToText)
 
-ScheduleDayIdsToText = ($rootScope) ->
-  (schedule_day_ids) ->
-    days = []
-    if schedule_day_ids?
-      for schedule_day_id in schedule_day_ids
-        days.push $rootScope.data['schedule_days'][schedule_day_id].name
-    days = days.sort (a, b) ->
-      week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-      week_days.indexOf(a) - week_days.indexOf(b)
-    if days.length == 5 and days[0] == 'Monday' and days[days.length-1] == 'Friday'
-      return days[0] + ' - ' + days[days.length-1]
-    if days.length == 2 and days[0] == 'Saturday' and days[days.length-1] == 'Sunday'
-      return days[0] + ' - ' + days[days.length-1]
-    if days.length == 7
-      return 'All week'
-    if days.length == 7
-      return 'None'
-    return EntitiesToString(days)
+ScheduleDaysToText = (DataService) ->
+  (days) ->
+    if days?
+      allDays = DataService.filterData.days
+      days = days.sort (a, b) -> allDays.indexOf(a) - allDays.indexOf(b)
+      if days.length == 5 and days[0] == 'Monday' and days[days.length-1] == 'Friday'
+        return 'Monday - Friday'
+      else if days.length == 2 and days[0] == 'Saturday' and days[days.length-1] == 'Sunday'
+        return 'Saturday - Sunday'
+      else if days.length == 7
+        return 'All week'
+      else if days.length == 0
+        return 'None'
+      else
+        return EntitiesToString(days)
 
-ScheduleDayIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleDayIdsToText', ScheduleDayIdsToText)
+ScheduleDaysToText.$inject = ['DataService']
+angular.module('CCR').filter('scheduleDaysToText', ScheduleDaysToText)
 
 ScheduleWeekIdsToText = ($rootScope) ->
   (schedule_week_ids) ->
@@ -361,13 +351,13 @@ ScheduleWeekIdsToText = ($rootScope) ->
 ScheduleWeekIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('scheduleWeekIdsToText', ScheduleWeekIdsToText)
 
-ScheduleYearIdToText = ($rootScope) ->
-  (schedule_year_id) ->
-    if $rootScope.data['schedule_years'][schedule_year_id]?
-      $rootScope.data['schedule_years'][schedule_year_id].name
+ScheduleYearValueToLabel = (DataService) ->
+  (value) ->
+    sched = DataService.filterData.yearlySchedules.find((sched) -> sched.value == value)
+    sched.label if sched
 
-ScheduleYearIdToText.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleYearIdToText', ScheduleYearIdToText)
+ScheduleYearValueToLabel.$inject = ['DataService']
+angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
 NeighborhoodIdsToText = ($rootScope) ->
   (neighborhood_ids) ->
@@ -380,19 +370,6 @@ NeighborhoodIdsToText = ($rootScope) ->
 
 NeighborhoodIdsToText.$inject = ['$rootScope']
 angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
-
-ZipCodeIdsToText = ($rootScope) ->
-  (zip_code_ids) ->
-    zip_codes = []
-    if zip_code_ids? and zip_code_ids
-      for zip_code_id in zip_code_ids
-        if $rootScope.data['zip_codes'][zip_code_id]
-          zip_codes.push $rootScope.data['zip_codes'][zip_code_id].zip
-    return EntitiesToString(zip_codes)
-
-ZipCodeIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('zipCodeIdsToText', ZipCodeIdsToText)
-
 
 PottyTraining = ($rootScope) ->
   (provider_attributes) ->
