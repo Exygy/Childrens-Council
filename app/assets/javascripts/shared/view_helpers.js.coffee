@@ -32,14 +32,6 @@ ProviderIsFacility = ($rootScope, provider) ->
   else
     return false
 
-LanguageIdToName = ($rootScope) ->
-  (language_id) ->
-    if $rootScope.data['languages'][language_id]
-      $rootScope.data['languages'][language_id].name
-
-LanguageIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('languageIdToName', LanguageIdToName)
-
 StateIdToName = ($rootScope) ->
   (state_id) ->
     if $rootScope.data['states'][state_id]
@@ -62,22 +54,6 @@ CityIdToName = ($rootScope) ->
 
 CityIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('cityIdToName', CityIdToName)
-
-ZipCodeIdToName = ($rootScope) ->
-  (zip_code_id) ->
-    if $rootScope.data['zip_codes'][zip_code_id]
-      $rootScope.data['zip_codes'][zip_code_id].zip
-
-ZipCodeIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('zipCodeIdToName', ZipCodeIdToName)
-
-ScheduleDayIdToName = ($rootScope) ->
-  (schedule_day_id) ->
-    if $rootScope.data['schedule_days'][schedule_day_id]
-      $rootScope.data['schedule_days'][schedule_day_id].name
-
-ScheduleDayIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleDayIdToName', ScheduleDayIdToName)
 
 FormatPhoneNumber = () ->
   (tel) ->
@@ -140,20 +116,6 @@ Attribute = () ->
   (attribute) ->
     _.kebabCase(attribute)
 angular.module('CCR').filter('attribute', Attribute)
-
-SortDays = () ->
-  (days) ->
-    _.sortBy days, (day) ->
-      [
-        'monday'
-        'tuesday'
-        'wednesday'
-        'thursday'
-        'friday'
-        'saturday'
-        'sunday'
-      ].indexOf(day.name.toLowerCase())
-angular.module('CCR').filter('sortDays', SortDays)
 
 ProgramsWithProgramTypeByName = ($rootScope) ->
   (programs, program_type_name) ->
@@ -239,8 +201,6 @@ FormatProviderStartEndDate = ->
 
 FormatProviderStartEndDate.$inject = []
 angular.module('CCR').filter('formatProviderStartEndDate', FormatProviderStartEndDate)
-
-
 
 ProviderIsClosed = () ->
   (shiftDays, current_day) ->
@@ -351,18 +311,6 @@ ScheduleYearValueToLabel = (DataService) ->
 ScheduleYearValueToLabel.$inject = ['DataService']
 angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
-NeighborhoodIdsToText = ($rootScope) ->
-  (neighborhood_ids) ->
-    neighborhoods = []
-    if neighborhood_ids? and neighborhood_ids
-      for neighborhood_id in neighborhood_ids
-        if $rootScope.data['neighborhoods'][neighborhood_id]
-          neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
-    return EntitiesToString(neighborhoods)
-
-NeighborhoodIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
-
 PottyTraining = ($rootScope) ->
   (provider_attributes) ->
     potty_training = false
@@ -374,7 +322,6 @@ PottyTraining = ($rootScope) ->
 
 PottyTraining.$inject = ['$rootScope']
 angular.module('CCR').filter('pottyTraining', PottyTraining)
-
 
 ToAgeGroupType = (DataService) ->
   (age_group_type_id) ->

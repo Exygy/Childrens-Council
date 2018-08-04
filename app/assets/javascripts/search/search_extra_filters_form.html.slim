@@ -39,10 +39,10 @@ section.margin-top-2
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Care Approach
-  .repeater-container ng-repeat="careApproach in filters.careApproaches"
+  .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
     select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
       option value="" Select Care Approach
-      option ng-repeat="careApproach in (filterData.careApproaches | orderBy)" value="{{ careApproach }}"
+      option ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" value="{{ careApproach }}"
         ' {{ careApproach }}
     button.inline.repeater type="button" aria-label="Remove care approach" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
   button.inline type="button" aria-label="Add another care approach" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
@@ -52,27 +52,27 @@ section.margin-top-2
   .repeater-container ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
     select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.attributesLocal3[$index]"
       option value="" Select Language Immersion Program
-      option ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy)" value="{{ languageProgram }}"
+      option ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy) track by $index" value="{{ languageProgram }}"
         ' {{ languageProgram }}
     button.inline.repeater type="button" aria-label="Remove language immersion program" ng-show="$index > 0" ng-click="removeItem(filters.attributesLocal3, $index)" Remove
   button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.attributesLocal3) && filters.attributesLocal3.length < 3" ng-click="addItem(filters.attributesLocal3)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Languages Spoken
-  .repeater-container ng-repeat="language_id in filters.language_ids track by $index"
-    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.language_ids[$index]"
+  .repeater-container ng-repeat="language in filters.languages track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.languages[$index]"
       option value="" Select Spoken Language
-      option ng-repeat="language in data.languages_array track by $index" value="{{ language.id }}"
-        ' {{ language.name }}
-    button.inline.repeater type="button" aria-label="Remove spoken language" ng-show="$index > 0" ng-click="removeItem(filters.language_ids, $index)" Remove
-  button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.language_ids) && filters.language_ids.length < 3" ng-click="addItem(filters.language_ids)" Add another
+      option ng-repeat="language in filterData.languages track by $index" value="{{ language }}"
+        ' {{ language }}
+    button.inline.repeater type="button" aria-label="Remove spoken language" ng-show="$index > 0" ng-click="removeItem(filters.languages, $index)" Remove
+  button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.languages) && filters.languages.length < 3" ng-click="addItem(filters.languages)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Religious Program
-  .repeater-container ng-repeat="religiousProgram in filters.religiousPrograms"
+  .repeater-container ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
     select.radius id="religion-id-{{$index + 1}}" name="religion_id_{{$index + 1}}" ng-model="filters.religiousPrograms[$index]"
       option value="" Select Religious Program
-      option ng-repeat="religiousProgram in (filterData.religiousPrograms | orderBy)" value="{{ religiousProgram }}"
+      option ng-repeat="religiousProgram in (filterData.religiousPrograms | orderBy) track by $index" value="{{ religiousProgram }}"
         ' {{ religiousProgram }}
     button.inline.repeater type="button" aria-label="Remove religious program" ng-show="$index > 0" ng-click="removeItem(filters.religiousPrograms, $index)" Remove
   button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religiousPrograms) && filters.religiousPrograms.length < 3" ng-click="addItem(filters.religiousPrograms)" Add another

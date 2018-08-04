@@ -6,6 +6,7 @@ DataService = ($rootScope, HttpService) ->
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
+    languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
@@ -51,6 +52,7 @@ DataService = ($rootScope, HttpService) ->
     attributesLocal3: [''] # contains language immersion program names
     generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
+    languages: ['']
     religiousPrograms: ['']
     typeOfCare: []
     zip: ['']
@@ -58,7 +60,6 @@ DataService = ($rootScope, HttpService) ->
     co_op: null
     meals_included: null
     potty_training: null
-    language_ids: ['']
     subsidy_ids: []
   }
 
@@ -66,10 +67,11 @@ DataService = ($rootScope, HttpService) ->
 
   @setSearchLocation = (params) ->
     if @settings.locationType == 'near_address'
-      if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
-        params.locationA = params.near_address + ', San Francisco, CA'
-      else
-        params.locationA = params.near_address
+      # Temporarily disincluding the locationA field until we implement geocoding
+      # if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
+      #   params.locationA = params.near_address + ', San Francisco, CA'
+      # else
+      #   params.locationA = params.near_address
       delete params.zip
       delete params.attributesLocal17
     else if @settings.locationType == 'zipCodes'
@@ -80,11 +82,11 @@ DataService = ($rootScope, HttpService) ->
       # will be updated to allow searching by multiple zip codes by the
       # time we make this app live.
       params.zip = params.zip[0]
-      delete params.near_address
       delete params.attributesLocal17
     else if @settings.locationType == 'neighborhoods'
-      delete params.near_address
       delete params.zip
+
+    delete params.near_address
 
   @setTypeOfCare = (params) ->
     if params.typeOfCare.length == 1
@@ -123,8 +125,9 @@ DataService = ($rootScope, HttpService) ->
     # those params should be children specific when the feature is built
     search_params.ageGroupServiced = @parent.children[0].age_weeks
     search_params.yearlySchedule = @parent.children[0].yearlySchedule
-    search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+    # TODO: set shift info in params
+    # search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
 
     @setSearchLocation(search_params)
     @setTypeOfCare(search_params)
