@@ -307,6 +307,18 @@ ScheduleYearValueToLabel = (DataService) ->
 ScheduleYearValueToLabel.$inject = ['DataService']
 angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
+MealsToFilterTitle = () ->
+  (value) ->
+    if value
+      if value == 'dummy value for no meals'
+        'No'
+      else
+        'Yes'
+    else
+      'Any'
+
+angular.module('CCR').filter('mealsToFilterTitle', MealsToFilterTitle)
+
 PottyTraining = ($rootScope) ->
   (provider_attributes) ->
     potty_training = false

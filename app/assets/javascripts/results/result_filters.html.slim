@@ -47,7 +47,7 @@
 
       div ng-show="settings.show_more_filters"
         li
-          h4 Religous Program
+          h4 Religious Program
           ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
             li ng-repeat="religiousPrograms in filters.religiousPrograms"
               ' {{ religiousProgram }}
@@ -61,7 +61,7 @@
         li
           h4 Meals Included
           p
-            ' {{ filters.meals_included | booleanFilterToText }}
+            ' {{ filters.meals | mealsToFilterTitle }}
 
         li
           h4 Potty Training

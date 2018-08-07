@@ -1,6 +1,24 @@
 <% api_service = NdsApiService.new %>
 
 DataService = ($rootScope, HttpService) ->
+  @formatMealsForFilter = (mealsList) ->
+    [
+      {
+        label: 'No Preference'
+        value: null
+      },
+      {
+        label: 'Yes'
+        value: mealsList
+      },
+      # TODO: Find out how we can query the API for no meals offered. The value
+      # here is a dummy value until we figure that out.
+      {
+        label: 'No'
+        value: ['dummy value for no meals']
+      }
+    ]
+
   @providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
 
@@ -12,6 +30,7 @@ DataService = ($rootScope, HttpService) ->
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    meals: @formatMealsForFilter(<%= api_service.filter_data('meals') %>)
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
@@ -58,12 +77,12 @@ DataService = ($rootScope, HttpService) ->
     generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
     languages: ['']
+    meals: null
     religiousPrograms: ['']
     typeOfCare: []
     zip: ['']
     near_address: null
     co_op: null
-    meals_included: null
     potty_training: null
   }
 

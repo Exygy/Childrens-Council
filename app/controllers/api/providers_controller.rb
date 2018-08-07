@@ -80,7 +80,6 @@ module Api
       params.require(:providers).permit(
         # :near_address,
         # :co_op,
-        # :meals_included,
         # :potty_training,
         # open_days: [],
         # schedule_week_ids: [],
@@ -93,6 +92,7 @@ module Api
         financialAssist: [],
         generalLocal2: [],
         languages: [],
+        meals: [],
         weeklySchedule: [],
       )
     end
