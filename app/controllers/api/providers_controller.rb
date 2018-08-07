@@ -80,7 +80,6 @@ module Api
       params.require(:providers).permit(
         # :near_address,
         # :co_op,
-        # :potty_training,
         # open_days: [],
         # schedule_week_ids: [],
         :ageGroupServiced,
@@ -89,6 +88,7 @@ module Api
         :zip,
         attributesLocal17: [],
         attributesLocal3: [],
+        environments: [],
         financialAssist: [],
         generalLocal2: [],
         languages: [],

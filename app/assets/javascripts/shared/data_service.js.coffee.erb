@@ -31,6 +31,7 @@ DataService = ($rootScope, HttpService) ->
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     meals: @formatMealsForFilter(<%= api_service.filter_data('meals') %>)
+    pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
@@ -73,17 +74,18 @@ DataService = ($rootScope, HttpService) ->
     ageGroupServiced: null
     attributesLocal17: [''] # contains neighborhood names
     attributesLocal3: [''] # contains language immersion program names
+    environments: []
     financialAssist: []
     generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
     languages: ['']
     meals: null
+    pottyTraining: null
     religiousPrograms: ['']
     typeOfCare: []
     zip: ['']
     near_address: null
     co_op: null
-    potty_training: null
   }
 
   @current_page = 1
@@ -138,6 +140,15 @@ DataService = ($rootScope, HttpService) ->
     delete params.religiousPrograms
     delete params.generalLocal2 if !params.generalLocal2.length
 
+  @setEnvironments = (params) ->
+    if params.pottyTraining
+      params.environments.push(params.pottyTraining)
+
+    if !params.environments.length
+      delete params.environments
+
+    delete params.pottyTraining
+
   @buildParent = ->
     @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
 
@@ -155,6 +166,7 @@ DataService = ($rootScope, HttpService) ->
     @setSearchLocation(search_params)
     @setTypeOfCare(search_params)
     @setPrograms(search_params)
+    @setEnvironments(search_params)
     search_params
 
   @cleanEmptyParams = (params) ->

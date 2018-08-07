@@ -89,15 +89,15 @@ section.margin-top-2
 section.margin-top-2
   h5.c-black Meals included in tuition
   #meals-included-panel.button-group
-    button type="button" ng-model="filters.meals" btn-radio="mealChoice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="mealChoice in filterData.meals"
-      | {{ mealChoice.label }}
+    button type="button" ng-model="filters.meals" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="choice in filterData.meals"
+      | {{ choice.label }}
 
 section.margin-top-2
   h5.c-black
     | Potty training support
     a.fa.fa-info-circle.c-base.margin-left-small tooltip="Provider supports with child's potty training" tooltip-placement="right"
   #potty-training-panel.button-group
-    button type="button" ng-model="filters.potty_training" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
-    button type="button" ng-model="filters.potty_training" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
+    button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="choice in filterData.pottyTraining"
+      | {{ choice.label }}
 
 span ng-include="'search/search_care_provider_type_filter.html'"
