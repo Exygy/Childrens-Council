@@ -46,6 +46,6 @@
   description: Full or partial tuition discount offered by private funding at school site.
   showInFilter: true
 -
-  label: Sibling Discount
-  value: Sibling Discount
+  label: Sibling discount
+  value: Sibling discount
   description: A discount is applied to the tuition rate when two or more children from a family are enrolled in the same program. The tuition discount amount varies per program.
