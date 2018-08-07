@@ -78,11 +78,10 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        # :near_address,
         # :co_op,
-        # open_days: [],
         # schedule_week_ids: [],
         :ageGroupServiced,
+        :locationA,
         :typeOfCare,
         :yearlySchedule,
         :zip,

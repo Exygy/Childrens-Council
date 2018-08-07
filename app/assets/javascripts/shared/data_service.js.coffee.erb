@@ -1,6 +1,6 @@
 <% api_service = NdsApiService.new %>
 
-DataService = ($rootScope, HttpService) ->
+DataService = ($rootScope, HttpService, GeocodingService) ->
   @formatMealsForFilter = (mealsList) ->
     [
       {
@@ -92,11 +92,8 @@ DataService = ($rootScope, HttpService) ->
 
   @setSearchLocation = (params) ->
     if @settings.locationType == 'near_address'
-      # Temporarily disincluding the locationA field until we implement geocoding
-      # if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
-      #   params.locationA = params.near_address + ', San Francisco, CA'
-      # else
-      #   params.locationA = params.near_address
+      if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
+        params.near_address += ', San Francisco, CA'
       delete params.zip
       delete params.attributesLocal17
     else if @settings.locationType == 'zipCodes'
@@ -108,10 +105,10 @@ DataService = ($rootScope, HttpService) ->
       # time we make this app live.
       params.zip = params.zip[0]
       delete params.attributesLocal17
+      delete params.near_address
     else if @settings.locationType == 'neighborhoods'
       delete params.zip
-
-    delete params.near_address
+      delete params.near_address
 
   @setTypeOfCare = (params) ->
     if params.typeOfCare.length == 1
@@ -167,6 +164,7 @@ DataService = ($rootScope, HttpService) ->
     @setTypeOfCare(search_params)
     @setPrograms(search_params)
     @setEnvironments(search_params)
+
     search_params
 
   @cleanEmptyParams = (params) ->
@@ -203,7 +201,8 @@ DataService = ($rootScope, HttpService) ->
     that = @
     that.data.providers = []
     that.data.is_loading = true
-    @serverRequest (response) ->
+    params = @httpParams()
+    serverRequestCallback = (response) ->
       if response.data
         that.data.providers = response.data.content
         that.data.totalProviders = response.data.totalElements
@@ -211,8 +210,17 @@ DataService = ($rootScope, HttpService) ->
       callback(response.data) if callback
       that.data.is_loading = false
 
-  @serverRequest = (callback) ->
-    HttpService.http @httpParams(), callback
+    searchParams = params.data.providers
+    if searchParams.near_address
+      GeocodingService.geocodeAddress(searchParams.near_address).then (coords) =>
+        searchParams.locationA = coords
+        delete searchParams.near_address
+        @serverRequest(params, serverRequestCallback)
+    else
+      @serverRequest(params, serverRequestCallback)
+
+  @serverRequest = (params, callback) ->
+    HttpService.http params, callback
 
   @resetData = ->
     @data.providers = []
@@ -220,5 +228,5 @@ DataService = ($rootScope, HttpService) ->
 
   @
 
-DataService.$inject = ['$rootScope', 'HttpService']
+DataService.$inject = ['$rootScope', 'HttpService', 'GeocodingService']
 angular.module('CCR').service('DataService', DataService)

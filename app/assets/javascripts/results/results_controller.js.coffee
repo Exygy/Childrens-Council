@@ -11,7 +11,6 @@ ResultsController = ($scope, $location, $state, $controller, $anchorScroll, Resu
   $ctrl.searchParams = ->
     return $location.search();
 
-
   # Init sticky sidebar nav after ng-includes loads sidebar markup
   # $scope.$on '$includeContentLoaded', (event, src) ->
   #   if src.indexOf 'result_filters' > -1
