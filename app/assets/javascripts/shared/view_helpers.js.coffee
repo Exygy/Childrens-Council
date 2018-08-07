@@ -214,18 +214,14 @@ ProviderIsClosed = () ->
 ProviderIsClosed.$inject = []
 angular.module('CCR').filter('providerIsClosed', ProviderIsClosed)
 
-SubsidiesToFilterTitle = ($rootScope) ->
-  (subsidy_ids) ->
-    if subsidy_ids and subsidy_ids.length and subsidy_ids[0] != ''
-      names = []
-      for subsidy_id in subsidy_ids
-        names.push $rootScope.data['subsidies'][subsidy_id].name
+FinancialAssistanceToFilterTitle = ->
+  (names) ->
+    if names && names.length && names[0] != ''
       EntitiesToString(names)
     else
       'Any (all options)'
 
-SubsidiesToFilterTitle.$inject = ['$rootScope']
-angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
+angular.module('CCR').filter('financialAssistanceToFilterTitle', FinancialAssistanceToFilterTitle)
 
 ProviderName = ($rootScope) ->
   (provider) ->

@@ -82,18 +82,18 @@ module Api
         # :co_op,
         # :meals_included,
         # :potty_training,
-        # subsidy_ids: [],
+        # open_days: [],
+        # schedule_week_ids: [],
         :ageGroupServiced,
         :typeOfCare,
         :yearlySchedule,
         :zip,
         attributesLocal17: [],
         attributesLocal3: [],
+        financialAssist: [],
         generalLocal2: [],
         languages: [],
-        # open_days: [],
         weeklySchedule: [],
-        # schedule_week_ids: [],
       )
     end
 

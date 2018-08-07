@@ -1,10 +1,14 @@
 <% api_service = NdsApiService.new %>
 
 DataService = ($rootScope, HttpService) ->
+  @providerData =
+    financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
+
   @filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    financialAssistance: @providerData.financialAssistance.filter((a) -> a.showInFilter)
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
@@ -50,6 +54,7 @@ DataService = ($rootScope, HttpService) ->
     ageGroupServiced: null
     attributesLocal17: [''] # contains neighborhood names
     attributesLocal3: [''] # contains language immersion program names
+    financialAssist: []
     generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
     languages: ['']
@@ -60,7 +65,6 @@ DataService = ($rootScope, HttpService) ->
     co_op: null
     meals_included: null
     potty_training: null
-    subsidy_ids: []
   }
 
   @current_page = 1

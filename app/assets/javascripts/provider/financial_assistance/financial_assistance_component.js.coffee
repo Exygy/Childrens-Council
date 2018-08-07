@@ -1,11 +1,13 @@
-FinancialAssistanceController = ($scope, FinancialAssistanceService) ->
+FinancialAssistanceController = ($scope, DataService) ->
 
   @$onInit = () ->
-    $scope.descriptions = FinancialAssistanceService.descriptions
+    $scope.financialAssistance = DataService.providerData.financialAssistance
+    $scope.getFinancialAssist = (label) ->
+      DataService.providerData.financialAssistance.find((a) -> a.label == label)
 
   return @
 
-FinancialAssistanceController.$inject = ['$scope', 'FinancialAssistanceService']
+FinancialAssistanceController.$inject = ['$scope', 'DataService']
 
 angular
   .module('CCR')
