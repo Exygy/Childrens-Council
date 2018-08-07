@@ -21,33 +21,33 @@
       li
         h4 Financial Assistance
         p
-          | {{ filters.subsidy_ids | subsidiesToFilterTitle }}
-          span ng-hide="filters.subsidy_ids.length"
+          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
+          span ng-hide="filters.financialAssistance.length"
 
       li
         h4 Care Approach
         ul.no-bullet ng-if="filters.careApproaches.length && filters.careApproaches[0].length"
-          li ng-repeat="careApproach in filters.careApproaches"
+          li ng-repeat="careApproach in filters.careApproaches track by $index"
             ' {{ careApproach }}
         p ng-hide="filters.careApproaches.length && filters.careApproaches[0].length" Any
 
       li
         h4 Language Program
         ul.no-bullet ng-if="filters.attributesLocal3.length && filters.attributesLocal3[0].length"
-          li ng-repeat="languageProgram in filters.attributesLocal3"
+          li ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
             ' {{ languageProgram }}
         p ng-hide="filters.attributesLocal3.length && filters.attributesLocal3[0].length" Any
 
       li
         h4 Languages Spoken
-        ul.no-bullet ng-if="filters.language_ids.length && filters.language_ids[0].length"
-          li ng-repeat="language_id in filters.language_ids"
-            ' {{ language_id | languageIdToName }}
-        p ng-hide="filters.language_ids.length && filters.language_ids[0].length" Any
+        ul.no-bullet ng-if="filters.languages.length && filters.languages[0].length"
+          li ng-repeat="language in filters.languages track by $index"
+            ' {{ language }}
+        p ng-hide="filters.languages.length && filters.languages[0].length" Any
 
       div ng-show="settings.show_more_filters"
         li
-          h4 Religous Program
+          h4 Religious Program
           ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
             li ng-repeat="religiousPrograms in filters.religiousPrograms"
               ' {{ religiousProgram }}
@@ -61,12 +61,12 @@
         li
           h4 Meals Included
           p
-            ' {{ filters.meals_included | booleanFilterToText }}
+            ' {{ filters.meals | mealsToFilterTitle }}
 
         li
           h4 Potty Training
           p
-            ' {{ filters.potty_training | booleanFilterToText }}
+            ' {{ filters.pottyTraining | booleanFilterToText }}
 
         li
           h4 Provider Type

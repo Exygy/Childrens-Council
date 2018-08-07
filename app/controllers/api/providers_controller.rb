@@ -78,24 +78,21 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        # :near_address,
         # :co_op,
-        # :meals_included,
-        # :potty_training,
-        #
-        # subsidy_ids: [],
-        #
+        # schedule_week_ids: [],
         :ageGroupServiced,
+        :locationA,
         :typeOfCare,
         :yearlySchedule,
         :zip,
-        # language_ids: [],
         attributesLocal17: [],
         attributesLocal3: [],
+        environments: [],
+        financialAssist: [],
         generalLocal2: [],
-        # open_days: [],
+        languages: [],
+        meals: [],
         weeklySchedule: [],
-        # schedule_week_ids: [],
       )
     end
 

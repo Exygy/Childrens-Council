@@ -32,14 +32,6 @@ ProviderIsFacility = ($rootScope, provider) ->
   else
     return false
 
-LanguageIdToName = ($rootScope) ->
-  (language_id) ->
-    if $rootScope.data['languages'][language_id]
-      $rootScope.data['languages'][language_id].name
-
-LanguageIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('languageIdToName', LanguageIdToName)
-
 StateIdToName = ($rootScope) ->
   (state_id) ->
     if $rootScope.data['states'][state_id]
@@ -62,22 +54,6 @@ CityIdToName = ($rootScope) ->
 
 CityIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('cityIdToName', CityIdToName)
-
-ZipCodeIdToName = ($rootScope) ->
-  (zip_code_id) ->
-    if $rootScope.data['zip_codes'][zip_code_id]
-      $rootScope.data['zip_codes'][zip_code_id].zip
-
-ZipCodeIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('zipCodeIdToName', ZipCodeIdToName)
-
-ScheduleDayIdToName = ($rootScope) ->
-  (schedule_day_id) ->
-    if $rootScope.data['schedule_days'][schedule_day_id]
-      $rootScope.data['schedule_days'][schedule_day_id].name
-
-ScheduleDayIdToName.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleDayIdToName', ScheduleDayIdToName)
 
 FormatPhoneNumber = () ->
   (tel) ->
@@ -140,20 +116,6 @@ Attribute = () ->
   (attribute) ->
     _.kebabCase(attribute)
 angular.module('CCR').filter('attribute', Attribute)
-
-SortDays = () ->
-  (days) ->
-    _.sortBy days, (day) ->
-      [
-        'monday'
-        'tuesday'
-        'wednesday'
-        'thursday'
-        'friday'
-        'saturday'
-        'sunday'
-      ].indexOf(day.name.toLowerCase())
-angular.module('CCR').filter('sortDays', SortDays)
 
 ProgramsWithProgramTypeByName = ($rootScope) ->
   (programs, program_type_name) ->
@@ -240,8 +202,6 @@ FormatProviderStartEndDate = ->
 FormatProviderStartEndDate.$inject = []
 angular.module('CCR').filter('formatProviderStartEndDate', FormatProviderStartEndDate)
 
-
-
 ProviderIsClosed = () ->
   (shiftDays, current_day) ->
     closed = true
@@ -254,18 +214,14 @@ ProviderIsClosed = () ->
 ProviderIsClosed.$inject = []
 angular.module('CCR').filter('providerIsClosed', ProviderIsClosed)
 
-SubsidiesToFilterTitle = ($rootScope) ->
-  (subsidy_ids) ->
-    if subsidy_ids and subsidy_ids.length and subsidy_ids[0] != ''
-      names = []
-      for subsidy_id in subsidy_ids
-        names.push $rootScope.data['subsidies'][subsidy_id].name
+FinancialAssistanceToFilterTitle = ->
+  (names) ->
+    if names && names.length && names[0] != ''
       EntitiesToString(names)
     else
       'Any (all options)'
 
-SubsidiesToFilterTitle.$inject = ['$rootScope']
-angular.module('CCR').filter('subsidiesToFilterTitle', SubsidiesToFilterTitle)
+angular.module('CCR').filter('financialAssistanceToFilterTitle', FinancialAssistanceToFilterTitle)
 
 ProviderName = ($rootScope) ->
   (provider) ->
@@ -351,17 +307,17 @@ ScheduleYearValueToLabel = (DataService) ->
 ScheduleYearValueToLabel.$inject = ['DataService']
 angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
-NeighborhoodIdsToText = ($rootScope) ->
-  (neighborhood_ids) ->
-    neighborhoods = []
-    if neighborhood_ids? and neighborhood_ids
-      for neighborhood_id in neighborhood_ids
-        if $rootScope.data['neighborhoods'][neighborhood_id]
-          neighborhoods.push $rootScope.data['neighborhoods'][neighborhood_id].name
-    return EntitiesToString(neighborhoods)
+MealsToFilterTitle = () ->
+  (value) ->
+    if value
+      if value == 'dummy value for no meals'
+        'No'
+      else
+        'Yes'
+    else
+      'Any'
 
-NeighborhoodIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('neighborhoodIdsToText', NeighborhoodIdsToText)
+angular.module('CCR').filter('mealsToFilterTitle', MealsToFilterTitle)
 
 PottyTraining = ($rootScope) ->
   (provider_attributes) ->
@@ -374,7 +330,6 @@ PottyTraining = ($rootScope) ->
 
 PottyTraining.$inject = ['$rootScope']
 angular.module('CCR').filter('pottyTraining', PottyTraining)
-
 
 ToAgeGroupType = (DataService) ->
   (age_group_type_id) ->

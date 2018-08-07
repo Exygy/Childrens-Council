@@ -1,8 +1,10 @@
 class NdsApiService
   AGENCY_OPTIONS = {
+    4 => :languages,
     8 => :care_approaches,
     9 => :language_immersion_programs,
-    15 => :neighborhoods
+    15 => :neighborhoods,
+    111 => :meals
   }
 
   def fetch_filter_data(id)

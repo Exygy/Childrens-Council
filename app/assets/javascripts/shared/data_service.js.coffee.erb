@@ -1,12 +1,37 @@
 <% api_service = NdsApiService.new %>
 
-DataService = ($rootScope, HttpService) ->
+DataService = ($rootScope, HttpService, GeocodingService) ->
+  @formatMealsForFilter = (mealsList) ->
+    [
+      {
+        label: 'No Preference'
+        value: null
+      },
+      {
+        label: 'Yes'
+        value: mealsList
+      },
+      # TODO: Find out how we can query the API for no meals offered. The value
+      # here is a dummy value until we figure that out.
+      {
+        label: 'No'
+        value: ['dummy value for no meals']
+      }
+    ]
+
+  @providerData =
+    financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
+
   @filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    financialAssistance: @providerData.financialAssistance.filter((a) -> a.showInFilter)
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
+    languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    meals: @formatMealsForFilter(<%= api_service.filter_data('meals') %>)
+    pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
@@ -49,17 +74,18 @@ DataService = ($rootScope, HttpService) ->
     ageGroupServiced: null
     attributesLocal17: [''] # contains neighborhood names
     attributesLocal3: [''] # contains language immersion program names
+    environments: []
+    financialAssist: []
     generalLocal2: [] # combines care approach and religious program names
     careApproaches: ['']
+    languages: ['']
+    meals: null
+    pottyTraining: null
     religiousPrograms: ['']
     typeOfCare: []
     zip: ['']
     near_address: null
     co_op: null
-    meals_included: null
-    potty_training: null
-    language_ids: ['']
-    subsidy_ids: []
   }
 
   @current_page = 1
@@ -67,9 +93,7 @@ DataService = ($rootScope, HttpService) ->
   @setSearchLocation = (params) ->
     if @settings.locationType == 'near_address'
       if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
-        params.locationA = params.near_address + ', San Francisco, CA'
-      else
-        params.locationA = params.near_address
+        params.near_address += ', San Francisco, CA'
       delete params.zip
       delete params.attributesLocal17
     else if @settings.locationType == 'zipCodes'
@@ -80,11 +104,11 @@ DataService = ($rootScope, HttpService) ->
       # will be updated to allow searching by multiple zip codes by the
       # time we make this app live.
       params.zip = params.zip[0]
-      delete params.near_address
       delete params.attributesLocal17
-    else if @settings.locationType == 'neighborhoods'
       delete params.near_address
+    else if @settings.locationType == 'neighborhoods'
       delete params.zip
+      delete params.near_address
 
   @setTypeOfCare = (params) ->
     if params.typeOfCare.length == 1
@@ -113,6 +137,15 @@ DataService = ($rootScope, HttpService) ->
     delete params.religiousPrograms
     delete params.generalLocal2 if !params.generalLocal2.length
 
+  @setEnvironments = (params) ->
+    if params.pottyTraining
+      params.environments.push(params.pottyTraining)
+
+    if !params.environments.length
+      delete params.environments
+
+    delete params.pottyTraining
+
   @buildParent = ->
     @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
 
@@ -123,12 +156,15 @@ DataService = ($rootScope, HttpService) ->
     # those params should be children specific when the feature is built
     search_params.ageGroupServiced = @parent.children[0].age_weeks
     search_params.yearlySchedule = @parent.children[0].yearlySchedule
-    search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+    # TODO: set shift info in params
+    # search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
 
     @setSearchLocation(search_params)
     @setTypeOfCare(search_params)
     @setPrograms(search_params)
+    @setEnvironments(search_params)
+
     search_params
 
   @cleanEmptyParams = (params) ->
@@ -165,7 +201,8 @@ DataService = ($rootScope, HttpService) ->
     that = @
     that.data.providers = []
     that.data.is_loading = true
-    @serverRequest (response) ->
+    params = @httpParams()
+    serverRequestCallback = (response) ->
       if response.data
         that.data.providers = response.data.content
         that.data.totalProviders = response.data.totalElements
@@ -173,8 +210,17 @@ DataService = ($rootScope, HttpService) ->
       callback(response.data) if callback
       that.data.is_loading = false
 
-  @serverRequest = (callback) ->
-    HttpService.http @httpParams(), callback
+    searchParams = params.data.providers
+    if searchParams.near_address
+      GeocodingService.geocodeAddress(searchParams.near_address).then (coords) =>
+        searchParams.locationA = coords
+        delete searchParams.near_address
+        @serverRequest(params, serverRequestCallback)
+    else
+      @serverRequest(params, serverRequestCallback)
+
+  @serverRequest = (params, callback) ->
+    HttpService.http params, callback
 
   @resetData = ->
     @data.providers = []
@@ -182,5 +228,5 @@ DataService = ($rootScope, HttpService) ->
 
   @
 
-DataService.$inject = ['$rootScope', 'HttpService']
+DataService.$inject = ['$rootScope', 'HttpService', 'GeocodingService']
 angular.module('CCR').service('DataService', DataService)
