@@ -17,7 +17,7 @@ ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
     unless childId?
       childId = ResultsService.parent.children.length
     ResultsService.parent.children[childId] = $scope.modal_filters
-    ResultsService.postSearch()
+    SearchService.postSearch()
     $modalInstance.close()
 
   $scope.cancel = ->

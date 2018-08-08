@@ -12,7 +12,7 @@ CareTypeIdsToNames = (DataService) ->
     if ids
       ids.forEach((id) ->
         typeName = DataService.filterData.typesOfCare.find((type) -> type.id == id)
-        careTypeNames.push(typeName)
+        careTypeNames.push(typeName.name)
       )
     EntitiesToString(careTypeNames)
 
@@ -257,6 +257,8 @@ EntitiesToString = (entities) ->
       string += if index+2 == entities.length then ' and ' else ', '
   if string != '' then string else 'None'
 
+angular.module('CCR').filter('entitiesToString', () -> (entities) -> EntitiesToString(entities))
+
 BooleanFilterToText = ->
   (bool_filter) ->
     if bool_filter?
@@ -308,9 +310,9 @@ ScheduleYearValueToLabel.$inject = ['DataService']
 angular.module('CCR').filter('scheduleYearValueToLabel', ScheduleYearValueToLabel)
 
 MealsToFilterTitle = () ->
-  (value) ->
-    if value
-      if value == 'dummy value for no meals'
+  (meals) ->
+    if meals && meals.length
+      if meals[0] == 'dummy value for no meals'
         'No'
       else
         'Yes'

@@ -1,34 +1,34 @@
 section.margin-top-2
   h5.c-black Desired locations
   tabset.tabs-inline role="tablist"
-    tab ng-click="setLocationType('near_address')" active="locationTabs.near_address.active" heading="Closest to an address"
+    tab ng-click="setLocationType('address')" active="locationTabs.address.active" heading="Closest to an address"
       #address-tab.row role="tabpanel"
         .medium-8.columns
           label.show-for-sr for="near-address" Search by distance from an address in San Francisco
-          input#near-address type="text" placeholder="Enter any address in San Francisco" name="near_address" ng-model="filters.near_address"
+          input#near-address type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="filters.address"
           .address-city , San Francisco, CA
 
     tab ng-click="setLocationType('zipCodes')" active="locationTabs.zipCodes.active" heading="By zip code"
       #zip-code-tab.row role="tabpanel"
         .medium-5.columns
-          .repeater-container ng-repeat="zipCode in filters.zip track by $index"
-            ui-select.repeater-input ng-model="filters.zip[$index]" theme="selectize" aria-label="Select zip code"
+          .repeater-container ng-repeat="zipCode in filters.zipCodes track by $index"
+            ui-select.repeater-input ng-model="filters.zipCodes[$index]" theme="selectize" aria-label="Select zip code"
                 ui-select-match placeholder="Zip code" allow-clear="true"
                   | {{$select.selected}}
                 ui-select-choices repeat="zipCode in (filterData.zipCodes | filter: $select.search)"
                   | {{zipCode}}
 
-            button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zip, $index)" Remove
-          button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zip) && filters.zip.length < 3" ng-click="addItem(filters.zip)" Add another
+            button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zipCodes, $index)" Remove
+          button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zipCodes) && filters.zipCodes.length < 3" ng-click="addItem(filters.zipCodes)" Add another
 
     tab ng-click="setLocationType('neighborhoods')" active="locationTabs.neighborhoods.active" heading="By neighborhood" tt="{{ settings.locationType == 'neighborhoods' }}"
       #neighborhood-tab.row role="tabpanel"
         .medium-7.columns
-          .repeater-container ng-repeat="neighborhood in filters.attributesLocal17 track by $index"
+          .repeater-container ng-repeat="neighborhood in filters.neighborhoods track by $index"
             label.show-for-sr for="neighborhood-{{$index + 1}}" Search by neighborhood
-            select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="filters.attributesLocal17[$index]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+            select.radius id="neighborhood-{{$index + 1}}" name="neighborhood_{{$index + 1}}" ng-model="filters.neighborhoods[$index]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
 
               option value="" Select Neighborhood
 
-            button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(filters.attributesLocal17, $index)" Remove
-          button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(filters.attributesLocal17) && filters.attributesLocal17.length < 3" ng-click="addItem(filters.attributesLocal17)" Add another
+            button.inline.repeater type="button" aria-label="Remove neighborhood" ng-show="$index > 0" ng-click="removeItem(filters.neighborhoods, $index)" Remove
+          button.inline type="button" aria-label="Add another neighborhood" ng-show="hasFinalValue(filters.neighborhoods) && filters.neighborhoods.length < 3" ng-click="addItem(filters.neighborhoods)" Add another

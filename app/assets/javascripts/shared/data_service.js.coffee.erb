@@ -37,6 +37,21 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
 
+  @filters =
+    address: null
+    ageGroupServiced: null
+    attributesLocal3: [''] # contains language immersion program names
+    financialAssist: []
+    careApproaches: ['']
+    languages: ['']
+    meals: null
+    neighborhoods: ['']
+    pottyTraining: null
+    religiousPrograms: ['']
+    typeOfCare: []
+    zipCodes: ['']
+    co_op: null
+
   @data = {
     totalProviders: 0
     providersPerPage: 15
@@ -45,7 +60,7 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
   }
 
   @settings = {
-    locationType: 'near_address'
+    locationType: 'address'
   }
 
   @parent = {
@@ -70,32 +85,13 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
     ]
   }
 
-  @filters = {
-    ageGroupServiced: null
-    attributesLocal17: [''] # contains neighborhood names
-    attributesLocal3: [''] # contains language immersion program names
-    environments: []
-    financialAssist: []
-    generalLocal2: [] # combines care approach and religious program names
-    careApproaches: ['']
-    languages: ['']
-    meals: null
-    pottyTraining: null
-    religiousPrograms: ['']
-    typeOfCare: []
-    zip: ['']
-    near_address: null
-    co_op: null
-  }
-
   @current_page = 1
 
+  # Rename location params to NDS API names, and ensure addresses have SF in them.
   @setSearchLocation = (params) ->
-    if @settings.locationType == 'near_address'
-      if params.near_address and params.near_address.indexOf(', San Francisco, CA') == -1
-        params.near_address += ', San Francisco, CA'
-      delete params.zip
-      delete params.attributesLocal17
+    if @settings.locationType == 'address'
+      if params.address and params.address.indexOf(', San Francisco, CA') == -1
+        params.address += ', San Francisco, CA'
     else if @settings.locationType == 'zipCodes'
       # We are allowing users to select multiple zip codes in the form,
       # but the NDS API does not yet support searching by multiple zip
@@ -103,12 +99,14 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
       # for now. We are keeping the form as-is because we believe the API
       # will be updated to allow searching by multiple zip codes by the
       # time we make this app live.
-      params.zip = params.zip[0]
-      delete params.attributesLocal17
-      delete params.near_address
+      params.zip = params.zipCodes[0]
+      delete params.address
     else if @settings.locationType == 'neighborhoods'
-      delete params.zip
-      delete params.near_address
+      params.attributesLocal17 = params.neighborhoods
+      delete params.address
+
+    delete params.neighborhoods
+    delete params.zipCodes
 
   @setTypeOfCare = (params) ->
     if params.typeOfCare.length == 1
@@ -127,6 +125,8 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
   # The API field used to search for care approaches and religious programs
   # is the same, so we concatenate these names into a single list.
   @setPrograms = (params) ->
+    params.generalLocal2 = []
+
     if params.careApproaches.length && params.careApproaches[0]
       params.generalLocal2 = params.generalLocal2.concat(params.careApproaches)
 
@@ -139,10 +139,7 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
 
   @setEnvironments = (params) ->
     if params.pottyTraining
-      params.environments.push(params.pottyTraining)
-
-    if !params.environments.length
-      delete params.environments
+      params.environments = [params.pottyTraining]
 
     delete params.pottyTraining
 
@@ -211,10 +208,10 @@ DataService = ($rootScope, HttpService, GeocodingService) ->
       that.data.is_loading = false
 
     searchParams = params.data.providers
-    if searchParams.near_address
-      GeocodingService.geocodeAddress(searchParams.near_address).then (coords) =>
+    if searchParams.address
+      GeocodingService.geocodeAddress(searchParams.address).then (coords) =>
         searchParams.locationA = coords
-        delete searchParams.near_address
+        delete searchParams.address
         @serverRequest(params, serverRequestCallback)
     else
       @serverRequest(params, serverRequestCallback)
