@@ -8,7 +8,7 @@ module CollectReferrals
   def create_referral_log
     ReferralLog.create(
       params: params,
-      parent: @current_parent,
+      parent: @current_parent
     )
   end
 end
