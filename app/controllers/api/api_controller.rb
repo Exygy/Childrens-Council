@@ -1,7 +1,7 @@
 module Api
   class ApiController < ApplicationController
-    # before_action :check_parent_credentials
-    # after_action :send_apikey
+    before_action :check_parent_credentials
+    after_action :send_apikey
 
     private
 
@@ -63,17 +63,7 @@ module Api
           :full_name,
           :subscribe,
           :found_option_id,
-          # :agree,
-          parents_care_reasons_attributes: [
-            :care_reason_id
-          ],
-          parents_care_types: [
-            :type
-          ],
-          children: [
-            :age_weeks,
-            :yearlySchedule,
-          ])
+        )
       else
         {}
       end

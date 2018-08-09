@@ -1,14 +1,14 @@
 SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.filterData = SearchService.filterData
-  $scope.parent = SearchService.parent
   $scope.filters = SearchService.filters
+  $scope.parent = SearchService.parent
   $scope.settings = SearchService.settings
   $scope.settings.contact_type = ''
   $scope.settings.show_why_asking = false
   $scope.loading = SearchService.data.is_loading
   $scope.locationTabs =
-    near_address:
-      active: $scope.settings.locationType == 'near_address'
+    address:
+      active: $scope.settings.locationType == 'address'
     zipCodes:
       active: $scope.settings.locationType == 'zipCodes'
     neighborhoods:
@@ -22,8 +22,10 @@ SearchController = ($scope, $state, $controller, SearchService) ->
     validateForm()
     if $scope.searchForm.$valid
       $scope.loading = true
-      SearchService.postSearch () ->
-        $state.go('results')
+      SearchService.postSearch(
+        () -> $state.go('results'),
+        {deleteApiKey: true, reset: true},
+      )
     else
       $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800);
     return

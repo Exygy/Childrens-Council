@@ -4,11 +4,15 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService) ->
   @deleteApiKey = ->
     $cookies.remove CC_COOKIE
 
-  @postSearch = (callback) ->
-    # reset API KEY == enforce parent authentication
-    @deleteApiKey()
-    # incase search fails - will display no results
-    @resetData()
+  @postSearch = (callback, opts = {}) ->
+    if opts.deleteApiKey
+      # reset API KEY == enforce parent authentication
+      @deleteApiKey()
+
+    if opts.reset
+      # incase search fails - will display no results
+      @resetData()
+
     # search
     DataService.current_page = 1
     @performSearch callback

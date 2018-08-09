@@ -1,6 +1,7 @@
 GeocodingService = (NgMap) ->
   @geocodeAddress = (address) ->
     NgMap.getGeoLocation(address).then (results) ->
+      # TODO: add error handling
       return {latitude: results.lat(), longitude: results.lng()}
 
   @

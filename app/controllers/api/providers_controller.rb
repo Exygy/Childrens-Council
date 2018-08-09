@@ -1,6 +1,6 @@
 module Api
   class ProvidersController < ApiController
-    before_action :create_referral_log, only: :index
+    include CollectReferrals
 
     def index
       results = search_providers_with_images(params[:providers])
@@ -59,23 +59,6 @@ module Api
       params[:id]
     end
 
-    def create_referral_log
-      # if parent_params[:parents_care_reasons_attributes]
-      #   care_reason_ids = parent_params[:parents_care_reasons_attributes].collect{|pcra| pcra["care_reason_id"]}
-      # else
-      #   care_reason_ids = @current_parent.care_reasons.collect(&:id)
-      # end
-
-      # NDS.create_referral(
-      #         params: params,
-      #         parent: @current_parent,
-      #         child_age_months: provider_param_ages.first,
-      #         schedule_week_ids: provider_param_schedule_week_ids,
-      #         schedule_year_id: provider_param_schedule_year_ids.first,
-      #         care_reason_ids: care_reason_ids
-      #       )
-    end
-
     def provider_params
       params.require(:providers).permit(
         # :co_op,
@@ -94,16 +77,6 @@ module Api
         meals: [],
         weeklySchedule: [],
       )
-    end
-
-    def method_missing(method_sym, *arguments, &block)
-      method_name_prefix = 'provider_param_'
-      if method_sym[0..method_name_prefix.length - 1] == method_name_prefix
-        param = method_sym[method_name_prefix.length..method_sym.length]
-        !provider_params[param.to_sym].blank? ? provider_params[param.to_sym] : false
-      else
-        super
-      end
     end
 
     def search_params

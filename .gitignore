@@ -24,3 +24,5 @@ vendor/assets/stylesheets/style.min.css
 .idea/workspace.xml
 
 node_modules
+
+.DS_Store

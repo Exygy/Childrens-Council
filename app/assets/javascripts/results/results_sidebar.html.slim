@@ -1,5 +1,5 @@
 .bg-white
-  .panel.filters ng-controller="ResultFilterController"
+  .panel.filters ng-controller="ResultsFilterController"
     a.right ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
       strong Edit
 
@@ -9,9 +9,9 @@
       li
         h4 Desired locations
         p ng-if="filters[settings.locationType]"
-          span ng-if="settings.locationType == 'neighborhoods'" {{ filters.attributesLocal17 }}
-          span ng-if="settings.locationType == 'zipCodes'" {{ filters.zipCodes }}
-          span ng-if="settings.locationType == 'near_address'" {{ filters.near_address }}, San Francisco, CA
+          span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
+          span ng-if="settings.locationType == 'zipCodes'" {{ filters.zipCodes | entitiesToString }}
+          span ng-if="settings.locationType == 'address'" {{ filters.address }}, San Francisco, CA
 
         p ng-if="!filters[settings.locationType]" Any
 
@@ -21,8 +21,8 @@
       li
         h4 Financial Assistance
         p
-          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
-          span ng-hide="filters.financialAssistance.length"
+          | {{ filters.financialAssist | financialAssistanceToFilterTitle }}
+          span ng-hide="filters.financialAssist.length"
 
       li
         h4 Care Approach
@@ -49,7 +49,7 @@
         li
           h4 Religious Program
           ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
-            li ng-repeat="religiousPrograms in filters.religiousPrograms"
+            li ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
               ' {{ religiousProgram }}
           p ng-hide="filters.religiousPrograms.length && filters.religiousPrograms[0].length" Any
 

@@ -5,23 +5,23 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::RoutingError, with: :render_not_found
-  rescue_from Rack::Timeout::RequestTimeoutError,
-              Rack::Timeout::RequestExpiryError,
-              with: :handle_timeout
+  # rescue_from Rack::Timeout::RequestTimeoutError,
+  #             Rack::Timeout::RequestExpiryError,
+  #             with: :handle_timeout
 
   protected
 
-  def handle_timeout(exception)
-    # Send exception report to service for tracking
-
-    # If the timeout occurs during the middle of a MySQL query, we need to cancel the
-    # query so that "Mysql2::Error: closed MySQL connection" isn't raised in the middle
-    # of a subsequent request
-    ActiveRecord::Base.connection.reset!
-
-    # Render error page
-    respond_with_error_status(503)
-  end
+  # def handle_timeout(exception)
+  #   # Send exception report to service for tracking
+  #
+  #   # If the timeout occurs during the middle of a MySQL query, we need to cancel the
+  #   # query so that "Mysql2::Error: closed MySQL connection" isn't raised in the middle
+  #   # of a subsequent request
+  #   ActiveRecord::Base.connection.reset!
+  #
+  #   # Render error page
+  #   respond_with_error_status(503)
+  # end
 
   private
 

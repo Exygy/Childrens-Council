@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.9'
+gem 'nds_api', '0.1.11'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -56,6 +56,9 @@ gem 'angular-rails-templates' , '~> 1.0'
 gem 'sprockets', '~> 3.0'
 # Forked version of angular-rails-templates that works with sprockets >= 3.0
 # gem 'angular-rails4-templates'
+
+# Authentication manager
+gem 'devise'
 
 gem 'newrelic_rpm'
 
