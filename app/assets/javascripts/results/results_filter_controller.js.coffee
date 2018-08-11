@@ -1,8 +1,8 @@
-ResultsFilterController = ($scope, $modal, ResultsService, SearchService) ->
-  $scope.filters = SearchService.filters
-  $scope.settings = SearchService.settings
+ResultsFilterController = ($scope, $modal, ResultsService) ->
+  $scope.filters = ResultsService.filters
+  $scope.settings = ResultsService.settings
   $scope.parent = ResultsService.parent
-  $scope.settings.show_more_filters = false
+  $scope.showMoreFilters = false
 
   $scope.openResultFiltersModal = () ->
     $modal.open {
@@ -19,5 +19,5 @@ ResultsFilterController = ($scope, $modal, ResultsService, SearchService) ->
            child_id
     }
 
-ResultsFilterController.$inject = ['$scope', '$modal', 'ResultsService', 'SearchService']
+ResultsFilterController.$inject = ['$scope', '$modal', 'ResultsService']
 angular.module('CCR').controller('ResultsFilterController', ResultsFilterController)

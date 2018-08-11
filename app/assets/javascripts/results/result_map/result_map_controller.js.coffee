@@ -2,18 +2,18 @@ ResultMapController = ($scope, $location) ->
   $ctrl = @
 
   $ctrl.$onInit = ->
-    initResultList($ctrl.searchResultData)
+    initResultList($ctrl.searchResultsData)
 
   $ctrl.$onChanges = ->
-    initResultList($ctrl.searchResultData)
+    initResultList($ctrl.searchResultsData)
 
-  initResultList = (searchResultData) ->
-    $scope.providers = searchResultData.content
-    $scope.number = searchResultData.number
-    $scope.numberOfElements = searchResultData.numberOfElements
-    $scope.totalElements = searchResultData.totalElements
-    $scope.firstPage = searchResultData.first
-    $scope.lastPage = searchResultData.last
+  initResultList = (searchResultsData) ->
+    $scope.providers = searchResultsData.content
+    $scope.number = searchResultsData.number
+    $scope.numberOfElements = searchResultsData.numberOfElements
+    $scope.totalElements = searchResultsData.totalElements
+    $scope.firstPage = searchResultsData.first
+    $scope.lastPage = searchResultsData.last
 
   $scope.prevPage = ->
     $location.search('page', $scope.number - 1)
@@ -29,7 +29,7 @@ angular
   .module('CCR')
   .component('resultMap', {
     bindings:
-      searchResultData: '<'
+      searchResultsData: '<'
     controller: ResultMapController
     templateUrl: "results/result_map/result_map.html"
   })

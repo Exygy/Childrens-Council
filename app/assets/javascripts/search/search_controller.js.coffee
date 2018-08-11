@@ -2,17 +2,17 @@ SearchController = ($scope, $state, $controller, SearchService) ->
   $scope.filterData = SearchService.filterData
   $scope.filters = SearchService.filters
   $scope.parent = SearchService.parent
-  $scope.settings = SearchService.settings
-  $scope.settings.contact_type = ''
-  $scope.settings.show_why_asking = false
-  $scope.loading = SearchService.data.is_loading
+  $scope.searchSettings = SearchService.searchSettings
+  $scope.searchSettings.contact_type = ''
+  $scope.searchSettings.show_why_asking = false
+  $scope.loading = SearchService.searchResultsData.isLoading
   $scope.locationTabs =
     address:
-      active: $scope.settings.locationType == 'address'
+      active: $scope.searchSettings.locationType == 'address'
     zipCodes:
-      active: $scope.settings.locationType == 'zipCodes'
+      active: $scope.searchSettings.locationType == 'zipCodes'
     neighborhoods:
-      active: $scope.settings.locationType == 'neighborhoods'
+      active: $scope.searchSettings.locationType == 'neighborhoods'
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -44,10 +44,10 @@ SearchController = ($scope, $state, $controller, SearchService) ->
 
   $scope.setLocationType = (type) ->
     $scope.locationTabs[type].active = true
-    $scope.settings.locationType = type
+    $scope.searchSettings.locationType = type
 
   $scope.setContactType = (type) ->
-    $scope.settings.contact_type = type
+    $scope.searchSettings.contact_type = type
 
 SearchController.$inject = ['$scope', '$state', '$controller', 'SearchService']
 

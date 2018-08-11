@@ -1,4 +1,4 @@
-.row.c-base.margin-bottom-2 ng-if="providers.length"
+.row.c-base.margin-bottom-2 ng-if="$ctrl.data.providers.length"
   .small-6.columns
     small
       span Sort by:
@@ -15,23 +15,15 @@
         ' {{ number }} - {{ numberOfElements }}
       ' of {{ totalElements }} results
 
-.loading ng-show="search_result_data.is_loading"
+.loading ng-show="$ctrl.data.isLoading"
 
-div ng-hide="search_result_data.is_loading"
+div ng-hide="$ctrl.data.isLoading"
 
-  ul.no-bullet.no-result ng-if="!providers.length"
+  ul.no-bullet.no-result ng-if="!$ctrl.data.providers.length"
     li.results-item.c-base
       h2 No child care provider matches found.
       p Try changing filters for a less specific search.
 
-  provider-map providers="providers" info-window="true"
+  provider-map providers="$ctrl.data.providers" info-window="true"
 
-  ul.pager.radius.margin-bottom-3 ng-if="providers.length"
-    li
-      button ng-click="prevPage()" ng-disabled="firstPage"
-        i.fa.fa-chevron-left.margin-right-small
-        small Previous {{ numberOfElements }}
-    li
-      button ng-click="nextPage()" ng-disabled="lastPage"
-        small Next {{ numberOfElements }}
-        i.fa.fa-chevron-right.margin-left-small
+  results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"

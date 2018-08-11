@@ -3,7 +3,7 @@ module Api
     include CollectReferrals
 
     def index
-      results = search_providers_with_images(params[:providers])
+      results = search_providers_with_images(params[:providers], params[:page])
       render json: results, status: 200
     end
 
@@ -17,8 +17,8 @@ module Api
 
     # index
 
-    def search_providers_with_images(search_params)
-      @results = NDS.search_providers(search_params) #, page: X
+    def search_providers_with_images(search_params, page = 0)
+      @results = NDS.search_providers(search_params, page: page)
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
