@@ -65,9 +65,7 @@ module Api
         # schedule_week_ids: [],
         :ageGroupServiced,
         :locationA,
-        :typeOfCare,
         :yearlySchedule,
-        :zip,
         attributesLocal17: [],
         attributesLocal3: [],
         environments: [],
@@ -75,7 +73,9 @@ module Api
         generalLocal2: [],
         languages: [],
         meals: [],
+        typeOfCare: [],
         weeklySchedule: [],
+        zip: [],
       )
     end
 

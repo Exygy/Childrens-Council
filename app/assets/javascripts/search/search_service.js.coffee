@@ -27,13 +27,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
       if params.address and params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
     else if @searchSettings.locationType == 'zipCodes'
-      # We are allowing users to select multiple zip codes in the form,
-      # but the NDS API does not yet support searching by multiple zip
-      # codes, so we are passing through just the first selected zip code
-      # for now. We are keeping the form as-is because we believe the API
-      # will be updated to allow searching by multiple zip codes by the
-      # time we make this app live.
-      params.zip = params.zipCodes[0]
+      params.zip = params.zipCodes
       delete params.address
     else if @searchSettings.locationType == 'neighborhoods'
       params.attributesLocal17 = params.neighborhoods
@@ -41,20 +35,6 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
     delete params.neighborhoods
     delete params.zipCodes
-
-  @setTypeOfCare = (params) ->
-    if params.typeOfCare.length == 1
-      params.typeOfCare = params.typeOfCare[0]
-    else if params.typeOfCare.length == 2
-      # We are allowing users to select multiple types of care in the
-      # form, but the NDS API does not yet support searching by multiple
-      # types of care. So if the user selects both types of care (there
-      # are only two types), we convey that to the API as no selection
-      # for type of care, so that the API will search over all types of
-      # care. This functions correctly, but is semantically a bit odd. We
-      # believe that the API will be updated to allow searching by multiple
-      # types of care by the time we make this app live.
-      delete params.typeOfCare
 
   # The API field used to search for care approaches and religious programs
   # is the same, so we concatenate these names into a single list.
@@ -92,7 +72,6 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     # search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
 
     @setSearchLocation(search_params)
-    @setTypeOfCare(search_params)
     @setPrograms(search_params)
     @setEnvironments(search_params)
 
