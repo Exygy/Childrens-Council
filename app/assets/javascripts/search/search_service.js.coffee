@@ -47,8 +47,14 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     if params.religiousPrograms.length && params.religiousPrograms[0]
       params.generalLocal2 = params.generalLocal2.concat(params.religiousPrograms)
 
+    # The Parent Co-Op filter field actually corresponds to the care approach
+    # value "Co-op"
+    if params.parentCoop
+      params.generalLocal2 = _.union(params.generalLocal2, ['Co-op'])
+
     delete params.careApproaches
     delete params.religiousPrograms
+    delete params.parentCoop
     delete params.generalLocal2 if !params.generalLocal2.length
 
   @setEnvironments = (params) ->
