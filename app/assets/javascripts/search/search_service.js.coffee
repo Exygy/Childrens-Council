@@ -26,6 +26,9 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     if @searchSettings.locationType == 'address'
       if params.address and params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
+      # Set search radius miles value to 2, which is the value Children's Council
+      # has decided to use
+      params.distance = 2
     else if @searchSettings.locationType == 'zipCodes'
       params.zip = params.zipCodes
       delete params.address
