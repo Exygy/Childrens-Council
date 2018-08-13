@@ -69,7 +69,7 @@ module Api
         attributesLocal17: [],
         attributesLocal3: [],
         environments: [],
-        financialAssist: [],
+        generalLocal1: [],
         generalLocal2: [],
         languages: [],
         meals: [],
@@ -77,31 +77,6 @@ module Api
         weeklySchedule: [],
         zip: [],
       )
-    end
-
-    def search_params
-      { "locationA": {},
-        "locationB": {},
-      	"zip": nil,
-      	"attributesLocal17": [],
-      	"ageGroupServiced": nil,
-      	"ageGroup": nil,
-      	"typeOfCare": nil,
-      	"yearlySchedule": nil,
-      	"weeklySchedule": [],
-      	"dailySchedule": {},
-      	"weeklyRate": {},
-        "monthlyRate": {},
-      	"generalLocal2": [],
-      	"financialAssist": [],
-
-        "languages": ["Khmu"],
-	      "attributesLocal3": [],
-
-      	"attributesLocal3": [],
-      	"meals": [],
-      	"environment": []
-      }
     end
   end
 end

@@ -39,9 +39,10 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     delete params.neighborhoods
     delete params.zipCodes
 
-  # The API field used to search for care approaches and religious programs
-  # is the same, so we concatenate these names into a single list.
+  # Reformat and rename program params to match API fields.
   @setPrograms = (params) ->
+    # The API field used to search for care approaches and religious programs
+    # is the same, so we concatenate these program names into a single list.
     params.generalLocal2 = []
 
     if params.careApproaches.length && params.careApproaches[0]
@@ -55,9 +56,15 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     if params.parentCoop
       params.generalLocal2 = _.union(params.generalLocal2, ['Co-op'])
 
+    # The API field called generalLocal1 is used to search for financial
+    # assistance programs
+    if params.financialAssistance.length
+      params.generalLocal1 = params.financialAssistance
+
     delete params.careApproaches
     delete params.religiousPrograms
     delete params.parentCoop
+    delete params.financialAssistance
     delete params.generalLocal2 if !params.generalLocal2.length
 
   @setEnvironments = (params) ->

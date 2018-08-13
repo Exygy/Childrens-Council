@@ -20,7 +20,7 @@ section.margin-top-2
     accordion-group is-open="is_financial_assists"
       accordion-heading
         #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | {{ filters.financialAssist | financialAssistanceToFilterTitle }}
+          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
           .right.toggle ng-switch="is_financial_assists"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
@@ -29,7 +29,7 @@ section.margin-top-2
       #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_financial_assists}}"
         span ng-repeat="assist in (filterData.financialAssistance | filter:{showInFilter: true}) track by $index"
           .checkbox.checkbox-financial-assist
-            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssist"
+            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssistance"
             label for="financial-assist-{{$index}}"
               b
                 | {{assist.label || assist.value}}
