@@ -4,10 +4,10 @@ ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
     $scope.modal_filters =
       age_weeks: 130
       children_care_types: ResultsService.parent.children[0].children_care_types
-      weeklySchedule: [2,3,4,5,6]
-      schedule_week_ids: [1]
-      yearlySchedule: 'FULL_YEAR'
       selected: true
+      shiftFeatures: ['Full Time']
+      weeklySchedule: [2,3,4,5,6]
+      yearlySchedule: 'FULL_YEAR'
 
     if childId?
       child = angular.copy ResultsService.parent.children[childId]

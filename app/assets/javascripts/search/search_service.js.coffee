@@ -107,9 +107,9 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     search_params.ageGroupServiced = @parent.children[0].age_weeks
     search_params.yearlySchedule = @parent.children[0].yearlySchedule
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
-    # TODO: set shift info in params
-    # search_params.schedule_week_ids = @parent.children[0].schedule_week_ids
 
+    # TODO: set shift info in params
+    # @setShiftParams(search_params)
     @setSearchLocation(search_params)
     @setPrograms(search_params)
     @setEnvironments(search_params)
@@ -130,7 +130,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     delete parent.agree
     for child, index in parent.children
       delete parent.children[index].weeklySchedule
-      delete parent.children[index].schedule_week_ids
+      delete parent.children[index].shiftFeatures
       delete parent.children[index].selected
     parent
 

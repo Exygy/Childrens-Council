@@ -289,18 +289,6 @@ ScheduleDaysToText = (DataService) ->
 ScheduleDaysToText.$inject = ['DataService']
 angular.module('CCR').filter('scheduleDaysToText', ScheduleDaysToText)
 
-ScheduleWeekIdsToText = ($rootScope) ->
-  (schedule_week_ids) ->
-    weeks = []
-    if schedule_week_ids? and schedule_week_ids
-      for schedule_week_id in schedule_week_ids
-        if $rootScope.data['schedule_weeks'][schedule_week_id]
-          weeks.push $rootScope.data['schedule_weeks'][schedule_week_id].name
-    return EntitiesToString(weeks)
-
-ScheduleWeekIdsToText.$inject = ['$rootScope']
-angular.module('CCR').filter('scheduleWeekIdsToText', ScheduleWeekIdsToText)
-
 ScheduleYearValueToLabel = (DataService) ->
   (value) ->
     sched = DataService.filterData.yearlySchedules.find((sched) -> sched.value == value)
