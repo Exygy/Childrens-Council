@@ -1,0 +1,34 @@
+# This file was manually constructed, not pulled from the NDS API.
+# There is no API option that corresponds to the shift features
+# that are displayed in the Finder search form.
+---
+-
+  name: Days
+-
+  name: Other
+-
+  name: Non-Traditional Hours
+-
+  name: Full Time
+  description: Care provided for more than 30 hours per week, usually Monday through Friday and 8 hours daily
+-
+  name: Variable/Flexible
+  description: Care is provided based around families variable schedule (non-set schedule needs).
+-
+  name: After School
+  description: Out of school time care provided, usually for children elementary age. Some child care providers will pick up a child at school.
+-
+  name: Part Time
+  description: Care provided less than 30 hours a week, schedule may vary from 2 to 3 days per week of care or about 4 hours daily.
+-
+  name: Drop In
+  description: Care provided for random days, subject to child care providers availability and license capacity.
+-
+  name: Evening
+  description: Care provided at non-traditional hours, usually after 6pm or later.
+-
+  name: Overnight
+  description: Care provided during late hours and early morning hours.
+-
+  name: Before School
+  description: Out of school time care provided, usually for children elementary age. Some child care providers will drop a child off at school.

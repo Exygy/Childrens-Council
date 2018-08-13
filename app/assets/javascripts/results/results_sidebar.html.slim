@@ -96,7 +96,7 @@
         p.margin-bottom-none
           | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
           br
-          | {{ parent.children[0].schedule_week_ids | scheduleWeekIdsToText }}
+          | {{ parent.children[0].shiftFeatures | entitiesToString }}
           br
           | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
 
