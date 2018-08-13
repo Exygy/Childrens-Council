@@ -1,4 +1,5 @@
-span ng-include="'search/search_location_filter.html'"
+section.margin-top-2
+  span ng-include="'search/filters/location_filter.html'"
 
 /section.margin-top-2
 /  h5#age-label.c-black Cost per month
@@ -14,13 +15,19 @@ span ng-include="'search/search_location_filter.html'"
 /            span.tick class="tick-#{i + 1}"
 
 section.margin-top-2
+  span ng-include="'search/filters/rates_filter.html'"
+
+section.margin-top-2
+  span ng-include="'search/filters/vacancies_filter.html'"
+
+section.margin-top-2
   h5.c-black Provides financial assistance
 
   accordion close-others="false" role="tablist"
     accordion-group is-open="is_financial_assists"
       accordion-heading
         #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | {{ filters.financialAssist | financialAssistanceToFilterTitle }}
+          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
           .right.toggle ng-switch="is_financial_assists"
             span ng-switch-when="false" Show
             span ng-switch-when="true" Hide
@@ -29,7 +36,7 @@ section.margin-top-2
       #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_financial_assists}}"
         span ng-repeat="assist in (filterData.financialAssistance | filter:{showInFilter: true}) track by $index"
           .checkbox.checkbox-financial-assist
-            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssist"
+            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssistance"
             label for="financial-assist-{{$index}}"
               b
                 | {{assist.label || assist.value}}
@@ -38,7 +45,7 @@ section.margin-top-2
                 | {{assist.description}}
 
 section.margin-top-2
-  h6.c-black.text-normal.margin-top-2 Care Approach
+  h6.c-black.text-normal.margin-top-2 Teaching Philosophy
   .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
     select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
       option value="" Select Care Approach
@@ -82,9 +89,8 @@ section.margin-top-2
     | Parent Co-Op
     a.fa.fa-info-circle.c-base.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
   #parent-coop-panel.button-group
-    button type="button" ng-model="filters.co_op" btn-radio="null" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
-    button type="button" ng-model="filters.co_op" btn-radio="1" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
-    button type="button" ng-model="filters.co_op" btn-radio="0" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No
+    button type="button" ng-model="filters.parentCoop" btn-radio="false" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
+    button type="button" ng-model="filters.parentCoop" btn-radio="true" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
 
 section.margin-top-2
   h5.c-black Meals included in tuition
@@ -100,4 +106,5 @@ section.margin-top-2
     button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="choice in filterData.pottyTraining"
       | {{ choice.label }}
 
-span ng-include="'search/search_care_provider_type_filter.html'"
+section.margin-top-2.margin-bottom-2
+  span ng-include="'search/filters/care_type_filter.html'"

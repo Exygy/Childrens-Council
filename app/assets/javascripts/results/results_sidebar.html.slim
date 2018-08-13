@@ -21,8 +21,8 @@
       li
         h4 Financial Assistance
         p
-          | {{ filters.financialAssist | financialAssistanceToFilterTitle }}
-          span ng-hide="filters.financialAssist.length"
+          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
+          span ng-hide="filters.financialAssistance.length"
 
       li
         h4 Care Approach
@@ -45,7 +45,7 @@
             ' {{ language }}
         p ng-hide="filters.languages.length && filters.languages[0].length" Any
 
-      div ng-show="settings.show_more_filters"
+      div ng-show="showMoreFilters"
         li
           h4 Religious Program
           ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
@@ -74,9 +74,9 @@
             ' {{ filters.typeOfCare | careTypeIdsToNames }}
           p ng-hide="filters.typeOfCare.length" Any
 
-      a.text-uppercase href="#" ng-click="settings.show_more_filters = !settings.show_more_filters"
-        span ng-hide="settings.show_more_filters" Show more
-        span ng-show="settings.show_more_filters" Show less
+      a.text-uppercase href="#" ng-click="showMoreFilters = !showMoreFilters"
+        span ng-hide="showMoreFilters" Show more
+        span ng-show="showMoreFilters" Show less
 
     hr.margin-bottom-2
 
