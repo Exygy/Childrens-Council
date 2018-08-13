@@ -12,7 +12,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService) ->
     if providers.length
       $scope.providers = ProviderMapService.mapify(providers)
       if $scope.map
-        fitBounds(map)
+        fitBounds($scope.map)
       else
         NgMap.getMap().then (map) ->
           $scope.map = map

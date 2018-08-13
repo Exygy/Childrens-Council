@@ -12,8 +12,8 @@
     small
       ' Showing
       strong
-        ' {{ number }} - {{ numberOfElements }}
-      ' of {{ totalElements }} results
+        ' {{ $ctrl.resultsFromNum() }} - {{ $ctrl.resultsToNum() }}
+      ' of {{ $ctrl.data.totalNumProviders }} results
 
 .loading ng-show="$ctrl.data.isLoading"
 
@@ -26,4 +26,4 @@ div ng-hide="$ctrl.data.isLoading"
 
   provider-map providers="$ctrl.data.providers" info-window="true"
 
-  results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
+  results-pager class="map-results-pager" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"

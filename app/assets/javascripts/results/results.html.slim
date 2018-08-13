@@ -16,18 +16,18 @@ rheader#search-results-wrapper.page-header.padding-top-2
     .small-2.columns
       ul.pager.radius.margin-bottom-3
         li
-          button ng-click="show_map = false" ng-class="{'button-pressed': !show_map}"
+          button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
             small List
         li
-          button ng-click="show_map = true" ng-class="{'button-pressed': show_map}"
+          button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
             small Map
 
 .row
   .medium-4.columns.show-for-medium-up ng-include="'results/results_sidebar.html'"
 
   .medium-8.columns
-    result-map data="$ctrl.data" ng-if="show_map"
-    result-list data="$ctrl.data" ng-if="!show_map"
+    result-map data="$ctrl.data" ng-if="$ctrl.showMap"
+    result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
 
 .row
   .medium-4.columns
