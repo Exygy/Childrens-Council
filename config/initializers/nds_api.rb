@@ -1,11 +1,7 @@
-# frozen_string_literal: true
-
-NDS_AGENCY_KEY = ENV['NDS_AGENCY_KEY']
-
 NDS = NdsApi::Client.new(
-  agency_key: NDS_AGENCY_KEY || 13_011,
-  user: 'exygy',
-  password: 'testnaccrra',
+  agency_key: ENV['NDS_API_AGENCY_KEY'] || 13_011,
+  user: ENV['NDS_API_USERNAME'] || 'exygy',
+  password: ENV['NDS_API_PASSWORD'] || 'testnaccrra',
   # password: 'SnowflakeFrog?',
   dev: true
 )
