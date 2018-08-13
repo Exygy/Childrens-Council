@@ -34,6 +34,7 @@ DataService = ($rootScope) ->
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
+    vacancyTypes: ['Available Now', 'Future Date']
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
 
@@ -50,8 +51,9 @@ DataService = ($rootScope) ->
     pottyTraining: null
     religiousPrograms: ['']
     typeOfCare: []
+    vacancyFutureDate: null
+    vacancyType: null
     zipCodes: ['']
-    co_op: null
 
   @searchResultsData = {
     currentPage: 0

@@ -73,6 +73,11 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
     delete params.pottyTraining
 
+  @setVacancies = (params) ->
+    # TODO: configure params to search the API for provider vacancies
+    delete params.vacancyType
+    delete params.vacancyFutureDate
+
   @buildParent = ->
     @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
 
@@ -90,6 +95,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     @setSearchLocation(search_params)
     @setPrograms(search_params)
     @setEnvironments(search_params)
+    @setVacancies(search_params)
 
     search_params
 
