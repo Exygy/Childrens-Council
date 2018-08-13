@@ -3,7 +3,7 @@ module Api
     include CollectReferrals
 
     def index
-      results = search_providers_with_images(params[:providers], params[:page])
+      results = search_providers_with_images(provider_params, params[:page])
       render json: results, status: 200
     end
 
@@ -61,9 +61,11 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        # :co_op,
         # schedule_week_ids: [],
+        :age,
+        :ageGroup,
         :ageGroupServiced,
+        :distance,
         :locationA,
         :yearlySchedule,
         attributesLocal17: [],
@@ -73,6 +75,10 @@ module Api
         generalLocal2: [],
         languages: [],
         meals: [],
+        monthlyRate: [
+          :from,
+          :to
+        ],
         typeOfCare: [],
         weeklySchedule: [],
         zip: [],

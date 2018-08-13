@@ -23,16 +23,14 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   @setSearchLocation = (params) ->
-    if @searchSettings.locationType == 'address'
-      if params.address and params.address.indexOf(', San Francisco, CA') == -1
+    if @searchSettings.locationType == 'address' && params.address
+      if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
-      # Set search radius miles value to 2, which is the value Children's Council
-      # has decided to use
-      params.distance = 2
-    else if @searchSettings.locationType == 'zipCodes'
+      params.distance = 2 # set the search radius in miles
+    else if @searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
       params.zip = params.zipCodes
       delete params.address
-    else if @searchSettings.locationType == 'neighborhoods'
+    else if @searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.address
 
@@ -73,6 +71,26 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
     delete params.pottyTraining
 
+  @setAgeGroup = (params) ->
+    if params.ageGroupServiced
+      weeks = params.ageGroupServiced
+      params.ageGroup = switch
+        # 0 yrs to 1 yr 11 mos
+        when weeks >= 0 && weeks < 102 then 'INFANT_1'
+        # 2 yrs to 5 yrs 11 mos
+        when weeks >= 102 && weeks < 312 then 'PRESCHOOL_1'
+        # 6 yrs and up
+        when weeks >= 312 then 'SCHOOL_1'
+        # The value "SCHOOL_2" represents all ages
+        else
+          'SCHOOL_2'
+
+  @setMonthlyRate = (params) ->
+    if params.monthlyRate
+      params.monthlyRate =
+        from: params.monthlyRate[0]
+        to: params.monthlyRate[1]
+
   @setVacancies = (params) ->
     # TODO: configure params to search the API for provider vacancies
     delete params.vacancyType
@@ -95,6 +113,8 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     @setSearchLocation(search_params)
     @setPrograms(search_params)
     @setEnvironments(search_params)
+    @setAgeGroup(search_params)
+    @setMonthlyRate(search_params)
     @setVacancies(search_params)
 
     search_params
