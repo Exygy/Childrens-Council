@@ -1,6 +1,4 @@
-VacanciesSummaryFilter = ->
-	ageToAgeGroup = (age) ->
-		return "School Age 2 Group"
+VacanciesSummaryFilter = (AgeToAgeGroupService) ->
 
 	numberOfWeeks = (age_group_obj) ->
 		age_group_obj.weeks + (age_group_obj.months / 12 * 52) + (age_group_obj.years * 52)
@@ -11,7 +9,7 @@ VacanciesSummaryFilter = ->
 		else
 			return 'Has current vacancies'
 
-	checkFCCVacancy = (enrollment) ->
+	checkFCCVacancy = (provider, enrollment) ->
 		if numberOfWeeks(provider.ageGroupFrom) < age_in_weeks and age_in_weeks > numberOfWeeks(provider.ageGroupTo)
 			if isFutureVacancy(enrollment.vacancyDate)
 				return 'Has vacancies beginning ' + enrollment.vacancyDate
@@ -21,7 +19,7 @@ VacanciesSummaryFilter = ->
 			return 'No vacancies'
 
 	enrollmentHasVacancy = (enrollment) ->
-		enrollment.vacancyDate and (enrollment.ftVacancies > 0 or enrollment.ptVacancies > 0)
+		enrollment.vacancyDate and ((enrollment.ftVacancies and enrollment.ftVacancies > 0) or (enrollment.ptVacancies and enrollment.ptVacancies > 0))
 
 	isFutureVacancy = (date) ->
 		Date.parse(date) > Date.now()
@@ -29,25 +27,34 @@ VacanciesSummaryFilter = ->
 	isFCCVacancy = (enrollment) ->
 		enrollment.ageGroup.indexOf('FCC') > -1
 
-	checkEnrollments = (enrollments) ->
-		status = 'No vacancies'
+	orderStatuses = (statuses) ->
+		return statuses.sort (a, b) ->
+			if b.indexOf('Has current vacancies') > -1
+					return 2
+			if b.indexOf('No vacancies') > -1
+			    return -1
+			else
+					return 1
 
-		for enrollment in enrollments
-			if enrollment.ageGroup == ageToAgeGroup(age_in_weeks)
-				break unless enrollmentHasVacancy()
+	checkEnrollments = (provider, age_in_weeks) ->
+		statuses = ['No vacancies']
+		age_groups = AgeToAgeGroupService.ageToAgeGroup(age_in_weeks)
+
+		for enrollment in provider.enrollments
+			if age_groups.indexOf(enrollment.ageGroup) > -1
+				break unless enrollmentHasVacancy(enrollment)
 				status = openVacancyStatus(enrollment)
 
 				if isFCCVacancy(enrollment) and status == 'No vacancies' and enrollmentHasVacancy(enrollment)
-					status = checkFCCVacancy(enrollment)
+					status = checkFCCVacancy(provider, enrollment)
 
 				if status != 'No vacancies'
-					return status
+					statuses.push status
 
-		return status
+		statuses = orderStatuses(statuses)
 
-  (provider, age_in_weeks) ->
-		return checkEnrollments(provider.enrollments)
+		return statuses[0]
 
-VacanciesSummaryFilter.$inject = []
+VacanciesSummaryFilter.$inject = ['AgeToAgeGroupService']
 
 angular.module('CCR').filter('vacanciesSummary', VacanciesSummaryFilter)

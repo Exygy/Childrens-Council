@@ -10,11 +10,12 @@ section.margin-top-2
       |  (counselors available Mon–Thu 8:30am-4pm; Fri 8:30am-noon)
 
 section.margin-top-2
-  h5#age-label.c-black Child's age ( when care will be needed )
-  .row
-    .medium-7.columns
-      child-age-slider model="parent.children[0]"
+  child-age-filter model="parent.children[0]"
 
-span ng-include="'search/search_location_filter.html'"
-span ng-include="'search/search_care_provider_type_filter.html'"
+section.margin-top-2
+  span ng-include="'search/filters/location_filter.html'"
+
+section.margin-top-1.margin-bottom-3
+  span ng-include="'search/filters/care_type_filter.html'"
+
 schedule-filter model="parent.children[0]"

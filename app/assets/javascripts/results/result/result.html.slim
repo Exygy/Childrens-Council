@@ -46,12 +46,12 @@ ul.general-info
   li
     span.item-detail
       span.fa.fa-calendar-check-o.c-base
-      '{{ $ctrl.provider | vacanciesSummary: 52 }}
+      '{{ $ctrl.provider | vacanciesSummary: age_weeks }}
 
   li
     span.item-detail
       span.fa.fa-usd.c-base
-      '{{ $ctrl.provider.rates | ratesToSummary }}
+      '{{ $ctrl.provider.rates | ratesToSummary: age_weeks }}
 
   li
     span.item-detail
@@ -73,4 +73,5 @@ ui-gmap-google-map center='$ctrl.provider.map.center' zoom='$ctrl.provider.map.z
   ui-gmap-marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
 
 p.updated_at
-  ' Profile last updated March 18th 2018
+  ' Profile last updated
+  ' {{ ($ctrl.provider.lastModifiedTime | amParse:'YYYY-MM-DD HH:mm:ss') | amDateFormat: 'MMMM DD, YYYY' }}

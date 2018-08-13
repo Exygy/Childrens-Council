@@ -3,7 +3,7 @@ module Api
     include CollectReferrals
 
     def index
-      results = search_providers_with_images(params[:providers])
+      results = search_providers_with_images(provider_params, params[:page])
       render json: results, status: 200
     end
 
@@ -17,8 +17,8 @@ module Api
 
     # index
 
-    def search_providers_with_images(search_params)
-      @results = NDS.search_providers(search_params) #, page: X
+    def search_providers_with_images(search_params, page = 0)
+      @results = NDS.search_providers(search_params, page: page)
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
@@ -61,47 +61,28 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        # :co_op,
         # schedule_week_ids: [],
+        :age,
+        :ageGroup,
         :ageGroupServiced,
+        :distance,
         :locationA,
-        :typeOfCare,
         :yearlySchedule,
-        :zip,
         attributesLocal17: [],
         attributesLocal3: [],
         environments: [],
-        financialAssist: [],
+        generalLocal1: [],
         generalLocal2: [],
         languages: [],
         meals: [],
+        monthlyRate: [
+          :from,
+          :to
+        ],
+        typeOfCare: [],
         weeklySchedule: [],
+        zip: [],
       )
-    end
-
-    def search_params
-      { "locationA": {},
-        "locationB": {},
-      	"zip": nil,
-      	"attributesLocal17": [],
-      	"ageGroupServiced": nil,
-      	"ageGroup": nil,
-      	"typeOfCare": nil,
-      	"yearlySchedule": nil,
-      	"weeklySchedule": [],
-      	"dailySchedule": {},
-      	"weeklyRate": {},
-        "monthlyRate": {},
-      	"generalLocal2": [],
-      	"financialAssist": [],
-
-        "languages": ["Khmu"],
-	      "attributesLocal3": [],
-
-      	"attributesLocal3": [],
-      	"meals": [],
-      	"environment": []
-      }
     end
   end
 end
