@@ -80,6 +80,9 @@
 
     hr.margin-bottom-2
 
+    / TODO: Here we pass 0 as the child ID because we are only allowing
+    / users to enter info for one child. In the future this will need
+    / to support multiple children.
     a.right ng-click="openChildModal(0)"
       strong Edit
 
@@ -89,7 +92,7 @@
       li
         h4 Age
         p
-          | {{ parent.children[0].age_weeks | ageToYearsAndMonths }}
+          | {{ parent.children[0].ageWeeks | ageToYearsAndMonths }}
 
       li
         h4 Schedule
@@ -100,13 +103,14 @@
           br
           | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
 
+    / TODO: In the future we will need to support multiple children.
     / ul.no-bullet
     /   li ng-repeat="child in parent.children track by $index"
     /     /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
     /     p for="schedule-day-{{schedule_day.name | attribute}}"
     /       | Child {{ $index+1 }}
     /       small
-    /         '  - {{ child.age_weeks | ageToYearsAndMonths }}
+    /         '  - {{ child.ageWeeks | ageToYearsAndMonths }}
     /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2

@@ -104,7 +104,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     search_params = angular.copy @filters
 
     # those params should be children specific when the feature is built
-    search_params.ageGroupServiced = @parent.children[0].age_weeks
+    search_params.ageGroupServiced = @parent.children[0].ageWeeks
     search_params.yearlySchedule = @parent.children[0].yearlySchedule
     search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 

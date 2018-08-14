@@ -1,29 +1,23 @@
-ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
-  init = ->
-    $scope.is_editing = childId?
-    $scope.modal_filters =
-      age_weeks: 130
-      children_care_types: ResultsService.parent.children[0].children_care_types
-      selected: true
-      shiftFeatures: ['Full Time']
-      weeklySchedule: [2,3,4,5,6]
-      yearlySchedule: 'FULL_YEAR'
+ChildModalController = ($scope, $modalInstance, $anchorScroll, ResultsService, SearchService, childId) ->
+  $scope.child = ResultsService.parent.children[childId]
+  cached_child = angular.copy $scope.child
 
-    if childId?
-      child = angular.copy ResultsService.parent.children[childId]
-      $scope.modal_filters = child
+  $modalInstance.result.catch () ->
+    # modal has been dismissed
+    resetChild()
 
   $scope.postSearch = ->
-    unless childId?
-      childId = ResultsService.parent.children.length
-    ResultsService.parent.children[childId] = $scope.modal_filters
     SearchService.postSearch()
     $modalInstance.close()
+    $anchorScroll('search-results-wrapper')
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
 
-  init()
+  resetChild = ->
+    for filter_key, filter_value of $scope.child
+      if $scope.child[filter_key] != cached_child[filter_key]
+        $scope.child[filter_key] = cached_child[filter_key]
 
-ChildModalController.$inject = ['$scope', '$modalInstance', 'ResultsService', 'childId']
+ChildModalController.$inject = ['$scope', '$modalInstance', '$anchorScroll', 'ResultsService', 'SearchService', 'childId']
 angular.module('CCR').controller('ChildModalController', ChildModalController)
