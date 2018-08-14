@@ -33,6 +33,7 @@ DataService = ($rootScope) ->
     meals: @formatMealsForFilter(<%= api_service.filter_data('meals') %>)
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
+    shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
     typesOfCare: [{id: 1, name: 'Child Care Center'}, {id: 2, name: 'Family Child Care'}]
     vacancyTypes: ['Available Now', 'Future Date']
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
@@ -83,11 +84,11 @@ DataService = ($rootScope) ->
     parents_care_types: []
     children: [
       {
-        age_weeks: 130,
-        weeklySchedule: @filterData.days.slice(0, 5)
-        schedule_week_ids: [1]
-        yearlySchedule: 'FULL_YEAR'
+        ageWeeks: 130
         selected: true
+        shiftFeatures: ['Full Time']
+        weeklySchedule: @filterData.days.slice(0, 5)
+        yearlySchedule: 'FULL_YEAR'
       }
     ]
   }

@@ -1,16 +1,13 @@
-ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, ProviderService) ->
+ResultsController = ($timeout, $anchorScroll, ResultsService) ->
   @data = ResultsService.searchResultsData
   @filters = ResultsService.filters
   @showMap = false
-
-  @searchParams = ->
-    return $location.search();
 
   $timeout $anchorScroll('search-results-wrapper')
 
   return
 
-ResultsController.$inject = ['$timeout', '$anchorScroll', 'ResultsService', 'SearchService', 'ProviderService']
+ResultsController.$inject = ['$timeout', '$anchorScroll', 'ResultsService']
 
 angular
   .module('CCR')

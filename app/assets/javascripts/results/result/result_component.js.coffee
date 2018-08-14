@@ -2,7 +2,7 @@ ResultController = ($scope, DataService) ->
   $ctrl = @
 
   $ctrl.$onInit = ->
-    $scope.age_weeks = DataService.parent.children[0].age_weeks
+    $scope.ageWeeks = DataService.parent.children[0].ageWeeks
 
 
   return $ctrl

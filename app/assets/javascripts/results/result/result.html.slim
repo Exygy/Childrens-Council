@@ -46,12 +46,12 @@ ul.general-info
   li
     span.item-detail
       span.fa.fa-calendar-check-o.c-base
-      '{{ $ctrl.provider | vacanciesSummary: age_weeks }}
+      '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
   li
     span.item-detail
       span.fa.fa-usd.c-base
-      '{{ $ctrl.provider.rates | ratesToSummary: age_weeks }}
+      '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
   li
     span.item-detail
