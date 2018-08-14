@@ -1,7 +1,9 @@
 ResultsController = ($timeout, $anchorScroll, ResultsService) ->
-  @data = ResultsService.searchResultsData
-  @filters = ResultsService.filters
-  @showMap = false
+
+  @$onInit = ->
+    @data = ResultsService.searchResultsData
+    @filters = ResultsService.filters
+    @showMap = false
 
   $timeout $anchorScroll('search-results-wrapper')
 
