@@ -10,7 +10,7 @@ module Api
     def show
       provider = nds_provider
       provider[:images] = provider_images if provider
-      render json: provider, status: provider ? 200 : 404
+      render json: provider ? provider : {not_found: true}, status: provider ? 200 : 404
     end
 
     private
@@ -46,7 +46,7 @@ module Api
     def nds_provider
       begin
         NDS.provider_by_id(provider_id)
-      rescue OpenURI::HTTPError
+      rescue
         false
       end
     end
