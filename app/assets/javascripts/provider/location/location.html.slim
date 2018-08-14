@@ -16,4 +16,4 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
     '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }},
     '  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-provider-map providers="[$ctrl.provider]" ng-if="provider.addresses.latitude && provider.addresses.longitude"
+provider-map providers="[$ctrl.provider]" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
