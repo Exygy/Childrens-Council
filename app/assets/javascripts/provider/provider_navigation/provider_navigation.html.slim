@@ -1,7 +1,7 @@
-.bg-white data-magellan-expedition="wixed"
+.bg-white data-magellan-expedition="fixed"
   nav.panel.bg-cyan-lighter
     ul.side-nav
-      li data-magellan-arrival="about" ng-if="$ctrl.provider.description"
+      li data-magellan-arrival="about" ng-if="$ctrl.provider.generalInfo.generalComment"
         a href="#about" About
       li data-magellan-arrival="general-information"
         a href="#general-information" General Information
@@ -11,7 +11,7 @@
         a href="#hours" Hours
       li data-magellan-arrival="vacancies"
         a href="#vacancies" Vacancies
-      li data-magellan-arrival="rate"
+      li data-magellan-arrival="rates"
         a href="#rates" Rates
       li data-magellan-arrival="enrollment_process"
         a href="#enrollment_process" Enrollment Process
@@ -19,9 +19,9 @@
         a href="#env_images" Environmental Images
       li data-magellan-arrival="licenses"
         a href="#licenses" License & Ages Served
-      li data-magellan-arrival="languages" ng-if="($ctrl.provider.programs | programsWithProgramTypeByName: 'Immersion Program') || $ctrl.provider.languages"
+      li data-magellan-arrival="languages" ng-if="$ctrl.provider.attributes.local3.length || $ctrl.provider.languages.length"
         a href="#languages" Language Options
-      li data-magellan-arrival="financial-assistance" ng-if="$ctrl.provider.subsidies.length"
+      li data-magellan-arrival="financial-assistance" ng-if="$ctrl.provider.generalInfo.local1.length"
         a href="#financial-assistance" Financial Assistance
 
   span.fa.fa-file-pdf-o.c-red.info-icon
