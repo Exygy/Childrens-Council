@@ -1,3 +1,5 @@
+.loading ng-if="!provider"
+
 div ng-if="provider"
 
   provider-header provider="provider"
@@ -28,7 +30,7 @@ div ng-if="provider"
 
       env-images urls="provider.images.env"
 
-      license-and-ages general-info="provider.generalInfo" enrollments="provider.enrollments"      
+      license-and-ages general-info="provider.generalInfo" enrollments="provider.enrollments"
 
       language-options provider="provider"
 
