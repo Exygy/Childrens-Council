@@ -2,6 +2,7 @@ BadgeController = (BadgeService) ->
   $ctrl = @
 
   @$onInit = () ->
+    $ctrl.tooltip = BadgeService.tooltip($ctrl.name)
     $ctrl.url = BadgeService.url($ctrl.name)
 
   return @
