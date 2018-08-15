@@ -2,7 +2,7 @@ span ng-if="$ctrl.qris"
   h3
     ' Quality Rating
     a target="_blank" href="http://qualityconnections.first5sf.org/families/"
-      span.fa.fa-info-circle.tip-top data-width="250" tooltip="Learn more about the QRIS Rating" tooltip-placement="right"
+      span.fa.fa-info-circle.tip-top data-width="250" tooltip="Learn more about the QRIS Rating" tooltip-placement="left"
 
   span.pull-right
     span.fa.fa-star ng-repeat="star in [1,2,3,4,5]" ng-class="{yellow: (star <= $ctrl.qris)}"
