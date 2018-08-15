@@ -1,7 +1,7 @@
 a name="rates"
 h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="rates" Rates
 
-p ng-if="$ctrl.rates.length" Rates shown below are approximate and shownn by age group by full-time and part time rate. Please call providers to confirm details.
+p ng-if="$ctrl.rates.length" Rates below are approximate and shown by age group full-time and part-time. Please call child care/preschool sites to confirm details.
 
 table.table.first-column-40 style="width:auto" ng-if="$ctrl.rates.length"
 
@@ -17,4 +17,4 @@ table.table.first-column-40 style="width:auto" ng-if="$ctrl.rates.length"
       td
         span ng-repeat="r in (rate | formatRate) track by $index"
           |{{ r }}
-          span ng-if="$index < ((rate | formatRate).length-1)", 
+          span ng-if="$index < ((rate | formatRate).length-1)",
