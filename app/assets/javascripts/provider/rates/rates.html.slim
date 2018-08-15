@@ -13,7 +13,7 @@ table.table.first-column-40 style="width:auto" ng-if="$ctrl.rates.length"
   tbody
     tr ng-repeat="rate in $ctrl.rates"
       td
-        ' {{ rate.ageGroup }} ({{ rate.ageGroupTypeId | toAgeGroupType }})
+        ' {{ rate.ageGroup | friendlyAgeGroup }} ({{ rate.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }})
       td
         span ng-repeat="r in (rate | formatRate) track by $index"
           |{{ r }}

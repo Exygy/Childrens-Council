@@ -11,7 +11,7 @@ table.table.first-column-40 ng-if="$ctrl.enrollments.length"
   tbody
     tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
       td.text-left
-        | {{ enrollment.ageGroup }} ({{ enrollment.ageGroupTypeId | toAgeGroupType }})
+        | {{ enrollment.ageGroup | friendlyAgeGroup }} ({{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }})
       td
         span ng-if="!isFutureVacancy(enrollment.vacancyDate)"
           span ng-if="enrollment.ftVacancies"
