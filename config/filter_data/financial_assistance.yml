@@ -13,14 +13,14 @@
   description: <i>This school participates in ASES.</i> Through this program, after school is offered with an educational enrichment and literacy element and nutritious snacks at no-cost for K-9th grade students. Family income is required. You can apply directly at after school sites.
 -
   label: CalWORKs/AP Vouchers
-  value: Accepts CalWORKs
+  value: CalWORKs/AP Vouchers
   description: This option only applies for families currently receiving CalWORKs benefits. You may select this option to view child care providers that accept vouchers (child care payments from CalWORKs). Keep in mind that some providers may have not notified us that they accept vouchers.
   links:
     - 'Apply: <a href="https://www.sfhsa.org/services/jobs-money/calworks" target="_blank">www.sfhsa.org/services/jobs-money/calworks<a>'
   showInFilter: true
 -
   label: Early Learning Scholarship
-  value: ELS
+  value: Early Learning Scholarship
   description: This option only applies to families currently receiving an Early Learning Scholarship (ELS) voucher. To receive this benefit, families must live in San Francisco, have children age 0-5 and meet income eligibility guidelines.
   links:
     - 'View income guidelines: <a href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank">www.childrenscouncil.org/families/help-paying-for-child-care/</a>'
