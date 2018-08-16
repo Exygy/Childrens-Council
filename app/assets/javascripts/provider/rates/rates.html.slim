@@ -16,5 +16,5 @@ table.table.first-column-40 style="width:auto" ng-if="$ctrl.rates.length"
         ' {{ rate.ageGroup | friendlyAgeGroup }} ({{ rate.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }})
       td
         span ng-repeat="r in (rate | formatRate) track by $index"
-          |{{ r }}
+          |  {{ r }}
           span ng-if="$index < ((rate | formatRate).length-1)",
