@@ -61,7 +61,6 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        :age,
         :ageGroup,
         :ageGroupServiced,
         :distance,
