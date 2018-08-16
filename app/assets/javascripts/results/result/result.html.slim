@@ -37,11 +37,11 @@ ul.general-info
   li
     span.item-detail
       span.fa.fa-external-link.c-base
-      a ng-href="{{ $ctrl.provider.url }}" target="_blank" ng-if="$ctrl.provider.url"
-        '{{ $ctrl.provider.url }}
-      a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" ng-if="!$ctrl.provider.url && $ctrl.provider.generalInfo.socialMediaUrl"
+      a ng-href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" ng-if="$ctrl.provider.website"
+        '{{ $ctrl.provider.website }}
+      a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" ng-if="!$ctrl.provider.website && $ctrl.provider.generalInfo.socialMediaUrl"
         '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
-      span ng-if="!$ctrl.provider.url && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
+      span ng-if="!$ctrl.provider.website && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
 
   li
     span.item-detail

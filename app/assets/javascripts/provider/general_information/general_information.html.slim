@@ -43,13 +43,13 @@ h3.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
     span.fa.fa-globe.info-icon
     .margin-left-2
       span.label-gray.lighter Website
-      a href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" {{ $ctrl.provider.website }}
+      a ng-href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" {{ $ctrl.provider.website }}
 
   .columns.medium-6 ng-if="$ctrl.provider.generalInfo.socialMediaUrl"
     span.fa.fa-globe.info-icon
     .margin-left-2
       span.label-gray.lighter Social Media
-      a href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" {{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
+      a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" {{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
 
   .columns.medium-6 ng-if="$ctrl.provider.generalInfo.local2"
     span.fa.fa-heart.info-icon
