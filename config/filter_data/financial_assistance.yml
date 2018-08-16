@@ -13,7 +13,7 @@
   description: <i>This school participates in ASES.</i> Through this program, after school is offered with an educational enrichment and literacy element and nutritious snacks at no-cost for K-9th grade students. Family income is required. You can apply directly at after school sites.
 -
   label: CalWORKs/AP Vouchers
-  value: Accepts CalWORKs
+  value: CalWORKs/AP Vouchers
   description: This option only applies for families currently receiving CalWORKs benefits. You may select this option to view child care providers that accept vouchers (child care payments from CalWORKs). Keep in mind that some providers may have not notified us that they accept vouchers.
   links:
     - 'Apply: <a href="https://www.sfhsa.org/services/jobs-money/calworks" target="_blank">www.sfhsa.org/services/jobs-money/calworks<a>'
