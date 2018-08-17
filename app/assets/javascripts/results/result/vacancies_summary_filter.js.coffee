@@ -9,10 +9,17 @@ VacanciesSummaryFilter = (AgeToAgeGroupService) ->
 		else
 			return 'Has current vacancies'
 
+	formatDate = (date) ->
+		date_parts = date.split("-")
+		year = date_parts[0]
+		month = date_parts[1]
+		day = date_parts[2]
+		return month + '/' + day + '/' + year
+
 	checkFCCVacancy = (provider, enrollment) ->
 		if numberOfWeeks(provider.ageGroupFrom) < age_in_weeks and age_in_weeks > numberOfWeeks(provider.ageGroupTo)
 			if isFutureVacancy(enrollment.vacancyDate)
-				return 'Has vacancies beginning ' + enrollment.vacancyDate
+				return 'Has vacancies beginning ' + formatDate(enrollment.vacancyDate)
 			else
 				return 'Has current vacancies'
 		else

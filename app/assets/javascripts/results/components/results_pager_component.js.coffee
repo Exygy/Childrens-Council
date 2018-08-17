@@ -1,25 +1,34 @@
-angular.module('CCR')
-.component 'resultsPager', {
-  bindings:
-    currentPage: '<'
-    isFirstPage: '<'
-    isLastPage: '<'
-    pageSize: '<'
-  templateUrl: 'results/components/results_pager.html'
-  controller: ['ResultsService', '$anchorScroll', (ResultsService, $anchorScroll) ->
-    @nextPage = ->
-      if !@isLastPage
-        @scrollToTop()
-        ResultsService.nextPage()
+ResultPagerController = ($anchorScroll, ResultsService) ->
+  $ctrl = @
 
-    @prevPage = ->
-      if !@isFirstPage
-        @scrollToTop()
-        ResultsService.prevPage()
+  $ctrl.nextPage = ->
+    if !@isLastPage
+      @scrollToTop()
+      ResultsService.nextPage()
 
-    @scrollToTop = ->
-      $anchorScroll('search-results-wrapper')
+  $ctrl.prevPage = ->
+    if !@isFirstPage
+      @scrollToTop()
+      ResultsService.prevPage()
 
-    @
-  ]
-}
+  $ctrl.scrollToTop = ->
+    $anchorScroll('search-results-wrapper')
+
+  $ctrl
+
+ResultPagerController.$inject = [
+  '$anchorScroll',
+  'ResultsService'
+]
+
+angular
+  .module('CCR')
+  .component('resultsPager', {
+    bindings:
+      currentPage: '<'
+      isFirstPage: '<'
+      isLastPage: '<'
+      pageSize: '<'
+    templateUrl: 'results/components/results_pager.html'
+    controller: ResultPagerController
+  })
