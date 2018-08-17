@@ -1,32 +1,49 @@
-ScheduleHoursToSummary = ($filter) ->
-  (schedule_hours) ->
+ScheduleHoursToSummary = ($filter, DataService) ->
+  (scheduleHours) ->
 
-    scheduleHourToString = (schedule_hour) ->
-      if !schedule_hour.closed
-        start_date = $filter('date')(schedule_hour.startTime, 'h:mma', 'UTC')
-        end_date = $filter('date')(schedule_hour.endTime, 'h:mma', 'UTC')
-        return start_date.replace(':00', '')+'-'+end_date.replace(':00', '')
+    scheduleHourToString = (scheduleHour) ->
+      if !scheduleHour.closed
+        startDate = Date.UTC(0, 0, 0, scheduleHour.startTime.slice(0, 2), scheduleHour.startTime.slice(3, 5))
+        endDate = Date.UTC(0, 0, 0, scheduleHour.endTime.slice(0, 2), scheduleHour.endTime.slice(3, 5))
+        startTime = $filter('date')(startDate, 'h:mma', 'UTC')
+        endTime = $filter('date')(endDate, 'h:mma', 'UTC')
+        return startTime + '-' + endTime
       else
         false
 
-    week_days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-    summary_hours = {}
-    for schedule_hour in schedule_hours
-      hour_key = scheduleHourToString(schedule_hour)
-      if hour_key
-        summary_hours[hour_key] = [] if !summary_hours[hour_key]
-        summary_hours[hour_key].push schedule_hour.day.charAt(0)
+    abbreviateDay = (fullDayName) ->
+      switch
+        when fullDayName == 'Sunday' then 'Su'
+        when fullDayName == 'Saturday' then 'Sa'
+        when fullDayName == 'Thursday' then 'Th'
+        else fullDayName[0]
 
-    summary_hours_strings = []
-    for hours,days of summary_hours
-      if days.length == week_days.length
-        summary_hours_strings.push 'Every day, '+hours.toLowerCase()
+    weekDays = DataService.filterData.days
+    summaryHours = {}
+    for scheduleHour in scheduleHours
+      hourKey = scheduleHourToString(scheduleHour)
+      if hourKey
+        summaryHours[hourKey] = [] if !summaryHours[hourKey]
+        summaryHours[hourKey].push scheduleHour.day
+
+    summaryHoursStrings = []
+
+    for hours, days of summaryHours
+      if days.length == weekDays.length
+        summaryHoursStrings.push 'Every day, ' + hours.toLowerCase()
       else
-        if days.length > 1
-          summary_hours_strings.push days[0]+'-'+days[days.length-1]+', '+hours.toLowerCase()
+        days = days.sort((a,b) ->
+          return -1 if weekDays.indexOf(a) < weekDays.indexOf(b)
+          return 1 if weekDays.indexOf(a) > weekDays.indexOf(b)
+          return 0 if weekDays.indexOf(a) == weekDays.indexOf(b)
+        )
+        if days.length == 5 and days[0] == 'Monday' and days[4] == 'Friday'
+          summaryHoursStrings.push 'M-F, ' + hours.toLowerCase()
         else
-          summary_hours_strings.push days[0]+', '+hours.toLowerCase()
-    summary_hours_strings.join(' - ')
+          abbrDays = days.reduce ((sum, val) -> sum + abbreviateDay(val)), ''
+          summaryHoursStrings.push abbrDays + ', ' + hours.toLowerCase()
 
-ScheduleHoursToSummary.$inject = ['$filter']
+    summaryHoursStrings.join(' - ')
+
+ScheduleHoursToSummary.$inject = ['$filter', 'DataService']
 angular.module('CCR').filter('scheduleHoursToSummary', ScheduleHoursToSummary)
