@@ -39,6 +39,8 @@ ScheduleHoursToSummary = ($filter, DataService) ->
         )
         if days.length == 5 and days[0] == 'Monday' and days[4] == 'Friday'
           summaryHoursStrings.push 'M-F, ' + hours.toLowerCase()
+        else if days.length == 6 and days[0] == 'Monday' and days[5] == 'Saturday'
+          summaryHoursStrings.push 'M-Sa, ' + hours.toLowerCase()
         else
           abbrDays = days.reduce ((sum, val) -> sum + abbreviateDay(val)), ''
           summaryHoursStrings.push abbrDays + ', ' + hours.toLowerCase()
