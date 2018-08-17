@@ -40,9 +40,8 @@ section.margin-top-2
             label for="financial-assist-{{$index}}"
               b
                 | {{assist.label || assist.value}}
-            p.c-base ng-if="assist.description"
-              small
-                | {{assist.description}}
+            p.c-base ng-if="assist.description" ng-bind-html="assist.description"
+            p.c-base ng-bind-html="link" ng-repeat="link in assist.links" ng-if="assist.links"
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Teaching Philosophy
