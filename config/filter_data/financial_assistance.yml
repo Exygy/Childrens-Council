@@ -29,21 +29,21 @@
 -
   label: Head Start
   value: Head Start
-  description: Early education and preschool programs for families living in San Francisco with children ages 0-5. Eligibility is based on family income and other requirements.
+  description: Head Start and Early Head Start programs provide free learning and development services to children age 0-5 from low-income families. Eligibility is based on family income and other requirements.
   links:
     - 'More information: <a href="https://www.acf.hhs.gov/ohs" target="_blank">www.acf.hhs.gov/ohs</a>'
   showInFilter: true
 -
-  label: Preschool for All
-  value: Preschool for All
-  description: Preschool is offered at a reduced cost or free for children aged 4 who reside in San Francisco County. Family income is not required. You can apply directly at sites in the Preschool for All Network.
+  label: Preschool For All
+  value: Preschool For All
+  description: Through this program, preschool is offered at a reduced cost or free for children age 4 who reside in San Francisco county. Family income is not required. You can apply directly at child care sites in the Preschool for All Network.
   links:
     - 'More information: <a href="http://sfoece.org/parents-families/" target="_blank">www.sfoece.org/parents-families/</a>'
   showInFilter: true
 -
   label: Scholarship
   value: Scholarship
-  description: Full or partial tuition discount offered by private funding at school site.
+  description: Some child care and preschool sites offer full or partial tuition discounts. Inquire and apply directly at the sites you are interested in.
   showInFilter: true
 -
   label: Sibling discount
