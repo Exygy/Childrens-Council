@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'Parent', at: 'api/auth'
   get 'home/index'
   get 'wordpress_template' => 'home#wordpress_template'
 

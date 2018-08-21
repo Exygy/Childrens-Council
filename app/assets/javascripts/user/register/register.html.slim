@@ -1,0 +1,27 @@
+form [name="registerForm" ng-submit="register()" novalidate]
+
+  section.panel.radius.margin-top-3.padding-2
+    label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (registerForm.email.$dirty && registerForm.email.$invalid) }"
+      | Email
+      input.radius type="text" name="email" required="" validate-first-name-last-name="" ng-model="parent.email" ng-model-options="{ updateOn: 'blur' }"
+      small.error ng-show="(registerForm.email.$dirty && registerForm.email.$invalid)"
+        span.fa.fa-exclamation-circle
+        |  Invalid email
+
+  section.panel.radius.margin-top-3.padding-2
+    label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid) }"
+      | Confirm email
+      input.radius type="text" name="confirm_email" required="" validate-first-name-last-name="" ng-model="parent.confirm_email" ng-model-options="{ updateOn: 'blur' }"
+      small.error ng-show="(registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid)"
+        span.fa.fa-exclamation-circle
+        |  Email do not match
+
+  section.panel.radius.margin-top-3.padding-2
+    label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (registerForm.password.$dirty && registerForm.password.$invalid) }"
+      | Password
+      input.radius type="text" name="password" required="" validate-first-name-last-name="" ng-model="parent.password" ng-model-options="{ updateOn: 'blur' }"
+      small.error ng-show="(registerForm.password.$dirty && registerForm.password.$invalid)"
+        span.fa.fa-exclamation-circle
+        | Password not strong enough
+
+  input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Continue"

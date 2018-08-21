@@ -59,6 +59,12 @@ gem 'sprockets', '~> 3.0'
 
 # Authentication manager
 gem 'devise'
+gem 'omniauth'
+gem 'devise_token_auth'
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
 
 gem 'newrelic_rpm'
 

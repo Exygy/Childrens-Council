@@ -1,11 +1,13 @@
 angular.module 'CCR', [
   'angularMoment',
   'checklist-model',
+  'Devise',
   'mm.foundation',
   'ngAnimate',
   'ngAria',
   'ngCookies',
   'ngMap',
+  'ng-token-auth',
   'ngSanitize',
   'templates',
   'truncate',
@@ -50,6 +52,9 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Accept'] = 'application/json'
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
     $httpProvider.interceptors.push('APIInterceptor');
+  ]
+  .config ['AuthProvider', (AuthProvider) ->
+    AuthProvider.registerPath('/api/parents.json');
   ]
   .run ['$rootScope', ($rootScope) ->
     $rootScope.data = CCR_DATA
