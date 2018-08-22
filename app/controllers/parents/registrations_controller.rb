@@ -3,6 +3,10 @@
 class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  rescue_from 'ActiveRecord::RecordNotUnique' do |exception|
+    clean_up_passwords @resource
+    render_create_error_email_already_exists
+  end
 
   # GET /resource/sign_up
   # def new
@@ -10,10 +14,9 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   # end
 
   # POST /resource
-  def create
-    byebug
-    super
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
@@ -42,12 +45,7 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   protected
 
   def build_resource
-    @resource = Parent.find_by_api_key(params[:api_key]) if params[:api_key]
-    if @resource.present?
-      @resource.assign_attributes(sign_up_params)
-    else
-      @resource = resource_class.new(sign_up_params)
-    end
+    find_or_create_resource(params[:api_key])
     @resource.provider   = provider
 
     # honor devise configuration for case_insensitive_keys
@@ -61,6 +59,20 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:api_key])
+  end
+
+  def find_or_create_resource(api_key)
+    @resource = Parent.find_by_api_key(api_key) if api_key
+    if @resource.present?
+      # If password is set, user is already signed in
+      if @resource.encrypted_password.present?
+        raise ActiveRecord::RecordNotUnique, "That email is already registered"
+      else
+        @resource.assign_attributes(sign_up_params)
+      end
+    else
+      @resource = resource_class.new(sign_up_params)
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.

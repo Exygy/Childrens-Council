@@ -3,8 +3,8 @@
 # Table name: parents
 #
 #  id                     :integer          not null, primary key
-#  first_name             :text             not null
-#  last_name              :text             not null
+#  first_name             :text
+#  last_name              :text
 #  email                  :citext
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
