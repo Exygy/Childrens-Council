@@ -132,6 +132,7 @@ group :development do
 
   # `guard init teaspoon`
   gem 'guard-teaspoon', require: false
+  gem 'byebug'
 end
 
 group :production do

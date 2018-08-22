@@ -1,8 +1,8 @@
 class AddAuthToParents < ActiveRecord::Migration
   def change
     change_table :parents do |t|
-      t.string :provider, null: false, default: 'email'
-      t.text :uid, null: false, default: ''
+      t.string :provider, default: 'email'
+      t.text :uid, default: ''
       t.text :tokens
 
       ## Database authenticatable
@@ -28,7 +28,7 @@ class AddAuthToParents < ActiveRecord::Migration
     Parent.find_each do |parent|
       parent.uid = parent.email
       parent.provider = 'email'
-      parent.save!
+      parent.save(validate: false)
     end
 
     # to speed up lookups to these columns:

@@ -6,7 +6,8 @@ UserPromptController = ($scope, $modal) ->
   $scope.createAccount = ->
     $modal.open {
       controller: 'userRegisterCtrl',
-      templateUrl: 'user/register/register.html'
+      templateUrl: 'user/register/register.html',
+      scope: $scope
     }
 
   return $ctrl

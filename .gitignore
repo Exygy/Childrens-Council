@@ -26,3 +26,4 @@ vendor/assets/stylesheets/style.min.css
 node_modules
 
 .DS_Store
+.byebug_history

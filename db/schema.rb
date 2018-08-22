@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121233036) do
+ActiveRecord::Schema.define(version: 20180821134253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,23 +162,35 @@ ActiveRecord::Schema.define(version: 20171121233036) do
   add_index "neighborhoods_parents", ["parent_id", "neighborhood_id"], name: "index_neighborhoods_parents_on_parent_id_and_neighborhood_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",                 null: false
-    t.text     "last_name",                  null: false
+    t.text     "first_name",                                          null: false
+    t.text     "last_name",                                           null: false
     t.citext   "email"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "phone",           limit: 10
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.string   "phone",                  limit: 10
     t.integer  "found_option_id"
     t.text     "address"
-    t.string   "home_zip_code",   limit: 5
+    t.string   "home_zip_code",          limit: 5
     t.string   "api_key"
     t.string   "full_name"
     t.float    "random_seed"
     t.string   "near_address"
     t.boolean  "subscribe"
+    t.string   "provider",                          default: "email"
+    t.text     "uid",                               default: ""
+    t.text     "tokens"
+    t.string   "encrypted_password",                default: "",      null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.integer  "sign_in_count",                     default: 0,       null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
+  add_index "parents", ["uid", "provider"], name: "index_parents_on_uid_and_provider", unique: true, using: :btree
 
   create_table "parents_zip_codes", id: false, force: :cascade do |t|
     t.integer  "parent_id",   null: false

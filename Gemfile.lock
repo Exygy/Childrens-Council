@@ -53,6 +53,7 @@ GEM
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
+    byebug (10.0.2)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -314,6 +315,7 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
+  byebug
   coffee-rails
   devise
   devise_token_auth (~> 0.2.0)
