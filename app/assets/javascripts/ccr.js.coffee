@@ -65,12 +65,12 @@ angular.module 'CCR', [
       passwordResetPath:       '/auth/password',
       passwordUpdatePath:      '/auth/password',
       emailSignInPath:         '/auth/sign_in',
-      storage:                 'cookies',
-      forceValidateToken:      false,
+#      storage:                 'cookies',
+#      forceValidateToken:      false,
       validateOnPageLoad:      true,
       proxyIf:                 -> return false,
-      proxyUrl:                '/proxy',
-      omniauthWindowType:      'sameWindow',
+#      proxyUrl:                '/proxy',
+#      omniauthWindowType:      'sameWindow',
 #      authProviderPaths: {
 #        github:   '/auth/github',
 #        facebook: '/auth/facebook',
@@ -90,21 +90,21 @@ angular.module 'CCR', [
         secure: false,
         domain: 'domain.com'
       },
-      createPopup: (url) ->
-        return window.open(url, '_blank', 'closebuttoncaption=Cancel')
-      ,
-      parseExpiry: (headers) ->
-        # convert from UTC ruby (seconds) to UTC js (milliseconds)
-        return (parseInt(headers['expiry']) * 1000) || null
-      ,
-      handleLoginResponse: (response) ->
-        return response.data;
-      ,
-      handleAccountUpdateResponse: (response) ->
-        return response.data
-      ,
-      handleTokenValidationResponse: (response) ->
-        return response.data
+#      createPopup: (url) ->
+#        return window.open(url, '_blank', 'closebuttoncaption=Cancel')
+#      ,
+#      parseExpiry: (headers) ->
+#        # convert from UTC ruby (seconds) to UTC js (milliseconds)
+#        return (parseInt(headers['expiry']) * 1000) || null
+#      ,
+#      handleLoginResponse: (response) ->
+#        return response.data;
+#      ,
+#      handleAccountUpdateResponse: (response) ->
+#        return response.data
+#      ,
+#      handleTokenValidationResponse: (response) ->
+#        return response.data
     })
   ]
   .run ['$rootScope', ($rootScope) ->

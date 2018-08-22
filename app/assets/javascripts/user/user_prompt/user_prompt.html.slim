@@ -1,10 +1,11 @@
-h4 Already have an Account?
+.text-center ng-show="!parent"
+  h4 Already have an Account?
 
-p
-  | Log in to use your previous search criteria, save favorites, and compare options side-by-side. You can also
-  a href="#"  search as guest
-  | .
+  p
+    | Log in to use your previous search criteria, save favorites, and compare options side-by-side. You can also
+    a href="#"  search as guest
+    | .
 
-button ng-click="login()" Log In
+  button.round.button ng-click="login()" Log In
 
-button ng-click="createAccount()" Create Account
+  button.round.button.margin-1 ng-click="createAccount()" Create Account

@@ -43,8 +43,6 @@ class Parent < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :trackable, :validatable, :registerable
   include DeviseTokenAuth::Concerns::User
 
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true
   validates :email, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true

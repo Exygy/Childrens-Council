@@ -1,0 +1,23 @@
+RegisterController = ($scope, $auth, DataService, $modalInstance) ->
+  $ctrl = @
+  $scope.registering = true
+  $scope.successImage = '<%= image_path "success_image.png" %>'
+
+  $scope.register = (parent) ->
+    $auth.submitRegistration(parent)
+      .then (resp) ->
+        $scope.registering = false
+        $auth.submitLogin(parent).then (resp) ->
+          console.log('logged')
+      .catch (resp) ->
+        window.console.log('fails')
+  $scope.close = ->
+    $modalInstance.close();
+
+  return $ctrl
+
+RegisterController.$inject = ['$scope', '$auth', 'DataService', '$modalInstance']
+
+angular
+  .module('CCR')
+  .controller('userRegisterCtrl', RegisterController)

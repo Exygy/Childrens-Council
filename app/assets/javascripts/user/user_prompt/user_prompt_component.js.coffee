@@ -1,5 +1,6 @@
-UserPromptController = ($scope, $modal) ->
+UserPromptController = ($scope, $modal, $auth) ->
   $ctrl = @
+  $scope.parent
 
   $scope.login = () ->
 
@@ -10,9 +11,17 @@ UserPromptController = ($scope, $modal) ->
       scope: $scope
     }
 
+  $scope.$on 'auth:validation-success', (event, user) ->
+    $scope.parent = user
+
+  $scope.$on 'auth:login-success', (event, user) ->
+    $scope.parent = user
+
+  $auth.validateUser()
+
   return $ctrl
 
-UserPromptController.$inject = ['$scope', '$modal']
+UserPromptController.$inject = ['$scope', '$modal', '$auth']
 
 angular
   .module('CCR')
