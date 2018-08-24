@@ -2,25 +2,37 @@
 #
 # Table name: parents
 #
-#  id              :integer          not null, primary key
-#  first_name      :text             not null
-#  last_name       :text             not null
-#  email           :citext
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  phone           :string(10)
-#  found_option_id :integer
-#  address         :text
-#  home_zip_code   :string(5)
-#  api_key         :string
-#  full_name       :string
-#  random_seed     :float
-#  near_address    :string
-#  subscribe       :boolean
+#  id                     :integer          not null, primary key
+#  first_name             :text
+#  last_name              :text
+#  email                  :citext
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  phone                  :string(10)
+#  found_option_id        :integer
+#  address                :text
+#  home_zip_code          :string(5)
+#  api_key                :string
+#  full_name              :string
+#  random_seed            :float
+#  near_address           :string
+#  subscribe              :boolean
+#  provider               :string           default("email")
+#  uid                    :text             default("")
+#  tokens                 :text
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
 #
 # Indexes
 #
-#  index_parents_on_found_option_id  (found_option_id)
+#  index_parents_on_found_option_id   (found_option_id)
+#  index_parents_on_uid_and_provider  (uid,provider) UNIQUE
 #
 # Foreign Keys
 #

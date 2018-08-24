@@ -59,6 +59,12 @@ gem 'sprockets', '~> 3.0'
 
 # Authentication manager
 gem 'devise'
+# Token auth for devise
+gem 'devise_token_auth', '~>0.2.0'
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
 
 gem 'newrelic_rpm'
 
@@ -126,6 +132,7 @@ group :development do
 
   # `guard init teaspoon`
   gem 'guard-teaspoon', require: false
+  gem 'byebug'
 end
 
 group :production do

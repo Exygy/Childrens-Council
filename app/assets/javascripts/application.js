@@ -20,6 +20,9 @@
 //= require angular
 //= require angular-aria/angular-aria.js
 //= require angular-animate/angular-animate.js
+//= require ng-token-auth
+//= require angular-cookie
+//= require AngularDevise
 //= require ngmap
 //= require angular-ui-router
 //= require angular-cookies

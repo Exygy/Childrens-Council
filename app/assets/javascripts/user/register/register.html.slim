@@ -1,0 +1,55 @@
+div.ccr-scope.register [ng-show="registering"]
+  form [name="registerForm" ng-submit="register(parent, registerForm)" novalidate]
+    .row
+      .small-6.large-centered.columns.margin-top-1
+        h2.text-center Create an account
+        p.text-center Create an account to use your previous search criteria, save favorites, and compare options side-by-side.
+    .row
+      .small-4.large-centered.columns.margin-top-1
+        small.error ng-show="errors"
+          ul
+            li ng-repeat="error in errors"
+              | {{error}}
+        section
+          label.large.c-black.text-normal ng-class="{ error: (registerForm.email.$dirty && registerForm.email.$invalid) }"
+            | Email
+            input.panel.radius type="text" name="email" required="" ng-model="parent.email"
+            small.error ng-show="(registerForm.email.$dirty && registerForm.email.$invalid)"
+              span.fa.fa-exclamation-circle
+              |  Invalid email
+
+        section
+          label.large.c-black.text-normal ng-class="{ error: (registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid) }"
+            | Confirm email
+            input.radius type="text" name="confirm_email" required="" ng-model="parent.confirm_email" ng-pattern="parent.email"
+            small.error ng-show="(registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid)"
+              span.fa.fa-exclamation-circle
+              |  Email do not match
+
+        section
+          label.large.c-black.text-normal ng-class="{ error: (registerForm.password.$dirty && registerForm.password.$invalid) }"
+            | Password
+            input.radius type="password" name="password" required="" ng-minlength="8" ng-model="parent.password"
+            small.error ng-show="(registerForm.password.$dirty && registerForm.password.$invalid)"
+              span.fa.fa-exclamation-circle
+              | Password is too short
+    .row
+      .small-6.large-centered.columns
+        p.text-center.margin-top-1
+          input.large.round.button.text-uppercase ng-disabled="registerForm.$invalid" type="submit" value="Continue"
+        p.text-center.margin-1
+          a.text-uppercase ng-click="close()"
+            b Continue without account
+div [ng-show="!registering"]
+  .row
+    .small-6.large-centered.columns
+      .text-center
+        img.register-success-img ng-src="{{successImage}}"
+  .row
+    .small-6.large-centered.columns
+      h2.text-center Account created successfully
+      p.text-center You can use your previous search criteria, save favorites, and compare options side-by-side.
+      p.text-center.padding-1
+        button.button.round ng-click="close()" Close
+
+a.close-reveal-modal ng-click="close()" ×
