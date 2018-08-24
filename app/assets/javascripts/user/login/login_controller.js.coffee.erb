@@ -1,0 +1,36 @@
+LoginController = ($scope, $auth, DataService, $modalInstance, $modal) ->
+  $ctrl = @
+  $scope.successImage = '<%= image_path "success_image.png" %>'
+  $scope.errors
+
+  $scope.login = (parent) ->
+    $scope.errors = []
+    $auth.submitLogin(parent)
+      .then (resp) ->
+        $modalInstance.close()
+      .catch (resp) ->
+        $scope.errors = resp.errors
+
+  $scope.createAccount = () ->
+    $modalInstance.close()
+    $modal.open {
+      controller: 'userRegisterCtrl',
+      templateUrl: 'user/register/register.html',
+    }
+
+  $scope.close = ->
+    $modalInstance.close();
+
+  $scope.$on 'auth:login-success', (event, user) ->
+    $scope.parent = user
+
+  $scope.$on 'auth:login-error', (event, user) ->
+    $scope.parent = user
+
+  return $ctrl
+
+LoginController.$inject = ['$scope', '$auth', 'DataService', '$modalInstance', '$modal']
+
+angular
+  .module('CCR')
+  .controller('userLoginCtrl', LoginController)

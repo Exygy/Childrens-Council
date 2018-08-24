@@ -7,14 +7,14 @@ angular.module 'CCR', [
   'ngAria',
   'ngCookies',
   'ngMap',
-  'ng-token-auth',
+  'ng-token-auth2',
   'ngSanitize',
   'templates',
   'truncate',
   'ui.carousel',
   'ui.select',
   'ui.slider',
-  'ui.router'
+  'ui.router',
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter
@@ -56,7 +56,10 @@ angular.module 'CCR', [
 
   .config ['$authProvider', ($authProvider) ->
     $authProvider.configure({
-      apiUrl: 'http://localhost:3000/api'
+      apiUrl: 'http://localhost:3000/api',
+
+      handleLoginResponse: (response) ->
+        console.log('hell')
     })
   ]
   .run ['$rootScope', ($rootScope) ->
