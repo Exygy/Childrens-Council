@@ -6,112 +6,112 @@
 /    ' , please
 /    a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank" contact us
 /    ' . A member of our Inclusion team will follow up to help.
+.ccr-scope
+  .loading ng-show="loading"
 
-.loading ng-show="loading"
+  user-prompt
 
-user-prompt
+  form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading" id="searchForm"]
+    span ng-include="'search/filters/initial_filters.html'"
 
-form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
-  span ng-include="'search/filters/initial_filters.html'"
+    section.panel.radius.margin-top-3.padding-2
+      h5.c-black.margin-bottom-none About you
 
-  section.panel.radius.margin-top-3.padding-2
-    h5.c-black.margin-bottom-none About you
+      a href="#" ng-click="settings.show_why_asking = !settings.show_why_asking"
+        small Why are we asking for your information?
 
-    a href="#" ng-click="settings.show_why_asking = !settings.show_why_asking"
-      small Why are we asking for your information?
+      p.fade ng-show="settings.show_why_asking"
+        small
+          | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
+          a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
 
-    p.fade ng-show="settings.show_why_asking"
-      small
-        | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
-        a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
+      label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
+        | Your name *
+        input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
+        small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
+          span.fa.fa-exclamation-circle
+          |  Your first name and last name are required
 
-    label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
-      | Your name *
-      input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
-      small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
+
+      h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
+        | Email address <em>or</em> phone *
+
+      tabset.tabs-inline role="tablist"
+        tab select="setContactType('email')"
+          tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'email'}}" controls="email-tab" Email address
+
+          #email-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'email'}}"
+            label.show-for-sr for="email" Email
+            input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="parent.phone === ''"
+            small.error ng-show="searchForm.email.$dirty && searchForm.email.$invalid"
+              span.fa.fa-exclamation-circle
+              | Email or phone number is required
+
+        tab select="setContactType('phone')"
+          tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'phone'}}" controls="phone-tab" Phone
+
+          #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
+            label.show-for-sr for="phone" Phone
+
+            input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid"
+
+            small.error ng-show="searchForm.phone.$dirty && searchForm.phone.$invalid"
+              span.fa.fa-exclamation-circle
+              | Phone number or email is required
+
+      label.large.c-black.text-normal.margin-top-1 for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
+        | Home zip code *
+      .row
+        .columns.large-5
+          input#zip-code.radius placeholder="5 digit zip code" type="text" name="home_zip_code" required="" validate-zip-code=""  ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
+            small.error ng-show="searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid"
+              span.fa.fa-exclamation-circle
+              | 5 digit zip code is required
+
+      h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
+
+      .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
+        label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
+        select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.parents_care_reasons_attributes[$index].care_reason_id" ng-required="true"
+          option [value="" disabled] Select Care Reason
+          option ng-repeat="care_reason in $root.data.care_reasons_array track by care_reason.id" value="{{ care_reason.id }}"
+            ' {{ care_reason.name }}
+
+        button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.parents_care_reasons_attributes, $index)" Remove
+
+      button.inline type="button" aria-label="Add another care reason" ng-show="hasFinalValue(parent.parents_care_reasons_attributes) && parent.parents_care_reasons_attributes.length < 3" ng-click="addItem(parent.parents_care_reasons_attributes)" Add another
+
+      small.error ng-show="searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '')"
         span.fa.fa-exclamation-circle
-        |  Your first name and last name are required
+        | Selecting a care reason is required
 
+      label.large.c-black.text-normal.margin-top-2 for="found-option"
+        | How did you hear about us?
+        em
+          small.optional Optional
 
-    h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
-      | Email address <em>or</em> phone *
+      .repeater-container
+        select#found-option.radius name="found_option" ng-model="parent.found_option_id"
+          option value="" Select
+          option ng-repeat="found_option in $root.data.found_options_array track by found_option.id" value="{{ found_option.id }}"
+            ' {{ found_option.name }}
 
-    tabset.tabs-inline role="tablist"
-      tab select="setContactType('email')"
-        tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'email'}}" controls="email-tab" Email address
+    section.margin-top-2
+      small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
+        span.fa.fa-exclamation-circle
+        | You must agree to the terms of service to continue
 
-        #email-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'email'}}"
-          label.show-for-sr for="email" Email
-          input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="parent.phone === ''"
-          small.error ng-show="searchForm.email.$dirty && searchForm.email.$invalid"
-            span.fa.fa-exclamation-circle
-            | Email or phone number is required
+      .checkbox.checkbox-single
+        input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
+        label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
+          strong I agree to the following: *
+      p.padding-left-2
+        small
+          | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
+          a href="http://www.childrenscouncil.org/wp-content/uploads/2016/03/RESOURCE-AND-REFERRAL-SERVICES-POLICIES-AND-DISCLAIMERS-2015-ENG.pdf" target="_blank"  Read our referral policies and disclaimers.
 
-      tab select="setContactType('phone')"
-        tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'phone'}}" controls="phone-tab" Phone
+      .checkbox.checkbox-single
+        input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"
+        label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
-        #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
-          label.show-for-sr for="phone" Phone
-
-          input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid"
-
-          small.error ng-show="searchForm.phone.$dirty && searchForm.phone.$invalid"
-            span.fa.fa-exclamation-circle
-            | Phone number or email is required
-
-    label.large.c-black.text-normal.margin-top-1 for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
-      | Home zip code *
-    .row
-      .columns.large-5
-        input#zip-code.radius placeholder="5 digit zip code" type="text" name="home_zip_code" required="" validate-zip-code=""  ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
-          small.error ng-show="searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid"
-            span.fa.fa-exclamation-circle
-            | 5 digit zip code is required
-
-    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
-
-    .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
-      label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
-      select.radius id="care-reason-{{$index + 1}}" name="care_reason_{{$index + 1}}" ng-model="parent.parents_care_reasons_attributes[$index].care_reason_id" ng-required="true"
-        option [value="" disabled] Select Care Reason
-        option ng-repeat="care_reason in $root.data.care_reasons_array track by care_reason.id" value="{{ care_reason.id }}"
-          ' {{ care_reason.name }}
-
-      button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.parents_care_reasons_attributes, $index)" Remove
-
-    button.inline type="button" aria-label="Add another care reason" ng-show="hasFinalValue(parent.parents_care_reasons_attributes) && parent.parents_care_reasons_attributes.length < 3" ng-click="addItem(parent.parents_care_reasons_attributes)" Add another
-
-    small.error ng-show="searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '')"
-      span.fa.fa-exclamation-circle
-      | Selecting a care reason is required
-
-    label.large.c-black.text-normal.margin-top-2 for="found-option"
-      | How did you hear about us?
-      em
-        small.optional Optional
-
-    .repeater-container
-      select#found-option.radius name="found_option" ng-model="parent.found_option_id"
-        option value="" Select
-        option ng-repeat="found_option in $root.data.found_options_array track by found_option.id" value="{{ found_option.id }}"
-          ' {{ found_option.name }}
-
-  section.margin-top-2
-    small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
-      span.fa.fa-exclamation-circle
-      | You must agree to the terms of service to continue
-
-    .checkbox.checkbox-single
-      input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
-      label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
-        strong I agree to the following: *
-    p.padding-left-2
-      small
-        | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
-        a href="http://www.childrenscouncil.org/wp-content/uploads/2016/03/RESOURCE-AND-REFERRAL-SERVICES-POLICIES-AND-DISCLAIMERS-2015-ENG.pdf" target="_blank"  Read our referral policies and disclaimers.
-
-    .checkbox.checkbox-single
-      input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"
-      label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
-
-    input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Search"
+      input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Search"

@@ -17,7 +17,6 @@ UserPromptController = ($scope, $modal, $auth) ->
   $scope.$on 'auth:login-success', (event, user) ->
     $scope.parent = user
 
-  $auth.validateUser()
 
   return $ctrl
 
