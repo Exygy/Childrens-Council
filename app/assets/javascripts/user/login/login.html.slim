@@ -1,0 +1,31 @@
+div.ccr-scope.register
+  form [name="loginForm" ng-submit="login(parent)" novalidate]
+    .row
+      .small-6.large-centered.columns.margin-top-1
+        h2.text-center Log In
+        p.text-center Log in to use your previous search criteria, save favorites, and compare options side-by-side.
+    .row
+      .small-4.large-centered.columns.margin-top-1
+        small.error ng-show="errors"
+          ul
+            li ng-repeat="error in errors"
+              | {{error}}
+        section
+          label.large.c-black.text-normal ng-class="{ error: (loginForm.email.$dirty && loginForm.email.$invalid) }"
+            | Email
+            input.panel.radius type="text" name="email" required="" ng-model="parent.email"
+
+        section
+          label.large.c-black.text-normal ng-class="{ error: (loginForm.password.$dirty && loginForm.password.$invalid) }"
+            | Password
+            input.radius type="password" name="password" required="" ng-model="parent.password"
+          a Forgot password?
+    .row
+      .small-6.large-centered.columns
+        p.text-center.margin-top-1
+          input.large.round.button.text-uppercase ng-disabled="loginForm.$invalid" type="submit" value="Continue"
+        p.text-center.margin-1
+          | Don’t have a login?
+          a ng-click="createAccount()"  Create one.
+
+a.close-reveal-modal ng-click="close()" ×

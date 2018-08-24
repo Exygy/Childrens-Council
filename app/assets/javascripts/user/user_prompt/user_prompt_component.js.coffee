@@ -3,12 +3,15 @@ UserPromptController = ($scope, $modal, $auth) ->
   $scope.parent
 
   $scope.login = () ->
+    $modal.open {
+      controller: 'userLoginCtrl',
+      templateUrl: 'user/login/login.html',
+    }
 
   $scope.createAccount = ->
     $modal.open {
       controller: 'userRegisterCtrl',
       templateUrl: 'user/register/register.html',
-      scope: $scope
     }
 
   $scope.$on 'auth:validation-success', (event, user) ->

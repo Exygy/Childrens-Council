@@ -10,9 +10,10 @@ RegisterController = ($scope, $auth, DataService, $modalInstance) ->
       .then (resp) ->
         $scope.registering = false
         $auth.submitLogin(parent).then (resp) ->
-          console.log('logged')
+          return
       .catch (resp) ->
-        $scope.errors = resp.data.errors.full_messages
+        $scope.errors = _.sortedUniq(resp.data.errors.full_messages)
+        return
   $scope.close = ->
     $modalInstance.close();
 
