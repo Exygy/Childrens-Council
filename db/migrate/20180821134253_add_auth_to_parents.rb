@@ -32,6 +32,6 @@ class AddAuthToParents < ActiveRecord::Migration
     end
 
     # to speed up lookups to these columns:
-    add_index :parents, [:uid, :provider], unique: true
+    add_index :parents, [:uid, :provider]
   end
 end
