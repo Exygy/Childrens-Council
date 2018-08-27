@@ -41,15 +41,6 @@ div.ccr-scope.register [ng-show="registering"]
           a.text-uppercase ng-click="close()"
             b Continue without account
 div [ng-show="!registering"]
-  .row
-    .small-6.large-centered.columns
-      .text-center
-        img.register-success-img ng-src="{{successImage}}"
-  .row
-    .small-6.large-centered.columns
-      h2.text-center Account created successfully
-      p.text-center You can use your previous search criteria, save favorites, and compare options side-by-side.
-      p.text-center.padding-1
-        button.button.round ng-click="close()" Close
+  success-message header="'Account created successfully'" message="'You can use your previous search criteria, save favorites, and compare options side-by-side.'" on-close="close()"
 
 a.close-reveal-modal ng-click="close()" ×

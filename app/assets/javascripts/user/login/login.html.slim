@@ -19,13 +19,13 @@ div.ccr-scope.register
           label.large.c-black.text-normal ng-class="{ error: (loginForm.password.$dirty && loginForm.password.$invalid) }"
             | Password
             input.radius type="password" name="password" required="" ng-model="parent.password"
-          a Forgot password?
+          a ng-click="openForgotPassword()" Forgot password?
     .row
       .small-6.large-centered.columns
         p.text-center.margin-top-1
           input.large.round.button.text-uppercase ng-disabled="loginForm.$invalid" type="submit" value="Continue"
         p.text-center.margin-1
           | Don’t have a login?
-          a ng-click="createAccount()"  Create one.
+          a ng-click="openCreateAccount()"  Create one.
 
 a.close-reveal-modal ng-click="close()" ×

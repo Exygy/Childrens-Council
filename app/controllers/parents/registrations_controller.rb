@@ -3,6 +3,9 @@
 class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  #
+  after_action :send_welcome_email, only: [:create]
+
   rescue_from 'ActiveRecord::RecordNotUnique' do |exception|
     clean_up_passwords @resource
     render_create_error_email_already_exists
@@ -73,6 +76,10 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
     else
       @resource = resource_class.new(sign_up_params)
     end
+  end
+
+  def send_welcome_email
+    ParentMailer.welcome_email(@resource.id).deliver_now if @resource.id.present?
   end
 
   # If you have extra params to permit, append them to the sanitizer.

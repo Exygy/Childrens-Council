@@ -11,11 +11,18 @@ LoginController = ($scope, $auth, DataService, $modalInstance, $modal) ->
       .catch (resp) ->
         $scope.errors = resp.errors
 
-  $scope.createAccount = () ->
+  $scope.openCreateAccount = () ->
     $modalInstance.close()
     $modal.open {
       controller: 'userRegisterCtrl',
       templateUrl: 'user/register/register.html',
+    }
+
+  $scope.openForgotPassword = () ->
+    $modalInstance.close()
+    $modal.open {
+      controller: 'userForgetPasswordCtrl',
+      templateUrl: 'user/forgot_password/forget_password.html',
     }
 
   $scope.close = ->
