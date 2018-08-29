@@ -62,6 +62,9 @@ gem 'devise'
 # Token auth for devise
 gem 'devise_token_auth', '~>0.2.0'
 
+# Email distribution
+gem 'sendgrid-ruby'
+
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end

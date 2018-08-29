@@ -1,7 +1,6 @@
 RegisterController = ($scope, $auth, DataService, $modalInstance) ->
   $ctrl = @
   $scope.registering = true
-  $scope.successImage = '<%= image_path "success_image.png" %>'
   $scope.errors
 
   $scope.register = (parent, registerForm) ->

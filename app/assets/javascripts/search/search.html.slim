@@ -9,9 +9,8 @@
 .ccr-scope
   .loading ng-show="loading"
 
-  user-prompt
-
   form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading" id="searchForm"]
+    user-prompt
     span ng-include="'search/filters/initial_filters.html'"
 
     section.panel.radius.margin-top-3.padding-2
