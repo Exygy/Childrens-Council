@@ -5,6 +5,7 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   # before_action :configure_account_update_params, only: [:update]
   #
   after_action :send_welcome_email, only: [:create]
+  before_action :set_default_response_format
 
   rescue_from 'ActiveRecord::RecordNotUnique' do |exception|
     clean_up_passwords @resource
@@ -46,6 +47,10 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   # end
 
   protected
+
+  def set_default_response_format
+    request.format = :json
+  end
 
   def build_resource
     find_or_create_resource(params[:api_key])

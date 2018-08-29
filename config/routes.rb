@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'Parent', at: 'api/auth', controllers: {
-    registrations: 'parents/registrations'
+    registrations: 'parents/registrations',
+    passwords: 'parents/passwords'
   }
 
   get 'home/index'
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'providers/' => 'home#index'
   get 'providers/:id' => 'home#index'
+
+  get 'reset_password/:reset_token' => 'home#index', as: 'reset_password'
 
   root 'home#index'
 

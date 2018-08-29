@@ -1,4 +1,5 @@
-SearchController = ($scope, $state, SearchService) ->
+SearchController = ($scope, $state, SearchService, $modal) ->
+  $ctrl = @
   $scope.filterData = SearchService.filterData
   $scope.filters = SearchService.filters
   $scope.parent = SearchService.parent
@@ -13,6 +14,17 @@ SearchController = ($scope, $state, SearchService) ->
       active: $scope.searchSettings.locationType == 'zipCodes'
     neighborhoods:
       active: $scope.searchSettings.locationType == 'neighborhoods'
+
+  $ctrl.$onInit = () ->
+    if $ctrl.token
+      $modal.open {
+        resolve: {
+          token: ->
+            $ctrl.token
+        },
+        controller: 'userResetPasswordCtrl',
+        templateUrl: 'user/reset_password/reset_password.html'
+      }
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -49,13 +61,17 @@ SearchController = ($scope, $state, SearchService) ->
   $scope.setContactType = (type) ->
     $scope.searchSettings.contact_type = type
 
-SearchController.$inject = ['$scope', '$state', 'SearchService']
+  return $ctrl
+
+SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal']
 
 angular.module('CCR').controller('SearchController', SearchController)
 
 angular
   .module('CCR')
   .component('search', {
+    bindings:
+      token: '<'
     controller: SearchController
     templateUrl: "search/search.html"
   })

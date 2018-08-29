@@ -42,6 +42,16 @@ angular.module 'CCR', [
           ]
         }
       })
+      .state('reset_password', {
+        url: '/reset_password/:token',
+        component: 'search',
+        onEnter: showSidebar,
+        resolve: {
+          token: ['$stateParams', ($stateParams) ->
+            return $stateParams.token;
+          ]
+        }
+      })
 
     $urlRouterProvider.otherwise('/')
   ]

@@ -251,9 +251,14 @@ angular.module('ng-token-auth2', ['ipCookie']).provider('$auth', function() {
             updatePassword: function(params) {
               return $http.put(this.apiUrl() + this.getConfig().passwordUpdatePath, params).then((function(_this) {
                 return function(resp) {
-                  $rootScope.$broadcast('auth:password-change-success', resp.data);
-                  _this.mustResetPassword = false;
-                  return resp;
+                  if (resp.status == 401) {
+                    $rootScope.$broadcast('auth:password-change-error', resp.data);
+                    return $q.reject(resp);
+                  } else {
+                    $rootScope.$broadcast('auth:password-change-success', resp.data);
+                    _this.mustResetPassword = false;
+                    return resp;
+                  }
                 };
               })(this), function(resp) {
                 $rootScope.$broadcast('auth:password-change-error', resp.data);
