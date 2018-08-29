@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827165748) do
+ActiveRecord::Schema.define(version: 20180829141118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 20180827165748) do
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
   end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "provider_uid"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "favorites", ["parent_id", "provider_uid"], name: "index_favorites_on_parent_id_and_provider_uid", unique: true, using: :btree
 
   create_table "found_options", force: :cascade do |t|
     t.text     "name",       null: false
@@ -439,6 +448,7 @@ ActiveRecord::Schema.define(version: 20180827165748) do
   add_foreign_key "children_schedule_day", "schedules_day", column: "schedule_day_id"
   add_foreign_key "children_schedule_week", "children"
   add_foreign_key "children_schedule_week", "schedules_week", column: "schedule_week_id"
+  add_foreign_key "favorites", "parents", on_delete: :cascade
   add_foreign_key "languages_providers", "languages"
   add_foreign_key "languages_providers", "providers"
   add_foreign_key "licenses", "providers"

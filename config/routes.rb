@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     post 'providers' => 'providers#index'
     post 'providers/:id' => 'providers#show'
 
+    resources :favorites, only: [:create, :destroy]
+
     # CORS support
     match '*unmatched_route' => 'cors#render_204', via: [:options]
     match '*unmatched_route' => 'errors#raise_not_found!', via: [:get, :delete, :patch, :post, :put]
