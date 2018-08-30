@@ -7,7 +7,7 @@ angular.module 'CCR', [
   'ngAria',
   'ngCookies',
   'ngMap',
-  'ng-token-auth2',
+  'ng-token-auth-custom',
   'ngSanitize',
   'templates',
   'truncate',
@@ -66,10 +66,7 @@ angular.module 'CCR', [
 
   .config ['$authProvider', ($authProvider) ->
     $authProvider.configure({
-      apiUrl: 'http://localhost:3000/api',
-
-      handleLoginResponse: (response) ->
-        console.log('hell')
+      apiUrl: '/api'
     })
   ]
   .run ['$rootScope', ($rootScope) ->
