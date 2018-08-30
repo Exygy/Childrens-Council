@@ -1,17 +1,20 @@
-.logo
-  img ng-src="{{ $ctrl.provider.images.headshot }}"
 
-h2.item-title
-  a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider.centerName }}
-  span
-    '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
-  div ng-switch="$ctrl.provider | isFacility"
-    t.fa.fa-building.c-gainsboro ng-switch-when="true"
-    t ng-switch-when="true" Child Care Center
-    t.fa.fa-home.c-gainsboro ng-switch-when="false"
-    t ng-switch-when="false" Family Child Care
+.row.collapse
+  .columns.medium-2.logo
+    img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
+  .columns.medium-8
+    h2.item-title
+      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider.centerName }}
+      span
+        '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
+      div ng-switch="$ctrl.provider | isFacility"
+        t.fa.fa-building.c-gainsboro ng-switch-when="true"
+        t ng-switch-when="true" Child Care Center
+        t.fa.fa-home.c-gainsboro ng-switch-when="false"
+        t ng-switch-when="false" Family Child Care
+  .columns.medium-2
 
-.cl
+    favorite provider="$ctrl.provider"
 
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}

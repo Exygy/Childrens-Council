@@ -83,12 +83,12 @@ ActiveRecord::Schema.define(version: 20180829141118) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "parent_id"
-    t.string   "provider_uid"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "provider_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "favorites", ["parent_id", "provider_uid"], name: "index_favorites_on_parent_id_and_provider_uid", unique: true, using: :btree
+  add_index "favorites", ["parent_id", "provider_id"], name: "index_favorites_on_parent_id_and_provider_id", unique: true, using: :btree
 
   create_table "found_options", force: :cascade do |t|
     t.text     "name",       null: false

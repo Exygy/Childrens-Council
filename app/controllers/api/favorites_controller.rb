@@ -9,9 +9,8 @@ module Api
       render json: results
     end
 
-
     def destroy
-      @favorite = @current_parent.favorites.find_by_provider_uid(params[:id])
+      @favorite = @current_parent.favorites.find_by_provider_id(params[:id])
       @favorite.destroy
 
       render json: @favorite
@@ -24,7 +23,7 @@ module Api
     end
 
     def favorite_params
-      params.require(:favorite).permit(:provider_uid)
+      params.require(:favorite).permit(:provider_id)
     end
 
   end
