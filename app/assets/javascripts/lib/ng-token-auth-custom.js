@@ -1,8 +1,10 @@
+// We needed to override couple methods in ng-token-auth as it was interpreting 401 error as success.
+
 if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.exports === exports) {
-  module.exports = 'ng-token-auth2';
+  module.exports = 'ng-token-auth-custom';
 }
 
-angular.module('ng-token-auth2', ['ipCookie']).provider('$auth', function() {
+angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function() {
   var configs, defaultConfigName;
   configs = {
     "default": {
@@ -199,6 +201,7 @@ angular.module('ng-token-auth2', ['ipCookie']).provider('$auth', function() {
               this.initDfd();
               $http.post(this.apiUrl(opts.config) + this.getConfig(opts.config).emailSignInPath, params, httpopts).then((function(_this) {
                 return function(resp) {
+                  // 401 error code is interpreted as success, this condition overrides it so later it can be handled properly
                   if (resp.status == 401) {
                     _this.rejectDfd({
                       reason: 'unauthorized',
@@ -251,6 +254,7 @@ angular.module('ng-token-auth2', ['ipCookie']).provider('$auth', function() {
             updatePassword: function(params) {
               return $http.put(this.apiUrl() + this.getConfig().passwordUpdatePath, params).then((function(_this) {
                 return function(resp) {
+                  // 401 error code is interpreted as success, this condition overrides it so later it can be handled properly
                   if (resp.status == 401) {
                     $rootScope.$broadcast('auth:password-change-error', resp.data);
                     return $q.reject(resp);
