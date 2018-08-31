@@ -3,6 +3,14 @@ module Api
     before_action :check_parent_credentials
     after_action :send_apikey
 
+    rescue_from ActiveRecord::RecordInvalid do |error|
+      render :json => {:message => error.message, :fields => error.record.errors}, :status => 422
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |error|
+      render :json => {:message => 'Record not found' }, :status => 404
+    end
+
     private
 
     def check_parent_credentials

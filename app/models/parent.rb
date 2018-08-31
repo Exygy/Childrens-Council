@@ -55,6 +55,7 @@ class Parent < ActiveRecord::Base
 
   has_many :children
   accepts_nested_attributes_for :children
+  has_many :favorites
 
   belongs_to :found_option, foreign_key: :found_option_id
   has_and_belongs_to_many :neighborhoods

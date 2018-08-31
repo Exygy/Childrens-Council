@@ -1,35 +1,36 @@
-rheader#search-results-wrapper.page-header.padding-top-2
+#ccr-scope
+  rheader#search-results-wrapper.page-header.padding-top-2
+    .row
+      .small-10.columns
+        ul.breadcrumbs
+          li
+            a ui-sref="search" Find Child Care
+          li.current
+            a ui-sref="results" Search Results
+
+      .small-2.columns.text-right
+        a href="javascript:window.print()" Print list
+
+    .row
+      .small-10.columns
+        h1 We found {{ $ctrl.data.totalNumProviders }} providers
+      .small-2.columns
+        ul.pager.radius.margin-bottom-3
+          li
+            button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
+              small List
+          li
+            button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
+              small Map
+
   .row
-    .small-10.columns
-      ul.breadcrumbs
-        li
-          a ui-sref="search" Find Child Care
-        li.current
-          a ui-sref="results" Search Results
+    .medium-4.columns.show-for-medium-up ng-include="'results/results_sidebar.html'"
 
-    .small-2.columns.text-right
-      a href="javascript:window.print()" Print list
+    .medium-8.columns
+      result-map data="$ctrl.data" ng-if="$ctrl.showMap"
+      result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
 
   .row
-    .small-10.columns
-      h1 We found {{ $ctrl.data.totalNumProviders }} providers
-    .small-2.columns
-      ul.pager.radius.margin-bottom-3
-        li
-          button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
-            small List
-        li
-          button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
-            small Map
-
-.row
-  .medium-4.columns.show-for-medium-up ng-include="'results/results_sidebar.html'"
-
-  .medium-8.columns
-    result-map data="$ctrl.data" ng-if="$ctrl.showMap"
-    result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
-
-.row
-  .medium-4.columns
-  .medium-8.columns.text-right
-    a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
+    .medium-4.columns
+    .medium-8.columns.text-right
+      a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!

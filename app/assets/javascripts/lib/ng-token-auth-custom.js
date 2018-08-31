@@ -5,7 +5,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 }
 
 angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function() {
-  var configs, defaultConfigName;
+  var configs, defaultConfigName, user;
   configs = {
     "default": {
       apiUrl: '/api',
@@ -154,6 +154,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                   errors: [ev.data.error]
                 };
                 this.cancel(error);
+                user = null;
                 return $rootScope.$broadcast('auth:login-error', error);
               }
             },
@@ -172,6 +173,9 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                   config: this.getSavedConfig()
                 });
               }
+            },
+            currentUser: function () {
+              return user;
             },
             submitRegistration: function(params, opts) {
               var successUrl;
@@ -207,6 +211,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                       reason: 'unauthorized',
                       errors: ['Invalid credentials']
                     });
+                    user = null;
                     $rootScope.$broadcast('auth:login-error', resp.data);
                     return $q.reject(resp);
                   } else {
@@ -215,6 +220,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                     authData = _this.getConfig(opts.config).handleLoginResponse(resp.data, _this);
                     _this.handleValidAuth(authData);
                     $rootScope.$broadcast('auth:login-success', _this.user);
+                    user = _this.user;
                     return resp;
                   }
                 };
@@ -224,6 +230,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                     reason: 'unauthorized',
                     errors: ['Invalid credentials']
                   });
+                  user = null;
                   $rootScope.$broadcast('auth:login-error', resp.data);
                   return $q.reject(resp);
                 };
@@ -502,6 +509,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                   } else if (!isEmpty(this.retrieveData('auth_headers'))) {
                     if (this.tokenHasExpired()) {
                       $rootScope.$broadcast('auth:session-expired');
+                      user = null;
                       this.rejectDfd({
                         reason: 'unauthorized',
                         errors: ['Session expired.']
@@ -529,20 +537,39 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
               if (!this.tokenHasExpired()) {
                 return $http.get(this.apiUrl(opts.config) + this.getConfig(opts.config).tokenValidationPath).then((function(_this) {
                   return function(resp) {
-                    var authData;
-                    authData = _this.getConfig(opts.config).handleTokenValidationResponse(resp.data);
-                    _this.handleValidAuth(authData);
-                    if (_this.firstTimeLogin) {
-                      $rootScope.$broadcast('auth:email-confirmation-success', _this.user);
+                    if (resp.status == 401) {
+                      return function(resp) {
+                        if (_this.firstTimeLogin) {
+                          $rootScope.$broadcast('auth:email-confirmation-error', resp.data);
+                        }
+                        if (_this.mustResetPassword) {
+                          $rootScope.$broadcast('auth:password-reset-confirm-error', resp.data);
+                        }
+                        user = null;
+                        $rootScope.$broadcast('auth:validation-error', resp.data);
+                        _this.rejectDfd({
+                          reason: 'unauthorized',
+                          errors: resp.data != null ? resp.data.errors : ['Unspecified error']
+                        }, resp.status > 0);
+                        return $q.reject(resp);
+                      };
+                    } else {
+                      var authData;
+                      authData = _this.getConfig(opts.config).handleTokenValidationResponse(resp.data);
+                      _this.handleValidAuth(authData);
+                      if (_this.firstTimeLogin) {
+                        $rootScope.$broadcast('auth:email-confirmation-success', _this.user);
+                      }
+                      if (_this.oauthRegistration) {
+                        $rootScope.$broadcast('auth:oauth-registration', _this.user);
+                      }
+                      if (_this.mustResetPassword) {
+                        $rootScope.$broadcast('auth:password-reset-confirm-success', _this.user);
+                      }
+                      $rootScope.$broadcast('auth:validation-success', _this.user);
+                      user = _this.user;
+                      return _this.user;
                     }
-                    if (_this.oauthRegistration) {
-                      $rootScope.$broadcast('auth:oauth-registration', _this.user);
-                    }
-                    if (_this.mustResetPassword) {
-                      $rootScope.$broadcast('auth:password-reset-confirm-success', _this.user);
-                    }
-                    $rootScope.$broadcast('auth:validation-success', _this.user);
-                    return _this.user;
                   };
                 })(this), (function(_this) {
                   return function(resp) {
@@ -552,6 +579,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                     if (_this.mustResetPassword) {
                       $rootScope.$broadcast('auth:password-reset-confirm-error', resp.data);
                     }
+                    user = null;
                     $rootScope.$broadcast('auth:validation-error', resp.data);
                     _this.rejectDfd({
                       reason: 'unauthorized',
@@ -594,6 +622,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                 return function(resp) {
                   _this.invalidateTokens();
                   $rootScope.$broadcast('auth:logout-success');
+                  user = null;
                   return resp;
                 };
               })(this), (function(_this) {

@@ -1,6 +1,6 @@
 UserPromptController = ($scope, $modal, $auth) ->
   $ctrl = @
-  $scope.parent
+  $scope.parent = $auth.currentUser()
 
   $scope.login = () ->
     $modal.open {
