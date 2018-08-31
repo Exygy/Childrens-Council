@@ -9,7 +9,10 @@ module Api
 
     def show
       provider = nds_provider
-      provider[:images] = provider_images if provider
+      if provider
+        provider[:images] = provider_images
+        provider[:favorite] = @current_parent.favorites.find_by_provider_id(params[:id]).present?
+      end
       render json: provider ? provider : {not_found: true}, status: provider ? 200 : 404
     end
 

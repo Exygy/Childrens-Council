@@ -16,7 +16,13 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
     $ctrl.favorited = true
 
   $ctrl.unFavorite = ->
-    FavoriteService.destroyFavorite($ctrl.provider.providerId, $ctrl.handleUnFavorite)
+    if $ctrl.parent
+      FavoriteService.destroyFavorite($ctrl.provider.providerId, $ctrl.handleUnFavorite)
+    else
+      $modal.open {
+        controller: 'userLoginCtrl',
+        templateUrl: 'user/login/login.html',
+      }
 
   $ctrl.handleUnFavorite = ->
     $ctrl.favorited = false
