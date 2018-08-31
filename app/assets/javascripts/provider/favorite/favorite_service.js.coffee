@@ -1,8 +1,8 @@
 FavoriteService = (HttpService) ->
-  @create = (id, callback) ->
+  @createFavorite = (id, callback) ->
     that = @
     HttpService.http(
-      { method: 'POST', url: '/api/favorites' },
+      { method: 'POST', url: '/api/favorites', data: {favorite: {provider_id: id}} },
       (response) ->
         if callback
           callback(response.data)
@@ -11,10 +11,11 @@ FavoriteService = (HttpService) ->
         console.log("ERROR")
         console.log(error)
     )
-  @destroy = (id, callback) ->
+
+  @destroyFavorite = (id, callback) ->
     that = @
     HttpService.http(
-      { method: 'DELETE', url: '/api/favorites/'+id },
+      { method: 'DELETE', url: '/api/favorites/'+ id },
       (response) ->
         if callback
           callback(response.data)

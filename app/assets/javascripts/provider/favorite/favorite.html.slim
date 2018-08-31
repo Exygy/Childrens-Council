@@ -1,7 +1,7 @@
 .favorite
-  a [ng-show="$ctrl.favorited"]
+  a ng-show="!$ctrl.favorited" ng-click="$ctrl.favorite()"
     i.fa.fa-heart-o
     | Add to Favorites
-  a [ng-show="!$ctrl.favorited"]
+  a ng-show="$ctrl.favorited" ng-click="$ctrl.unFavorite()"
     i.fa.fa-heart
     | Remove

@@ -5,7 +5,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 }
 
 angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function() {
-  var configs, defaultConfigName;
+  var configs, defaultConfigName, user;
   configs = {
     "default": {
       apiUrl: '/api',
@@ -173,6 +173,9 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                 });
               }
             },
+            currentUser: function () {
+              return user;
+            },
             submitRegistration: function(params, opts) {
               var successUrl;
               if (opts == null) {
@@ -215,6 +218,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                     authData = _this.getConfig(opts.config).handleLoginResponse(resp.data, _this);
                     _this.handleValidAuth(authData);
                     $rootScope.$broadcast('auth:login-success', _this.user);
+                    user = _this.user;
                     return resp;
                   }
                 };
@@ -542,6 +546,7 @@ angular.module('ng-token-auth-custom', ['ipCookie']).provider('$auth', function(
                       $rootScope.$broadcast('auth:password-reset-confirm-success', _this.user);
                     }
                     $rootScope.$broadcast('auth:validation-success', _this.user);
+                    user = _this.user;
                     return _this.user;
                   };
                 })(this), (function(_this) {

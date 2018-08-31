@@ -19,9 +19,11 @@ module Api
 
     def search_providers_with_images(search_params, page = 0)
       @results = NDS.search_providers(search_params, page: page)
+      favorites = @current_parent.favorites
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
+        provider_data[:favorite] = favorites.any?{|f| f.provider_id == provider_data["providerId"]}
       end if @results[:content]
 
       @results
