@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
-  #
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
+
   after_action :send_welcome_email, only: [:create]
   before_action :set_default_response_format
 
@@ -67,6 +67,11 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:api_key])
+  end
+
+  def configure_account_update_params
+    params[:current_password] ||= true if @resource.email != params[:email]
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :phone, :home_zip_code, :full_name, :current_password])
   end
 
   def find_or_create_resource(api_key)

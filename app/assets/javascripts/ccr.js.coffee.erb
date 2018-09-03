@@ -52,6 +52,16 @@ angular.module 'CCR', [
           ]
         }
       })
+      .state('account_info', {
+        url: '/account/info',
+        component: 'account',
+        onEnter: hideSidebar
+      })
+      .state('account_favrites', {
+      url: '/account/favorites',
+      component: 'favorites',
+      onEnter: hideSidebar
+    })
 
     $urlRouterProvider.otherwise('/')
   ]
