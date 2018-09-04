@@ -1,4 +1,18 @@
 FavoriteService = (HttpService) ->
+
+  @getFavorites = (callback) ->
+    that = @
+    HttpService.http(
+      { method: 'GET', url: '/api/favorites' },
+      (response) ->
+        if callback
+          callback(response.data)
+
+      (error) ->
+        console.log("ERROR")
+        console.log(error)
+    )
+
   @createFavorite = (id, callback) ->
     that = @
     HttpService.http(

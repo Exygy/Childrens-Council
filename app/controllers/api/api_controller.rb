@@ -1,5 +1,6 @@
 module Api
   class ApiController < ApplicationController
+    include DeviseTokenAuth::Concerns::SetUserByToken
     before_action :check_parent_credentials
     after_action :send_apikey
 
@@ -85,6 +86,10 @@ module Api
 
     def parent_param_api_key
       !params[:api_key].blank? ? params[:api_key] : false
+    end
+
+    def resource_name
+      'parent'
     end
 
     def method_missing(method_sym, *arguments, &block)
