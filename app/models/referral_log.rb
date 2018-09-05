@@ -23,4 +23,6 @@
 
 class ReferralLog < ActiveRecord::Base
   belongs_to :parent
+
+  scope :last_search, -> { where("params ->> 'controller' = ? AND params ->> 'action' = ?", 'api/providers', 'index').order('created_at ASC').last }
 end

@@ -25,6 +25,18 @@ SearchController = ($scope, $state, SearchService, $modal) ->
         controller: 'userResetPasswordCtrl',
         templateUrl: 'user/reset_password/reset_password.html'
       }
+    currentParent = $auth.currentUser()
+    if currentParent
+      $scope.parent = currentParent.last_search.parent
+      SearchService.parent = $scope.parent
+
+  $scope.$on 'auth:validation-success', (event, user) ->
+    $scope.parent = user.last_search.parent
+    SearchService.parent = $scope.parent
+
+  $scope.$on 'auth:login-success', (event, user) ->
+    $scope.parent = user.last_search.parent
+    SearchService.parent = $scope.parent
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm

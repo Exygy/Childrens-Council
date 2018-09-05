@@ -56,6 +56,7 @@ class Parent < ActiveRecord::Base
   has_many :children
   accepts_nested_attributes_for :children
   has_many :favorites
+  has_many :referral_logs
 
   belongs_to :found_option, foreign_key: :found_option_id
   has_and_belongs_to_many :neighborhoods
@@ -74,6 +75,26 @@ class Parent < ActiveRecord::Base
     full_name_array = full_name.split(' ')
     self[:first_name] = full_name_array[0]
     self[:last_name] = full_name_array[1] if full_name_array.length > 1
+  end
+
+  def as_json(options=nil)
+    attrs = {
+      only: [
+        :id,
+        :email,
+        :phone,
+        :first_name,
+        :last_name,
+        :api_key,
+        :home_zip_code
+      ],
+      methods: [:full_name, :last_search]
+    }
+    super (attrs.merge(options || {}))
+  end
+
+  def last_search
+    referral_logs.last_search.params.except('format', 'action', 'controller')
   end
 
   private
