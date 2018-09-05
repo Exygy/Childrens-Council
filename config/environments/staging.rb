@@ -5,10 +5,10 @@ Rails.application.configure do
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
       origins 'https://ccsf.wpengine.com'
-      resource %r{/search|providers/*},
+      resource %r{/search|providers/*|auth/*|account/*|favorites/*},
                headers: :any,
-               methods: [:get, :post, :options],
-               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
+               methods: [:get, :post, :options, :delete],
+               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey', 'access-token', 'expiry', 'token-type', 'uid', 'client']
     end
   end
 
