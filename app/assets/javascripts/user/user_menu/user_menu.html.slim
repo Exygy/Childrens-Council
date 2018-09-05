@@ -1,6 +1,6 @@
 .user_menu
   a href="javascript:window.print()"
     | {{$ctrl.printText || "Print"}}
-  a href="/account/favorites" ng-show="$ctrl.parent" ng-class="{active: $ctrl.$location.path().match('/account')}" My Account
+  a ui-sref="account_favorites" ng-show="$ctrl.parent" ng-class="{active: $ctrl.$location.path().match('/account')}" My Account
   a ng-show="$ctrl.parent" ng-click="$ctrl.logout()" Log Out
   a ng-show="!$ctrl.parent" ng-click="$ctrl.login()" Log In

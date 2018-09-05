@@ -13,6 +13,7 @@ UserMenuController = ($scope, $modal, $auth, $location) ->
     $auth.signOut()
       .then (resp) ->
         $ctrl.parent = null
+        $location.path('/')
 
   $scope.$on 'auth:validation-success', (event, user) ->
     $ctrl.parent = user
