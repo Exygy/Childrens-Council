@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'providers/:id' => 'home#index'
 
   get 'reset_password/:reset_token' => 'home#index', as: 'reset_password'
+  get 'account' => 'home#index'
   get 'account/:id' => 'home#index'
 
   root 'home#index'
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
     post 'providers' => 'providers#index'
     post 'providers/:id' => 'providers#show'
 
-    resources :favorites, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy, :index]
 
     # CORS support
     match '*unmatched_route' => 'cors#render_204', via: [:options]

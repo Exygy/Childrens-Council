@@ -28,7 +28,7 @@ SearchController = ($scope, $state, SearchService, $modal) ->
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
-      $scope.searchForm[field_name].$setDirty() if field_name[0] != '$';
+      $scope.searchForm[field_name].$setDirty() if field_name[0] != '$'
 
   $scope.submitSearch = ->
     validateForm()
