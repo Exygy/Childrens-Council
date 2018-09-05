@@ -11,7 +11,8 @@ RegisterController = ($scope, $auth, DataService, $modalInstance) ->
         $auth.submitLogin(parent).then (resp) ->
           return
       .catch (resp) ->
-        $scope.errors = _.sortedUniq(resp.data.errors.full_messages)
+        errors = if resp.data.errors.full_messages then resp.data.errors.full_messages else resp.data.errors
+        $scope.errors = _.sortedUniq(errors)
         return
   $scope.close = ->
     $modalInstance.close();
