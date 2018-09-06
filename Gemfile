@@ -138,7 +138,7 @@ group :development do
   gem 'byebug'
 end
 
-group :production do
+group :staging, :production do
   gem 'rails_12factor'
   gem 'le'
 end
