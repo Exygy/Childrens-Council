@@ -16,6 +16,7 @@
       user-nav
       .medium-8.columns
         h1 Favorites
-        ul.no-bullet
+        .loading ng-show="$ctrl.isLoading"
+        ul.no-bullet ng-hide="$ctrl.isLoading"
           li.results-item ng-repeat="provider in $ctrl.favorites"
             result provider="provider"
