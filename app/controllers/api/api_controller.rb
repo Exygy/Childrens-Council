@@ -29,9 +29,12 @@ module Api
         parent.care_reasons.destroy_all
         parent.care_types.destroy_all
         parent.children.destroy_all
-        parent.assign_attributes(parent_params)
-        # Skip validation, as Parent doesn't have password at this point, so validation would fail
-        parent.save(validate: false)
+        # Update only on initial create
+        if parent.new_record?
+          parent.assign_attributes(parent_params)
+          # Skip validation, as Parent doesn't have password at this point, so validation would fail
+          parent.save(validate: false)
+        end
       end
       parent
     end
