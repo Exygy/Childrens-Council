@@ -3,7 +3,6 @@ module Api
     skip_before_action :check_parent_credentials
     before_action :set_user_by_token
     before_action :set_parent
-    include CollectReferrals
 
     def index
       @results = []
@@ -39,7 +38,6 @@ module Api
     def favorite_params
       params.require(:favorite).permit(:provider_id)
     end
-
 
     def provider_images(provider_id)
       ProviderImageService.get(provider_id)
