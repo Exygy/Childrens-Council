@@ -2,10 +2,6 @@ ResultListController = () ->
   $ctrl = @
   $ctrl.data
 
-  $ctrl.$onChanges = (change) ->
-    $ctrl
-    console.log('change')
-
   $ctrl.resultsFromNum = ->
     ($ctrl.data.currentPage * $ctrl.data.pageSize) + 1
 

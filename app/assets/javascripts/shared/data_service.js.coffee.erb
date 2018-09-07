@@ -1,7 +1,8 @@
 <% api_service = NdsApiService.new %>
 
 DataService = ($rootScope) ->
-  @formatMealsForFilter = (mealsList) ->
+  $service = @
+  $service.formatMealsForFilter = (mealsList) ->
     [
       {
         label: 'No Preference'
@@ -19,18 +20,18 @@ DataService = ($rootScope) ->
       }
     ]
 
-  @providerData =
+  $service.providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
 
-  @filterData =
+  $service.filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    financialAssistance: @providerData.financialAssistance.filter((a) -> a.showInFilter)
+    financialAssistance: $service.providerData.financialAssistance.filter((a) -> a.showInFilter)
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
-    meals: @formatMealsForFilter(<%= api_service.filter_data('meals') %>)
+    meals: $service.formatMealsForFilter(<%= api_service.filter_data('meals') %>)
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: ['Catholic Religion', 'Jewish Religion']
     shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
@@ -39,7 +40,7 @@ DataService = ($rootScope) ->
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
     zipCodes: <%= api_service.filter_data('zip_codes') %>
 
-  @filters =
+  $service.filters =
     address: null
     ageGroupServiced: null
     attributesLocal3: [''] # contains language immersion program names
@@ -57,7 +58,7 @@ DataService = ($rootScope) ->
     vacancyType: null
     zipCodes: ['']
 
-  @searchResultsData = {
+  $service.searchResultsData = {
     currentPage: 0
     isFirstPage: true
     isLastPage: true
@@ -67,11 +68,11 @@ DataService = ($rootScope) ->
     totalNumProviders: 0
   }
 
-  @searchSettings = {
+  $service.searchSettings = {
     locationType: 'address'
   }
 
-  @parent = {
+  $service.parent = {
     full_name: ''
     email: ''
     phone: ''
@@ -87,17 +88,55 @@ DataService = ($rootScope) ->
         ageWeeks: 130
         selected: true
         shiftFeatures: ['Full Time']
-        weeklySchedule: @filterData.days.slice(0, 5)
+        weeklySchedule: $service.filterData.days.slice(0, 5)
         yearlySchedule: 'FULL_YEAR'
       }
     ]
   }
 
-  @resetData = ->
-    @searchResultsData.providers = []
-    @searchResultsData.totalNumProviders = 0
+  $service.setParent = (currentParent) ->
+    children = angular.merge($service.parent.children, currentParent.last_search.parent.children)
+    # use tmpParent to limit resolve cycles
+    tmpParent = angular.merge($service.parent, currentParent.last_search.parent)
+    tmpParent.children = children
+    tmpParent.agree = true
+    $service.parent = tmpParent
+    $service.filters = Object.assign($service.filters, currentParent.last_search.providers)
+    $service.setSettings(currentParent.last_search)
+    $service.cleanAddressFilters()
 
-  @
+    $rootScope.$broadcast('data-service:updated', $service);
+
+  $service.setSettings = (lastSearch) ->
+    settings = angular.copy $service.searchSettings
+    if lastSearch.providers.attributesLocal17
+      settings.locationType = 'neighborhoods'
+      $service.filters.neighborhoods = lastSearch.providers.attributesLocal17
+    else
+      if $service.filters.zip
+        settings.locationType = 'zipCodes'
+        $service.filters.zipCodes = $service.filters.zip
+    $service.searchSettings = settings
+
+  $service.cleanAddressFilters = () ->
+    filters = angular.copy $service.filters
+    delete filters.locationA
+    delete filters.attributesLocal17
+    delete filters.attributesLocal3
+    delete filters.zip
+    $service.filters = filters
+
+  $rootScope.$on 'auth:validation-success', (event, user) ->
+    $service.setParent(user)
+
+  $rootScope.$on 'auth:login-success', (event, user) ->
+    $service.setParent(user)
+
+  $service.resetData = ->
+    $service.searchResultsData.providers = []
+    $service.searchResultsData.totalNumProviders = 0
+
+  $service
 
 DataService.$inject = ['$rootScope']
 angular.module('CCR').service('DataService', DataService)

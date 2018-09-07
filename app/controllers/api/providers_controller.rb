@@ -69,7 +69,6 @@ module Api
         :ageGroup,
         :ageGroupServiced,
         :distance,
-        :locationA,
         :yearlySchedule,
         attributesLocal17: [],
         attributesLocal3: [],
@@ -84,8 +83,10 @@ module Api
         ],
         typeOfCare: [],
         weeklySchedule: [],
-        zip: [],
-      )
+        zip: []
+      ).tap do |whitelisted|
+        whitelisted[:locationA] = params[:providers][:locationA]
+      end
     end
   end
 end

@@ -15,6 +15,22 @@ SearchController = ($scope, $state, SearchService, $modal) ->
     neighborhoods:
       active: $scope.searchSettings.locationType == 'neighborhoods'
 
+  $ctrl.setLocationTabs = () ->
+    $scope.locationTabs =
+      address:
+        active: $scope.searchSettings.locationType == 'address'
+      zipCodes:
+        active: $scope.searchSettings.locationType == 'zipCodes'
+      neighborhoods:
+        active: $scope.searchSettings.locationType == 'neighborhoods'
+
+  $scope.$on 'search-service:updated', (event, service) ->
+    $scope.filters = service.filters
+    $scope.parent = service.parent
+    $scope.searchSettings = service.searchSettings
+    $scope.searchSettings.contact_type = ''
+    $ctrl.setLocationTabs()
+
   $ctrl.$onInit = () ->
     if $ctrl.token
       $modal.open {
@@ -25,18 +41,18 @@ SearchController = ($scope, $state, SearchService, $modal) ->
         controller: 'userResetPasswordCtrl',
         templateUrl: 'user/reset_password/reset_password.html'
       }
-    currentParent = $auth.currentUser()
-    if currentParent
-      $scope.parent = currentParent.last_search.parent
-      SearchService.parent = $scope.parent
+#    currentParent = $auth.currentUser()
+#    if currentParent
+#      $scope.parent = currentParent.last_search.parent
+#      SearchService.parent = $scope.parent
 
   $scope.$on 'auth:validation-success', (event, user) ->
-    $scope.parent = user.last_search.parent
-    SearchService.parent = $scope.parent
+#    $scope.parent = user.last_search.parent
+#    SearchService.parent = $scope.parent
 
   $scope.$on 'auth:login-success', (event, user) ->
-    $scope.parent = user.last_search.parent
-    SearchService.parent = $scope.parent
+#    $scope.parent = user.last_search.parent
+#    SearchService.parent = $scope.parent
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
