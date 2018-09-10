@@ -20,8 +20,8 @@ module Api
 
     # index
 
-    def search_providers_with_images(search_params, page = 0)
-      @results = NDS.search_providers(search_params, page: page)
+    def search_providers_with_images(search_params, page = 0, size = 15)
+      @results = NDS.search_providers(search_params, page: page, size: size)
       favorites = @current_parent.favorites
 
       @results[:content].each do |provider_data|
