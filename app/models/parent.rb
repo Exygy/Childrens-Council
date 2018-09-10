@@ -94,7 +94,7 @@ class Parent < ActiveRecord::Base
   end
 
   def last_search
-    referral_logs.last_search.params.except('format', 'action', 'controller')
+    referral_logs.last_search.params.except('format', 'action', 'controller') if referral_logs.present?
   end
 
   private
