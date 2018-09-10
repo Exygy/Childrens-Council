@@ -5,14 +5,11 @@ module Api
     before_action :set_parent
 
     def index
-      @results = []
-      # TODO this cant't be like that. We need to modify the query to get all providers at once
-      @resource.favorites.order('created_at DESC').each do |favorite|
-        provider = NDS.provider_by_id(favorite.provider_id)
-        provider[:images] = provider_images(favorite.provider_id)
+      @results = NDS.search_providers_bulk(providerIds: @resource.favorites.collect(&:provider_id))
+      @results.each do |provider|
+        provider[:images] = provider_images(provider["providerId"].to_s)
         provider[:favorite] = true
-        @results << provider
-      end
+      end if @results
       render json: @results
     end
 
