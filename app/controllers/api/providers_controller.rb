@@ -9,7 +9,10 @@ module Api
 
     def show
       provider = nds_provider
-      provider[:images] = provider_images if provider
+      if provider
+        provider[:images] = provider_images
+        provider[:favorite] = @current_parent.favorites.find_by_provider_id(params[:id]).present?
+      end
       render json: provider ? provider : {not_found: true}, status: provider ? 200 : 404
     end
 
@@ -17,11 +20,13 @@ module Api
 
     # index
 
-    def search_providers_with_images(search_params, page = 0)
-      @results = NDS.search_providers(search_params, page: page)
+    def search_providers_with_images(search_params, page = 0, size = 15)
+      @results = NDS.search_providers(search_params, page: page, size: size)
+      favorites = @current_parent.favorites
 
       @results[:content].each do |provider_data|
         provider_data[:images] = providers_images[provider_data["providerId"].to_s]
+        provider_data[:favorite] = favorites.any?{|f| f.provider_id == provider_data["providerId"]}
       end if @results[:content]
 
       @results
@@ -64,7 +69,6 @@ module Api
         :ageGroup,
         :ageGroupServiced,
         :distance,
-        :locationA,
         :yearlySchedule,
         attributesLocal17: [],
         attributesLocal3: [],
@@ -79,8 +83,10 @@ module Api
         ],
         typeOfCare: [],
         weeklySchedule: [],
-        zip: [],
-      )
+        zip: []
+      ).tap do |whitelisted|
+        whitelisted[:locationA] = params[:providers][:locationA]
+      end
     end
   end
 end

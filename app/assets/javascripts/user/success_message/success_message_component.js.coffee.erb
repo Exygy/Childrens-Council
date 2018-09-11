@@ -1,0 +1,22 @@
+SuccessMessageController = ($scope, $modal, $auth) ->
+  $ctrl = @
+  $scope.parent
+  $scope.successImage = '<%= image_path "success_image.png" %>'
+
+  $ctrl.close = ->
+    $ctrl.onClose()
+
+  return $ctrl
+
+SuccessMessageController.$inject = ['$scope']
+
+angular
+  .module('CCR')
+  .component('successMessage', {
+    bindings:
+      message: '<'
+      header: '<'
+      onClose: '&',
+    controller: SuccessMessageController
+    templateUrl: "user/success_message/success_message.html"
+  })

@@ -1,18 +1,20 @@
 angular.module 'CCR', [
   'angularMoment',
   'checklist-model',
+  'Devise',
   'mm.foundation',
   'ngAnimate',
   'ngAria',
   'ngCookies',
   'ngMap',
+  'ng-token-auth-custom',
   'ngSanitize',
   'templates',
   'truncate',
   'ui.carousel',
   'ui.select',
   'ui.slider',
-  'ui.router'
+  'ui.router',
   ]
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter
@@ -40,6 +42,38 @@ angular.module 'CCR', [
           ]
         }
       })
+      .state('reset_password', {
+        url: '/reset_password/:token',
+        component: 'search',
+        onEnter: showSidebar,
+        resolve: {
+          token: ['$stateParams', ($stateParams) ->
+            return $stateParams.token;
+          ]
+        }
+      })
+      .state('account_info', {
+        url: '/account/info',
+        component: 'account',
+        onEnter: hideSidebar
+        resolve: {
+          security: ['$q', '$auth', ($q, $auth) ->
+            if(!$auth.retrieveData('auth_headers'))
+              return $q.reject("Not Authorized")
+          ]
+        }
+      })
+      .state('account_favorites', {
+        url: '/account/favorites',
+        component: 'favorites',
+        onEnter: hideSidebar
+        resolve: {
+          security: ['$q', '$auth', ($q, $auth) ->
+            if(!$auth.retrieveData('auth_headers'))
+              return $q.reject("Not Authorized")
+          ]
+        }
+      })
 
     $urlRouterProvider.otherwise('/')
   ]
@@ -51,7 +85,15 @@ angular.module 'CCR', [
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
     $httpProvider.interceptors.push('APIInterceptor');
   ]
-  .run ['$rootScope', ($rootScope) ->
+
+  .config ['$authProvider', ($authProvider) ->
+    $authProvider.configure({
+      apiUrl: '<%= Rails.env.production? ? "http://childrens-council.dapper.childrenscouncil.org" : "" %><%= Rails.env.staging? ? "https://childrens-council.herokuapp.com" : "" %>/api'
+    })
+  ]
+  .run ['$rootScope', '$state', '$transitions', ($rootScope, $state, $transitions) ->
+    $transitions.onError {}, ($transition$)  ->
+      $state.go("search")
     $rootScope.data = CCR_DATA
     $rootScope.state_loading = false
     $rootScope.$on '$stateChangeStart', (event) ->

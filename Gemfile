@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.12'
+gem 'nds_api', '0.1.14'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -59,6 +59,15 @@ gem 'sprockets', '~> 3.0'
 
 # Authentication manager
 gem 'devise'
+# Token auth for devise
+gem 'devise_token_auth', '~>0.2.0'
+
+# Email distribution
+gem 'sendgrid-ruby'
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
 
 gem 'newrelic_rpm'
 
@@ -126,9 +135,10 @@ group :development do
 
   # `guard init teaspoon`
   gem 'guard-teaspoon', require: false
+  gem 'byebug'
 end
 
-group :production do
+group :staging, :production do
   gem 'rails_12factor'
   gem 'le'
 end

@@ -5,10 +5,10 @@ Rails.application.configure do
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
       origins 'http://www.childrenscouncil.org'
-      resource %r{/search|providers/*},
+      resource '*',
                headers: :any,
-               methods: [:get, :post, :options],
-               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
+               methods: [:get, :post, :options, :delete],
+               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey', 'access-token', 'expiry', 'token-type', 'uid', 'client']
     end
   end
 
@@ -88,6 +88,19 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Email config for SendGrid
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'childrenscouncil.org',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
 
 Rails.logger = Le.new('b5e12d89-bac0-4bed-94aa-cd13a5356750', debug: true, local: true)

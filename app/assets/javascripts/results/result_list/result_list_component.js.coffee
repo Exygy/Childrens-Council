@@ -1,11 +1,14 @@
 ResultListController = () ->
-  @resultsFromNum = ->
-    (@data.currentPage * @data.pageSize) + 1
+  $ctrl = @
+  $ctrl.data
 
-  @resultsToNum = ->
-    (@data.currentPage + 1) * @data.pageSize
+  $ctrl.resultsFromNum = ->
+    ($ctrl.data.currentPage * $ctrl.data.pageSize) + 1
 
-  return
+  $ctrl.resultsToNum = ->
+    ($ctrl.data.currentPage + 1) * $ctrl.data.pageSize
+
+  return $ctrl
 
 angular
   .module('CCR')

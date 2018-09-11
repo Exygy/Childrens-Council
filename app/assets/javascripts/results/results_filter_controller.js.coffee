@@ -1,6 +1,6 @@
 ResultsFilterController = ($scope, $modal, ResultsService) ->
   $scope.filters = ResultsService.filters
-  $scope.settings = ResultsService.settings
+  $scope.settings = ResultsService.searchSettings
   $scope.parent = ResultsService.parent
   $scope.showMoreFilters = false
 

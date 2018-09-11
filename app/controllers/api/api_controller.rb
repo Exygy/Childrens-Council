@@ -1,7 +1,16 @@
 module Api
   class ApiController < ApplicationController
+    include DeviseTokenAuth::Concerns::SetUserByToken
     before_action :check_parent_credentials
     after_action :send_apikey
+
+    rescue_from ActiveRecord::RecordInvalid do |error|
+      render :json => {:message => error.message, :fields => error.record.errors}, :status => 422
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |error|
+      render :json => {:message => 'Record not found' }, :status => 404
+    end
 
     private
 
@@ -20,7 +29,12 @@ module Api
         parent.care_reasons.destroy_all
         parent.care_types.destroy_all
         parent.children.destroy_all
-        parent.update(parent_params)
+        # Update only on initial create
+        if parent.new_record?
+          parent.assign_attributes(parent_params)
+          # Skip validation, as Parent doesn't have password at this point, so validation would fail
+          parent.save(validate: false)
+        end
       end
       parent
     end
@@ -75,6 +89,10 @@ module Api
 
     def parent_param_api_key
       !params[:api_key].blank? ? params[:api_key] : false
+    end
+
+    def resource_name
+      'parent'
     end
 
     def method_missing(method_sym, *arguments, &block)

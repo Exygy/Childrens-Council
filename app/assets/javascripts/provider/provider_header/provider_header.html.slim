@@ -1,6 +1,6 @@
 header#provider-content-wrapper.infinite-background.page-header.padding-top-2
   .row
-    .small-10.columns
+    .small-8.columns
       ul.breadcrumbs
         li
           a ui-sref="search" Find Child Care
@@ -10,8 +10,8 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-2
           a ui-sref="provider"
             | {{ $ctrl.provider.centerName }}
 
-    .small-2.columns.text-right
-      a href="javascript:window.print()" Print
+    .small-4.columns.text-right
+      user-menu
 
   .row
     .large-12.columns
@@ -23,9 +23,12 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-2
       img.headshot ng-src="{{ $ctrl.provider.images.headshot }}" style="max-width: 294px;max-height: 240px;width: 100%;"
 
     .large-8.columns
-      a name="about"
-      h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
-
+      .row
+        .medium-9.columns
+          a name="about"
+          h3.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+        .medium-3.columns
+          favorite provider="$ctrl.provider"
       p
         ' {{ $ctrl.provider.generalInfo.generalComment }}
 

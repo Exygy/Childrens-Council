@@ -1,17 +1,24 @@
-SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, HttpService) ->
-  @filterData = DataService.filterData
-  @filters = DataService.filters
-  @parent = DataService.parent
-  @searchSettings = DataService.searchSettings
-  @searchResultsData = DataService.searchResultsData
+SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, HttpService, $rootScope) ->
+  $service = @
+  $service.filterData = DataService.filterData
+  $service.filters = DataService.filters
+  $service.parent = DataService.parent
+  $service.searchSettings = DataService.searchSettings
+  $service.searchResultsData = DataService.searchResultsData
 
-  @deleteApiKey = ->
+  $rootScope.$on 'data-service:updated', (event, service) ->
+    $service.filters = service.filters
+    $service.parent = service.parent
+    $service.searchSettings = service.searchSettings
+    $rootScope.$broadcast('search-service:updated', $service);
+
+  $service.deleteApiKey = ->
     $cookies.remove CC_COOKIE
 
-  @postSearch = (callback, opts = {}) ->
+  $service.postSearch = (callback, opts = {}) ->
     if opts.deleteApiKey
       # reset API KEY == enforce parent authentication
-      @deleteApiKey()
+      $service.deleteApiKey()
 
     if opts.reset
       # in case search fails - will display no results
@@ -19,18 +26,18 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
     # search
     DataService.current_page = 1
-    @performSearch callback
+    $service.performSearch callback
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
-  @setSearchLocation = (params) ->
-    if @searchSettings.locationType == 'address' && params.address
+  $service.setSearchLocation = (params) ->
+    if $service.searchSettings.locationType == 'address' && params.address
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
       params.distance = 2 # set the search radius in miles
-    else if @searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
+    else if $service.searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
       params.zip = params.zipCodes
       delete params.address
-    else if @searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
+    else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.address
 
@@ -38,7 +45,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     delete params.zipCodes
 
   # Reformat and rename program params to match API fields.
-  @setPrograms = (params) ->
+  $service.setPrograms = (params) ->
     # The API field used to search for care approaches and religious programs
     # is the same, so we concatenate these program names into a single list.
     params.generalLocal2 = []
@@ -65,13 +72,13 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     delete params.financialAssistance
     delete params.generalLocal2 if !params.generalLocal2.length
 
-  @setEnvironments = (params) ->
+  $service.setEnvironments = (params) ->
     if params.pottyTraining
       params.environments = [params.pottyTraining]
 
     delete params.pottyTraining
 
-  @setAgeGroup = (params) ->
+  $service.setAgeGroup = (params) ->
     if params.ageGroupServiced
       weeks = params.ageGroupServiced
       params.ageGroup = switch
@@ -85,47 +92,47 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
         else
           'SCHOOL_2'
 
-  @setMonthlyRate = (params) ->
+  $service.setMonthlyRate = (params) ->
     if params.monthlyRate
       params.monthlyRate =
         from: params.monthlyRate[0]
         to: params.monthlyRate[1]
 
-  @setVacancies = (params) ->
+  $service.setVacancies = (params) ->
     # TODO: configure params to search the API for provider vacancies
     delete params.vacancyType
     delete params.vacancyFutureDate
 
-  @buildParent = ->
-    @parent.parents_care_types = @filters.typeOfCare.map (type) -> { 'type': type }
+  $service.buildParent = ->
+    $service.parent.parents_care_types = $service.filters.typeOfCare.map (type) -> { 'type': type }
 
-  @getSearchParams = ->
-    @buildParent()
-    search_params = angular.copy @filters
+  $service.getSearchParams = ->
+    $service.buildParent()
+    search_params = angular.copy $service.filters
 
     # those params should be children specific when the feature is built
-    search_params.ageGroupServiced = @parent.children[0].ageWeeks
-    search_params.yearlySchedule = @parent.children[0].yearlySchedule
-    search_params.weeklySchedule = @parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+    search_params.ageGroupServiced = $service.parent.children[0].ageWeeks
+    search_params.yearlySchedule = $service.parent.children[0].yearlySchedule
+    search_params.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
     # TODO: set shift info in params
     # @setShiftParams(search_params)
-    @setSearchLocation(search_params)
-    @setPrograms(search_params)
-    @setEnvironments(search_params)
-    @setAgeGroup(search_params)
-    @setMonthlyRate(search_params)
-    @setVacancies(search_params)
+    $service.setSearchLocation(search_params)
+    $service.setPrograms(search_params)
+    $service.setEnvironments(search_params)
+    $service.setAgeGroup(search_params)
+    $service.setMonthlyRate(search_params)
+    $service.setVacancies(search_params)
 
     search_params
 
-  @cleanEmptyParams = (params) ->
+  $service.cleanEmptyParams = (params) ->
     deepFilter params, (value, key) ->
       # Filter out empty values and arrays
       if !value? or (Array.isArray(value) and (value.length == 0 or value[0] == '')) then false else true
 
-  @getCleanedParent = ->
-    parent = angular.copy @parent
+  $service.getCleanedParent = ->
+    parent = angular.copy $service.parent
     delete parent.care_type_ids
     delete parent.agree
     for child, index in parent.children
@@ -134,26 +141,26 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
       delete parent.children[index].selected
     parent
 
-  @queryParams = ->
-    @cleanEmptyParams {
-      page: @current_page
-      per_page: @searchResultsData.pageSize
-      providers: @getSearchParams()
-      parent: @getCleanedParent()
+  $service.queryParams = ->
+    $service.cleanEmptyParams {
+      page: $service.current_page
+      per_page: $service.searchResultsData.pageSize
+      providers: $service.getSearchParams()
+      parent: $service.getCleanedParent()
     }
 
-  @httpParams = ->
+  $service.httpParams = ->
     {
       method: 'POST'
       url: '/api/providers'
-      data: @queryParams()
+      data: $service.queryParams()
     }
 
-  @performSearch = (callback, page) =>
-    that = @
+  $service.performSearch = (callback, page) =>
+    that = $service
     that.searchResultsData.providers = []
     that.searchResultsData.isLoading = true
-    params = @httpParams()
+    params = that.httpParams()
     if page
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
@@ -171,15 +178,15 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     if searchParams.address
       GeocodingService.geocodeAddress(searchParams.address).then (coords) =>
         searchParams.locationA = coords
-        delete searchParams.address
-        @serverRequest(params, serverRequestCallback)
+#        delete searchParams.address
+        $service.serverRequest(params, serverRequestCallback)
     else
-      @serverRequest(params, serverRequestCallback)
+      $service.serverRequest(params, serverRequestCallback)
 
-  @serverRequest = (params, callback) ->
+  $service.serverRequest = (params, callback) ->
     HttpService.http params, callback
 
-  @
+  $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'DataService', 'GeocodingService', 'HttpService']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)

@@ -22,7 +22,9 @@
     "ng-toggle": "https://github.com/zachsnow/ng-toggle.git",
     "ui-select": "angular-ui-select#0.14.9",
     "angular-moment": "^1.2.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "AngularDevise": "angular-devise#^1.3.0",
+    "ng-token-auth": "^0.0.30"
   },
   "resolutions": {
     "angular": "1.5.8",
