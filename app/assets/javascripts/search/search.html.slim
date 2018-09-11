@@ -66,7 +66,7 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
             span.fa.fa-exclamation-circle
             | 5 digit zip code is required
 
-    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
+    h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care/preschool *
 
     .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
       label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
@@ -105,9 +105,9 @@ form [name="searchForm" ng-submit="submitSearch()" novalidate ng-hide="loading"]
         strong I agree to the following: *
     p.padding-left-2
       small
-        | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child.  That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
+        | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a child care provider that you select for your child. That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766. You may contact the same number to report a complaint or concern regarding any licensed care facility.
         a href="http://www.childrenscouncil.org/wp-content/uploads/2016/03/RESOURCE-AND-REFERRAL-SERVICES-POLICIES-AND-DISCLAIMERS-2015-ENG.pdf" target="_blank"  Read our referral policies and disclaimers.
-
+        | I agree to receive information about Children’s Council via email (you can opt-out at any time).
     .checkbox.checkbox-single
       input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"
       label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
