@@ -1,6 +1,6 @@
 section.margin-top-2
   p
-    small Welcome to our San Francisco child care and preschool database!Here you can search for the licensed child care environment that best fits your family’s needs.
+    small Welcome to our San Francisco child care and preschool database! Here you can search for the licensed child care environment that best fits your family’s needs.
   p
     small
       |   If you have questions or would like personal assistance, send us an
@@ -15,7 +15,8 @@ section.margin-top-2
 section.margin-top-2
   span ng-include="'search/filters/location_filter.html'"
 
+section.margin-top-2
+  schedule-filter model="parent.children[0]"
+
 section.margin-top-1.margin-bottom-3
   span ng-include="'search/filters/care_type_filter.html'"
-
-schedule-filter model="parent.children[0]"
