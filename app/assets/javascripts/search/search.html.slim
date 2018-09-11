@@ -68,7 +68,7 @@
                 span.fa.fa-exclamation-circle
                 | 5 digit zip code is required
 
-        h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care *
+        h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care/preschool *
 
         .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
           label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
