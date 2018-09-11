@@ -18,6 +18,7 @@ DataService = ($rootScope) ->
         value: ['dummy value for no meals']
       }
     ]
+    
 
   @providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
