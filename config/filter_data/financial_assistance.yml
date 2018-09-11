@@ -34,8 +34,8 @@
     - 'More information: <a href="https://www.acf.hhs.gov/ohs" target="_blank">www.acf.hhs.gov/ohs</a>'
   showInFilter: true
 -
-  label: Preschool For All
-  value: Preschool For All
+  label: Preschool for All
+  value: Preschool for All
   description: Through this program, preschool is offered at a reduced cost or free for children age 4 who reside in San Francisco county. Family income is not required. You can apply directly at child care sites in the Preschool for All Network.
   links:
     - 'More information: <a href="http://sfoece.org/parents-families/" target="_blank">www.sfoece.org/parents-families/</a>'
