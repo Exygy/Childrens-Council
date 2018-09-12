@@ -15,5 +15,5 @@ div
       input type="checkbox" id="care-type-{{type.id}}" name="typeOfCare" checklist-value="type.id" checklist-model="filters.typeOfCare" ng-required="filters.typeOfCare.length < 1"
       span.icon
       .label
-        span.fa.fa-home
+        i.fa ng-class="{'fa-home': type.id == 2, 'fa-building': type.id == 1}"
         | {{type.name}}
