@@ -93,7 +93,7 @@
         .repeater-container
           select#found-option.radius name="found_option" ng-model="parent.found_option_id"
             option value="" Select
-            option ng-repeat="found_option in $root.data.found_options_array track by found_option.id" value="{{ found_option.id }}"
+            option ng-repeat="found_option in $root.data.found_options_array track by found_option.id" value="{{ found_option.id }}"ng-class="{'button-pressed': !$ctrl.showMap}"
               ' {{ found_option.name }}
 
       section.margin-top-2
