@@ -12,9 +12,9 @@
         user-menu printText="Print List"
 
     .row
-      .small-10.columns
+      .small-9.columns
         h1 We found {{ $ctrl.data.totalNumProviders }} providers
-      .small-2.columns
+      .small-3.columns.text-right
         ul.pager.radius.margin-bottom-3
           li
             button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
