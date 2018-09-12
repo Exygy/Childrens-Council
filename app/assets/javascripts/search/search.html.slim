@@ -15,7 +15,7 @@
       span ng-include="'search/filters/initial_filters.html'"
 
       section.panel.radius.margin-top-3.padding-2
-        h5.c-black.margin-bottom-none About you
+        h5.margin-bottom-none About you
 
         a href="#" ng-click="settings.show_why_asking = !settings.show_why_asking"
           small Why are we asking for your information?
@@ -25,7 +25,7 @@
             | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
             a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
 
-        label.large.c-black.text-normal.margin-top-2 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
+        label.margin-top-1 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
           | Your name *
           input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
           small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
@@ -33,7 +33,7 @@
             |  Your first name and last name are required
 
 
-        h6.c-black.text-normal.margin-top-3 ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
+        label.margin-top-1 for="email" ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
           | Email address <em>or</em> phone *
 
         tabset.tabs-inline role="tablist"
@@ -59,7 +59,7 @@
                 span.fa.fa-exclamation-circle
                 | Phone number or email is required
 
-        label.large.c-black.text-normal.margin-top-1 for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
+        label for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
           | Home zip code *
         .row
           .columns.large-5
@@ -68,7 +68,7 @@
                 span.fa.fa-exclamation-circle
                 | 5 digit zip code is required
 
-        h6.c-black.text-normal.margin-top-2 ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care/preschool *
+        label ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.parents_care_reasons_attributes.length < 1 || parent.parents_care_reasons_attributes[0] == '') }" Reasons for considering child care/preschool *
 
         .repeater-container ng-repeat="care_reason in parent.parents_care_reasons_attributes track by $index"
           label.show-for-sr for="care-reason-{{$index + 1}}" Search by care_reason
@@ -85,7 +85,7 @@
           span.fa.fa-exclamation-circle
           | Selecting a care reason is required
 
-        label.large.c-black.text-normal.margin-top-2 for="found-option"
+        label.margin-top-1 for="found-option"
           | How did you hear about us?
           em
             small.optional Optional
@@ -103,7 +103,7 @@
 
         .checkbox.checkbox-single
           input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
-          label.c-black for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
+          label for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
             strong I agree to the following: *
         p.padding-left-2
           small
@@ -113,6 +113,6 @@
 
         .checkbox.checkbox-single
           input#subscribe name="subscribe" type="checkbox" ng-model="parent.subscribe" ng-true-value="true" ng-false-value="false"
-          label.c-black for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
+          label for="subscribe" Subscribe to the Children’s Council newsletter (get tips, news, and info about child care in San Francisco).
 
-        input.large.round.button.text-uppercase.margin-top-3 type="submit" value="Search"
+        input.round.large.button.bg-green-yellow.margin-top-3 type="submit" value="Search"
