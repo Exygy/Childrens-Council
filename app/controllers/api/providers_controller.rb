@@ -86,6 +86,7 @@ module Api
         zip: []
       ).tap do |whitelisted|
         whitelisted[:locationA] = params[:providers][:locationA]
+        whitelisted[:attributesLocal3] = params[:providers][:attributesLocal3]
       end
     end
   end
