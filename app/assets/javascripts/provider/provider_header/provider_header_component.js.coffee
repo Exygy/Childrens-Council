@@ -1,5 +1,17 @@
 ProviderHeaderController =  ->
-  return @
+  $ctrl = @
+
+  $ctrl.providerName = (provider) ->
+    name = provider.centerName
+    if !name
+      if provider.primaryOwner
+        name = "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}"
+      else
+        name = "Name Unknown"
+    name
+
+
+  return $ctrl
 
 ProviderHeaderController.$inject = []
 

@@ -55,7 +55,7 @@ class Parent < ActiveRecord::Base
 
   has_many :children
   accepts_nested_attributes_for :children
-  has_many :favorites
+  has_many :favorites, -> { order 'favorites.created_at DESC' }
   has_many :referral_logs
 
   belongs_to :found_option, foreign_key: :found_option_id
