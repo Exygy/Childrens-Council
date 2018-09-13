@@ -53,7 +53,7 @@ angular.module 'CCR', [
         }
       })
       .state('account_info', {
-        url: '/account/info',
+        url: '/account/info/',
         component: 'account',
         onEnter: hideSidebar
         resolve: {
@@ -64,7 +64,7 @@ angular.module 'CCR', [
         }
       })
       .state('account_favorites', {
-        url: '/account/favorites',
+        url: '/account/favorites/',
         component: 'favorites',
         onEnter: hideSidebar
         resolve: {
