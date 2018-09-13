@@ -63,7 +63,7 @@
                 section
                   label.large.c-black.text-normal ng-class="{ error: (userForm.phone.$dirty && userForm.phone.$invalid) }"
                     | Phone
-                    input.radius type="text" name="phone" required="" ng-model="$ctrl.parent.phone"
+                    input.radius type="text" name="phone" ng-model="$ctrl.parent.phone"
                     small.error ng-show="(userForm.phone.$dirty && userForm.phone.$invalid)"
                       span.fa.fa-exclamation-circle
                       |  Invalid phone number
