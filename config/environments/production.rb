@@ -7,7 +7,7 @@ Rails.application.configure do
       origins 'http://www.childrenscouncil.org'
       resource '*',
                headers: :any,
-               methods: [:get, :post, :options, :delete],
+               methods: [:get, :post, :options, :delete, :put],
                expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey', 'access-token', 'expiry', 'token-type', 'uid', 'client']
     end
   end
