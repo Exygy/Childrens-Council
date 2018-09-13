@@ -1,7 +1,7 @@
-section.margin-top-2
-  h5.c-black Schedule needs
+section.margin-top-1
+  h5 Schedule needs
 
-  p.c-base When do you need childcare? Customize to your schedule's needs.
+  p.small When do you need childcare? Customize to your schedule's needs.
 
   accordion close-others="false" role="tablist"
     / Yearly
@@ -9,9 +9,9 @@ section.margin-top-2
       accordion-heading
         #annual-schedule-heading role="tab" aria-controls="annual-schedule-panel"
           | {{ $ctrl.model.yearlySchedule | scheduleYearValueToLabel }}
-          .right.toggle ng-switch="is_open_years"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
+          span.toggle ng-switch="is_open_years"
+            span ng-switch-when="false" &mdash; Show
+            span ng-switch-when="true" &mdash; Hide
             |  options
 
       #annual-schedule-panel.button-group role="tabpanel" aria-labelledby="annual-schedule-heading" aria-hidden="{{!is_open_years}}"
@@ -22,11 +22,11 @@ section.margin-top-2
       accordion-heading
         #shift-features-heading role="tab" aria-controls="shift-features-panel"
           | {{ $ctrl.model.shiftFeatures | entitiesToString }}
-          small.c-base ng-show="$ctrl.model.shiftFeatures.length < 2"
+          span.secondary-text ng-show="$ctrl.model.shiftFeatures.length < 2"
             |  (Evening, overnight, and more options available)
-          .right.toggle ng-switch="is_open_shift_features"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
+          span.toggle ng-switch="is_open_shift_features"
+            span ng-switch-when="false" &mdash; Show
+            span ng-switch-when="true" &mdash; Hide
             |  options
 
       #shift-features-panel.clearfix role="tabpanel" aria-labelledby="shift-features-heading" aria-hidden="{{!is_open_shift_features}}"
@@ -44,9 +44,9 @@ section.margin-top-2
       accordion-heading
         #day-schedule-heading role="tab" aria-controls="day-schedule-panel"
           | {{ $ctrl.model.weeklySchedule | scheduleDaysToText }}
-          .right.toggle ng-switch="is_open_days"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
+          span.toggle ng-switch="is_open_days"
+            span ng-switch-when="false" &mdash; Show
+            span ng-switch-when="true" &mdash; Hide
             |  options
 
       #day-schedule-panel.clearfix role="tabpanel" aria-labelledby="day-schedule-heading" aria-hidden="{{!is_open_days}}"

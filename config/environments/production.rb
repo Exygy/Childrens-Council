@@ -101,6 +101,10 @@ Rails.application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+  config.action_mailer.default_url_options = {
+    host: 'www.childrenscouncil.org/families/find-child-care/child-care-referrals/child-care-search',
+    protocol: 'https'
+  }
 end
 
 Rails.logger = Le.new('b5e12d89-bac0-4bed-94aa-cd13a5356750', debug: true, local: true)

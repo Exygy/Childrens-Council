@@ -1,7 +1,8 @@
-h5.c-black ng-class="{ error: searchForm.typeOfCare.$dirty && searchForm.typeOfCare.$invalid }" Child care program type *
+h5 ng-class="{ error: searchForm.typeOfCare.$dirty && searchForm.typeOfCare.$invalid }" Child care program type *
 
-.margin-bottom-1
-  a href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank" What are the differences?
+div
+  a href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
+    small What are the differences?
 
 .row
   .columns.small-12 ng-show="searchForm.typeOfCare.$dirty && searchForm.typeOfCare.$invalid"
@@ -10,8 +11,9 @@ h5.c-black ng-class="{ error: searchForm.typeOfCare.$dirty && searchForm.typeOfC
       |  Select at least 1 type of provider
 
   .columns.medium-6 ng-repeat="type in [filterData.typesOfCare[1], filterData.typesOfCare[0]]"
-    .checkbox.checkbox-single.checkbox-button
+    label.checkbox-round for="care-type-{{type.id}}"
       input type="checkbox" id="care-type-{{type.id}}" name="typeOfCare" checklist-value="type.id" checklist-model="filters.typeOfCare" ng-required="filters.typeOfCare.length < 1"
-      label for="care-type-{{type.id}}"
-        span.fa.fa-home
+      span.icon
+      .label
+        i.fa ng-class="{'fa-home': type.id == 2, 'fa-building': type.id == 1}"
         | {{type.name}}

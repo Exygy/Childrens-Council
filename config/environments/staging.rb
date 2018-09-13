@@ -111,4 +111,8 @@ Rails.application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+  config.action_mailer.default_url_options = {
+    host: 'ccsf.wpengine.com/families/find-child-care/child-care-referrals/search-our-database',
+    protocol: 'https'
+  }
 end
