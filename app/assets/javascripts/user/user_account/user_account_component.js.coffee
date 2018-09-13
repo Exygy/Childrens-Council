@@ -13,6 +13,8 @@ UserAccountController = ($timeout, $anchorScroll, $scope, $modal, $auth, $locati
     $ctrl.editing = false
 
   sendUpdateRequest = () ->
+    if !$ctrl.parent.phone
+      $ctrl.parent.phone = ''
     $auth.updateAccount($ctrl.parent)
       .then (resp) ->
         $ctrl.parent = resp.data.data
