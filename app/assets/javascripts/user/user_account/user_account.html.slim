@@ -63,7 +63,7 @@
                 section
                   label.large.c-black.text-normal ng-class="{ error: (userForm.phone.$dirty && userForm.phone.$invalid) }"
                     | Phone
-                    input.radius type="text" name="phone" required="" ng-model="$ctrl.parent.phone"
+                    input.radius type="text" name="phone" ng-model="$ctrl.parent.phone"
                     small.error ng-show="(userForm.phone.$dirty && userForm.phone.$invalid)"
                       span.fa.fa-exclamation-circle
                       |  Invalid phone number
@@ -78,6 +78,6 @@
             .row
               .small-12.columns
                 p.margin-top-1
-                  input.large.round.button.text-uppercase ng-disabled="userForm.$invalid" type="submit" value="Save Changes"
+                  input.large.round.button.text-uppercase type="submit" value="Save Changes"
                   a.round.button.user-prompt-register-btn.margin-1.text-uppercase ng-click="$ctrl.cancelEdit()" Cancel
         button.round.button.text-uppercase.bg-green-yellow ng-show="!$ctrl.editing" ng-click="$ctrl.editUser()" Edit Information
