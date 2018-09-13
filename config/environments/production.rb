@@ -101,6 +101,7 @@ Rails.application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+  config.action_mailer.default_url_options = {host: 'childrenscouncil.org'}
 end
 
 Rails.logger = Le.new('b5e12d89-bac0-4bed-94aa-cd13a5356750', debug: true, local: true)
