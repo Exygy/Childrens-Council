@@ -1,4 +1,4 @@
-SearchController = ($scope, $state, SearchService, $modal) ->
+SearchController = ($scope, $state, SearchService, $modal, $auth) ->
   $ctrl = @
   $scope.filterData = SearchService.filterData
   $scope.filters = SearchService.filters
@@ -41,18 +41,9 @@ SearchController = ($scope, $state, SearchService, $modal) ->
         controller: 'userResetPasswordCtrl',
         templateUrl: 'user/reset_password/reset_password.html'
       }
-#    currentParent = $auth.currentUser()
-#    if currentParent
-#      $scope.parent = currentParent.last_search.parent
-#      SearchService.parent = $scope.parent
-
-  $scope.$on 'auth:validation-success', (event, user) ->
-#    $scope.parent = user.last_search.parent
-#    SearchService.parent = $scope.parent
-
-  $scope.$on 'auth:login-success', (event, user) ->
-#    $scope.parent = user.last_search.parent
-#    SearchService.parent = $scope.parent
+    else
+#     Force validate token to set Parent on DataService and prefill forms
+      $auth.validateToken()
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -91,7 +82,7 @@ SearchController = ($scope, $state, SearchService, $modal) ->
 
   return $ctrl
 
-SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal']
+SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal', '$auth']
 
 angular.module('CCR').controller('SearchController', SearchController)
 

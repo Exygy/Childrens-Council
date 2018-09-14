@@ -1,6 +1,7 @@
 module Api
   class ApiController < ApplicationController
     include DeviseTokenAuth::Concerns::SetUserByToken
+    before_action :set_user_by_token
     before_action :check_parent_credentials
     after_action :send_apikey
 
@@ -32,9 +33,13 @@ module Api
         # Update only on initial create
         if parent.new_record?
           parent.assign_attributes(parent_params)
-          # Skip validation, as Parent doesn't have password at this point, so validation would fail
-          parent.save(validate: false)
+        else
+          if @resource.present?
+            parent.assign_attributes(parent_params.slice(:home_zip_code, :phone))
+          end
         end
+        # Skip validation, as Parent doesn't have password at this point, so validation would fail
+        parent.save(validate: false)
       end
       parent
     end

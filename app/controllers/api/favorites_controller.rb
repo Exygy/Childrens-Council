@@ -1,7 +1,6 @@
 module Api
   class FavoritesController < ApiController
     skip_before_action :check_parent_credentials
-    before_action :set_user_by_token
     before_action :set_parent
 
     def index

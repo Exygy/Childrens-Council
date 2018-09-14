@@ -6,6 +6,9 @@ UserAccountController = ($timeout, $anchorScroll, $scope, $modal, $auth, $locati
   $ctrl.currentEmail = if $ctrl.parent then $ctrl.parent.email else null
   $ctrl.errors
 
+  $ctrl.$onInit = () ->
+    $auth.validateToken()
+
   $ctrl.editUser = ->
     $ctrl.editing = true
 
