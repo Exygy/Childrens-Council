@@ -4,7 +4,7 @@
     img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
   .columns.medium-8
     h2.item-title
-      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.providerName($ctrl.provider) }}
+      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
       span
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
       div ng-switch="$ctrl.provider | isFacility"

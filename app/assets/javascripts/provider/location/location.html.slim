@@ -1,5 +1,5 @@
 a name="location"
-h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="location"
+h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="location"
   ' Location
   span.fa.fa-info-circle.margin-left-small.tip-top.tooltip-max-width-220 tooltip="We do not offer exact address due to privacy of owner. You may inquire directly with owner." tooltip-placement="right" ng-if="!($ctrl.provider | isFacility)"
 
@@ -16,4 +16,5 @@ h3.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="locat
     '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }},
     '  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-provider-map providers="[$ctrl.provider]" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+#location
+  provider-map providers="[$ctrl.provider]" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
