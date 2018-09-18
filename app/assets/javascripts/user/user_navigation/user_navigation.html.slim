@@ -1,7 +1,7 @@
 .medium-4.columns
   ul.side-nav
     li
-      a ui-sref="account_favorites" ng-class="{active: $ctrl.$location.path() == '/account/favorites'}" My Favorites
+      a ui-sref="account_favorites" ng-class="{active: $ctrl.$location.path().match('/account/favorites')}" My Favorites
     li
-      a ui-sref="account_info" ng-class="{active: $ctrl.$location.path() == '/account/info'}" Profile Settings
+      a ui-sref="account_info" ng-class="{active: $ctrl.$location.path().match('/account/info')}" Profile Settings
 
