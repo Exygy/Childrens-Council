@@ -1,0 +1,27 @@
+.results-item.gmap-window ng-if="$ctrl.provider"
+  div
+    h3.item-title
+      a href="#" ui-sref="provider({id: $ctrl.provider.id})" {{ $ctrl.provider | providerName }}
+    favorite provider="$ctrl.provider"
+    p.small
+      small ng-if="$ctrl.provider | isFacility"
+        |  {{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+        |  {{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+      small ng-if="!($ctrl.provider | isFacility)"
+        |  {{ $ctrl.provider.generalInfo.config1 }}
+      |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }}
+      |  {{ $ctrl.provider.addresses | physicalAddress: 'state' }},
+      |  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+    p
+      span.item-detail.small
+        span.fa.fa-phone-square.c-base
+        |  {{ $ctrl.provider.phone | formatPhoneNumber }}
+
+      span.item-detail.small
+        span.fa.fa-clock-o.c-base
+        | {{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
+
+    p ng-if="$ctrl.provider.url"
+      a ng-href="{{ $ctrl.provider.url | prefixUrl }}" target="_blank"
+        | {{ $ctrl.provider.url }}

@@ -1,35 +1,3 @@
-div ng-if="providers.length"
+div ng-if="$ctrl.providers.length"
   map center="37.7833,-122.4167" max-zoom="16" min-zoom="6" zoom-control="true" zoom-control-options="{position:'TOP_LEFT'}" zoom="10" disable-default-u-i="true"
-   marker ng-repeat="provider in providers track by $index" id="custom-marker-{{provider.providerId}}" position="{{provider.position}}" icon="{{provider.icon}}" optimized="false" events="{{provider.events}}" on-click="map.showInfoWindow(provider.providerId)"
-
-   info-window ng-repeat="provider in providers track by $index" id="{{ provider.providerId }}" on-mouseover="vm.mouseover()" ng-if="$ctrl.infoWindow"
-     .results-item.gmap-window
-       .provider-type
-         span.fa.c-gainsboro class="{{ provider.gmap_icon }}"
-         .show-for-sr
-           ' {{ provider.gmap_icon_title }}
-
-       h2.item-title
-         a href="#" ui-sref="provider({id: provider.id})" {{provider | providerName}}
-       p
-         span ng-if="provider | isFacility"
-           '  {{ provider.addresses | physicalAddress: 'street1' }}
-           '  {{ provider.addresses | physicalAddress: 'street2' }}
-         span ng-if="!(provider | isFacility)"
-           '  {{ provider.generalInfo.config1 }}
-         ', {{ provider.addresses | physicalAddress: 'city' }}
-         '  {{ provider.addresses | physicalAddress: 'state' }},
-         '  {{ provider.addresses | physicalAddress: 'zip' }}
-
-       p
-         span.item-detail
-           span.fa.fa-phone-square.c-base
-           '  {{ provider.phone | formatPhoneNumber }}
-
-         span.item-detail
-           span.fa.fa-clock-o.c-base
-           '{{ provider.shiftDays | scheduleHoursToSummary }}
-
-       p ng-if="provider.url"
-         a ng-href="{{ provider.url | prefixUrl }}" target="_blank"
-           ' {{ provider.url }}
+    marker ng-repeat="provider in $ctrl.providers track by $index" on-click="$ctrl.openInfoWindow(provider, map)" id="custom-marker-{{provider.providerId}}" position="{{provider.position}}" icon="{{provider.icon}}" optimized="false" events="{{provider.events}}"
