@@ -1,6 +1,5 @@
 FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
   $ctrl = @
-  $ctrl.favorited = $ctrl.provider.favorite
   $ctrl.parent = $auth.currentUser()
 
   $ctrl.favorite = ->
@@ -13,7 +12,7 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
       }
 
   $ctrl.handleFavorite = ->
-    $ctrl.favorited = true
+    $ctrl.provider.favorite = true
 
   $ctrl.unFavorite = ->
     if $ctrl.parent
@@ -25,7 +24,7 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
       }
 
   $ctrl.handleUnFavorite = ->
-    $ctrl.favorited = false
+    $ctrl.provider.favorite = false
 
   $scope.$on 'auth:validation-success', (event, user) ->
     $ctrl.parent = user

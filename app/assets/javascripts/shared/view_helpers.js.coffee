@@ -245,9 +245,15 @@ angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
   if !ProviderIsFacility(rootScope, provider)
-    return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
+    if provider.primaryOwner.firstName
+      return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
+    else
+      return "#{name}."
   else
-    return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
+    if provider.primaryOwner.firstName
+      return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
+    else
+      return "#{name}."
 
 EntitiesToString = (entities) ->
   string = ''
