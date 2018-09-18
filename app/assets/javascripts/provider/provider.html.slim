@@ -1,37 +1,38 @@
-.loading ng-if="!provider"
+#ccr-scope
+  .loading ng-if="!provider"
 
-div ng-if="provider"
+  div ng-if="provider"
 
-  provider-header provider="provider"
+    provider-header provider="provider"
 
-  .margin-bottom-3
+    .margin-bottom-3
 
-  section.content.row.margin-bottom-5
+    section.content.row.margin-bottom-5
 
-    .large-4.columns.show-for-large-up
+      .large-4.columns.show-for-large-up
 
-      provider-navigation
+        provider-navigation
 
-    .large-8.columns
+      .large-8.columns
 
-      general-information provider="provider"
+        general-information provider="provider"
 
-      location provider="provider"
+        location provider="provider"
 
-      hours shift-days="provider.shiftDays"
+        hours shift-days="provider.shiftDays"
 
-      vacancies general-info="provider.generalInfo" enrollments="provider.enrollments"
+        vacancies general-info="provider.generalInfo" enrollments="provider.enrollments"
 
-      rates rates="provider.rates"
+        rates rates="provider.rates"
 
-      meals provider="provider"
+        meals provider="provider"
 
-      enrollment-process provider="provider"
+        enrollment-process provider="provider"
 
-      env-images urls="provider.images.env"
+        env-images urls="provider.images.env"
 
-      license-and-ages general-info="provider.generalInfo" enrollments="provider.enrollments"
+        license-and-ages general-info="provider.generalInfo" enrollments="provider.enrollments"
 
-      language-options provider="provider"
+        language-options provider="provider"
 
-      financial-assistance provider="provider"
+        financial-assistance provider="provider"

@@ -244,16 +244,11 @@ ProviderContactName.$inject = ['$rootScope']
 angular.module('CCR').filter('providerContactName', ProviderContactName)
 
 FormatProviderName = (provider, rootScope, name) ->
-  if !ProviderIsFacility(rootScope, provider)
-    if provider.primaryOwner.firstName
-      return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
-    else
-      return "#{name}."
+  if name
+    return "#{name}"
   else
-    if provider.primaryOwner.firstName
-      return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}."
-    else
-      return "#{name}."
+    return "#{provider.primaryOwner.firstName} #{provider.primaryOwner.lastName}"
+
 
 EntitiesToString = (entities) ->
   string = ''
