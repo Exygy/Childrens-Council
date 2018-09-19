@@ -16,10 +16,10 @@ DataService = ($rootScope) ->
       # here is a dummy value until we figure that out.
       {
         label: 'No'
-        value: ['dummy value for no meals']
+        value: ['No meals']
       }
     ]
-    
+
 
   $service.providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
