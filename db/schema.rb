@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20180829141118) do
     t.float    "random_seed"
     t.string   "near_address"
     t.boolean  "subscribe"
+    t.string   "nds_client_uid"
     t.string   "provider",                          default: "email"
     t.text     "uid",                               default: ""
     t.text     "tokens"
@@ -200,7 +201,7 @@ ActiveRecord::Schema.define(version: 20180829141118) do
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
-  add_index "parents", ["uid", "provider"], name: "index_parents_on_uid_and_provider", unique: true, using: :btree
+  add_index "parents", ["uid", "provider"], name: "index_parents_on_uid_and_provider", using: :btree
 
   create_table "parents_zip_codes", id: false, force: :cascade do |t|
     t.integer  "parent_id",   null: false
@@ -403,26 +404,6 @@ ActiveRecord::Schema.define(version: 20180829141118) do
     t.boolean  "display",     default: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -462,6 +443,7 @@ ActiveRecord::Schema.define(version: 20180829141118) do
   add_foreign_key "programs", "program_types"
   add_foreign_key "programs_providers", "programs"
   add_foreign_key "programs_providers", "providers"
+  add_foreign_key "providers", "care_types"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "cities", column: "mail_city_id"
   add_foreign_key "providers", "languages", column: "preferred_language_id"
@@ -474,6 +456,7 @@ ActiveRecord::Schema.define(version: 20180829141118) do
   add_foreign_key "providers_schedule_week", "providers"
   add_foreign_key "providers_schedule_week", "schedules_week", column: "schedule_week_id"
   add_foreign_key "providers_subsidies", "providers"
+  add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "rates", "providers"
   add_foreign_key "referral_logs", "parents"
   add_foreign_key "schedule_hours", "providers"

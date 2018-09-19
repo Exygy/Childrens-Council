@@ -17,6 +17,7 @@
 #  random_seed            :float
 #  near_address           :string
 #  subscribe              :boolean
+#  nds_client_uid         :string
 #  provider               :string           default("email")
 #  uid                    :text             default("")
 #  tokens                 :text
@@ -33,7 +34,7 @@
 # Indexes
 #
 #  index_parents_on_found_option_id   (found_option_id)
-#  index_parents_on_uid_and_provider  (uid,provider) UNIQUE
+#  index_parents_on_uid_and_provider  (uid,provider)
 #
 # Foreign Keys
 #
