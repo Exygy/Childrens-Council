@@ -1,4 +1,4 @@
-SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, HttpService, $rootScope) ->
+SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyFormParamsToVacancyDateRangeService, DataService, GeocodingService, HttpService, $rootScope) ->
   $service = @
   $service.filterData = DataService.filterData
   $service.filters = DataService.filters
@@ -81,16 +81,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
   $service.setAgeGroup = (params) ->
     if params.ageGroupServiced
       weeks = params.ageGroupServiced
-      params.ageGroup = switch
-        # 0 yrs to 1 yr 11 mos
-        when weeks >= 0 && weeks < 102 then 'INFANT_1'
-        # 2 yrs to 5 yrs 11 mos
-        when weeks >= 102 && weeks < 312 then 'PRESCHOOL_1'
-        # 6 yrs and up
-        when weeks >= 312 then 'SCHOOL_1'
-        # The value "SCHOOL_2" represents all ages
-        else
-          'SCHOOL_2'
+      params.ageGroups = AgeInWeekToAgeGroupsService.convert(weeks)
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
@@ -99,7 +90,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
         to: params.monthlyRate[1]
 
   $service.setVacancies = (params) ->
-    # TODO: configure params to search the API for provider vacancies
+    params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
     delete params.vacancyType
     delete params.vacancyFutureDate
 
@@ -188,5 +179,5 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
   $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyFormParamsToVacancyDateRangeService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)
