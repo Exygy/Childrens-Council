@@ -4,6 +4,11 @@ ResultsFilterController = ($scope, $modal, ResultsService) ->
   $scope.parent = ResultsService.parent
   $scope.showMoreFilters = false
 
+  $scope.$on 'search-service:updated', (event, service) ->
+    $scope.filters = service.filters
+    $scope.parent = service.parent
+    $scope.settings = service.searchSettings
+
   $scope.openResultFiltersModal = () ->
     $modal.open {
       templateUrl: 'results/result_filters_modal.html'

@@ -74,6 +74,11 @@ SearchController = ($scope, $state, SearchService, $modal, $auth) ->
       false
 
   $scope.setLocationType = (type) ->
+#   Clean locations
+    $scope.filters.address = ""
+    $scope.filters.zipCodes = [""]
+    $scope.filters.neighborhoods = [""]
+
     $scope.locationTabs[type].active = true
     $scope.searchSettings.locationType = type
 

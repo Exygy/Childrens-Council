@@ -34,15 +34,17 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
       params.distance = 2 # set the search radius in miles
+      delete params.zipCodes
+      delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
       params.zip = params.zipCodes
       delete params.address
+      delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.address
+      delete params.zipCodes
 
-    delete params.neighborhoods
-    delete params.zipCodes
 
   # Reformat and rename program params to match API fields.
   $service.setPrograms = (params) ->
