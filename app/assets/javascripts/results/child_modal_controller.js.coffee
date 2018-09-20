@@ -1,5 +1,6 @@
-ChildModalController = ($scope, $modalInstance, $anchorScroll, ResultsService, SearchService, childId) ->
+ChildModalController = ($scope, $modalInstance, $anchorScroll, ResultsService, SearchService, DataService, childId) ->
   $scope.child = ResultsService.parent.children[childId]
+  $scope.filters = DataService.filters
   cached_child = angular.copy $scope.child
 
   $modalInstance.result.catch () ->
@@ -19,5 +20,5 @@ ChildModalController = ($scope, $modalInstance, $anchorScroll, ResultsService, S
       if $scope.child[filter_key] != cached_child[filter_key]
         $scope.child[filter_key] = cached_child[filter_key]
 
-ChildModalController.$inject = ['$scope', '$modalInstance', '$anchorScroll', 'ResultsService', 'SearchService', 'childId']
+ChildModalController.$inject = ['$scope', '$modalInstance', '$anchorScroll', 'ResultsService', 'SearchService', 'DataService', 'childId']
 angular.module('CCR').controller('ChildModalController', ChildModalController)

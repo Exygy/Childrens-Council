@@ -2,5 +2,5 @@ angular.module('CCR')
 .component 'childAgeFilter', {
   bindings:
     model: '<'
-  templateUrl: 'search/filters/child_age_filter.html'
+  templateUrl: 'search/child_age_filter/child_age_filter.html'
 }

@@ -1,4 +1,4 @@
-SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, HttpService, $rootScope) ->
+SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyFormParamsToVacancyDateRangeService, DataService, GeocodingService, HttpService, $rootScope) ->
   $service = @
   $service.filterData = DataService.filterData
   $service.filters = DataService.filters
@@ -34,15 +34,17 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
       params.distance = 2 # set the search radius in miles
+      delete params.zipCodes
+      delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
       params.zip = params.zipCodes
       delete params.address
+      delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.address
+      delete params.zipCodes
 
-    delete params.neighborhoods
-    delete params.zipCodes
 
   # Reformat and rename program params to match API fields.
   $service.setPrograms = (params) ->
@@ -81,16 +83,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
   $service.setAgeGroup = (params) ->
     if params.ageGroupServiced
       weeks = params.ageGroupServiced
-      params.ageGroup = switch
-        # 0 yrs to 1 yr 11 mos
-        when weeks >= 0 && weeks < 102 then 'INFANT_1'
-        # 2 yrs to 5 yrs 11 mos
-        when weeks >= 102 && weeks < 312 then 'PRESCHOOL_1'
-        # 6 yrs and up
-        when weeks >= 312 then 'SCHOOL_1'
-        # The value "SCHOOL_2" represents all ages
-        else
-          'SCHOOL_2'
+      params.ageGroups = AgeInWeekToAgeGroupsService.convert(weeks)
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
@@ -99,9 +92,13 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
         to: params.monthlyRate[1]
 
   $service.setVacancies = (params) ->
-    # TODO: configure params to search the API for provider vacancies
+    params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
     delete params.vacancyType
     delete params.vacancyFutureDate
+
+  $service.setAcceptsChildren = (params) ->
+    if params.acceptsChildren and params.acceptsChildren.length == 2
+      params.acceptsChildren = ['BOTH']
 
   $service.buildParent = ->
     $service.parent.parents_care_types = $service.filters.typeOfCare.map (type) -> { 'type': type }
@@ -121,6 +118,7 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
     $service.setPrograms(search_params)
     $service.setEnvironments(search_params)
     $service.setAgeGroup(search_params)
+    $service.setAcceptsChildren(search_params)
     $service.setMonthlyRate(search_params)
     $service.setVacancies(search_params)
 
@@ -188,5 +186,5 @@ SearchService = ($http, $cookies, CC_COOKIE, DataService, GeocodingService, Http
 
   $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyFormParamsToVacancyDateRangeService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)

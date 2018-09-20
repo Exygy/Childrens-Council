@@ -27,6 +27,5 @@ div ng-hide="$ctrl.data.isLoading"
   ul.no-bullet ng-if="$ctrl.data.providers.length"
     li.results-item ng-repeat="provider in $ctrl.data.providers"
       result provider="provider"
-      hr.margin-bottom-2
 
   results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
