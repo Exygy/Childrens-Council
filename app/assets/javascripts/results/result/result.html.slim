@@ -65,7 +65,7 @@ ul.general-info
         |{{ $ctrl.provider.generalInfo.config1 }}
       |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-      a.map_toggle ng-click="show_map != show_map"
+      a.map_toggle ng-click="show_map != show_map" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
         span ng-if="!show_map" See map
         span ng-if="show_map" Hide map
 
