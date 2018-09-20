@@ -98,7 +98,9 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   $service.setAcceptsChildren = (params) ->
     if params.acceptsChildren and params.acceptsChildren.length == 2
-      params.acceptsChildren = ['BOTH']
+      params.acceptsChildren = 'BOTH'
+    else
+      params.acceptsChildren = params.acceptsChildren[0]
 
   $service.buildParent = ->
     $service.parent.parents_care_types = $service.filters.typeOfCare.map (type) -> { 'type': type }
