@@ -19,6 +19,7 @@
 config/database.yml
 
 vendor/assets/stylesheets/style.min.css
+vendor/assets/stylesheets/style.css
 
 .idea/
 .idea/workspace.xml
