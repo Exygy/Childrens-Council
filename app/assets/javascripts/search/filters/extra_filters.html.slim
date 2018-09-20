@@ -47,11 +47,11 @@ section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Teaching Philosophy
   .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
     select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
-      option value="" Select Teaching Philopshpy
+      option value="" Select Teaching Philosophy
       option ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" value="{{ careApproach }}"
         ' {{ careApproach }}
-    button.inline.repeater type="button" aria-label="Remove teaching philopshpy" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
-  button.inline type="button" aria-label="Add another teaching philopshpy" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
+    button.inline.repeater type="button" aria-label="Remove teaching philosophy" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
+  button.inline type="button" aria-label="Add another teaching philosophy" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
 
 section.margin-top-2
   h6.c-black.text-normal.margin-top-2 Language Immersion Programs
