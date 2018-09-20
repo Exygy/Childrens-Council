@@ -94,6 +94,10 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     delete params.vacancyType
     delete params.vacancyFutureDate
 
+  $service.setAcceptsChildren = (params) ->
+    if params.acceptsChildren and params.acceptsChildren.length == 2
+      params.acceptsChildren = ['BOTH']
+
   $service.buildParent = ->
     $service.parent.parents_care_types = $service.filters.typeOfCare.map (type) -> { 'type': type }
 
@@ -112,6 +116,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     $service.setPrograms(search_params)
     $service.setEnvironments(search_params)
     $service.setAgeGroup(search_params)
+    $service.setAcceptsChildren(search_params)
     $service.setMonthlyRate(search_params)
     $service.setVacancies(search_params)
 

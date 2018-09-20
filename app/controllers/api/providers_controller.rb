@@ -66,10 +66,17 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
+        :acceptDropins,
+        :afterSchool,
+        :beforeSchool,
+        :open24Hours,
+        :rotating,
         :ageGroup,
         :ageGroupServiced,
         :distance,
         :yearlySchedule,
+        acceptsChildren: [],
+        ageGroups: [],
         attributesLocal17: [],
         attributesLocal3: [],
         environments: [],
@@ -81,6 +88,8 @@ module Api
           :from,
           :to
         ],
+        shiftLocal1: [],
+        shiftType: [],
         typeOfCare: [],
         weeklySchedule: [],
         zip: []
