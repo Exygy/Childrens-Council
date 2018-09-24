@@ -28,6 +28,7 @@ module Api
     private
 
     def set_parent
+      render_unauthorized unless @resource
       @current_parent = @resource
     end
 
