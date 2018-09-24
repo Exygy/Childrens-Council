@@ -260,6 +260,25 @@ EntitiesToString = (entities) ->
 
 angular.module('CCR').filter('entitiesToString', () -> (entities) -> EntitiesToString(entities))
 
+RatesToString = (rates) ->
+  string = ''
+  if rates[1]
+    string = '$' + rates[0] + '—$' + rates[1] + ' per month'
+  if string != '' then string else 'Any'
+
+angular.module('CCR').filter('ratesToString', () -> (rates) -> RatesToString(rates))
+
+VacancyToString = (filters) ->
+  string = ''
+  if filters.vacancyType
+    if filters.vacancyType == 'Available Now'
+      string = filters.vacancyType
+    else
+      string = 'Available beginning ' + filters.vacancyFutureDate
+  if string != '' then string else 'Any'
+
+angular.module('CCR').filter('vacancyToString', () -> (rates) -> VacancyToString(rates))
+
 BooleanFilterToText = ->
   (bool_filter) ->
     if bool_filter?

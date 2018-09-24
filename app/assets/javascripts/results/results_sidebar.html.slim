@@ -1,6 +1,6 @@
 .bg-white
   .panel.filters ng-controller="ResultsFilterController"
-    a.right ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
+    a.right href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
       strong Edit
 
     h3.margin-bottom-2 Filters
@@ -15,9 +15,15 @@
 
         p ng-if="!filters[settings.locationType]" Any
 
-      / li
-      /   h4 Costs ($ per month)
+      li
+        h4 Average Rate
+        p
+          | {{ filters.monthlyRate | ratesToString }}
 
+      li
+        h4 Vacancy Type
+        p
+          | {{ filters | vacancyToString }}
       li
         h4 Financial Assistance
         p
