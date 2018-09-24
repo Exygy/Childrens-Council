@@ -112,7 +112,7 @@ DataService = ($rootScope) ->
     tmpParent.children = children
     tmpParent.agree = true
     $service.parent = tmpParent
-    $service.filters = Object.assign($service.filters, currentParent.last_search.providers)
+#    setFilters(currentParent)
     $service.setSettings(currentParent.last_search)
     $service.cleanAddressFilters()
 
@@ -128,6 +128,23 @@ DataService = ($rootScope) ->
         settings.locationType = 'zipCodes'
         $service.filters.zipCodes = $service.filters.zip
     $service.searchSettings = settings
+    $service.filters = Object.assign($service.filters, lastSearch.providers)
+
+    $service.filters.monthlyRate = _.map lastSearch.providers.monthlyRate, (v, k) ->
+      return v
+
+    if $service.filters.monthlyRate.length == 0
+      $service.filters.monthlyRate = [0, 3000]
+
+    if lastSearch.providers.vacancyDateRange
+      fromDate = new Date(lastSearch.providers.vacancyDateRange.from)
+      toDate = new Date(lastSearch.providers.vacancyDateRange.to)
+      if fromDate <= new Date
+        $service.filters.vacancyType = 'Available Now'
+      else
+        $service.filters.vacancyFutureDate = fromDate.toLocaleDateString("en-US")
+        $service.filters.vacancyType = 'Future Date'
+
 
   $service.cleanAddressFilters = () ->
     filters = angular.copy $service.filters
