@@ -41,9 +41,6 @@ SearchController = ($scope, $state, SearchService, $modal, $auth) ->
         controller: 'userResetPasswordCtrl',
         templateUrl: 'user/reset_password/reset_password.html'
       }
-    else
-#     Force validate token to set Parent on DataService and prefill forms
-      $auth.validateToken()
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
