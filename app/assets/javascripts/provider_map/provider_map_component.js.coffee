@@ -18,7 +18,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, $element, 
     $ctrl.infowindow.setContent("<div id='providerContent'></div>");
     $ctrl.infowindow.setPosition(center);
     $ctrl.infowindow.open(map);
-#   Needs timeout to process infowindow actions
+    # Needs timeout to process infowindow actions
     $timeout(
       ->
         temp = $compile('<provider-map-item provider="$ctrl.provider"></provider-map-item>')($scope)
@@ -31,7 +31,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, $element, 
       if $scope.map
         fitBounds($scope.map)
       else
-        NgMap.getMap().then (map) ->
+        NgMap.getMap($ctrl.mapId).then (map) ->
           $scope.map = map
           fitBounds(map)
 
@@ -56,6 +56,7 @@ angular
   .component('providerMap', {
     bindings:
       infoWindow: '<',
+      mapId: '<'
       providers: '<'
     controller: ProviderMapController
     templateUrl: "provider_map/provider_map.html"

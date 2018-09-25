@@ -65,14 +65,13 @@ ul.general-info
         |{{ $ctrl.provider.generalInfo.config1 }}
       |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-      a.map_toggle ng-click="show_map != show_map" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+      a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
         span ng-if="!show_map" See map
         span ng-if="show_map" Hide map
 
 .cl
 
-ui-gmap-google-map center='$ctrl.provider.map.center' zoom='$ctrl.provider.map.zoom' options='$ctrl.provider.map.options' ng-if="show_map"
-  ui-gmap-marker ng-repeat="marker in ([$ctrl.provider] | toMarkers) track by marker.id" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"
+provider-map providers="[$ctrl.provider]" map-id="'map-provider-' + $ctrl.provider.providerId" info-window="false" ng-if="show_map"
 
 p.updated_at
   ' Profile last updated

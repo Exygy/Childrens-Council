@@ -24,6 +24,6 @@ div ng-hide="$ctrl.data.isLoading"
       h2 No child care provider matches found.
       p Try changing filters for a less specific search.
 
-  provider-map providers="$ctrl.data.providers" info-window="true"
+  provider-map providers="$ctrl.data.providers" info-window="true" map-id="'map-provider-results'" 
 
   results-pager class="map-results-pager" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
