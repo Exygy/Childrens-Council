@@ -2,7 +2,7 @@ ScheduleFilterScheduleFiltersAggregatorFilter = ->
   (filters, option) ->
     all_schedule_filters = []
 
-    for array in [filters.acceptsChildren, filters.shiftLocal1, filters.shiftType]
+    for array in [filters.acceptsChildren, filters.shiftLocal1]
       for entry in array
           words = entry.split("_")
           for word, index in words

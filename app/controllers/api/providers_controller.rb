@@ -89,7 +89,6 @@ module Api
           :to
         ],
         shiftLocal1: [],
-        shiftType: [],
         typeOfCare: [],
         weeklySchedule: [],
         zip: []

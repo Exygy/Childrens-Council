@@ -31,18 +31,6 @@ section.margin-top-1
 
       #shift-features-panel.clearfix role="tabpanel" aria-labelledby="shift-features-heading" aria-hidden="{{!is_open_shift_features}}"
         .checkbox.checkbox-week.checkbox-left
-          input type="checkbox" id="shift-shiftType-Days" name="shift_shiftType_Days" checklist-value="'DAY'" checklist-model="$ctrl.filters.shiftType"
-          label for="shift-shiftType-Days"
-            | Days
-            span.fa.fa-info-circle.c-base.margin-left-small.tooltip-round aria-haspopup="true" aria-label="Description for Full Time" ng-if="'Days' | shiftNameToDescription" tooltip="{{ 'Days' | shiftNameToDescription }}" tooltip-placement="right"
-
-        .checkbox.checkbox-week.checkbox-left
-          input type="checkbox" id="shift-shiftType-Other" name="shift_shiftType_Other" checklist-value="'OTHER'" checklist-model="$ctrl.filters.shiftType"
-          label for="shift-shiftType-Other"
-            | Other
-            span.fa.fa-info-circle.c-base.margin-left-small.tooltip-round aria-haspopup="true" aria-label="Description for Part Time" ng-if="'Other' | shiftNameToDescription" tooltip="{{ 'Other' | shiftNameToDescription }}" tooltip-placement="right"
-
-        .checkbox.checkbox-week.checkbox-left
           input type="checkbox" id="shift-flag-open24hours" name="shift_flag_open24hours" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.open24Hours"
           label for="shift-flag-open24hours"
             | Non-Traditional Hours
