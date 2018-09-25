@@ -66,7 +66,7 @@ module Api
 
     def provider_params
       params.require(:providers).permit(
-        :acceptDropins,
+        :acceptDropIns,
         :afterSchool,
         :beforeSchool,
         :open24Hours,
