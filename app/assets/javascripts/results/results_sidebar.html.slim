@@ -105,19 +105,10 @@
         p.margin-bottom-none
           | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
           br
-          | {{ parent.children[0].shiftFeatures | entitiesToString }}
+          | {{ filters | scheduleFiltersAggregator }}
           br
           | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
 
-    / TODO: In the future we will need to support multiple children.
-    / ul.no-bullet
-    /   li ng-repeat="child in parent.children track by $index"
-    /     /input type="checkbox" id="child-filter-{{$index}}" ng-model="child.selected"
-    /     p for="schedule-day-{{schedule_day.name | attribute}}"
-    /       | Child {{ $index+1 }}
-    /       small
-    /         '  - {{ child.ageWeeks | ageToYearsAndMonths }}
-    /       a.right ng-click="openChildModal($index)" Edit
 
   .c-base.margin-top-2
     a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank"
