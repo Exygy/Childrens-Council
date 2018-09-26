@@ -13,7 +13,7 @@ ScheduleFilterScheduleFiltersAggregatorFilter = ->
       all_schedule_filters.push 'After School'
     if filters.beforeSchool and all_schedule_filters.indexOf('Before School') == -1
       all_schedule_filters.push 'Before School'
-    if filters.acceptDropIns and all_schedule_filters.indexOf('Drop In') == -1
+    if filters.acceptsDropIns and all_schedule_filters.indexOf('Drop In') == -1
       all_schedule_filters.push 'Drop In'
     if filters.rotating and all_schedule_filters.indexOf('Variable/Flexible') == -1
       all_schedule_filters.push 'Variable/Flexible'
@@ -23,7 +23,10 @@ ScheduleFilterScheduleFiltersAggregatorFilter = ->
     if option == 'has_one_option_selected'
       return all_schedule_filters.length < 2
     else
-      return all_schedule_filters.join(', ')
+      if all_schedule_filters.length
+        return all_schedule_filters.join(', ')
+      else
+        return 'All'
 
 ScheduleFilterScheduleFiltersAggregatorFilter.$inject = []
 

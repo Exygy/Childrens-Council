@@ -48,7 +48,7 @@ DataService = ($rootScope) ->
     financialAssistance: []
     careApproaches: ['']
 
-    acceptDropIns: null # Shift Flags - Drop In
+    acceptsDropIns: null # Shift Flags - Drop In
     afterSchool: null # Shift Flags - After School
     beforeSchool: null # Shift Flags - Before School
     open24Hours: null # Shift Flags - 24-Hour
@@ -126,6 +126,11 @@ DataService = ($rootScope) ->
       if $service.filters.zip
         settings.locationType = 'zipCodes'
         $service.filters.zipCodes = $service.filters.zip
+
+
+    if lastSearch.providers.acceptsChildren
+      lastSearch.providers.acceptsChildren
+
     $service.searchSettings = settings
     $service.filters = Object.assign($service.filters, lastSearch.providers)
 
