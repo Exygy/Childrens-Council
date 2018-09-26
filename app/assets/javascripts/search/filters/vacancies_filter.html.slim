@@ -3,9 +3,10 @@ h5.c-black
 
 .row
   .columns.medium-6 ng-repeat="type in filterData.vacancyTypes"
-    .radio-button
-      input id="vacancy-type-{{$index}}" type="radio" name="vacancy-type" value="{{ type }}" ng-model="filters.vacancyType"
-      label for="vacancy-type-{{$index}}"
+    label.checkbox-round for="vacancy-type-{{type}}"
+      input type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="rrrr()"
+      span.icon
+      .label
         | {{ type }}
 
 .row ng-show="filters.vacancyType == 'Future Date'"

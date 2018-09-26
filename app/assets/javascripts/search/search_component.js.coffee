@@ -1,4 +1,4 @@
-SearchController = ($scope, $state, SearchService, $modal, $auth) ->
+SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $ctrl = @
   $scope.filterData = SearchService.filterData
   $scope.filters = SearchService.filters
@@ -23,6 +23,16 @@ SearchController = ($scope, $state, SearchService, $modal, $auth) ->
         active: $scope.searchSettings.locationType == 'zipCodes'
       neighborhoods:
         active: $scope.searchSettings.locationType == 'neighborhoods'
+
+  $scope.rrrr = ->
+    previous_vacancy_type = angular.copy $scope.filters.vacancyType
+    $timeout ->
+      if $scope.filters.vacancyType.length == 2
+        if previous_vacancy_type[0] == 'Available Now'
+          $scope.filters.vacancyType = ['Future Date']
+        else
+          $scope.filters.vacancyType = ['Available Now']
+    , 10
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
@@ -84,7 +94,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth) ->
 
   return $ctrl
 
-SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal', '$auth']
+SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal', '$auth', '$timeout']
 
 angular.module('CCR').controller('SearchController', SearchController)
 
