@@ -30,16 +30,20 @@ module Api
         parent.care_reasons.destroy_all
         parent.care_types.destroy_all
         parent.children.destroy_all
+        parent.set_provider
         # Update only on initial create
         if parent.new_record?
           parent.assign_attributes(parent_params)
         else
           if @resource.present?
-            parent.assign_attributes(parent_params.slice(:home_zip_code, :phone))
+            parent.home_zip_code = parent_params[:home_zip_code]
+            # Only set attributes if they are blank
+            [:phone, :email, :full_name].each do |attr|
+              parent.send(attr.to_s + '=', parent_params[attr]) if parent.send(attr).blank? && !parent_params[attr].blank?
+            end
           end
         end
-        # Skip validation, as Parent doesn't have password at this point, so validation would fail
-        parent.save(validate: false)
+        parent.save
       end
       parent
     end
@@ -59,8 +63,9 @@ module Api
     def valid_parent_params
       params = {}
       if parent_param_email or parent_param_phone
+        # email is the primary key
         params[:email] = parent_param_email if parent_param_email
-        params[:phone] = parent_param_phone if parent_param_phone
+        params[:phone] = parent_param_phone if parent_param_phone && !parent_param_email
       else
         params[:api_key] = parent_param_api_key
       end
