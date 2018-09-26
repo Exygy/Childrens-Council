@@ -14,6 +14,7 @@ module ProviderImageService
     def http_get(url)
       JSON.parse(open(url).read)
     rescue => e
+      puts e.inspect
       return {}
     end
 
@@ -42,7 +43,7 @@ module ProviderImageService
     end
 
     def wordpress_url
-      ENV['WORDPRESS_URL'] || 'http://ccsf.wpengine.com'
+      ENV['WORDPRESS_URL'] || 'http://www.childrenscouncil.org/'
     end
   end
 end
