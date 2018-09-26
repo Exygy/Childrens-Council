@@ -42,10 +42,10 @@
 #
 
 class Parent < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :trackable, :validatable, :registerable
+  devise :database_authenticatable, :recoverable, :trackable, :registerable
   include DeviseTokenAuth::Concerns::User
 
-  validates :email, uniqueness: { case_sensitive: false }, allow_blank: true
+  validates :email, uniqueness: { case_sensitive: false }, allow_blank: true, if: '!email.blank?'
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
@@ -64,6 +64,7 @@ class Parent < ActiveRecord::Base
   has_and_belongs_to_many :zip_codes
   before_create :set_api_key
   before_create :set_random_seed
+  before_save :set_provider
 
   has_paper_trail
 
@@ -96,6 +97,24 @@ class Parent < ActiveRecord::Base
 
   def last_search
     referral_logs.last_search.params.except('format', 'action', 'controller') if referral_logs.present?
+  end
+
+  def set_provider
+    if email.blank? && phone.present?
+      self.provider = 'phone'
+      self.uid = phone
+    end
+  end
+
+  protected
+
+  def password_required?
+    return false
+  end
+
+  # Allow empty email if phone number is set
+  def email_required?
+    return false
   end
 
   private
