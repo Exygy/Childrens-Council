@@ -4,7 +4,7 @@ h5.c-black
 .row
   .columns.medium-6 ng-repeat="type in filterData.vacancyTypes"
     label.checkbox-round for="vacancy-type-{{type}}"
-      input type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="rrrr()"
+      input type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="vacancyTypeAdapter()"
       span.icon
       .label
         | {{ type }}

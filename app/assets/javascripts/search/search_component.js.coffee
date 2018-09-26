@@ -24,7 +24,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
       neighborhoods:
         active: $scope.searchSettings.locationType == 'neighborhoods'
 
-  $scope.rrrr = ->
+  $scope.vacancyTypeAdapter = ->
     previous_vacancy_type = angular.copy $scope.filters.vacancyType
     $timeout ->
       if $scope.filters.vacancyType.length == 2
