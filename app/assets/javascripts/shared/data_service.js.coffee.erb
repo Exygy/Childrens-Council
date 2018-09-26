@@ -105,15 +105,17 @@ DataService = ($rootScope) ->
   }
 
   $service.setParent = (currentParent) ->
-    children = angular.merge($service.parent.children, currentParent.last_search.parent.children)
-    # use tmpParent to limit resolve cycles
-    tmpParent = angular.merge($service.parent, currentParent.last_search.parent)
-    tmpParent.children = children
-    tmpParent.agree = true
-    $service.parent = tmpParent
-#    setFilters(currentParent)
-    $service.setSettings(currentParent.last_search)
-    $service.cleanAddressFilters()
+    if currentParent.last_search
+      children = angular.merge($service.parent.children, currentParent.last_search.parent.children)
+      # use tmpParent to limit resolve cycles
+      tmpParent = angular.merge($service.parent, currentParent.last_search.parent)
+      tmpParent.children = children
+      tmpParent.agree = true
+      $service.parent = tmpParent
+      $service.setSettings(currentParent.last_search)
+      $service.cleanAddressFilters()
+    else
+      $service.parent = angular.merge($service.parent, currentParent)
 
     $rootScope.$broadcast('data-service:updated', $service);
 

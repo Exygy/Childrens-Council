@@ -77,11 +77,16 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   def find_or_create_resource(api_key)
     @resource = Parent.find_by_api_key(api_key) if api_key
     if @resource.present?
-      # If password is set, user is already signed in
-      if @resource.encrypted_password.present?
-        raise ActiveRecord::RecordNotUnique, "That email is already registered"
+      if @resource.email != sign_up_params[:email]
+        # Allow account creation for new email
+        @resource = resource_class.new(sign_up_params)
       else
-        @resource.assign_attributes(sign_up_params)
+        # If password is set, user is already signed in
+        if @resource.encrypted_password.present?
+          raise ActiveRecord::RecordNotUnique, "That email is already registered"
+        else
+          @resource.assign_attributes(sign_up_params)
+        end
       end
     else
       @resource = resource_class.new(sign_up_params)
