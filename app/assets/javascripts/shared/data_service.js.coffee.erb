@@ -127,9 +127,11 @@ DataService = ($rootScope) ->
         settings.locationType = 'zipCodes'
         $service.filters.zipCodes = $service.filters.zip
 
-
     if lastSearch.providers.acceptsChildren
-      lastSearch.providers.acceptsChildren
+      if lastSearch.providers.acceptsChildren == 'BOTH'
+        lastSearch.providers.acceptsChildren = ['FULL_TIME', 'PART_TIME']
+      else
+        lastSearch.providers.acceptsChildren = [lastSearch.providers.acceptsChildren]
 
     $service.searchSettings = settings
     $service.filters = Object.assign($service.filters, lastSearch.providers)
