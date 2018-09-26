@@ -67,6 +67,7 @@ module Api
     def provider_params
       params.require(:providers).permit(
         :acceptsDropIns,
+        :acceptsChildren,
         :afterSchool,
         :beforeSchool,
         :open24Hours,
@@ -90,6 +91,10 @@ module Api
         ],
         shiftLocal1: [],
         typeOfCare: [],
+        vacancyDateRange: [
+          :from,
+          :to
+        ],
         weeklySchedule: [],
         zip: []
       ).tap do |whitelisted|

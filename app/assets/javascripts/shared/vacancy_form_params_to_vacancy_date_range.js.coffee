@@ -25,15 +25,16 @@ VacancyFormParamsToVacancyDateRangeService = ->
   $service.convert = (vacancyType, vacancyFutureDate) ->
     dates = $service.dates()
 
-    switch vacancyType
-      when 'Available Now'
-        params =
-          from: dates.past,
-          to: dates.today
-      when 'Future Date'
-        params =
-          from: $service.format_future_date(vacancyFutureDate),
-          to: dates.future
+    if vacancyType
+      switch vacancyType[0]
+        when 'Available Now'
+          params =
+            from: dates.past,
+            to: dates.today
+        when 'Future Date'
+          params =
+            from: $service.format_future_date(vacancyFutureDate),
+            to: dates.future
     return params
 
   return $service
