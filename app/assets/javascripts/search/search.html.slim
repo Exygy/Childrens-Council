@@ -53,12 +53,11 @@
             #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
               label.show-for-sr for="phone" Phone
 
-              input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid"
+              input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid" ng-minlength="10" ng-maxlength="10"
 
               small.error ng-show="searchForm.phone.$dirty && searchForm.phone.$invalid"
                 span.fa.fa-exclamation-circle
-                | Phone number or email is required
-
+                | 10 digit phone number or email is required
         label for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
           | Home zip code *
         .row
