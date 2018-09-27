@@ -45,23 +45,14 @@ class Parent < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :trackable, :registerable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :favorites, -> { order 'favorites.created_at DESC' }
+  has_many :referral_logs
+
   validates :email, uniqueness: { case_sensitive: false }, allow_blank: true, if: '!email.blank?'
   validates :phone, presence: true, if: 'email.blank?'
   validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
 
-  has_and_belongs_to_many :care_reasons
-  has_and_belongs_to_many :care_types
-  accepts_nested_attributes_for :parents_care_reasons, :parents_care_types
-
-  has_many :children
-  accepts_nested_attributes_for :children
-  has_many :favorites, -> { order 'favorites.created_at DESC' }
-  has_many :referral_logs
-
-  belongs_to :found_option, foreign_key: :found_option_id
-  has_and_belongs_to_many :neighborhoods
-  has_and_belongs_to_many :zip_codes
   before_create :set_api_key
   before_create :set_random_seed
   before_save :set_provider

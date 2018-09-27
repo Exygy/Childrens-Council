@@ -11,8 +11,7 @@ div ng-if="$ctrl.provider.attributes.local3.length || $ctrl.provider.languages.l
     p
       ' {{ $ctrl.provider.attributes.local3.join(', ') }}
 
-
-  hr ng-if="($ctrl.provider.programs | programsWithProgramTypeByName: 'Immersion Program') && ($ctrl.provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program')"
+  hr ng-if="$ctrl.provider.attributes.local3 && $ctrl.provider.languages.length"
 
   div ng-if="$ctrl.provider.languages.length"
     span.label-gray.lighter

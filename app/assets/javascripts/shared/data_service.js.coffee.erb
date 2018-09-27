@@ -20,15 +20,16 @@ DataService = ($rootScope) ->
       }
     ]
 
-
   $service.providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
 
   $service.filterData =
     careApproaches: <%= api_service.filter_data('care_approaches') %>
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
+    careReasons: <%= api_service.filter_data('care_reasons').to_json %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     financialAssistance: $service.providerData.financialAssistance.filter((a) -> a.showInFilter)
+    foundOptions: <%= api_service.filter_data('found_options').to_json %>
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>

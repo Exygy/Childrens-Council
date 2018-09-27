@@ -51,20 +51,20 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
       span.label-gray.lighter Social Media
       a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" {{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
 
-  .columns.medium-6 ng-if="$ctrl.provider.generalInfo.local2"
+  .columns.medium-6 ng-if="($ctrl.provider.generalInfo.local2 | filterPrograms: 'careApproaches').length"
     span.fa.fa-heart.info-icon
     .margin-left-2
       span.label-gray.lighter
         ' Teaching Approach
       span
-        ' {{ $ctrl.provider.generalInfo.local2.join(', ') }}
+        ' {{ ($ctrl.provider.generalInfo.local2 | filterPrograms: 'careApproaches').join(', ') }}
 
-  .columns.medium-6 ng-if="$ctrl.provider.programs | programsWithProgramTypeByName: 'Religious Program'"
+  .columns.medium-6 ng-if="($ctrl.provider.generalInfo.local2 | filterPrograms: 'religiousPrograms').length"
     span.fa.fa-book.info-icon
     .margin-left-2
       span.label-gray.lighter Religious Program
       span
-        ' {{ $ctrl.provider.programs | programsWithProgramTypeByName: "Religious Program" }}
+        ' {{ ($ctrl.provider.generalInfo.local2 | filterPrograms: 'religiousPrograms').join(', ') }}
 
   .columns.medium-6 ng-if="$ctrl.provider.co_op"
     span.fa.fa-users.info-icon

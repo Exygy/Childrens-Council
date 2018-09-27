@@ -1,9 +1,0 @@
-<script>
-  CCR_DATA = {
-      <% [CareReason, City, FoundOption, Program, ProgramType, State].each do |m| %>
-        <% all = (m.name == "Language") ? m.order('name') : m.all %>
-        "<%= m.name.underscore.pluralize %>_array": <%= all.to_json.html_safe%>,
-        "<%= m.name.underscore.pluralize %>": <%= all.index_by(&:id).to_json.html_safe%>,
-      <% end %>
-  }
-</script>

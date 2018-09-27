@@ -27,9 +27,6 @@ module Api
     def get_parent
       parent = Parent.where(valid_parent_params).first_or_create
       if has_parent_data
-        parent.care_reasons.destroy_all
-        parent.care_types.destroy_all
-        parent.children.destroy_all
         parent.set_provider
         # Update only on initial create
         if parent.new_record?
@@ -75,6 +72,7 @@ module Api
     def parent_params
       if params.include?(:parent)
         params.require(:parent).permit(
+          :care_reason,
           :first_name,
           :last_name,
           :email,

@@ -95,7 +95,6 @@ angular.module 'CCR', [
     $transitions.onError {}, ($transition$)  ->
       if $transition$._error.type != 5
         $state.go("search")
-    $rootScope.data = CCR_DATA
     $rootScope.state_loading = false
     $rootScope.$on '$stateChangeStart', (event) ->
       $rootScope.state_loading = true
