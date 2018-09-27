@@ -80,7 +80,7 @@ module Api
         ageGroups: [],
         attributesLocal17: [],
         attributesLocal3: [],
-        environments: [],
+        environment: [],
         generalLocal1: [],
         generalLocal2: [],
         languages: [],

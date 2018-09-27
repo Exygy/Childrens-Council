@@ -76,7 +76,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   $service.setEnvironments = (params) ->
     if params.pottyTraining
-      params.environments = [params.pottyTraining]
+      params.environment = [params.pottyTraining]
 
     delete params.pottyTraining
 
