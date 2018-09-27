@@ -10,10 +10,10 @@ div
       span.fa.fa-exclamation-circle
       |  Select at least 1 type of provider
 
-  .columns.medium-6 ng-repeat="type in [filterData.typesOfCare[1], filterData.typesOfCare[0]]"
-    label.checkbox-round for="care-type-{{type.id}}"
-      input type="checkbox" id="care-type-{{type.id}}" name="typeOfCare" checklist-value="type.id" checklist-model="filters.typeOfCare" ng-required="filters.typeOfCare.length < 1"
+  .columns.medium-6 ng-repeat="type in filterData.typesOfCare"
+    label.checkbox-round for="care-type-{{type.replace(' ', '-')}}"
+      input type="checkbox" id="care-type-{{type.replace(' ', '-')}}" name="typesOfCare" checklist-value="type" checklist-model="filters.typesOfCare" ng-required="filters.typesOfCare.length < 1"
       span.icon
       .label
-        i.fa ng-class="{'fa-home': type.id == 2, 'fa-building': type.id == 1}"
-        | {{type.name}}
+        i.fa ng-class="{'fa-home': type == 'Family Child Care', 'fa-building': type == 'Child Care Center'}"
+        | {{type}}

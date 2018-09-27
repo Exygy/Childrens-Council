@@ -102,11 +102,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     else
       params.acceptsChildren = params.acceptsChildren[0]
 
-  $service.buildParent = ->
-    $service.parent.parents_care_types = $service.filters.typeOfCare.map (type) -> { 'type': type }
-
   $service.getSearchParams = ->
-    $service.buildParent()
     search_params = angular.copy $service.filters
 
     # those params should be children specific when the feature is built

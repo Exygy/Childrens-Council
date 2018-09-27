@@ -6,19 +6,6 @@ CareReasonIdToName = ($rootScope) ->
 CareReasonIdToName.$inject = ['$rootScope']
 angular.module('CCR').filter('careReasonIdToName', CareReasonIdToName)
 
-CareTypeIdsToNames = (DataService) ->
-  (ids) ->
-    careTypeNames = []
-    if ids
-      ids.forEach((id) ->
-        typeName = DataService.filterData.typesOfCare.find((type) -> type.id == id)
-        careTypeNames.push(typeName.name)
-      )
-    EntitiesToString(careTypeNames)
-
-CareTypeIdsToNames.$inject = ['DataService']
-angular.module('CCR').filter('careTypeIdsToNames', CareTypeIdsToNames)
-
 IsFacility = ($rootScope) ->
   (provider) ->
     ProviderIsFacility($rootScope, provider)

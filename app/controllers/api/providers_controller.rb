@@ -90,7 +90,7 @@ module Api
           :to
         ],
         shiftLocal1: [],
-        typeOfCare: [],
+        typesOfCare: [],
         vacancyDateRange: [
           :from,
           :to
