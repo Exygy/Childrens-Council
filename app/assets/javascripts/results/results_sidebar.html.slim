@@ -76,9 +76,9 @@
 
         li
           h4 Provider Type
-          p ng-show="filters.typeOfCare.length"
-            ' {{ filters.typesOfCare.join(' & ') }}
-          p ng-hide="filters.typeOfCare.length" Any
+          p ng-show="filters.typesOfCare.length == 1"
+            ' {{ filters.typesOfCare.join('') }}
+          p ng-hide="filters.typesOfCare.length == 1" Any
 
       a.text-uppercase href="#" ng-click="showMoreFilters = !showMoreFilters"
         span ng-hide="showMoreFilters" Show more
