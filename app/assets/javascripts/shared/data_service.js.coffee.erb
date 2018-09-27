@@ -34,7 +34,7 @@ DataService = ($rootScope) ->
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     meals: $service.formatMealsForFilter(<%= api_service.filter_data('meals') %>)
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
-    religiousPrograms: ['Catholic Religion', 'Jewish Religion']
+    religiousPrograms: <%= api_service.filter_data('religious_programs') %>
     shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
     typesOfCare: ['Family Child Care', 'Child Care Center']
     vacancyTypes: ['Available Now', 'Future Date']
