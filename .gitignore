@@ -16,5 +16,15 @@
 !/log/.keep
 /tmp
 
-# Keep assets managed with bower out of version control
-bower_components
+config/database.yml
+
+vendor/assets/stylesheets/style.min.css
+vendor/assets/stylesheets/style.css
+
+.idea/
+.idea/workspace.xml
+
+node_modules
+
+.DS_Store
+.byebug_history

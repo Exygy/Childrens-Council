@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503174036) do
+ActiveRecord::Schema.define(version: 20180829141118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 20160503174036) do
   create_table "cities", force: :cascade do |t|
     t.text "name", null: false
   end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.integer  "provider_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "favorites", ["parent_id", "provider_id"], name: "index_favorites_on_parent_id_and_provider_id", unique: true, using: :btree
 
   create_table "found_options", force: :cascade do |t|
     t.text     "name",       null: false
@@ -162,23 +171,37 @@ ActiveRecord::Schema.define(version: 20160503174036) do
   add_index "neighborhoods_parents", ["parent_id", "neighborhood_id"], name: "index_neighborhoods_parents_on_parent_id_and_neighborhood_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
-    t.text     "first_name",                 null: false
-    t.text     "last_name",                  null: false
+    t.text     "first_name"
+    t.text     "last_name"
     t.citext   "email"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "phone",           limit: 10
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.string   "phone",                  limit: 10
     t.integer  "found_option_id"
     t.text     "address"
-    t.string   "home_zip_code",   limit: 5
+    t.string   "home_zip_code",          limit: 5
     t.string   "api_key"
     t.string   "full_name"
     t.float    "random_seed"
     t.string   "near_address"
     t.boolean  "subscribe"
+    t.string   "nds_client_uid"
+    t.string   "provider",                          default: "email"
+    t.text     "uid",                               default: ""
+    t.text     "tokens"
+    t.string   "encrypted_password",                default: "",      null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.integer  "sign_in_count",                     default: 0,       null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.boolean  "allow_password_change",             default: false,   null: false
   end
 
   add_index "parents", ["found_option_id"], name: "index_parents_on_found_option_id", using: :btree
+  add_index "parents", ["uid", "provider"], name: "index_parents_on_uid_and_provider", using: :btree
 
   create_table "parents_zip_codes", id: false, force: :cascade do |t|
     t.integer  "parent_id",   null: false
@@ -258,6 +281,8 @@ ActiveRecord::Schema.define(version: 20160503174036) do
     t.boolean  "co_op",                            default: false
     t.boolean  "nutrition_program",                default: false
     t.string   "cached_geocodable_address_string"
+    t.integer  "vacancy"
+    t.date     "vacancydate"
   end
 
   add_index "providers", ["care_type_id"], name: "index_providers_on_care_type_id", using: :btree
@@ -379,26 +404,6 @@ ActiveRecord::Schema.define(version: 20160503174036) do
     t.boolean  "display",     default: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -424,6 +429,7 @@ ActiveRecord::Schema.define(version: 20160503174036) do
   add_foreign_key "children_schedule_day", "schedules_day", column: "schedule_day_id"
   add_foreign_key "children_schedule_week", "children"
   add_foreign_key "children_schedule_week", "schedules_week", column: "schedule_week_id"
+  add_foreign_key "favorites", "parents", on_delete: :cascade
   add_foreign_key "languages_providers", "languages"
   add_foreign_key "languages_providers", "providers"
   add_foreign_key "licenses", "providers"
@@ -437,6 +443,7 @@ ActiveRecord::Schema.define(version: 20160503174036) do
   add_foreign_key "programs", "program_types"
   add_foreign_key "programs_providers", "programs"
   add_foreign_key "programs_providers", "providers"
+  add_foreign_key "providers", "care_types"
   add_foreign_key "providers", "cities"
   add_foreign_key "providers", "cities", column: "mail_city_id"
   add_foreign_key "providers", "languages", column: "preferred_language_id"
@@ -449,6 +456,7 @@ ActiveRecord::Schema.define(version: 20160503174036) do
   add_foreign_key "providers_schedule_week", "providers"
   add_foreign_key "providers_schedule_week", "schedules_week", column: "schedule_week_id"
   add_foreign_key "providers_subsidies", "providers"
+  add_foreign_key "providers_subsidies", "subsidies"
   add_foreign_key "rates", "providers"
   add_foreign_key "referral_logs", "parents"
   add_foreign_key "schedule_hours", "providers"

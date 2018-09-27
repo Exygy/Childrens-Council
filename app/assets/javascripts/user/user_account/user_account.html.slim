@@ -1,0 +1,83 @@
+#ccr-scope
+  #account-content
+    header.infinite-background.page-header.padding-top-2
+      .row
+        .small-8.columns
+          a ui-sref="search"
+            i.fa.fa-angle-left
+            | Back to Child Care Finder
+
+        .small-4.columns.text-right
+          user-menu
+      .row
+        .small-12.columns
+          h1 Profile Settings
+    .row.margin-top-2
+      user-nav
+      .medium-8.columns
+        h2.margin-bottom-1 Account Information
+
+        .account-info ng-hide="$ctrl.editing"
+          .account-section
+            h4 First and Last Name
+            p
+              | {{ $ctrl.parent.full_name }}
+          .account-section
+            h4 Email
+            p
+              | {{ $ctrl.parent.email }}
+          .account-section
+            h4 Phone
+            p
+              | {{ $ctrl.parent.phone }}
+          .account-section
+            h4 Zip Code
+            p
+              | {{ $ctrl.parent.home_zip_code }}
+
+        .account-edit ng-show="$ctrl.editing"
+          form [name="userForm" ng-submit="$ctrl.updateParent()" novalidate]
+            .row
+              .small-12.columns.margin-top-1
+                small.error ng-show="$ctrl.errors"
+                  ul
+                    li ng-repeat="error in $ctrl.errors"
+                      | {{error}}
+            .row
+              .small-8.columns
+                section
+                  label.large.c-black.text-normal ng-class="{ error: (userForm.full_name.$dirty && userForm.full_name.$invalid) }"
+                    | Full Name
+                    input.panel.radius type="text" name="full_name" required="" ng-model="$ctrl.parent.full_name"
+                    small.error ng-show="(userForm.full_name.$dirty && userForm.full_name.$invalid)"
+                      span.fa.fa-exclamation-circle
+                      |  Invalid name
+                section
+                  label.large.c-black.text-normal ng-class="{ error: (userForm.email.$dirty && userForm.email.$invalid) }"
+                    | Email
+                    input.panel.radius type="text" name="email" required="" ng-model="$ctrl.parent.email"
+                    small.error ng-show="(userForm.email.$dirty && userForm.email.$invalid)"
+                      span.fa.fa-exclamation-circle
+                      |  Invalid email
+
+                section
+                  label.large.c-black.text-normal ng-class="{ error: (userForm.phone.$dirty && userForm.phone.$invalid) }"
+                    | Phone
+                    input.radius type="text" name="phone" ng-model="$ctrl.parent.phone"
+                    small.error ng-show="(userForm.phone.$dirty && userForm.phone.$invalid)"
+                      span.fa.fa-exclamation-circle
+                      |  Invalid phone number
+
+                section
+                  label.large.c-black.text-normal ng-class="{ error: (userForm.home_zip_code.$dirty && userForm.home_zip_code.$invalid) }"
+                    | Zip Code
+                    input.radius type="text" name="home_zip_code" required="" ng-model="$ctrl.parent.home_zip_code"
+                    small.error ng-show="(userForm.home_zip_code.$dirty && userForm.home_zip_code.$invalid)"
+                      span.fa.fa-exclamation-circle
+                      | Invalid zip code
+            .row
+              .small-12.columns
+                p.margin-top-1
+                  input.large.round.button.text-uppercase type="submit" value="Save Changes"
+                  a.round.button.user-prompt-register-btn.margin-1.text-uppercase ng-click="$ctrl.cancelEdit()" Cancel
+        button.round.button.text-uppercase.bg-green-yellow ng-show="!$ctrl.editing" ng-click="$ctrl.editUser()" Edit Information

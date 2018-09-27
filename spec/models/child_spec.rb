@@ -14,6 +14,11 @@
 #  index_children_on_parent_id         (parent_id)
 #  index_children_on_schedule_year_id  (schedule_year_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => parents.id)
+#  fk_rails_...  (schedule_year_id => schedules_year.id)
+#
 
 require 'rails_helper'
 

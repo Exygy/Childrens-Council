@@ -20,6 +20,10 @@
 #
 #  index_rates_on_provider_id  (provider_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (provider_id => providers.id)
+#
 
 class Rate < ActiveRecord::Base
   enum rate_type: {

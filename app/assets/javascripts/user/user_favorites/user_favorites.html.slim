@@ -1,0 +1,21 @@
+#ccr-scope
+  #account-content
+    header.infinite-background.page-header.padding-top-2
+      .row
+        .small-8.columns
+          a ui-sref="results"
+            i.fa.fa-angle-left
+            | Back to Child Care Finder
+
+        .small-4.columns.text-right
+          user-menu
+      .row
+        .small-12.columns
+          h1 My Favorites
+    .row.margin-top-2
+      user-nav
+      .medium-8.columns
+        .loading ng-show="$ctrl.isLoading"
+        ul.no-bullet ng-hide="$ctrl.isLoading"
+          li.results-item ng-repeat="provider in $ctrl.favorites"
+            result provider="provider"

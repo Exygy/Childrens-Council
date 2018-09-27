@@ -1,37 +1,24 @@
-ChildModalController = ($scope, $modalInstance, ResultsService, childId) ->
-  init = ->
-    $scope.is_editing = childId?
-    $scope.modal_filters =
-      age_months: 30
-      children_care_types_attributes: ResultsService.parent.children_attributes[0].children_care_types_attributes
-      schedule_day_ids: [2,3,4,5,6]
-      schedule_week_ids: [1]
-      schedule_year_id: 1
-      selected: true
+ChildModalController = ($scope, $modalInstance, $anchorScroll, ResultsService, SearchService, DataService, childId) ->
+  $scope.child = ResultsService.parent.children[childId]
+  $scope.filters = DataService.filters
+  cached_child = angular.copy $scope.child
 
-    if childId?
-      child = angular.copy ResultsService.parent.children_attributes[childId]
-      $scope.modal_filters = child
-
-      $scope.modal_filters.schedule_day_ids = []
-      for children_schedule_days_attribute in child.children_schedule_days_attributes
-        $scope.modal_filters.schedule_day_ids.push children_schedule_days_attribute.schedule_day_id
-
-      $scope.modal_filters.schedule_week_ids = []
-      for children_schedule_weeks_attribute in child.children_schedule_weeks_attributes
-        $scope.modal_filters.schedule_week_ids.push children_schedule_weeks_attribute.schedule_week_id
+  $modalInstance.result.catch () ->
+    # modal has been dismissed
+    resetChild()
 
   $scope.postSearch = ->
-    unless childId?
-      childId = ResultsService.parent.children_attributes.length
-    ResultsService.parent.children_attributes[childId] = $scope.modal_filters
-    ResultsService.postSearch()
+    SearchService.postSearch()
     $modalInstance.close()
+    $anchorScroll('search-results-wrapper')
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
 
-  init()
+  resetChild = ->
+    for filter_key, filter_value of $scope.child
+      if $scope.child[filter_key] != cached_child[filter_key]
+        $scope.child[filter_key] = cached_child[filter_key]
 
-ChildModalController.$inject = ['$scope', '$modalInstance', 'ResultsService', 'childId']
+ChildModalController.$inject = ['$scope', '$modalInstance', '$anchorScroll', 'ResultsService', 'SearchService', 'DataService', 'childId']
 angular.module('CCR').controller('ChildModalController', ChildModalController)

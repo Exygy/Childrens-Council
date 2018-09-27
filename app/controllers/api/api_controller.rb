@@ -1,7 +1,17 @@
 module Api
   class ApiController < ApplicationController
+    include DeviseTokenAuth::Concerns::SetUserByToken
+    before_action :set_user_by_token
     before_action :check_parent_credentials
     after_action :send_apikey
+
+    rescue_from ActiveRecord::RecordInvalid do |error|
+      render :json => {:message => error.message, :fields => error.record.errors}, :status => 422
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |error|
+      render :json => {:message => 'Record not found' }, :status => 404
+    end
 
     private
 
@@ -20,7 +30,20 @@ module Api
         parent.care_reasons.destroy_all
         parent.care_types.destroy_all
         parent.children.destroy_all
-        parent.update(parent_params)
+        parent.set_provider
+        # Update only on initial create
+        if parent.new_record?
+          parent.assign_attributes(parent_params)
+        else
+          if @resource.present?
+            parent.home_zip_code = parent_params[:home_zip_code]
+            # Only set attributes if they are blank
+            [:phone, :email, :full_name].each do |attr|
+              parent.send(attr.to_s + '=', parent_params[attr]) if parent.send(attr).blank? && !parent_params[attr].blank?
+            end
+          end
+        end
+        parent.save
       end
       parent
     end
@@ -40,8 +63,9 @@ module Api
     def valid_parent_params
       params = {}
       if parent_param_email or parent_param_phone
+        # email is the primary key
         params[:email] = parent_param_email if parent_param_email
-        params[:phone] = parent_param_phone if parent_param_phone
+        params[:phone] = parent_param_phone if parent_param_phone && !parent_param_email
       else
         params[:api_key] = parent_param_api_key
       end
@@ -63,23 +87,7 @@ module Api
           :full_name,
           :subscribe,
           :found_option_id,
-          # :agree,
-          parents_care_reasons_attributes: [
-            :care_reason_id
-          ],
-          parents_care_types_attributes: [
-            :care_type_id
-          ],
-          children_attributes: [
-            :age_months,
-            :schedule_year_id,
-            children_schedule_days_attributes: [
-              :schedule_day_id
-            ],
-            children_schedule_weeks_attributes: [
-              :schedule_week_id
-            ],
-          ])
+        )
       else
         {}
       end
@@ -91,6 +99,10 @@ module Api
 
     def parent_param_api_key
       !params[:api_key].blank? ? params[:api_key] : false
+    end
+
+    def resource_name
+      'parent'
     end
 
     def method_missing(method_sym, *arguments, &block)

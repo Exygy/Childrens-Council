@@ -23,6 +23,10 @@
 #
 #  index_licenses_on_provider_id  (provider_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (provider_id => providers.id)
+#
 
 class License < ActiveRecord::Base
   enum license_type: {

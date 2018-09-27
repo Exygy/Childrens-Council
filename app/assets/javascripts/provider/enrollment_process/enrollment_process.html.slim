@@ -1,0 +1,16 @@
+a name="enrollment_process"
+h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="enrollment_process" Enrollment Process
+
+p
+  | {{ $ctrl.provider.generalInfo.config2 ? $ctrl.provider.generalInfo.config2 : 'No information provided, please contact provider for more information.'  }}
+
+.row
+  .column.small-6
+    h5 Application Deadline
+    p
+      | {{ $ctrl.provider.generalInfo.config3 ? ($ctrl.provider.generalInfo.config3 | date: 'MM/dd/yyyy') : 'n/a'  }}
+
+  .column.small-6
+    h5 Open House Tour Date
+    p
+      | {{ $ctrl.provider.attributes.textField3 ? (($ctrl.provider.attributes.textField3 | amParse:'MM/DD/YY') | amDateFormat: 'MM/DD/YYYY') : 'n/a'  }}

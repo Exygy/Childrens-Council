@@ -1,0 +1,43 @@
+header#provider-content-wrapper.infinite-background.page-header.padding-top-2
+  .row
+    .small-8.columns
+      ul.breadcrumbs
+        li
+          a ui-sref="search" Find Child Care
+        li
+          a ui-sref="results" Search Results
+        li.current
+          a ui-sref="provider"
+            | {{ $ctrl.provider.centerName }}
+
+    .small-4.columns.text-right
+      user-menu
+
+  .row
+    .large-12.columns
+      h1
+        | {{ $ctrl.providerName($ctrl.provider) }}
+
+  .row
+    .large-4.columns
+      img.headshot ng-src="{{ $ctrl.provider.images.headshot }}" style="max-width:294px;width: 100%;"
+
+    .large-8.columns
+      .row
+        .medium-9.columns
+          a name="about"
+          h2.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+        .medium-3.columns
+          favorite provider="$ctrl.provider"
+      p
+        ' {{ $ctrl.provider.generalInfo.generalComment }}
+
+      .row
+        .small-9.columns style="padding-right:0"
+          badges attributes="$ctrl.provider.attributes" show-title="true"
+        .small-3.columns style="padding-left:0"
+          qris-rating qris="$ctrl.provider.attributes.qualityRating"
+
+      p.date
+        ' Profile last updated
+        ' {{ ($ctrl.provider.lastModifiedTime | amParse:'YYYY-MM-DD HH:mm:ss') | amDateFormat: 'MMMM DD, YYYY' }}

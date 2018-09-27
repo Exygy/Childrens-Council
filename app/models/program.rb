@@ -12,6 +12,10 @@
 #
 #  index_programs_on_program_type_id  (program_type_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (program_type_id => program_types.id)
+#
 
 class Program < ActiveRecord::Base
   validates :name, presence: true

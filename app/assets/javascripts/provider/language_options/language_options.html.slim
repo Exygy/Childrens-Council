@@ -1,0 +1,25 @@
+a name="languages"
+h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="languages" Language Options
+
+
+div ng-if="$ctrl.provider.attributes.local3.length || $ctrl.provider.languages.length"
+
+  div ng-if="$ctrl.provider.attributes.local3"
+    span.label-gray.lighter
+      ' Language Immersion Programs
+      span.fa.fa-info-circle tooltip="Program curriculum is developed and delivered in multiple languages" tooltip-placement="right"
+    p
+      ' {{ $ctrl.provider.attributes.local3.join(', ') }}
+
+
+  hr ng-if="($ctrl.provider.programs | programsWithProgramTypeByName: 'Immersion Program') && ($ctrl.provider.programs | programsWithProgramTypeByName: 'Quality Improvement Program')"
+
+  div ng-if="$ctrl.provider.languages.length"
+    span.label-gray.lighter
+      ' Language(s) Spoken
+      span.fa.fa-info-circle tooltip="Languages child care provider/teachers speak" tooltip-placement="right"
+    p
+      ' {{ $ctrl.provider.languages.join(', ') }}
+
+div ng-if="!$ctrl.provider.attributes.local3.length && !$ctrl.provider.languages.length"
+  p No Information provided

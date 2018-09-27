@@ -1,0 +1,20 @@
+a name="location"
+h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="location"
+  ' Location
+  span.fa.fa-info-circle.margin-left-small.tip-top.tooltip-max-width-220 tooltip="We do not offer exact address due to privacy of owner. You may inquire directly with owner." tooltip-placement="right" ng-if="!($ctrl.provider | isFacility)"
+
+.single_provider_map
+  span.label-gray.lighter
+    ' {{ $ctrl.provider.attributes.local17.join(', ') }}
+  span ng-if="$ctrl.provider | isFacility"
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+  span ng-if="!($ctrl.provider | isFacility)"
+    '  {{ $ctrl.provider.generalInfo.config1 }}
+  span
+    ', {{ $ctrl.provider.addresses | physicalAddress: 'city' }}
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'state' }},
+    '  {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+#location
+  provider-map providers="[$ctrl.provider]" map-id="'map-provider-' + $ctrl.provider.providerId" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"

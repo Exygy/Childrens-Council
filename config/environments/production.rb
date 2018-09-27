@@ -5,10 +5,10 @@ Rails.application.configure do
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
       origins 'http://www.childrenscouncil.org'
-      resource %r{/search|providers/*},
+      resource '*',
                headers: :any,
-               methods: [:get, :post, :options],
-               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey']
+               methods: [:get, :post, :options, :delete, :put],
+               expose: ['Etag', 'Last-Modified', 'Link', 'X-Total-Count', 'Cc-Apikey', 'access-token', 'expiry', 'token-type', 'uid', 'client']
     end
   end
 
@@ -34,10 +34,6 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
-
-  # Server assets from amazonaws
-  # config.action_controller.asset_host = "//#{ENV['CLOUDFRONT_DOMAIN']}.cloudfront.net"
-  config.action_controller.asset_host = "//childrens-council.dapper.childrenscouncil.org/"
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -71,17 +67,10 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  # config.cache_store = :dalli_store,
-  #                   (ENV["MEMCACHIER_SERVERS"] || "").split(","),
-  #                   {:username => ENV["MEMCACHIER_USERNAME"],
-  #                    :password => ENV["MEMCACHIER_PASSWORD"],
-  #                    :failover => true,
-  #                    :socket_timeout => 1.5,
-  #                    :socket_failure_delay => 0.2
-  #                   }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+  config.action_controller.asset_host = "//childrens-council.dapper.childrenscouncil.org/"
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -99,6 +88,23 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Email config for SendGrid
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'childrenscouncil.org',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.default_url_options = {
+    host: 'www.childrenscouncil.org/families/find-child-care/child-care-referrals/child-care-search',
+    protocol: 'https'
+  }
 end
 
 Rails.logger = Le.new('b5e12d89-bac0-4bed-94aa-cd13a5356750', debug: true, local: true)

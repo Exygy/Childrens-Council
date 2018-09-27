@@ -1,0 +1,12 @@
+.row
+  .small-6.large-centered.columns
+    .text-center
+      img.register-success-img ng-src="{{ successImage }}"
+.row
+  .small-6.large-centered.columns
+    h2.text-center
+      | {{ $ctrl.header }}
+    p.text-center
+      | {{ $ctrl.message }}
+    p.text-center.padding-1
+      button.button.round ng-click="$ctrl.close()" Close
