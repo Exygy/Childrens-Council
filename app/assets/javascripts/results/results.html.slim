@@ -1,30 +1,38 @@
 #ccr-scope
   rheader#search-results-wrapper.page-header.padding-top-2
-    .row
-      .small-8.columns
-        ul.breadcrumbs
-          li
-            a ui-sref="search" Find Child Care
-          li.current
-            a ui-sref="results" Search Results
+    header.infinite-background.page-header.padding-top-2
+      .row
+        .small-8.columns
+          ul.breadcrumbs
+            li
+              a ui-sref="search" Find Child Care
+            li.current
+              a ui-sref="results" Search Results
 
-      .small-4.columns.text-right
-        user-menu printText="Print List"
+        .small-4.columns.text-right
+          user-menu printText="Print List"
 
-    .row
-      .small-9.columns
-        h1 We found {{ $ctrl.data.totalNumProviders }} options
-      .small-3.columns.text-right
-        ul.pager.radius.margin-bottom-3
-          li
-            button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
-              small List
-          li
-            button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
-              small Map
+      .row
+        .small-9.columns
+          h1 We found {{ $ctrl.data.totalNumProviders }} options
+        .small-3.columns.text-right
+          ul.pager.radius
+            li
+              button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
+                small List
+            li
+              button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
+                small Map
 
   .row
-    .medium-4.columns.show-for-medium-up ng-include="'results/results_sidebar.html'"
+    .medium-4.columns
+      div.margin-bottom-1.margin-top-1
+        p.results-showing
+          ' Showing
+          strong
+            ' {{ $ctrl.resultsFromNum() }} - {{ $ctrl.resultsToNum() }}
+          ' of {{ $ctrl.data.totalNumProviders }} results
+      .show-for-medium-up ng-include="'results/results_sidebar.html'"
 
     .medium-8.columns
       result-map data="$ctrl.data" ng-if="$ctrl.showMap"
