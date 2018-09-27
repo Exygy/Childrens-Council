@@ -25,7 +25,7 @@ module Api
       favorites = @resource.present? ? @resource.favorites : []
 
       @results[:content].each do |provider_data|
-        # provider_data[:images] = providers_images[provider_data["providerId"].to_s]
+        provider_data[:images] = providers_images[provider_data["providerId"].to_s]
         provider_data[:favorite] = favorites.any?{|f| f.provider_id == provider_data["providerId"]}
       end if @results[:content]
 
