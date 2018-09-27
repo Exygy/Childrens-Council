@@ -1,20 +1,27 @@
 ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $auth, $scope) ->
-  @parent = $auth.currentUser()
+  $ctrl = @
+  $ctrl.parent = $auth.currentUser()
 
-  @$onInit = ->
-    @data = ResultsService.searchResultsData
-    @filters = ResultsService.filters
-    @showMap = false
-    if !@data && @parent
+  $ctrl.$onInit = ->
+    $ctrl.data = ResultsService.searchResultsData
+    $ctrl.filters = ResultsService.filters
+    $ctrl.showMap = false
+    if !$ctrl.data && $ctrl.parent
       SearchService.postSearch()
 
+
+  $ctrl.resultsFromNum = ->
+    ($ctrl.data.currentPage * $ctrl.data.pageSize) + 1
+
+  $ctrl.resultsToNum = ->
+    ($ctrl.data.currentPage + 1) * $ctrl.data.pageSize
 
   $scope.$on 'search-service:updated', (event, service) ->
     service.postSearch()
 
   $timeout $anchorScroll('search-results-wrapper')
 
-  return
+  return $ctrl
 
 ResultsController.$inject = ['$timeout', '$anchorScroll', 'ResultsService', 'SearchService', '$auth', '$scope']
 
