@@ -1,4 +1,4 @@
-h5.c-black
+h5
   | Vacancy Type
 
 .row
@@ -11,5 +11,8 @@ h5.c-black
 
 .row ng-show="filters.vacancyType == 'Future Date'"
   .medium-6.medium-offset-6.columns.margin-top-1
-    ' Enter Future Start Date
-    input#vacancy-future-date type="text" placeholder="MM/DD/YYYY" name="vacancy-future-date" ng-model="filters.vacancyFutureDate"
+    .row
+      .columns.medium-6
+        p.label-text Enter Future Start Date
+      .columns.medium-6
+        input#vacancy-future-date type="text" placeholder="MM/DD/YYYY" name="vacancy-future-date" ng-model="filters.vacancyFutureDate"

@@ -100,11 +100,11 @@
           span.fa.fa-exclamation-circle
           | You must agree to the terms of service to continue
 
-        .checkbox.checkbox-single
+        div
           input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
           label for="agree" ng-class="{ error: searchForm.agree.$dirty && searchForm.agree.$invalid }"
             strong I agree to the following: *
-        p.padding-left-2
+        p.checkbox-text
           small
             | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a licensed program that you select for your child. That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766 or
             a href="https://secure.dss.ca.gov/CareFacilitySearch/ " target="_blank"  https://secure.dss.ca.gov/CareFacilitySearch/
