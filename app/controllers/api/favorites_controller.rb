@@ -6,7 +6,7 @@ module Api
     def index
       @results = NDS.search_providers_bulk(providerIds: @resource.favorites.collect(&:provider_id))
       @results.each do |provider|
-        provider[:images] = provider_images(provider["providerId"].to_s)
+        provider[:images] = providers_images[provider["providerId"].to_s]
         provider[:favorite] = true
       end if @results
       render json: @results
@@ -36,8 +36,12 @@ module Api
       params.require(:favorite).permit(:provider_id)
     end
 
-    def provider_images(provider_id)
-      ProviderImageService.get(provider_id)
+    def provider_ids
+      @results.collect{ |provider_data| provider_data["providerId"] }
+    end
+
+    def providers_images
+      @providers_images ||= ProviderImageService.get(provider_ids)
     end
   end
 end
