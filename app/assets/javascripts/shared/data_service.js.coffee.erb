@@ -24,8 +24,8 @@ DataService = ($rootScope) ->
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
 
   $service.filterData =
-    careApproaches: <%= api_service.filter_data('care_approaches') %>
     ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
+    careApproaches: <%= api_service.filter_data('care_approaches') %>
     careReasons: <%= api_service.filter_data('care_reasons').to_json %>
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     financialAssistance: $service.providerData.financialAssistance.filter((a) -> a.showInFilter)
@@ -84,16 +84,16 @@ DataService = ($rootScope) ->
   }
 
   $service.parent = {
+    agree: false
+    care_reasons: ['']
+    found_option: null
     full_name: ''
     email: ''
-    phone: ''
     home_zip_code: ''
     near_address: ''
-    agree: false
-    subscribe: false
-    found_option_id: null
-    parents_care_reasons_attributes: ['']
     parents_care_types: []
+    phone: ''
+    subscribe: false
     children: [
       {
         ageWeeks: 130
