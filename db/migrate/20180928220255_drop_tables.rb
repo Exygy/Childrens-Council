@@ -25,7 +25,7 @@ class DropTables < ActiveRecord::Migration
     drop_table :providers_schedule_week, force: :cascade
     drop_table :providers_subsidies, force: :cascade
     drop_table :rates, force: :cascade
-    drop_table :schedule_day, force: :cascade
+    drop_table :schedules_day, force: :cascade
     drop_table :schedule_hours, force: :cascade
     drop_table :schedules_week, force: :cascade
     drop_table :schedules_year, force: :cascade
