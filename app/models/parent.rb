@@ -57,8 +57,6 @@ class Parent < ActiveRecord::Base
   before_create :set_random_seed
   before_save :set_provider
 
-  has_paper_trail
-
   def phone=(number)
     self[:phone] = number.gsub(/\D/, '') if number
   end
