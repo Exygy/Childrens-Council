@@ -82,9 +82,9 @@
             ' {{ filters.typesOfCare.join('') }}
           p ng-hide="filters.typesOfCare.length == 1" Any
 
-      a.text-uppercase href="#" ng-click="showMoreFilters = !showMoreFilters"
-        span ng-hide="showMoreFilters" Show more
-        span ng-show="showMoreFilters" Show less
+      a.text-uppercase.small href="#" ng-click="showMoreFilters = !showMoreFilters"
+        b ng-hide="showMoreFilters" Show more
+        b ng-show="showMoreFilters" Show less
 
     hr.margin-bottom-2
 
