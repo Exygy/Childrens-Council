@@ -1,8 +1,8 @@
 h5 ng-class="{ error: searchForm.typesOfCare.$dirty && searchForm.typesOfCare.$invalid }" Child care program type *
 
-div
-  a href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
-    small What are the differences?
+div.header-info
+  a.small href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
+    | What are the differences?
 
 .row
   .columns.small-12 ng-show="searchForm.typesOfCare.$dirty && searchForm.typesOfCare.$invalid"

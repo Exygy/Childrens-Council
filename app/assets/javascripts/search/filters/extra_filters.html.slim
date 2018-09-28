@@ -21,8 +21,10 @@ section.margin-top-2
   span ng-include="'search/filters/vacancies_filter.html'"
 
 section.margin-top-2
-  h5.c-black Provides financial assistance
-
+  h5 Provides financial assistance
+  div.header-info
+    a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
+      | Check out more information to see if you qualify.
   accordion close-others="false" role="tablist"
     accordion-group is-open="is_financial_assists"
       accordion-heading
@@ -35,16 +37,19 @@ section.margin-top-2
 
       #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_financial_assists}}"
         span ng-repeat="assist in (filterData.financialAssistance | filter:{showInFilter: true}) track by $index"
-          .checkbox.checkbox-financial-assist
+          .checkbox-financial-assist
             input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssistance"
             label for="financial-assist-{{$index}}"
               b
                 | {{assist.label || assist.value}}
-            p.c-base ng-if="assist.description" ng-bind-html="assist.description"
-            p.c-base ng-bind-html="link" ng-repeat="link in assist.links" ng-if="assist.links"
+            p.smaller.checkbox-text.c-base ng-if="assist.description" ng-bind-html="assist.description"
+            p.smaller.checkbox-text.c-base ng-bind-html="link" ng-repeat="link in assist.links" ng-if="assist.links"
 
 section.margin-top-2
-  h6.c-black.text-normal.margin-top-2 Teaching Philosophy
+  h6.text-normal.margin-top-2 Teaching Philosophy
+  div.header-info
+    a.small href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
+      | What are the differences?
   .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
     select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
       option value="" Select Teaching Philosophy
@@ -54,7 +59,7 @@ section.margin-top-2
   button.inline type="button" aria-label="Add another teaching philosophy" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
 
 section.margin-top-2
-  h6.c-black.text-normal.margin-top-2 Language Immersion Programs
+  h6.text-normal.margin-top-2 Language Immersion Programs
   .repeater-container ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
     select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.attributesLocal3[$index]"
       option value="" Select Language Immersion Program
@@ -64,7 +69,7 @@ section.margin-top-2
   button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.attributesLocal3) && filters.attributesLocal3.length < 3" ng-click="addItem(filters.attributesLocal3)" Add another
 
 section.margin-top-2
-  h6.c-black.text-normal.margin-top-2 Languages Spoken
+  h6.text-normal.margin-top-2 Languages Spoken
   .repeater-container ng-repeat="language in filters.languages track by $index"
     select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.languages[$index]"
       option value="" Select Spoken Language
@@ -74,7 +79,7 @@ section.margin-top-2
   button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.languages) && filters.languages.length < 3" ng-click="addItem(filters.languages)" Add another
 
 section.margin-top-2
-  h6.c-black.text-normal.margin-top-2 Religious Program
+  h6.text-normal.margin-top-2 Religious Program
   .repeater-container ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
     select.radius id="religion-id-{{$index + 1}}" name="religion_id_{{$index + 1}}" ng-model="filters.religiousPrograms[$index]"
       option value="" Select Religious Program
@@ -84,25 +89,25 @@ section.margin-top-2
   button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religiousPrograms) && filters.religiousPrograms.length < 3" ng-click="addItem(filters.religiousPrograms)" Add another
 
 section.margin-top-2
-  h5.c-black
+  h5
     | Parent Co-Op
-    a.fa.fa-info-circle.c-base.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
+    a.fa.fa-info-circle.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
   #parent-coop-panel.button-group
-    button type="button" ng-model="filters.parentCoop" btn-radio="false" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" No Preference
-    button type="button" ng-model="filters.parentCoop" btn-radio="true" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" Yes
+    button type="button" ng-model="filters.parentCoop" btn-radio="false" ng-class="['round', 'small', 'btn-radio']" No Preference
+    button type="button" ng-model="filters.parentCoop" btn-radio="true" ng-class="['round', 'small', 'btn-radio']" Yes
 
 section.margin-top-2
-  h5.c-black Meals included in tuition
+  h5 Meals included in tuition
   #meals-included-panel.button-group
-    button type="button" ng-model="filters.meals" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="choice in filterData.meals"
+    button type="button" ng-model="filters.meals" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.meals"
       | {{ choice.label }}
 
 section.margin-top-2
-  h5.c-black
+  h5
     | Potty training support
-    a.fa.fa-info-circle.c-base.margin-left-small tooltip="Provider supports with child's potty training" tooltip-placement="right"
+    a.fa.fa-info-circle.margin-left-small tooltip="Provider supports with child's potty training" tooltip-placement="right"
   #potty-training-panel.button-group
-    button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio', 'cyan-soft']" ng-repeat="choice in filterData.pottyTraining"
+    button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.pottyTraining"
       | {{ choice.label }}
 
 section.margin-top-2.margin-bottom-2
