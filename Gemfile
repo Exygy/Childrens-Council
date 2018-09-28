@@ -34,9 +34,6 @@ gem 'nds_api', '0.1.15'
 # to manage cache / memcache
 # gem 'dalli'
 
-# keep track of record history
-gem 'paper_trail'
-
 # Server
 gem 'puma'
 gem 'rack-timeout'

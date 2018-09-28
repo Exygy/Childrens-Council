@@ -88,7 +88,7 @@ angular.module 'CCR', [
 
   .config ['$authProvider', ($authProvider) ->
     $authProvider.configure({
-      apiUrl: '<%= Rails.env.production? ? "https://childrens-council.herokuapp.com" : "" %><%= Rails.env.staging? ? "https://childrens-council-stg.herokuapp.com" : "" %>/api'
+      apiUrl: '<%= ENV["RAILS_API_URL"] %>/api'
     })
   ]
   .run ['$rootScope', '$state', '$transitions', ($rootScope, $state, $transitions) ->

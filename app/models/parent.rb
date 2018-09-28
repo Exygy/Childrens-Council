@@ -36,10 +36,6 @@
 #  index_parents_on_found_option_id   (found_option_id)
 #  index_parents_on_uid_and_provider  (uid,provider)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (found_option_id => found_options.id)
-#
 
 class Parent < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :trackable, :registerable
@@ -56,8 +52,6 @@ class Parent < ActiveRecord::Base
   before_create :set_api_key
   before_create :set_random_seed
   before_save :set_provider
-
-  has_paper_trail
 
   def phone=(number)
     self[:phone] = number.gsub(/\D/, '') if number
