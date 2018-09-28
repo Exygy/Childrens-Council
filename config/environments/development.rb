@@ -39,11 +39,10 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # Automatically inject JavaScript needed for LiveReload
-  # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
-
-  Faker::Config.locale = 'en-US'
-
-  # Allow access from vagrant environment
-  config.web_console.whitelisted_ips = '192.168.50.4'
+  config.action_mailer.default_url_options = {
+    host: 'http://localhost',
+    port: 3000
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
 end

@@ -1,0 +1,18 @@
+h5
+  | Average Rate Range
+
+.margin-bottom-1
+  | Cost per month
+
+.row
+  .columns
+    .ui-slider-container
+      #rates.margin-top-1.margin-bottom-3 ui-slider="{range: true}" min="0" max="3000" ng-model="filters.monthlyRate" aria-labeledBy="monthly rate"
+        span.rates-label style="left:{{(filters.monthlyRate[0] / 3000) * 100}}%;"
+          | {{ filters.monthlyRate[0] | currency:'$':0 }}
+        span.rates-label style="left:{{(filters.monthlyRate[1] / 3000) * 100}}%;"
+          | {{ filters.monthlyRate[1] | currency:'$':0 }}
+        span.rates-min 0
+        span.rates-max $3,000+
+        - 12.times do |i|
+          span.tick class="rates-tick-#{i}"

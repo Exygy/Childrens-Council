@@ -1,0 +1,179 @@
+<% api_service = NdsApiService.new %>
+
+DataService = ($rootScope) ->
+  $service = @
+  $service.formatMealsForFilter = (mealsList) ->
+    [
+      {
+        label: 'No Preference'
+        value: null
+      },
+      {
+        label: 'Yes'
+        value: mealsList
+      },
+      # TODO: Find out how we can query the API for no meals offered. The value
+      # here is a dummy value until we figure that out.
+      {
+        label: 'No'
+        value: ['No meals']
+      }
+    ]
+
+  $service.providerData =
+    financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
+
+  $service.filterData =
+    ageGroupTypes: <%= api_service.filter_data('age_group_types').to_json.delete("\n") %>
+    careApproaches: <%= api_service.filter_data('care_approaches') %>
+    careReasons: <%= api_service.filter_data('care_reasons').to_json %>
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    financialAssistance: $service.providerData.financialAssistance.filter((a) -> a.showInFilter)
+    foundOptions: <%= api_service.filter_data('found_options').to_json %>
+    languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
+    languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
+    neighborhoods: <%= api_service.filter_data('neighborhoods') %>
+    meals: $service.formatMealsForFilter(<%= api_service.filter_data('meals') %>)
+    pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
+    religiousPrograms: <%= api_service.filter_data('religious_programs') %>
+    shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
+    typesOfCare: ['Family Child Care', 'Child Care Center']
+    vacancyTypes: ['Available Now', 'Future Date']
+    yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
+    zipCodes: <%= api_service.filter_data('zip_codes') %>
+
+  $service.filters =
+    address: null
+    ageGroupServiced: null
+    attributesLocal3: [''] # contains language immersion program names
+    financialAssistance: []
+    careApproaches: ['']
+
+    acceptsDropIns: null # Shift Flags - Drop In
+    afterSchool: null # Shift Flags - After School
+    beforeSchool: null # Shift Flags - Before School
+    open24Hours: null # Shift Flags - 24-Hour
+    rotating: null # Shift Flags - Rotating
+    acceptsChildren: ['FULL_TIME'] # Accepts Children
+    shiftLocal1: []
+
+    languages: ['']
+    meals: null
+    monthlyRate: [0, 3000]
+    neighborhoods: ['']
+    parentCoop: false
+    pottyTraining: null
+    religiousPrograms: ['']
+    typesOfCare: ['Family Child Care', 'Child Care Center']
+    vacancyFutureDate: null
+    vacancyType: null
+    zipCodes: ['']
+
+  $service.searchResultsData = {
+    currentPage: 0
+    isFirstPage: true
+    isLastPage: true
+    isLoading: false
+    providers: []
+    pageSize: 15
+    totalNumProviders: 0
+  }
+
+  $service.searchSettings = {
+    locationType: 'address'
+  }
+
+  $service.parent = {
+    agree: false
+    care_reasons: ['']
+    found_option: null
+    full_name: ''
+    email: ''
+    home_zip_code: ''
+    near_address: ''
+    parents_care_types: []
+    phone: ''
+    subscribe: false
+    children: [
+      {
+        ageWeeks: 130
+        selected: true
+        shiftFeatures: ['Full Time']
+        weeklySchedule: $service.filterData.days.slice(0, 5)
+        yearlySchedule: 'FULL_YEAR'
+      }
+    ]
+  }
+
+  $service.setParent = (currentParent) ->
+    if currentParent.last_search
+      children = angular.merge($service.parent.children, currentParent.last_search.parent.children)
+      # use tmpParent to limit resolve cycles
+      tmpParent = angular.merge($service.parent, currentParent.last_search.parent)
+      tmpParent.children = children
+      tmpParent.agree = true
+      $service.parent = tmpParent
+      $service.setSettings(currentParent.last_search)
+      $service.cleanAddressFilters()
+    else
+      $service.parent = angular.merge($service.parent, currentParent)
+
+    $rootScope.$broadcast('data-service:updated', $service);
+
+  $service.setSettings = (lastSearch) ->
+    settings = angular.copy $service.searchSettings
+    if lastSearch.providers.attributesLocal17
+      settings.locationType = 'neighborhoods'
+      $service.filters.neighborhoods = lastSearch.providers.attributesLocal17
+    else
+      if $service.filters.zip
+        settings.locationType = 'zipCodes'
+        $service.filters.zipCodes = $service.filters.zip
+
+    if lastSearch.providers.acceptsChildren
+      if lastSearch.providers.acceptsChildren == 'BOTH'
+        lastSearch.providers.acceptsChildren = ['FULL_TIME', 'PART_TIME']
+      else
+        lastSearch.providers.acceptsChildren = [lastSearch.providers.acceptsChildren]
+
+    $service.searchSettings = settings
+    $service.filters = Object.assign($service.filters, lastSearch.providers)
+
+    $service.filters.monthlyRate = _.map lastSearch.providers.monthlyRate, (v, k) ->
+      return v
+
+    if $service.filters.monthlyRate.length == 0
+      $service.filters.monthlyRate = [0, 3000]
+
+    if lastSearch.providers.vacancyDateRange
+      fromDate = new Date(lastSearch.providers.vacancyDateRange.from)
+      toDate = new Date(lastSearch.providers.vacancyDateRange.to)
+      if fromDate <= new Date
+        $service.filters.vacancyType = 'Available Now'
+      else
+        $service.filters.vacancyFutureDate = fromDate.toLocaleDateString("en-US")
+        $service.filters.vacancyType = 'Future Date'
+
+
+  $service.cleanAddressFilters = () ->
+    filters = angular.copy $service.filters
+    delete filters.locationA
+    delete filters.attributesLocal17
+#    delete filters.attributesLocal3
+    delete filters.zip
+    $service.filters = filters
+
+  $rootScope.$on 'auth:validation-success', (event, user) ->
+    $service.setParent(user)
+
+  $rootScope.$on 'auth:login-success', (event, user) ->
+    $service.setParent(user)
+
+  $service.resetData = ->
+    $service.searchResultsData.providers = []
+    $service.searchResultsData.totalNumProviders = 0
+
+  $service
+
+DataService.$inject = ['$rootScope']
+angular.module('CCR').service('DataService', DataService)

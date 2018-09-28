@@ -1,0 +1,26 @@
+RegisterController = ($scope, $auth, DataService, $modalInstance) ->
+  $ctrl = @
+  $scope.registering = true
+  $scope.errors
+
+  $scope.register = (parent, registerForm) ->
+    $scope.errors = []
+    $auth.submitRegistration(parent)
+      .then (resp) ->
+        $scope.registering = false
+        $auth.submitLogin(parent).then (resp) ->
+          return
+      .catch (resp) ->
+        errors = if resp.data.errors.full_messages then resp.data.errors.full_messages else resp.data.errors
+        $scope.errors = _.sortedUniq(errors)
+        return
+  $scope.close = ->
+    $modalInstance.close();
+
+  return $ctrl
+
+RegisterController.$inject = ['$scope', '$auth', 'DataService', '$modalInstance']
+
+angular
+  .module('CCR')
+  .controller('userRegisterCtrl', RegisterController)

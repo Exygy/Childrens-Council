@@ -1,0 +1,35 @@
+.bg-white data-magellan-expedition="fixed"
+  nav.panel.bg-cyan-lighter
+    ul.side-nav
+      li data-magellan-arrival="about" ng-if="$ctrl.provider.generalInfo.generalComment"
+        a href="#about" About
+      li data-magellan-arrival="general-information"
+        a href="#general-information" General Information
+      li data-magellan-arrival="location"
+        a href="#location" Location
+      li data-magellan-arrival="hours"
+        a href="#hours" Hours
+      li data-magellan-arrival="vacancies"
+        a href="#vacancies" Vacancies
+      li data-magellan-arrival="rates"
+        a href="#rates" Rates
+      li data-magellan-arrival="enrollment_process"
+        a href="#enrollment_process" Enrollment Process
+      li data-magellan-arrival="env_images"
+        a href="#env_images" Our environment
+      li data-magellan-arrival="licenses"
+        a href="#licenses" License & Ages Served
+      li data-magellan-arrival="languages" ng-if="$ctrl.provider.attributes.local3.length || $ctrl.provider.languages.length"
+        a href="#languages" Language Options
+      li data-magellan-arrival="financial-assistance" ng-if="$ctrl.provider.generalInfo.local1.length"
+        a href="#financial-assistance" Financial Assistance
+
+  span.fa.fa-file-pdf-o.c-red.info-icon
+  .c-base.margin-left-2
+    a href="//www.childrenscouncil.org/wp-content/uploads/2016/03/Choosing-Child-Care-information-packet.pdf" target="_blank"
+      strong
+        | Download our
+        em  Tips on Choosing Child Care
+      |  (PDF, 289kb)
+
+    p Planning to contact a provider for more information? Learn about the questions to ask and other considerations in our checklist.

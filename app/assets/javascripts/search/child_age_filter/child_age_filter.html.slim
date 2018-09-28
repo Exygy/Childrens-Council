@@ -1,0 +1,11 @@
+h5#age-label Child's Age (When Care Will Be Needed)
+.row
+  .medium-7.columns
+    .ui-slider-container
+      #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="260" ng-model="$ctrl.model.ageWeeks" use-decimals aria-labeledBy="ageLabel"]
+        span.age-label style="left:{{($ctrl.model.ageWeeks / 260) * 100}}%;"
+          | {{ $ctrl.model.ageWeeks | ageToYearsAndMonths }}
+        span.age-min 0
+        span.age-max 5+ yrs
+        - 4.times do |i|
+          span.tick class="child-age-tick-#{i}"

@@ -1,0 +1,31 @@
+BadgeService = ->
+
+  @tooltip = (badge) ->
+    tooltips = {
+      'CCIP/Build Your Business': 'Has participated in quality early education trainings.',
+      'FCC Quality Network': 'Participants receive personalized coaching and consultation to improve their quality of early care and education services.',
+      'Child Care Food Program': 'Participants receive financial support for serving nutritious meals to children in their care.',
+      'Healthy Apple Program': 'Participants continuously work on implementing best practices in nutrition and physical activity for children from birth to age 5.',
+      'NAEYC': 'Is a member of a professional membership organization that promotes high-quality early learning for children (0-8 years) by connecting best practices, policy and research.',
+      'NAFCC': 'Is a member of a professional association that promotes high-quality early childhood experiences in family child care programs.',
+      'QRIS': 'Participants are assessed and monitored through a California quality assessment tool to ensure they are achieving the highest standards of quality.'
+    }
+
+    return tooltips[badge]
+
+  @url = (badge) ->
+    urls = {
+      'CCIP/Build Your Business': '<%= image_path "badges/ccip.svg" %>',
+      'FCC Quality Network': '<%= image_path "badges/fccqn.svg" %>',
+      'Child Care Food Program': '<%= image_path "badges/food.svg" %>',
+      'Healthy Apple Program': '<%= image_path "badges/healthy-apple.svg" %>',
+      'NAEYC': '<%= image_path "badges/naeyc.svg" %>',
+      'NAFCC': '<%= image_path "badges/nafcc.svg" %>',
+      'QRIS': '<%= image_path "badges/qris.svg" %>'
+    }
+
+    return urls[badge]
+  @
+
+BadgeService.$inject = []
+angular.module('CCR').service('BadgeService', BadgeService)

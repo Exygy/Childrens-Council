@@ -1,0 +1,22 @@
+.row.c-base.margin-top-1 ng-if="$ctrl.data.providers.length"
+  .small-12.columns.text-right
+    p.results-showing
+      span Sort by:
+      span.margin-left-small
+        span ng-hide="settings.locationType == 'address' && filters.address" Random
+        span ng-show="settings.locationType == 'address' && filters.address" Distance
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'address' && filters.address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+        span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'address' && filters.address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+
+.loading ng-show="$ctrl.data.isLoading"
+
+div ng-hide="$ctrl.data.isLoading"
+
+  ul.no-bullet.no-result ng-if="!$ctrl.data.providers.length"
+    li.results-item.c-base.margin-top-4
+      h2 No child care provider matches found.
+      p Try changing filters for a less specific search.
+
+  provider-map providers="$ctrl.data.providers" info-window="true" map-id="'map-provider-results'"
+
+  results-pager class="map-results-pager" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"

@@ -1,0 +1,19 @@
+h5 ng-class="{ error: searchForm.typesOfCare.$dirty && searchForm.typesOfCare.$invalid }" Child care program type *
+
+div.header-info
+  a.small href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
+    | What are the differences?
+
+.row
+  .columns.small-12 ng-show="searchForm.typesOfCare.$dirty && searchForm.typesOfCare.$invalid"
+    small.error
+      span.fa.fa-exclamation-circle
+      |  Select at least 1 type of provider
+
+  .columns.medium-6 ng-repeat="type in filterData.typesOfCare"
+    label.checkbox-round for="care-type-{{type.replace(' ', '-')}}"
+      input type="checkbox" id="care-type-{{type.replace(' ', '-')}}" name="typesOfCare" checklist-value="type" checklist-model="filters.typesOfCare" ng-required="filters.typesOfCare.length < 1"
+      span.icon
+      .label
+        i.fa ng-class="{'fa-home': type == 'Family Child Care', 'fa-building': type == 'Child Care Center'}"
+        | {{type}}

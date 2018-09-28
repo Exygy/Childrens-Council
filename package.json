@@ -2,11 +2,9 @@
   "author": "Exygy / Children's Council",
   "description": "Children's Council is a resource for parents and care providers regarding child care services.",
   "dependencies": {
-    "bower": "^1.6.5"
+    "bower": "latest"
   },
-  "scripts": {
-      "postinstall": "bower install"
-  },
+  "scripts": {},
   "name": "childrens-council",
   "version": "0.1.0"
 }

@@ -1,0 +1,9 @@
+ul.pager.radius.margin-bottom-3
+  li
+    button ng-click="$ctrl.prevPage()" ng-disabled="$ctrl.isFirstPage"
+      i.fa.fa-chevron-left.margin-right-small
+      small Previous {{ $ctrl.pageSize }}
+  li
+    button ng-click="$ctrl.nextPage()" ng-disabled="$ctrl.isLastPage"
+      small Next {{ $ctrl.pageSize }}
+      i.fa.fa-chevron-right.margin-left-small

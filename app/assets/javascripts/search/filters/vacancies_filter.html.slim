@@ -1,0 +1,18 @@
+h5
+  | Vacancy Type
+
+.row
+  .columns.medium-6 ng-repeat="type in filterData.vacancyTypes"
+    label.checkbox-round for="vacancy-type-{{type}}"
+      input type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="vacancyTypeAdapter()"
+      span.icon
+      .label
+        | {{ type }}
+
+.row ng-show="filters.vacancyType == 'Future Date'"
+  .medium-6.medium-offset-6.columns.margin-top-1
+    .row
+      .columns.medium-6
+        p.label-text Enter Future Start Date
+      .columns.medium-6
+        input#vacancy-future-date type="text" placeholder="MM/DD/YYYY" name="vacancy-future-date" ng-model="filters.vacancyFutureDate"

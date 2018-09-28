@@ -1,7 +1,11 @@
-h2 Filters
-span ng-controller="SearchController"
-  span ng-include="'search/search_extra_filters_form.html'"
+.ccr-scope.filters-modal
+  .row
+    .columns.medium-12
+      h2 Filters
+      small All filters are optional.
+      span ng-controller="SearchController"
+        span ng-include="'search/filters/extra_filters.html'"
 
-  input.round.button.text-uppercase.margin-right-2 type="submit" value="Search" ng-click="postSearch()"
-  a ng-click="cancel()" Cancel
-a.close-reveal-modal ng-click="cancel()" ×
+        input.round.button.text-uppercase.margin-right-2 type="submit" value="Search" ng-click="postSearch()"
+        a ng-click="cancel()" Cancel
+      a.close-reveal-modal ng-click="cancel()" ×

@@ -1,0 +1,114 @@
+section.margin-top-2
+  span ng-include="'search/filters/location_filter.html'"
+
+/section.margin-top-2
+/  h5#age-label.c-black Cost per month
+/  .row
+/    .medium-7.columns
+/      .ui-slider-container
+/        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="3000" ng-model="filters.cost_per_month" use-decimals aria-labeledBy="ageLabel"]
+/          span.age-label style="left:{{(filters.cost_per_month / 3000) * 100}}%;"
+/            | ${{ filters.cost_per_month }}
+/          span.age-min 0
+/          span.age-max $3,000
+/          - 4.times do |i|
+/            span.tick class="tick-#{i + 1}"
+
+section.margin-top-2
+  span ng-include="'search/filters/rates_filter.html'"
+
+section.margin-top-2
+  span ng-include="'search/filters/vacancies_filter.html'"
+
+section.margin-top-2
+  h5 Provides financial assistance
+  div.header-info
+    a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
+      | Check out more information to see if you qualify.
+  accordion close-others="false" role="tablist"
+    accordion-group is-open="is_financial_assists"
+      accordion-heading
+        #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
+          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
+          .right.toggle ng-switch="is_financial_assists"
+            span ng-switch-when="false" Show
+            span ng-switch-when="true" Hide
+            |  options
+
+      #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_financial_assists}}"
+        span ng-repeat="assist in (filterData.financialAssistance | filter:{showInFilter: true}) track by $index"
+          .checkbox-financial-assist
+            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssistance"
+            label for="financial-assist-{{$index}}"
+              b
+                | {{assist.label || assist.value}}
+            p.smaller.checkbox-text.c-base ng-if="assist.description" ng-bind-html="assist.description"
+            p.smaller.checkbox-text.c-base ng-bind-html="link" ng-repeat="link in assist.links" ng-if="assist.links"
+
+section.margin-top-2
+  h6.text-normal.margin-top-2 Teaching Philosophy
+  div.header-info
+    a.small href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
+      | What are the differences?
+  .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
+    select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
+      option value="" Select Teaching Philosophy
+      option ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" value="{{ careApproach }}"
+        ' {{ careApproach }}
+    button.inline.repeater type="button" aria-label="Remove teaching philosophy" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
+  button.inline type="button" aria-label="Add another teaching philosophy" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
+
+section.margin-top-2
+  h6.text-normal.margin-top-2 Language Immersion Programs
+  .repeater-container ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.attributesLocal3[$index]"
+      option value="" Select Language Immersion Program
+      option ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy) track by $index" value="{{ languageProgram }}"
+        ' {{ languageProgram }}
+    button.inline.repeater type="button" aria-label="Remove language immersion program" ng-show="$index > 0" ng-click="removeItem(filters.attributesLocal3, $index)" Remove
+  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.attributesLocal3) && filters.attributesLocal3.length < 3" ng-click="addItem(filters.attributesLocal3)" Add another
+
+section.margin-top-2
+  h6.text-normal.margin-top-2 Languages Spoken
+  .repeater-container ng-repeat="language in filters.languages track by $index"
+    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.languages[$index]"
+      option value="" Select Spoken Language
+      option ng-repeat="language in filterData.languages track by $index" value="{{ language }}"
+        ' {{ language }}
+    button.inline.repeater type="button" aria-label="Remove spoken language" ng-show="$index > 0" ng-click="removeItem(filters.languages, $index)" Remove
+  button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.languages) && filters.languages.length < 3" ng-click="addItem(filters.languages)" Add another
+
+section.margin-top-2
+  h6.text-normal.margin-top-2 Religious Program
+  .repeater-container ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
+    select.radius id="religion-id-{{$index + 1}}" name="religion_id_{{$index + 1}}" ng-model="filters.religiousPrograms[$index]"
+      option value="" Select Religious Program
+      option ng-repeat="religiousProgram in (filterData.religiousPrograms | orderBy) track by $index" value="{{ religiousProgram }}"
+        ' {{ religiousProgram }}
+    button.inline.repeater type="button" aria-label="Remove religious program" ng-show="$index > 0" ng-click="removeItem(filters.religiousPrograms, $index)" Remove
+  button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religiousPrograms) && filters.religiousPrograms.length < 3" ng-click="addItem(filters.religiousPrograms)" Add another
+
+section.margin-top-2
+  h5
+    | Parent Co-Op
+    a.fa.fa-info-circle.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
+  #parent-coop-panel.button-group
+    button type="button" ng-model="filters.parentCoop" btn-radio="false" ng-class="['round', 'small', 'btn-radio']" No Preference
+    button type="button" ng-model="filters.parentCoop" btn-radio="true" ng-class="['round', 'small', 'btn-radio']" Yes
+
+section.margin-top-2
+  h5 Meals included in tuition
+  #meals-included-panel.button-group
+    button type="button" ng-model="filters.meals" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.meals"
+      | {{ choice.label }}
+
+section.margin-top-2
+  h5
+    | Potty training support
+    a.fa.fa-info-circle.margin-left-small tooltip="Provider supports with child's potty training" tooltip-placement="right"
+  #potty-training-panel.button-group
+    button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.pottyTraining"
+      | {{ choice.label }}
+
+section.margin-top-2.margin-bottom-2
+  span ng-include="'search/filters/care_type_filter.html'"
