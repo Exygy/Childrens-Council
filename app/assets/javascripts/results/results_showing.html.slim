@@ -1,0 +1,7 @@
+p.results-showing
+  ' Showing
+  strong ng-if="$ctrl.data.totalNumProviders == 0"
+    ' 0
+  strong ng-if="$ctrl.data.totalNumProviders != 0"
+    ' {{ $ctrl.resultsFromNum() }} - {{ $ctrl.resultsToNum() }}
+  ' of {{ $ctrl.data.totalNumProviders }} results

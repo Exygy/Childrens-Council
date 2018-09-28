@@ -1,10 +1,4 @@
 ResultMapController = () ->
-  @resultsFromNum = ->
-    (@data.currentPage * @data.pageSize) + 1
-
-  @resultsToNum = ->
-    (@data.currentPage + 1) * @data.pageSize
-
   return
 
 angular

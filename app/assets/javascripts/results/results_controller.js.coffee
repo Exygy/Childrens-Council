@@ -9,13 +9,6 @@ ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $au
     if !$ctrl.data && $ctrl.parent
       SearchService.postSearch()
 
-
-  $ctrl.resultsFromNum = ->
-    ($ctrl.data.currentPage * $ctrl.data.pageSize) + 1
-
-  $ctrl.resultsToNum = ->
-    ($ctrl.data.currentPage + 1) * $ctrl.data.pageSize
-
   $scope.$on 'search-service:updated', (event, service) ->
     service.postSearch()
 
