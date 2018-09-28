@@ -4,7 +4,7 @@ Rails.application.configure do
   # CORS configuration
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
-      origins 'http://www.childrenscouncil.org'
+      origins 'https://www.childrenscouncil.org'
       resource '*',
                headers: :any,
                methods: [:get, :post, :options, :delete, :put],
@@ -69,7 +69,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "//childrens-council.dapper.childrenscouncil.org/"
+  config.action_controller.asset_host = "//childrens-council.herokuapp.com/"
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
