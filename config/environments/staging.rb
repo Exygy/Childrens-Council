@@ -36,7 +36,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Server assets from amazonaws
-  config.action_controller.asset_host = "//#{ENV['CLOUDFRONT_DOMAIN']}.cloudfront.net"
+  config.action_controller.asset_host = "//childrens-council-stg.herokuapp.com/"
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
