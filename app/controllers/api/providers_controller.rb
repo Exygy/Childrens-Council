@@ -21,7 +21,11 @@ module Api
     # index
 
     def search_providers_with_images(search_params, page = 0, size = 15)
-      @results = NDS.search_providers(search_params, page: page || 0, size: size )
+      begin
+        @results = NDS.search_providers(search_params, page: page || 0, size: size )
+      rescue
+        @results = {}
+      end
       favorites = @resource.present? ? @resource.favorites : []
 
       @results[:content].each do |provider_data|
