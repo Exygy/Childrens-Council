@@ -14,7 +14,7 @@
 
       .row
         .small-9.columns
-          h1 We found {{ $ctrl.data.totalNumProviders }} options
+          h1 We found {{ $ctrl.data.totalNumProviders || '0' }} options
         .small-3.columns.text-right
           ul.pager.radius
             li
