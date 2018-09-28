@@ -4,7 +4,7 @@ Rails.application.configure do
   # CORS configuration
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
-      origins 'https://ccsf.wpengine.com'
+      origins ENV['WORDPRESS_URL']
       resource '*',
                headers: :any,
                methods: [:get, :post, :options, :delete, :put],
@@ -36,7 +36,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Server assets from amazonaws
-  config.action_controller.asset_host = "//childrens-council-stg.herokuapp.com/"
+  config.action_controller.asset_host = ENV['RAILS_API_URL'].gsub('https:', '').gsub('http:', '')
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier

@@ -4,7 +4,7 @@ Rails.application.configure do
   # CORS configuration
   config.middleware.insert_before 0, 'Rack::Cors' do
     allow do
-      origins 'https://www.childrenscouncil.org'
+      origins ENV['WORDPRESS_URL']
       resource '*',
                headers: :any,
                methods: [:get, :post, :options, :delete, :put],
@@ -69,8 +69,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "//childrens-council.herokuapp.com/"
-
+  config.action_controller.asset_host = ENV["RAILS_API_URL"].gsub("https:", "").gsub("http:", "")
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

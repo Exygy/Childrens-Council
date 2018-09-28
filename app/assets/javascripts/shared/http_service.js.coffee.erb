@@ -8,7 +8,7 @@ HttpService = ($http, $q) ->
     @request_canceler = $q.defer()
     config.timeout = @request_canceler.promise
     # modify URL for production
-    base_url = '<%= Rails.env.production? ? "https://childrens-council.herokuapp.com" : "" %><%= Rails.env.staging? ? "https://childrens-council-stg.herokuapp.com" : "" %>'
+    base_url = '<%= ENV["RAILS_API_URL"] %>'
     config.url = base_url + config.url
 
     successCallback = (response) ->
