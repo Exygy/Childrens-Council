@@ -27,11 +27,7 @@
   .row
     .medium-4.columns
       div.margin-bottom-1.margin-top-1
-        p.results-showing
-          ' Showing
-          strong
-            ' {{ $ctrl.resultsFromNum() }} - {{ $ctrl.resultsToNum() }}
-          ' of {{ $ctrl.data.totalNumProviders }} results
+        results-showing data="$ctrl.data"
       .show-for-medium-up ng-include="'results/results_sidebar.html'"
 
     .medium-8.columns
