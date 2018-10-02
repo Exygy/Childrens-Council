@@ -2,10 +2,11 @@ FinancialAssistanceController = ($scope, DataService) ->
 
   @$onInit = () ->
     $scope.financialAssistance = DataService.providerData.financialAssistance
-    $scope.getFinancialAssist = (label) ->
-      item = DataService.providerData.financialAssistance.find (a) ->
-        a.label == label || a.value == label
-      item || label
+
+  $scope.getFinancialAssist = (label) ->
+    item = $scope.financialAssistance.find (a) ->
+      a.label == label || a.value == label
+    item || label
 
   return @
 
