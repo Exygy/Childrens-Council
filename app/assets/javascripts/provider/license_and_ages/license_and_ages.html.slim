@@ -5,11 +5,11 @@ table.table-lines
   thead
     tr
       th
-        span.label-gray.lighter License
+        h4.label-gray.lighter License
       th
-        span.label-gray.lighter Ages served
+        h4.label-gray.lighter Ages served
       th
-        span.label-gray.lighter Capacity
+        h4.label-gray.lighter Capacity
   tbody
     tr ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field]"
       td

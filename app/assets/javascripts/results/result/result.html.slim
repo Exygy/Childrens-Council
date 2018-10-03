@@ -1,10 +1,11 @@
 
 .row.collapse
-  .columns.medium-2.logo
+  .columns.small-2.logo
     img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
-  .columns.medium-8
+  .columns.small-9.medium-8.padding-left-1
     h2.item-title
       a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
+      br.show-for-small-only
       span
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
       div ng-switch="$ctrl.provider | isFacility"
@@ -12,8 +13,8 @@
         t ng-switch-when="true" Child Care Center
         t.fa.fa-home.c-gainsboro ng-switch-when="false"
         t ng-switch-when="false" Family Child Care
-  .columns.medium-2.favorite-container
-    favorite provider="$ctrl.provider"
+  .columns.small-1.medium-2.favorite-container
+    favorite provider="$ctrl.provider" show-text="false"
 
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
@@ -22,8 +23,8 @@ badges attributes="$ctrl.provider.attributes" show-title="false"
 
 .cl
 
-ul.general-info
-  li
+ul.general-info.row
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -34,7 +35,7 @@ ul.general-info
           span ng-if="!$ctrl.provider.phone"
             'n/a
 
-  li
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -42,7 +43,7 @@ ul.general-info
         .columns.small-11
           '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
 
-  li
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -54,7 +55,7 @@ ul.general-info
             '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
           span ng-if="!$ctrl.provider.website && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
 
-  li
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -62,7 +63,7 @@ ul.general-info
         .columns.small-11
           '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
-  li
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -70,7 +71,7 @@ ul.general-info
         .columns.small-11
           '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-  li
+  li.columns.small-12.medium-6
     span.item-detail
       .row.collapse
         .columns.small-1
