@@ -41,6 +41,7 @@ angular
   .component('favorite', {
     bindings:
       provider: '<'
+      showText: '<'
     controller: FavoriteController
     templateUrl: "provider/favorite/favorite.html"
   })
