@@ -8,7 +8,7 @@ table.table.first-column-40 style="width:auto" ng-if="$ctrl.rates.length"
   thead
     tr
       th ng-repeat="column in ['Age Group', 'Approximate Rate']"
-        span.label-gray
+        h4.label-gray
           | {{ column }}
   tbody
     tr ng-repeat="rate in $ctrl.rates"

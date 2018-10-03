@@ -1,7 +1,7 @@
 .favorite
   a href='#' ng-show="!$ctrl.provider.favorite" ng-click="$ctrl.favorite()"
     i.fa.fa-heart-o
-    | Add to Favorites
+    span ng-class="{'hide-for-small': !$ctrl.showText}" Favorite
   a href='#' ng-show="$ctrl.provider.favorite" ng-click="$ctrl.unFavorite()"
     i.fa.fa-heart
-    | Remove
+    span ng-class="{'hide-for-small': !$ctrl.showText}" Remove

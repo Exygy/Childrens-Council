@@ -1,13 +1,13 @@
 #ccr-scope
   #account-content
-    header.infinite-background.page-header.padding-top-2
+    header.infinite-background.page-header.padding-top-1
       .row
-        .small-8.columns
-          a ui-sref="search"
+        .medium-8.small-3.columns
+          a ui-sref="results"
             i.fa.fa-angle-left
-            | Back to Child Care Finder
-
-        .small-4.columns.text-right
+            | Back
+            span.hide-for-small to Child Care Finder
+        .small-9.medium-4.columns.text-right
           user-menu
       .row
         .small-12.columns
@@ -15,6 +15,7 @@
     .row.margin-top-2
       user-nav
       .medium-8.columns
+        .margin-top-1.show-for-small
         h2.margin-bottom-1 Account Information
 
         .account-info ng-hide="$ctrl.editing"

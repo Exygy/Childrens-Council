@@ -6,7 +6,7 @@ table.table.first-column-40 ng-if="$ctrl.enrollments.length"
   thead
     tr
       th ng-repeat="column in ['Age Group', 'Current Vacancies', 'Upcoming Vacancies']"
-        span.label-gray
+        h4.label-gray
           | {{ column }}
   tbody
     tr ng-repeat="enrollment in $ctrl.enrollments" ng-if="enrollment.vacancyDate"
