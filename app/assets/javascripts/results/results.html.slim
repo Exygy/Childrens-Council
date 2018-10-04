@@ -1,38 +1,56 @@
 #ccr-scope
-  rheader#search-results-wrapper.page-header.padding-top-2
-    header.infinite-background.page-header.padding-top-2
+  rheader#search-results-wrapper.page-header
+    header.infinite-background.page-header.padding-top-1
       .row
-        .small-8.columns
+        .medium-8.columns.hide-for-small
           ul.breadcrumbs
             li
               a ui-sref="search" Find Child Care
             li.current
               a ui-sref="results" Search Results
-
-        .small-4.columns.text-right
+        .columns.small-3.show-for-small
+          a ui-sref="results"
+            i.fa.fa-angle-left
+            | Back
+        .small-9.medium-4.columns.text-right
           user-menu printText="Print List"
-
       .row
-        .small-9.columns
-          h1 We found {{ $ctrl.data.totalNumProviders || '0' }} options
-        .small-3.columns.text-right
-          ul.pager.radius
-            li
-              button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
-                small List
-            li
-              button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
-                small Map
+        .small-12.medium-9.columns
+          h1.results-header We found {{ $ctrl.data.totalNumProviders || '0' }} options
+        .medium-3.columns.text-right.small-12.padding-top-1
+          .row.collapse
+            .columns.small-5.show-for-small.text-left ng-controller="ResultsFilterController"
+              button.round.smaller.active ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
+                i.fa.fa-sliders
+                | Filters
+            .columns.small-7.medium-12
+              ul.pager.radius
+                li
+                  button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
+                    | List
+                li
+                  button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
+                    | Map
 
+  .row.showing-container
+    .columns.small-5.medium-4
+      results-showing data="$ctrl.data"
+    .columns.small-7.medium-8
+      .row.c-base ng-if="$ctrl.data.providers.length"
+        .small-12.columns.text-right
+          p.results-showing
+            span Sort by:
+            span.margin-left-small
+              span ng-hide="settings.locationType == 'address' && filters.address" Random
+              span ng-show="settings.locationType == 'address' && filters.address" Distance
+              span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'address' && filters.address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+              span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'address' && filters.address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
   .row
-    .medium-4.columns
-      div.margin-bottom-1.margin-top-1
-        results-showing data="$ctrl.data"
+    .medium-4.columns.hide-for-small
       .show-for-medium-up ng-include="'results/results_sidebar.html'"
 
-    .medium-8.columns
-      result-map data="$ctrl.data" ng-if="$ctrl.showMap"
-      result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
+    result-map data="$ctrl.data" ng-if="$ctrl.showMap"
+    result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
 
   .row
     .medium-4.columns

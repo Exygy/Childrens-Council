@@ -43,7 +43,8 @@ module ProviderImageService
     end
 
     def wordpress_url
-      ENV['WORDPRESS_URL'] || 'http://www.childrenscouncil.org/'
+      # ENV['WORDPRESS_URL'] || 
+      'http://www.childrenscouncil.org/'
     end
   end
 end

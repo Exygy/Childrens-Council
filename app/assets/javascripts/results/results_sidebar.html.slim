@@ -12,7 +12,7 @@
         h4 Desired locations
         p ng-if="filters[settings.locationType]"
           span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
-          span ng-if="settings.locationType == 'zipCodes'" {{ filters.zipCodes | entitiesToString }}
+          span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
           span ng-if="settings.locationType == 'address'" {{ filters.address }}, San Francisco, CA
 
         p ng-if="!filters[settings.locationType]" Any
