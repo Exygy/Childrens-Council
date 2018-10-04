@@ -7,18 +7,18 @@ tabset.tabs-inline role="tablist"
         input#near-address type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="filters.address"
         .address-city , San Francisco, CA
 
-  tab ng-click="setLocationType('zipCodes')" active="locationTabs.zipCodes.active" heading="By zip code"
+  tab ng-click="setLocationType('zips')" active="locationTabs.zips.active" heading="By zip code"
     #zip-code-tab.row role="tabpanel"
       .medium-5.columns
-        .repeater-container ng-repeat="zipCode in filters.zipCodes track by $index"
-          ui-select.repeater-input ng-model="filters.zipCodes[$index]" theme="selectize" aria-label="Select zip code"
+        .repeater-container ng-repeat="zipCode in filters.zips track by $index"
+          ui-select.repeater-input ng-model="filters.zips[$index]" theme="selectize" aria-label="Select zip code"
               ui-select-match placeholder="Zip code" allow-clear="true"
                 | {{$select.selected}}
-              ui-select-choices repeat="zipCode in (filterData.zipCodes | filter: $select.search)"
+              ui-select-choices repeat="zipCode in (filterData.zips | filter: $select.search)"
                 | {{zipCode}}
 
-          button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zipCodes, $index)" Remove
-        button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zipCodes) && filters.zipCodes.length < 3" ng-click="addItem(filters.zipCodes)" Add another
+          button.inline.repeater type="button" aria-label="Remove zip code" ng-show="$index > 0" ng-click="removeItem(filters.zips, $index)" Remove
+        button.inline type="button" aria-label="Add another zip code" ng-show="hasFinalValue(filters.zips) && filters.zips.length < 3" ng-click="addItem(filters.zips)" Add another
 
   tab ng-click="setLocationType('neighborhoods')" active="locationTabs.neighborhoods.active" heading="By neighborhood" tt="{{ settings.locationType == 'neighborhoods' }}"
     #neighborhood-tab.row role="tabpanel"

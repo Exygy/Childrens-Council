@@ -30,11 +30,6 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   $service.setSearchLocation = (params) ->
-
-    console.log('address')
-    console.log($service.searchSettings.locationType)
-    console.log(params.address)
-
     if params.address == ''
       delete params.address
 
@@ -42,16 +37,15 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
       params.distance = 2 # set the search radius in miles
-      delete params.zipCodes
+      delete params.zips
       delete params.neighborhoods
-    else if $service.searchSettings.locationType == 'zipCodes' && params.zipCodes.length && params.zipCodes[0].length
-      params.zip = params.zipCodes
+    else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
       delete params.address
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.address
-      delete params.zipCodes
+      delete params.zips
 
 
   # Reformat and rename program params to match API fields.

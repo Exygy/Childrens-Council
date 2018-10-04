@@ -100,7 +100,7 @@ module Api
           :to
         ],
         weeklySchedule: [],
-        zip: []
+        zips: []
       ).tap do |whitelisted|
         whitelisted[:locationA] = params[:providers][:locationA]
         whitelisted[:attributesLocal3] = params[:providers][:attributesLocal3]
