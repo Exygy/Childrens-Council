@@ -68,6 +68,8 @@ end
 
 gem 'newrelic_rpm'
 
+gem 'kaminari', '~> 1.1.1'
+
 group :development, :test do
 
   gem 'rb-readline'
