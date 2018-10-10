@@ -36,7 +36,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     if $service.searchSettings.locationType == 'address' && params.address
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
-      params.distance = 2 # set the search radius in miles
+      params.distance = 5 # set the search radius in miles
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length

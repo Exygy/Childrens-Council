@@ -21,8 +21,6 @@ module Api
     # index
 
     def search_providers_with_images(search_params, page = 0, size = 15)
-      search_params['distance'] = 5 # default distance search of 5miles
-
       begin
         @results = NDS.search_providers(search_params, page: page || 0, size: size )
       rescue
