@@ -4,11 +4,14 @@ module Api
     before_action :set_parent
 
     def index
-      @results = NDS.search_providers_bulk(providerIds: @resource.favorites.collect(&:provider_id))
-      @results.each do |provider|
-        provider[:images] = providers_images[provider["providerId"].to_s]
+      @scope = @resource.favorites.page((params[:page].to_i + 1) || 1).per(10)
+      @results = NDS.search_providers_bulk(providerIds: @scope.collect(&:provider_id))
+
+      @results[:content].each do |provider|
+        provider[:images] = providers_images[provider["providerId"].to_s] unless Rails.env.development?
         provider[:favorite] = true
       end if @results
+      set_meta_data
       render json: @results
     end
 
@@ -26,6 +29,13 @@ module Api
     end
 
     private
+
+    def set_meta_data
+      @results['totalElements'] = @resource.favorites.count
+      @results['numberOfElements'] = 10
+      @results['number'] = params[:page].to_i || 0
+      @results['totalPages'] = @scope.total_pages - 1
+    end
 
     def set_parent
       render_unauthorized unless @resource

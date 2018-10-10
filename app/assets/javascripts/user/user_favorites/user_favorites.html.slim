@@ -18,5 +18,6 @@
         .margin-top-1.show-for-small
         .loading ng-show="$ctrl.isLoading"
         ul.no-bullet ng-hide="$ctrl.isLoading"
-          li.results-item ng-repeat="provider in $ctrl.favorites"
+          li.results-item ng-repeat="provider in $ctrl.favorites.content"
             result provider="provider"
+        results-pager current-page="$ctrl.favorites.number" is-first-page="$ctrl.favorites.number == 0" is-last-page="$ctrl.favorites.totalPages == $ctrl.favorites.number" page-size="$ctrl.favorites.size" ng-if="$ctrl.favorites.content.length" service="'favorites'" callback="$ctrl.callback"
