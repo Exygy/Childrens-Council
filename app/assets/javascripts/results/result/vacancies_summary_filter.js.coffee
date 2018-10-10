@@ -32,7 +32,7 @@ VacanciesSummaryFilter = (AgeToAgeGroupService) ->
 		Date.parse(date) > Date.now()
 
 	isFCCVacancy = (enrollment) ->
-		enrollment.ageGroup.indexOf('FCC') > -1
+		enrollment.ageGroupTypeId == 109
 
 	orderStatuses = (statuses) ->
 		return statuses.sort (a, b) ->
