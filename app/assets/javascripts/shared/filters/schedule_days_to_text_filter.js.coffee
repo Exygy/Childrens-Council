@@ -1,4 +1,4 @@
-ScheduleDaysToTextFilter = (DataService) ->
+ScheduleDaysToTextFilter = (DataService, EntitiesToStringService) ->
   (days) ->
     if days?
       allDays = DataService.filterData.days
@@ -12,8 +12,8 @@ ScheduleDaysToTextFilter = (DataService) ->
       else if days.length == 0
         return 'None'
       else
-        return EntitiesToString(days)
+        return EntitiesToStringService.toString(days)
 
-ScheduleDaysToTextFilter.$inject = ['DataService']
+ScheduleDaysToTextFilter.$inject = ['DataService', 'EntitiesToStringService']
 
 angular.module('CCR').filter('scheduleDaysToText', ScheduleDaysToTextFilter)
