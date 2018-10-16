@@ -89,9 +89,17 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
-      params.monthlyRate =
-        from: params.monthlyRate[0]
-        to: params.monthlyRate[1]
+      if params.monthlyRate[0] == 0 && params.monthlyRate[1] == 3000
+        delete params.monthlyRate
+      else
+        if params.monthlyRate[1] != 3000
+          params.monthlyRate['to'] = params.monthlyRate[1]
+          params.monthlyRate =
+            from: params.monthlyRate[0]
+            to: params.monthlyRate[1]
+        else
+          params.monthlyRate = from: params.monthlyRate[0]
+
 
   $service.setVacancies = (params) ->
     params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
