@@ -77,7 +77,7 @@ module Api
         :open24Hours,
         :rotating,
         :ageGroup,
-        :ageGroupServiced,
+        :agesServiced,
         :distance,
         :yearlySchedule,
         acceptsChildren: [],

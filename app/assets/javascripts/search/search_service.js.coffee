@@ -83,8 +83,8 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     delete params.pottyTraining
 
   $service.setAgeGroup = (params) ->
-    if params.ageGroupServiced
-      weeks = params.ageGroupServiced
+    if params.agesServiced
+      weeks = params.agesServiced
       params.ageGroups = AgeInWeekToAgeGroupsService.convert(weeks)
 
   $service.setMonthlyRate = (params) ->
@@ -108,7 +108,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     search_params = angular.copy $service.filters
 
     # those params should be children specific when the feature is built
-    search_params.ageGroupServiced = $service.parent.children[0].ageWeeks
+    search_params.agesServiced = $service.parent.children[0].ageWeeks
     search_params.yearlySchedule = $service.parent.children[0].yearlySchedule
     search_params.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
