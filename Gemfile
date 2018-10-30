@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.18'
+gem 'nds_api', '0.1.19'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
