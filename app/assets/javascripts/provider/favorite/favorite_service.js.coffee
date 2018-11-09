@@ -1,9 +1,9 @@
 FavoriteService = (HttpService) ->
 
-  @getFavorites = (callback) ->
+  @getFavorites = (page = 0, callback) ->
     that = @
     HttpService.http(
-      { method: 'GET', url: '/api/favorites' },
+      { method: 'GET', url: '/api/favorites?page=' + page },
       (response) ->
         if callback
           callback(response.data)

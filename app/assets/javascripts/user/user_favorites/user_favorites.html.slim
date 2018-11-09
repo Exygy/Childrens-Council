@@ -2,12 +2,13 @@
   #account-content
     header.infinite-background.page-header.padding-top-1
       .row
-        .medium-8.small-3.columns
+        .medium-8.small-4.columns
           a ui-sref="results"
             i.fa.fa-angle-left
             | Back
-            span.hide-for-small to Child Care Finder
-        .small-9.medium-4.columns.text-right
+            span.hide-for-small
+              '  to Child Care Finder
+        .small-8.medium-4.columns.text-right
           user-menu
       .row
         .small-12.columns
@@ -18,5 +19,6 @@
         .margin-top-1.show-for-small
         .loading ng-show="$ctrl.isLoading"
         ul.no-bullet ng-hide="$ctrl.isLoading"
-          li.results-item ng-repeat="provider in $ctrl.favorites"
+          li.results-item ng-repeat="provider in $ctrl.favorites.content"
             result provider="provider"
+        results-pager current-page="$ctrl.favorites.number" is-first-page="$ctrl.favorites.number == 0" is-last-page="$ctrl.favorites.totalPages == $ctrl.favorites.number" page-size="$ctrl.favorites.size" ng-if="$ctrl.favorites.content.length" service="'favorites'" callback="$ctrl.callback"

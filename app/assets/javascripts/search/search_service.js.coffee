@@ -36,7 +36,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     if $service.searchSettings.locationType == 'address' && params.address
       if params.address.indexOf(', San Francisco, CA') == -1
         params.address += ', San Francisco, CA'
-      params.distance = 2 # set the search radius in miles
+      params.distance = 5 # set the search radius in miles
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
@@ -83,15 +83,23 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     delete params.pottyTraining
 
   $service.setAgeGroup = (params) ->
-    if params.ageGroupServiced
-      weeks = params.ageGroupServiced
+    if params.agesServiced
+      weeks = params.agesServiced
       params.ageGroups = AgeInWeekToAgeGroupsService.convert(weeks)
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
-      params.monthlyRate =
-        from: params.monthlyRate[0]
-        to: params.monthlyRate[1]
+      if params.monthlyRate[0] == 0 && params.monthlyRate[1] == 3000
+        delete params.monthlyRate
+      else
+        if params.monthlyRate[1] != 3000
+          params.monthlyRate['to'] = params.monthlyRate[1]
+          params.monthlyRate =
+            from: params.monthlyRate[0]
+            to: params.monthlyRate[1]
+        else
+          params.monthlyRate = from: params.monthlyRate[0]
+
 
   $service.setVacancies = (params) ->
     params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
@@ -108,7 +116,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     search_params = angular.copy $service.filters
 
     # those params should be children specific when the feature is built
-    search_params.ageGroupServiced = $service.parent.children[0].ageWeeks
+    search_params.agesServiced = $service.parent.children[0].ageWeeks
     search_params.yearlySchedule = $service.parent.children[0].yearlySchedule
     search_params.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 

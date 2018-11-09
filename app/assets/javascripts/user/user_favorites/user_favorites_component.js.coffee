@@ -4,11 +4,16 @@ UserFavoritesController = ($timeout, $anchorScroll, $scope, FavoriteService) ->
   $ctrl.isLoading = true
 
   $ctrl.$onInit = () ->
-    FavoriteService.getFavorites (data) ->
+    FavoriteService.getFavorites 0, (data) ->
       $ctrl.favorites = data
       $ctrl.isLoading = false
 
   $timeout $anchorScroll('favorites-content')
+
+  $ctrl.callback = (data) ->
+    $ctrl.favorites = data
+    $ctrl.isLoading = false
+
 
   return $ctrl
 

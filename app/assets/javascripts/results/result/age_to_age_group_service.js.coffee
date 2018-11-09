@@ -6,7 +6,7 @@ AgeToAgeGroupService = () ->
   	age_group_to_age_in_month_mapping = {
   		'Infant 1 Age Group': [0, 23],
   		'Toddler 1 Age Group': [18, 36],
-  		'Preschool 1 Age Grp': [24, 71],
+  		'Preschool 1 Age Group': [24, 71],
   		'School Age 1 Group': [72, 1188]
   	}
 
