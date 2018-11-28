@@ -1,0 +1,61 @@
+{
+  "name": "Childrens-Council",
+  "scripts": {
+  },
+  "env": {
+    "LANG": {
+      "required": true
+    },
+    "NDS_API_AGENCY_KEY": {
+      "required": true
+    },
+    "NDS_API_DEBUG": {
+      "required": true
+    },
+    "NDS_API_DEV": {
+      "required": true
+    },
+    "NDS_API_PASSWORD": {
+      "required": true
+    },
+    "NDS_API_USERNAME": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_API_URL": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SENDGRID_PASSWORD": {
+      "required": true
+    },
+    "SENDGRID_USERNAME": {
+      "required": true
+    },
+    "WORDPRESS_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "logentries",
+    "heroku-postgresql",
+    "sendgrid"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
