@@ -20,6 +20,7 @@ config/database.yml
 
 vendor/assets/stylesheets/style.min.css
 vendor/assets/stylesheets/style.css
+app/assets/stylesheets/style.min.css
 
 .idea/
 .idea/workspace.xml
@@ -28,3 +29,4 @@ node_modules
 
 .DS_Store
 .byebug_history
+.env

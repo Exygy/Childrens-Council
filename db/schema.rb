@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20180928220255) do
     t.float    "random_seed"
     t.string   "near_address"
     t.boolean  "subscribe"
-    t.string   "nds_client_uid"
     t.string   "provider",                          default: "email"
     t.text     "uid",                               default: ""
     t.text     "tokens"
