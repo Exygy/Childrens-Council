@@ -1,15 +1,16 @@
-ScheduleHoursToSummary = ($filter, DataService) ->
+ScheduleHoursToSummary = ($filter, DataService, DateFormaterService) ->
   (scheduleHours) ->
 
     scheduleHourToString = (scheduleHour) ->
       if !scheduleHour.closed
         startDate = Date.UTC(0, 0, 0, scheduleHour.startTime.slice(0, 2), scheduleHour.startTime.slice(3, 5))
         endDate = Date.UTC(0, 0, 0, scheduleHour.endTime.slice(0, 2), scheduleHour.endTime.slice(3, 5))
-        startTime = $filter('date')(startDate, 'h:mma', 'UTC')
-        endTime = $filter('date')(endDate, 'h:mma', 'UTC')
+        startTime = DateFormaterService.formatTime(startDate) # $filter('date')(startDate, DEFAULT_DATE_FORMAT, 'UTC')
+        endTime = DateFormaterService.formatTime(endDate) # $filter('date')(endDate, DEFAULT_DATE_FORMAT, 'UTC')
         return startTime + '-' + endTime
       else
         false
+
 
     abbreviateDay = (fullDayName) ->
       switch
@@ -47,5 +48,5 @@ ScheduleHoursToSummary = ($filter, DataService) ->
 
     summaryHoursStrings.join(' - ')
 
-ScheduleHoursToSummary.$inject = ['$filter', 'DataService']
+ScheduleHoursToSummary.$inject = ['$filter', 'DataService', 'DateFormaterService']
 angular.module('CCR').filter('scheduleHoursToSummary', ScheduleHoursToSummary)

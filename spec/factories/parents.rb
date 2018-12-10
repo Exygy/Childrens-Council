@@ -17,7 +17,6 @@
 #  random_seed            :float
 #  near_address           :string
 #  subscribe              :boolean
-#  nds_client_uid         :string
 #  provider               :string           default("email")
 #  uid                    :text             default("")
 #  tokens                 :text
