@@ -1,11 +1,11 @@
-ResultListController = (CompareService) ->
+ResultListController = (ProviderService) ->
   $ctrl = @
   $ctrl.data
-  $ctrl.providersToCompare = CompareService.providersToCompare
+  $ctrl.providerIdsToCompare = ProviderService.providerIdsToCompare
 
   return $ctrl
 
-ResultListController.$inject = ['CompareService']
+ResultListController.$inject = ['ProviderService']
 
 angular
   .module('CCR')

@@ -1,0 +1,9 @@
+.medium-8.columns
+  ul.results-list.no-bullet.no-result ng-if="!$ctrl.providers.length"
+    li.results-item.c-base.margin-top-4
+      h2 No providers selected to compare.
+      p Do a search for providers to select some to compare.
+
+  ul.results-list.no-bullet ng-if="$ctrl.providers.length"
+    li.results-item ng-repeat="provider in $ctrl.providers"
+      compare-item provider="provider"

@@ -1,4 +1,6 @@
 ProviderService = (HttpService) ->
+  @providerIdsToCompare = []
+
   @get = (id, callback) ->
     that = @
     HttpService.http(
