@@ -1,101 +1,127 @@
-
 .row.collapse
-  .columns.small-2.logo
-    img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
-  .columns.small-9.medium-7.padding-left-1
-    h2.item-title
-      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
-      br.show-for-small-only
-      span
-        '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
-      div ng-switch="$ctrl.provider | isFacility"
-        t.fa.fa-building.c-gainsboro ng-switch-when="true"
-        t ng-switch-when="true" Child Care Center
-        t.fa.fa-home.c-gainsboro ng-switch-when="false"
-        t ng-switch-when="false" Family Child Care
-  .columns.medium-3
+  .columns.small-12.medium-11
     .row.collapse
-      .columns.small-12.medium-6.compare-container
-        compare-toggle provider="$ctrl.provider"
-      .columns.small-12.medium-6.favorite-container
+      .columns.small-12
+      | Remove from Compare
+
+      .columns.small-12
+        img.compare-headshot ng-src="{{ $ctrl.provider.images.headshot }}"
+
+      .columns.small-12.medium-9.large-11
+        h2.item-title
+          a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
+
+      .columns.small-12.medium-3.large-1.favorite-container
         favorite provider="$ctrl.provider" show-text="false"
 
-p
-  '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
-
-badges attributes="$ctrl.provider.attributes" show-title="false"
+      .columns.small-12.compare-badges-container
+        badges attributes="$ctrl.provider.attributes" show-title="false"
 
 .cl
 
-ul.general-info.row
-  li.columns.small-12.medium-6
-    span.item-detail
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-phone.c-base
-        .columns.small-11
-          span ng-if="$ctrl.provider.phone"
-            '{{ $ctrl.provider.phone | formatPhoneNumber }}
-          span ng-if="!$ctrl.provider.phone"
-            'n/a
-
-  li.columns.small-12.medium-6
-    span.item-detail
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-clock-o.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
-
-  li.columns.small-12.medium-6
-    span.item-detail
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-external-link.c-base
-        .columns.small-11
-          a ng-href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" ng-if="$ctrl.provider.website"
-            '{{ $ctrl.provider.website }}
-          a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" ng-if="!$ctrl.provider.website && $ctrl.provider.generalInfo.socialMediaUrl"
-            '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
-          span ng-if="!$ctrl.provider.website && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
-
-  li.columns.small-12.medium-6
-    span.item-detail
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-calendar-check-o.c-base
-        .columns.small-11
-          '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
-
-  li.columns.small-12.medium-6
-    span.item-detail
+.row
+  <h4 class="compare-item_">General Information</h4>
+  ul.no-bullet
+    li.columns.small-12
       .row.collapse
         .columns.small-1
           span.fa.fa-usd.c-base
         .columns.small-11
           '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-  li.columns.small-12.medium-6
-    span.item-detail
+    li.columns.small-12
       .row.collapse
         .columns.small-1
-          span.fa.fa-map-marker.c-base
+          span.fa.fa-clock-o.c-base
         .columns.small-11
-          span ng-if="$ctrl.provider | isFacility"
-            |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
-            |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
-          span ng-if="!($ctrl.provider | isFacility)"
-            |{{ $ctrl.provider.generalInfo.config1 }}
-          |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+          '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
 
-          a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
-            span ng-if="!show_map" See map
-            span ng-if="show_map" Hide map
+    li.columns.small-12
+      .row.collapse
+        .columns.small-1
+          span.fa.fa-calendar-check-o.c-base
+        .columns.small-11
+          '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
+
+.row
+  <h4>Meals Included</h4>
+  ul.no-bullet
+    li.columns.small-12
+      .row.collapse
+        .columns.small-1
+          span.fa.fa-usd.c-base
+        .columns.small-11
+          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+
+.row
+  <h4>Adult:Child Ratio</h4>
+  ul.no-bullet
+    li.columns.small-12
+      .row.collapse
+        .columns.small-1
+          span.fa.fa-usd.c-base
+        .columns.small-11
+          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+
+.row
+  <h4>Location</h4>
+  ul.no-bullet
+    li.columns.small-12
+      span.item-detail
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-map-marker.c-base
+          .columns.small-11
+            span ng-if="$ctrl.provider | isFacility"
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+            span ng-if="!($ctrl.provider | isFacility)"
+              |{{ $ctrl.provider.generalInfo.config1 }}
+            |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+              span ng-if="!show_map" See map
+              span ng-if="show_map" Hide map
+
+.row
+  <h4>Languages Spoken</h4>
+  ul.no-bullet
+    li.columns.small-12
+      span.item-detail
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-map-marker.c-base
+          .columns.small-11
+            span ng-if="$ctrl.provider | isFacility"
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+            span ng-if="!($ctrl.provider | isFacility)"
+              |{{ $ctrl.provider.generalInfo.config1 }}
+            |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+              span ng-if="!show_map" See map
+              span ng-if="show_map" Hide map
+.row
+  <h4>Financial Assistance</h4>
+  ul.no-bullet
+    li.columns.small-12
+      span.item-detail
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-map-marker.c-base
+          .columns.small-11
+            span ng-if="$ctrl.provider | isFacility"
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
+              |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
+            span ng-if="!($ctrl.provider | isFacility)"
+              |{{ $ctrl.provider.generalInfo.config1 }}
+            |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+
+            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+              span ng-if="!show_map" See map
+              span ng-if="show_map" Hide map
 
 .cl
 
 provider-map providers="[$ctrl.provider]" map-id="'map-provider-' + $ctrl.provider.providerId" info-window="false" ng-if="show_map"
-
-p.updated_at
-  ' Profile last updated
-  ' {{ ($ctrl.provider.lastModifiedTime | amParse:'YYYY-MM-DD HH:mm:ss') | amDateFormat: 'MMMM DD, YYYY' }}

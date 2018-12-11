@@ -13,7 +13,7 @@
 
       .row
         .small-12.medium-9.columns
-          h1.results-header Comparing {{ $ctrl.providers.length }} options
+          h1.results-header Comparing {{ $ctrl.data.providers.length }} options
 
   .row
     .small-12.medium-4.columns.padding-top-2.padding-bottom-2
@@ -22,7 +22,17 @@
         | Back to results list
 
   .row
-    compare-list providers="$ctrl.providers"
+    .small-12.columns
+      ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.currentPageProviders.length"
+        li.results-item.c-base.margin-top-4
+          h2 No providers selected to compare.
+          p Do a search for providers to select some to compare.
+
+      .row.collapse ng-if="$ctrl.data.currentPageProviders.length"
+        .small-12.medium-6.large-4.columns.compare-item ng-repeat="provider in $ctrl.data.currentPageProviders.slice(0, $ctrl.pageSize)"
+          compare-item provider="provider"
+
+      compare-pager ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
 
   .row
     .medium-4.columns

@@ -1,17 +1,14 @@
-CompareController = (ProviderService, DataService, $modal, $auth, $timeout) ->
+CompareController = (CompareService) ->
   $ctrl = @
-  $ctrl.providerIds = ProviderService.providerIdsToCompare
+  $ctrl.data  = CompareService.data
+  $ctrl.pageSize  = CompareService.pageSize
 
-  $ctrl.$onInit = () ->
-    $ctrl.providers = ProviderService.providerIdsToCompare.map((id) ->
-      DataService.searchResultsData.providers.find((p) ->
-        p.providerId == id
-      )
-    )
+  $ctrl.$onInit = ->
+    CompareService.fetchProviders()
 
-  return $ctrl
+  $ctrl
 
-CompareController.$inject = ['ProviderService', 'DataService', '$modal', '$auth', '$timeout']
+CompareController.$inject = ['CompareService']
 
 angular.module('CCR').controller('CompareController', CompareController)
 

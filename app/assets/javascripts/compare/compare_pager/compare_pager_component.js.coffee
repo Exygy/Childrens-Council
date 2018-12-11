@@ -1,0 +1,19 @@
+ComparePagerController = (CompareService) ->
+  $ctrl = @
+
+  $ctrl.prevPage = ->
+    CompareService.prevPage()
+
+  $ctrl.nextPage = ->
+    CompareService.nextPage()
+
+  $ctrl
+
+ComparePagerController.$inject = ['CompareService']
+
+angular
+  .module('CCR')
+  .component('comparePager', {
+    controller: ComparePagerController
+    templateUrl: "compare/compare_pager/compare_pager.html"
+  })

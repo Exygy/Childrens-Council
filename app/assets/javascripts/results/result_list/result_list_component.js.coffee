@@ -1,7 +1,7 @@
 ResultListController = (CompareService) ->
   $ctrl = @
   $ctrl.data
-  $ctrl.providerIdsToCompare = CompareService.providerIdsToCompare
+  $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
   return $ctrl
 

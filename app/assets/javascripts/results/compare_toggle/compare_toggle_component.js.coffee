@@ -1,7 +1,7 @@
 CompareToggleController = (CompareService, $window, $modal, $auth, $scope) ->
   $ctrl = @
   $ctrl.parent = $auth.currentUser()
-  $ctrl.providerIdsToCompare = CompareService.providerIdsToCompare
+  $ctrl.providerIdsToCompare = CompareService.data.providerIds
   maxProvidersToCompare = CompareService.maxProvidersToCompare
 
   $ctrl.addToComparisonAllowed = (checked) ->
