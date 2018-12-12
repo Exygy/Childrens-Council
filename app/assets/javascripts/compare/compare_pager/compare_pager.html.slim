@@ -1,5 +1,10 @@
 button class="left" ng-click="$ctrl.prevPage()" ng-disabled="$ctrl.data.currentPageNum == 0"
   i class="fa fa-chevron-left"
 
+span class="compare-pager-dots" ng-if="$ctrl.position == 'bottom'"
+  span ng-repeat="n in $ctrl.data.providers track by $index"
+    i.fa.fa-circle.c-blue ng-if="$index >= ($ctrl.data.currentPageNum * $ctrl.data.pageSize) && $index < (($ctrl.data.currentPageNum * $ctrl.data.pageSize) + $ctrl.data.pageSize)"
+    i.fa.fa-circle-o.c-blue ng-if="$index < ($ctrl.data.currentPageNum * $ctrl.data.pageSize) || $index >= (($ctrl.data.currentPageNum * $ctrl.data.pageSize) + $ctrl.data.pageSize)"
+
 button class="right" ng-click="$ctrl.nextPage()" ng-disabled="$ctrl.data.currentPageNum == $ctrl.data.maxPageNum"
   i class="fa fa-chevron-right"

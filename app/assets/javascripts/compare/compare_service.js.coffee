@@ -1,11 +1,13 @@
 CompareService = (DataService) ->
   $service = @
   $service.data = {
+    ageWeeks: DataService.parent.children[0].ageWeeks,
     currentPageNum: 0
     currentPageProviders: []
     hideMapPager: true
     mapFullWidth: true
     maxPageNum: 0
+    pageSize: 3
     providerIds: []
     providers: []
     showMoreDetails: false

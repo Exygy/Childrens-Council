@@ -24,8 +24,9 @@ angular
   .module('CCR')
   .component('licenseAndAges', {
     bindings:
-      enrollments: '<',
+      enrollments: '<'
       generalInfo: '<'
+      compact: '<'
     controller: LicenseAndAgesController
     templateUrl: "provider/license_and_ages/license_and_ages.html"
   })

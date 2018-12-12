@@ -29,12 +29,15 @@
         .small-12.medium-6.large-4.columns.compare-item ng-repeat="provider in $ctrl.data.currentPageProviders.slice(0, $ctrl.pageSize)"
           compare-item provider="provider"
 
-      compare-pager ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+    compare-pager class="top" position="top" ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
 
   .row ng-if="!$ctrl.data.showMoreDetails"
     .columns.small-12.padding-top-2.padding-bottom-2.text-center
-      button.compare-more-details.round.bg-blue ng-click="$ctrl.showMoreDetails()"
+      button.compare-more-details.round ng-click="$ctrl.showMoreDetails()"
         | Compare More Details
+
+  .row.margin-bottom-4 ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+    compare-pager class="margin-bottom-2" position="bottom"
 
   result-map data="$ctrl.data" ng-if="$ctrl.data.showMoreDetails"
 

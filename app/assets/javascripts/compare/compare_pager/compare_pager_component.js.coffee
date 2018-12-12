@@ -16,5 +16,7 @@ angular
   .module('CCR')
   .component('comparePager', {
     controller: ComparePagerController
+    bindings:
+      position: '@'
     templateUrl: "compare/compare_pager/compare_pager.html"
   })

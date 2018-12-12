@@ -36,7 +36,7 @@
           .columns.small-1
             span.fa.fa-usd.c-base
           .columns.small-11
-            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+            '{{ $ctrl.provider.rates | ratesToSummary: $ctrl.data.ageWeeks }}
 
       li
         .row.collapse
@@ -48,9 +48,9 @@
       li
         .row.collapse
           .columns.small-1
-            span.fa.fa-calendar-check-o.c-base
+            span.fa.fa-child.c-base
           .columns.small-11
-            '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
+            license-and-ages compact="true" general-info="$ctrl.provider.generalInfo" enrollments="$ctrl.provider.enrollments"
 
 .row.compare-item-info
   .compare-item-info-title
@@ -62,9 +62,11 @@
       li
         .row.collapse
           .columns.small-1
-            span.fa.fa-usd.c-base
+            span.fa.fa-check-circle.c-base ng-if="$ctrl.provider.attributes.meals.length > 0"
+            span.fa.fa-ban.c-base ng-if="$ctrl.provider.attributes.meals.length == 0"
           .columns.small-11
-            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+            span ng-if="$ctrl.provider.attributes.meals.length" Yes
+            span ng-if="!$ctrl.provider.attributes.meals.length" No
 
 .row.compare-item-info
   .compare-item-info-title
@@ -76,9 +78,9 @@
       li
         .row.collapse
           .columns.small-1
-            span.fa.fa-usd.c-base
+            span.fa.fa-users.c-base
           .columns.small-11
-            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+            | n/a
 
 .row.compare-item-info
   .compare-item-info-title
@@ -109,14 +111,12 @@
       li
         .row.collapse
           .columns.small-1
-            span.fa.fa-map-marker.c-base
+            span.fa.fa-check-circle.c-base
           .columns.small-11
-            span ng-if="$ctrl.provider | isFacility"
-              |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
-              |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
-            span ng-if="!($ctrl.provider | isFacility)"
-              |{{ $ctrl.provider.generalInfo.config1 }}
-            |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+            span ng-if="$ctrl.provider.languages.length"
+              ' {{ $ctrl.provider.languages.join(', ') }}
+            span ng-if="!$ctrl.provider.languages.length"
+              | No information provided
 
 .row.compare-item-info ng-class="{'hide': !$ctrl.data.showMoreDetails}"
   .compare-item-info-title
@@ -128,11 +128,9 @@
       li
         .row.collapse
           .columns.small-1
-            span.fa.fa-map-marker.c-base
+            span.fa.fa-check-circle.c-base
           .columns.small-11
-            span ng-if="$ctrl.provider | isFacility"
-              |{{ $ctrl.provider.addresses | physicalAddress: 'street1' }}
-              |{{ $ctrl.provider.addresses | physicalAddress: 'street2' }}
-            span ng-if="!($ctrl.provider | isFacility)"
-              |{{ $ctrl.provider.generalInfo.config1 }}
-            |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
+            div ng-if="$ctrl.provider.generalInfo.local1.length"
+              ' {{ $ctrl.provider.generalInfo.local1.join(', ') }}
+            div ng-if="!$ctrl.provider.generalInfo.local1.length"
+              p No information provided
