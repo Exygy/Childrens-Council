@@ -14,6 +14,7 @@ CompareService = (DataService) ->
     startIndex = $service.data.currentPageNum * $service.pageSize
     endIndex = startIndex + $service.pageSize
     $service.data.currentPageProviders = $service.data.providers.slice(startIndex, endIndex)
+    $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
 
   $service.fetchProviders = ->
     $service.data.providers = $service.data.providerIds.map((id) ->
@@ -21,7 +22,6 @@ CompareService = (DataService) ->
         p.providerId == id
       )
     )
-    $service.data.maxPageNum = Math.floor($service.data.providers.length / $service.pageSize)
     setCurrentProviders()
 
   $service.prevPage = ->
@@ -33,6 +33,13 @@ CompareService = (DataService) ->
     if $service.data.currentPageNum < $service.data.maxPageNum
       $service.data.currentPageNum++
       setCurrentProviders()
+
+  $service.removeProviderFromCompare = (id) ->
+    $service.data.providerIds.splice($service.data.providerIds.indexOf(id), 1)
+    $service.data.providers = $service.data.providers.filter((p) ->
+      p.providerId != id
+    )
+    setCurrentProviders()
 
   $service
 

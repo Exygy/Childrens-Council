@@ -1,6 +1,5 @@
-button class="left" ng-click="$ctrl.prevPage()"
+button class="left" ng-click="$ctrl.prevPage()" ng-disabled="$ctrl.data.currentPageNum == 0"
   i class="fa fa-chevron-left"
 
-button class="right" ng-click="$ctrl.nextPage()"
+button class="right" ng-click="$ctrl.nextPage()" ng-disabled="$ctrl.data.currentPageNum == $ctrl.data.maxPageNum"
   i class="fa fa-chevron-right"
-

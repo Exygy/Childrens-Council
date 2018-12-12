@@ -1,5 +1,6 @@
 ComparePagerController = (CompareService) ->
   $ctrl = @
+  $ctrl.data = CompareService.data
 
   $ctrl.prevPage = ->
     CompareService.prevPage()

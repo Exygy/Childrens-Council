@@ -1,10 +1,12 @@
 .row.collapse
-  .columns.small-12.medium-11
+  .columns.small-12
     .row.collapse
-      .columns.small-12
-      | Remove from Compare
+      .columns.small-12.compare-item-remove.padding-bottom-1
+        button.compare-item-remove ng-click="$ctrl.removeProviderFromCompare($ctrl.provider.providerId)"
+          i.fa.fa-close
+          | Remove from Compare
 
-      .columns.small-12
+      .columns.small-12.padding-bottom-1
         img.compare-headshot ng-src="{{ $ctrl.provider.images.headshot }}"
 
       .columns.small-12.medium-9.large-11

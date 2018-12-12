@@ -1,24 +1,21 @@
 #ccr-scope
-  rheader.page-header
-    header.infinite-background.page-header.padding-top-1
-      .row
-        .medium-8.small-3.columns
-          a ui-sref="search"
-            i.fa.fa-angle-left
-            | Back
-            span.hide-for-small
-              '  to Child Care Finder
-        .small-8.medium-4.columns.text-right
-          user-menu
+  header.infinite-background.page-header.padding-top-1
+    .row
+      .columns.medium-8.small-3
+        a.compare-back-to-search ui-sref="search"
+          i.fa.fa-chevron-left
+          | Back to Child Care Finder
+      .columns.small-8.medium-4.text-right
+        user-menu
 
-      .row
-        .small-12.medium-9.columns
-          h1.results-header Comparing {{ $ctrl.data.providers.length }} options
+    .row
+      .columns.small-12.medium-9
+        h1.compare-header Comparing {{ $ctrl.data.providers.length }} options
 
   .row
-    .small-12.medium-4.columns.padding-top-2.padding-bottom-2
-      a.round.button.bg-blue ui-sref="results"
-        i.fa.fa-angle-left
+    .columns.small-12.medium-4.padding-top-2.padding-bottom-2
+      a.compare-back-to-results.round.button.bg-blue ui-sref="results"
+        i.fa.fa-chevron-left
         | Back to results list
 
   .row
@@ -28,7 +25,7 @@
           h2 No providers selected to compare.
           p Do a search for providers to select some to compare.
 
-      .row.collapse ng-if="$ctrl.data.currentPageProviders.length"
+      .row ng-if="$ctrl.data.currentPageProviders.length"
         .small-12.medium-6.large-4.columns.compare-item ng-repeat="provider in $ctrl.data.currentPageProviders.slice(0, $ctrl.pageSize)"
           compare-item provider="provider"
 
