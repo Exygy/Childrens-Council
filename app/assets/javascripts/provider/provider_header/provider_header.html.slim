@@ -4,7 +4,7 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
       ul.breadcrumbs
         li
           a ui-sref="search" Find Child Care
-        li
+        li ng-show='$ctrl.search'
           a ui-sref="results" Search Results
         li.current
           a ui-sref="provider"
