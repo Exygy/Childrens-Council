@@ -2,7 +2,7 @@
   .columns.small-12
     .row.collapse
       .columns.small-12.compare-item-remove.padding-bottom-1
-        button.compare-item-remove ng-click="$ctrl.removeProviderFromCompare($ctrl.provider.providerId)"
+        span.compare-item-remove ng-click="$ctrl.removeProviderFromCompare($ctrl.provider.providerId)"
           i.fa.fa-close
           | Remove from Compare
 
@@ -10,66 +10,84 @@
         img.compare-headshot ng-src="{{ $ctrl.provider.images.headshot }}"
 
       .columns.small-12.medium-9.large-11
-        h2.item-title
-          a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
+        h2.compare-item-title
+          a href="#" ui-sref="provider({id: $ctrl.provider.providerId})"
+            span
+              | {{ $ctrl.provider | providerName }}
+            span class="compare-item-subtitle"
+              | View Profile
+
 
       .columns.small-12.medium-3.large-1.favorite-container
-        favorite provider="$ctrl.provider" show-text="false"
+        favorite provider="$ctrl.provider" compact="true"
 
       .columns.small-12.compare-badges-container
         badges attributes="$ctrl.provider.attributes" show-title="false"
 
-.cl
+.row.compare-item-info.padding-top-2
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">General Information</h4>
 
-.row
-  <h4 class="compare-item_">General Information</h4>
-  ul.no-bullet
-    li.columns.small-12
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-usd.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+  .columns.small-12
+    ul.no-bullet
+      li
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-usd.c-base
+          .columns.small-11
+            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-    li.columns.small-12
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-clock-o.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
+      li
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-clock-o.c-base
+          .columns.small-11
+            '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
 
-    li.columns.small-12
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-calendar-check-o.c-base
-        .columns.small-11
-          '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
+      li
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-calendar-check-o.c-base
+          .columns.small-11
+            '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
-.row
-  <h4>Meals Included</h4>
-  ul.no-bullet
-    li.columns.small-12
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-usd.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+.row.compare-item-info
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">Meals Included</h4>
 
-.row
-  <h4>Adult:Child Ratio</h4>
-  ul.no-bullet
-    li.columns.small-12
-      .row.collapse
-        .columns.small-1
-          span.fa.fa-usd.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+  .columns.small-12
+    ul.no-bullet
+      li
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-usd.c-base
+          .columns.small-11
+            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-.row
-  <h4>Location</h4>
-  ul.no-bullet
-    li.columns.small-12
-      span.item-detail
+.row.compare-item-info
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">Adult:Child Ratio</h4>
+
+  .columns.small-12
+    ul.no-bullet
+      li
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-usd.c-base
+          .columns.small-11
+            '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+
+.row.compare-item-info
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">Location</h4>
+
+  .columns.small-12
+    ul.no-bullet
+      li
         .row.collapse
           .columns.small-1
             span.fa.fa-map-marker.c-base
@@ -81,15 +99,14 @@
               |{{ $ctrl.provider.generalInfo.config1 }}
             |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
-              span ng-if="!show_map" See map
-              span ng-if="show_map" Hide map
+.row.compare-item-info ng-class="{'hide': !$ctrl.data.showMoreDetails}"
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">Languages Spoken</h4>
 
-.row
-  <h4>Languages Spoken</h4>
-  ul.no-bullet
-    li.columns.small-12
-      span.item-detail
+  .columns.small-12
+    ul.no-bullet
+      li
         .row.collapse
           .columns.small-1
             span.fa.fa-map-marker.c-base
@@ -101,14 +118,14 @@
               |{{ $ctrl.provider.generalInfo.config1 }}
             |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
-              span ng-if="!show_map" See map
-              span ng-if="show_map" Hide map
-.row
-  <h4>Financial Assistance</h4>
-  ul.no-bullet
-    li.columns.small-12
-      span.item-detail
+.row.compare-item-info ng-class="{'hide': !$ctrl.data.showMoreDetails}"
+  .compare-item-info-title
+    .columns.small-12
+      <h4 class="compare-item">Financial Assistance</h4>
+
+  .columns.small-12
+    ul.no-bullet
+      li
         .row.collapse
           .columns.small-1
             span.fa.fa-map-marker.c-base
@@ -119,11 +136,3 @@
             span ng-if="!($ctrl.provider | isFacility)"
               |{{ $ctrl.provider.generalInfo.config1 }}
             |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
-
-            a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
-              span ng-if="!show_map" See map
-              span ng-if="show_map" Hide map
-
-.cl
-
-provider-map providers="[$ctrl.provider]" map-id="'map-provider-' + $ctrl.provider.providerId" info-window="false" ng-if="show_map"

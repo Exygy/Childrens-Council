@@ -1,5 +1,6 @@
 CompareItemController = (CompareService) ->
   $ctrl = @
+  $ctrl.data = CompareService.data
 
   $ctrl.removeProviderFromCompare = (id) ->
     CompareService.removeProviderFromCompare(id)

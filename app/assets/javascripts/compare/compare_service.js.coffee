@@ -1,11 +1,14 @@
 CompareService = (DataService) ->
   $service = @
   $service.data = {
-    currentPageNum: 0,
-    currentPageProviders: [],
-    maxPageNum: 0,
-    providerIds: [],
+    currentPageNum: 0
+    currentPageProviders: []
+    hideMapPager: true
+    mapFullWidth: true
+    maxPageNum: 0
+    providerIds: []
     providers: []
+    showMoreDetails: false
   }
   $service.maxProvidersToCompare = 8
   $service.pageSize = 3
@@ -40,6 +43,9 @@ CompareService = (DataService) ->
       p.providerId != id
     )
     setCurrentProviders()
+
+  $service.showMoreDetails = ->
+    $service.data.showMoreDetails = true
 
   $service
 

@@ -6,6 +6,9 @@ CompareController = (CompareService) ->
   $ctrl.$onInit = ->
     CompareService.fetchProviders()
 
+  $ctrl.showMoreDetails = ->
+    CompareService.showMoreDetails()
+
   $ctrl
 
 CompareController.$inject = ['CompareService']

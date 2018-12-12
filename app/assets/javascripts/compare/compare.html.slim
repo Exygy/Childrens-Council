@@ -31,7 +31,13 @@
 
       compare-pager ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
 
-  .row
-    .medium-4.columns
-    .medium-8.columns.text-right
+  .row ng-if="!$ctrl.data.showMoreDetails"
+    .columns.small-12.padding-top-2.padding-bottom-2.text-center
+      button.compare-more-details.round.bg-blue ng-click="$ctrl.showMoreDetails()"
+        | Compare More Details
+
+  result-map data="$ctrl.data" ng-if="$ctrl.data.showMoreDetails"
+
+  .row.padding-top-2
+    .columns.medium-8.medium-offset-4.text-right
       a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
