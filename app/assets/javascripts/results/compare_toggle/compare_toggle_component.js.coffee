@@ -4,15 +4,18 @@ CompareToggleController = (CompareService, $window, $modal, $auth, $scope) ->
   $ctrl.providerIdsToCompare = CompareService.data.providerIds
   maxProvidersToCompare = CompareService.maxProvidersToCompare
 
-  $ctrl.addToComparisonAllowed = (checked) ->
-    if $ctrl.parent
-      return !checked || $ctrl.providerIdsToCompare.length < maxProvidersToCompare
-    else
+  $ctrl.onCompareClick = () ->
+    if !$ctrl.parent
       $modal.open {
         controller: 'userLoginCtrl',
         templateUrl: 'user/login/login.html',
       }
-      return false
+
+  $ctrl.addToComparisonAllowed = (checked) ->
+    if $ctrl.parent
+      !checked || $ctrl.providerIdsToCompare.length < maxProvidersToCompare
+    else
+      false
 
   $ctrl.alertIfComparisonMaxReached = (checked) ->
     if checked && $ctrl.providerIdsToCompare.length >= maxProvidersToCompare
@@ -26,7 +29,7 @@ CompareToggleController = (CompareService, $window, $modal, $auth, $scope) ->
 
   return $ctrl
 
-CompareToggleController.$inject = ['CompareService', '$window', '$modal', '$auth', '$scope',]
+CompareToggleController.$inject = ['CompareService', '$window', '$modal', '$auth', '$scope']
 
 angular
   .module('CCR')
