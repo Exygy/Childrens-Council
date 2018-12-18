@@ -75,7 +75,6 @@ gem 'loofah', '~> 2.2.3'
 gem 'rack', '~> 1.6.11'
 
 group :development, :test do
-
   gem 'rb-readline'
 
   # `rails g rspec:install`
@@ -91,6 +90,8 @@ group :development, :test do
 
   # `rails generate teaspoon:install --coffee`
   gem 'teaspoon-jasmine'
+
+  gem 'dotenv-rails'
 end
 
 group :development do
