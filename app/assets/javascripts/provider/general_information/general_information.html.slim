@@ -11,7 +11,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
     .margin-left-2
       h4.label-gray.lighter Owner
       span
-        ' {{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}.
+        ' {{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
 
   .columns.medium-6
     div ng-switch="$ctrl.provider | isFacility"
@@ -56,7 +56,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
     .margin-left-2
       h4.label-gray.lighter
         ' Teaching Approach
-      span
+      span style="word-break:keep-all; display: inline-block;"
         ' {{ ($ctrl.provider.generalInfo.local2 | filterPrograms: 'careApproaches').join(', ') }}
 
   .columns.medium-6 ng-if="($ctrl.provider.generalInfo.local2 | filterPrograms: 'religiousPrograms').length"

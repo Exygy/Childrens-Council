@@ -402,6 +402,11 @@ var monsterinsights_frontend = {"js_events_tracking":"true","is_debug_mode":"fal
 	<div id="main" class="large-8 medium-8 medium-push-4 columns">
 		<h1>Online Child Care Finder</h1>
 
+		<script>
+			window.CCR_ENV = {
+				RAILS_API_URL: "<%= ENV['RAILS_API_URL'] %>"
+			}
+		</script>
 		<%= stylesheet_link_tag "wordpress_styles", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag 'http://maps.google.com/maps/api/js?key=AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I' %>
 		<%= javascript_include_tag 'application' %>

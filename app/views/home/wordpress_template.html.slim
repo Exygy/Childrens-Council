@@ -1,3 +1,8 @@
+javascript:
+  window.CCR_ENV = {
+    RAILS_API_URL: "#{ENV['RAILS_API_URL']}"
+  }
+
 = stylesheet_link_tag "wordpress_styles", media: "all", "data-turbolinks-track" => true
 = javascript_include_tag '//maps.google.com/maps/api/js?key=AIzaSyBEDS_ZhrTUaoj4x5YdIv5rhKVf8LmGz7I'
 = javascript_include_tag 'application'

@@ -88,7 +88,7 @@ angular.module 'CCR', [
 
   .config ['$authProvider', ($authProvider) ->
     $authProvider.configure({
-      apiUrl: '<%= ENV["RAILS_API_URL"] %>/api'
+      apiUrl: CCR_ENV['RAILS_API_URL'] + '/api'
     })
   ]
   .run ['$rootScope', '$state', '$transitions', ($rootScope, $state, $transitions) ->
