@@ -1,7 +1,7 @@
 CompareController = (CompareService) ->
   $ctrl = @
-  $ctrl.data  = CompareService.data
-  $ctrl.pageSize  = CompareService.pageSize
+  $ctrl.data = CompareService.data
+  $ctrl.pageSize = CompareService.pageSize
 
   $ctrl.$onInit = ->
     CompareService.fetchProviders()

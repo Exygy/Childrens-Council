@@ -25,9 +25,8 @@
           h2 No providers selected to compare.
           p Do a search for providers to select some to compare.
 
-      .row ng-if="$ctrl.data.currentPageProviders.length"
-        .small-12.medium-6.large-4.columns.compare-item ng-repeat="provider in $ctrl.data.currentPageProviders.slice(0, $ctrl.pageSize)"
-          compare-item provider="provider"
+      compare-providers-headers providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
+      compare-providers-info providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
 
     compare-pager class="top" position="top" ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
 
