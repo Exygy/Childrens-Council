@@ -50,7 +50,8 @@
           .columns.small-1
             span.fa.fa-child.c-base
           .columns.small-11
-            license-and-ages compact="true" general-info="$ctrl.provider.generalInfo" enrollments="$ctrl.provider.enrollments"
+            span ng-repeat="enrollment in $ctrl.provider.enrollments"
+              ' {{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }}
 
 .row.compare-item-info
   .compare-item-info-title
@@ -80,7 +81,8 @@
           .columns.small-1
             span.fa.fa-users.c-base
           .columns.small-11
-            | n/a
+            div ng-repeat="enrollment in $ctrl.provider.enrollments"
+              ' {{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }}: {{ enrollment.caRatio ? '1:' + enrollment.caRatio : 'n/a' }}
 
 .row.compare-item-info
   .compare-item-info-title
