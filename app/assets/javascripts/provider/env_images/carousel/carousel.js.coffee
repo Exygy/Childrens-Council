@@ -1,11 +1,11 @@
-CarouselController = ($scope, urls)  ->
+CarouselController = ($scope, urls, selected, header)  ->
   $scope.urls = urls
-
-  $scope.tttt = [1,2,3,4]
+  $scope.selected = selected
+  $scope.header = header
 
   return @
 
-CarouselController.$inject = ['$scope', 'urls']
+CarouselController.$inject = ['$scope', 'urls', 'selected', 'header']
 
 angular
   .module('CCR')
