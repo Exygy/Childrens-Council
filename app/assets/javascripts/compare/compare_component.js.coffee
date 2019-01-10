@@ -1,10 +1,13 @@
 CompareController = (CompareService) ->
   $ctrl = @
+  $ctrl.isLoading = true
   $ctrl.data = CompareService.data
   $ctrl.pageSize = CompareService.pageSize
 
   $ctrl.$onInit = ->
-    CompareService.fetchProviders()
+    CompareService.fetchProviders(->
+      $ctrl.isLoading = false
+    )
 
   $ctrl.showMoreDetails = ->
     CompareService.showMoreDetails()

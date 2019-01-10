@@ -16,6 +16,21 @@ module Api
       render json: provider ? provider : {not_found: true}, status: provider ? 200 : 404
     end
 
+    def bulk_fetch
+      begin
+        @results = NDS.search_providers_bulk(providerIds: params[:provider_ids])
+      rescue
+        @results = {}
+      end
+
+      @results[:content].each do |provider|
+        provider[:images] = providers_images[provider['providerId'].to_s] unless Rails.env.development?
+        provider[:favorite] = true
+      end if @results[:content]
+
+      render json: @results, status: 200
+    end
+
     private
 
     # index

@@ -12,34 +12,37 @@
       .columns.small-12.medium-9
         h1.compare-header Comparing {{ $ctrl.data.providers.length }} options
 
-  .row
-    .columns.small-12.medium-4.padding-top-2.padding-bottom-2
-      a.compare-back-to-results.round.button.bg-blue ui-sref="results"
-        i.fa.fa-chevron-left
-        | Back to results list
+  .loading ng-show="$ctrl.isLoading"
 
-  .row
-    .small-12.columns
-      ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.currentPageProviders.length"
-        li.results-item.c-base.margin-top-4
-          h2 No providers selected to compare.
-          p Do a search for providers to select some to compare.
+  div ng-hide="$ctrl.isLoading"
+    .row
+      .columns.small-12.medium-4.padding-top-2.padding-bottom-2
+        a.compare-back-to-results.round.button.bg-blue ui-sref="results"
+          i.fa.fa-chevron-left
+          | Back to results list
 
-      compare-providers-headers providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
-      compare-providers-info providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
+    .row
+      .small-12.columns
+        ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.currentPageProviders.length"
+          li.results-item.c-base.margin-top-4
+            h2 No providers selected to compare.
+            p Do a search for providers to select some to compare.
 
-    compare-pager class="top" position="top" ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+        compare-providers-headers providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
+        compare-providers-info providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
 
-  .row ng-if="!$ctrl.data.showMoreDetails"
-    .columns.small-12.padding-top-2.padding-bottom-2.text-center
-      button.compare-more-details.round ng-click="$ctrl.showMoreDetails()"
-        | Compare More Details
+      compare-pager class="top" position="top" ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
 
-  .row.margin-bottom-4 ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
-    compare-pager class="margin-bottom-2" position="bottom"
+    .row ng-if="!$ctrl.data.showMoreDetails"
+      .columns.small-12.padding-top-2.padding-bottom-2.text-center
+        button.compare-more-details.round ng-click="$ctrl.showMoreDetails()"
+          | Compare More Details
 
-  result-map data="$ctrl.data" ng-if="$ctrl.data.showMoreDetails"
+    .row.margin-bottom-4 ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+      compare-pager class="margin-bottom-2" position="bottom"
 
-  .row.padding-top-2
+    result-map data="$ctrl.data" ng-if="$ctrl.data.showMoreDetails"
+
+    .row.padding-top-2
     .columns.medium-8.medium-offset-4.text-right
       a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!

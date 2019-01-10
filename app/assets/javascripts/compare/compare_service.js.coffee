@@ -1,4 +1,4 @@
-CompareService = (DataService) ->
+CompareService = (DataService, HttpService) ->
   $service = @
   $service.data = {
     ageWeeks: DataService.parent.children[0].ageWeeks,
@@ -21,13 +21,28 @@ CompareService = (DataService) ->
     $service.data.currentPageProviders = $service.data.providers.slice(startIndex, endIndex)
     $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
 
-  $service.fetchProviders = ->
-    $service.data.providers = $service.data.providerIds.map((id) ->
-      DataService.searchResultsData.providers.find((p) ->
-        p.providerId == id
-      )
+  $service.fetchProviders = (callback) ->
+    that = @
+
+    notYetFetchedIds = $service.data.providerIds.filter(
+      (id) -> !$service.data.providers.find((p) -> p.providerId == id)
     )
-    setCurrentProviders()
+
+    if notYetFetchedIds.length > 0
+      HttpService.http(
+        { method: 'POST', url: '/api/providers/bulk_fetch', data: {provider_ids: notYetFetchedIds} },
+        (response) ->
+          $service.data.providers.push(response.data.content...)
+          setCurrentProviders()
+          callback() if callback
+
+        (error) ->
+          console.log("ERROR")
+          console.log(error)
+      )
+    else
+      setCurrentProviders()
+      callback() if callback
 
   $service.prevPage = ->
     if $service.data.currentPageNum > 0
@@ -51,5 +66,5 @@ CompareService = (DataService) ->
 
   $service
 
-CompareService.$inject = ['DataService']
+CompareService.$inject = ['DataService', 'HttpService']
 angular.module('CCR').service('CompareService', CompareService)
