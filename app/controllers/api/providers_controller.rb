@@ -17,18 +17,8 @@ module Api
     end
 
     def bulk_fetch
-      begin
-        @results = NDS.search_providers_bulk(providerIds: params[:provider_ids])
-      rescue
-        @results = {}
-      end
-
-      @results[:content].each do |provider|
-        provider[:images] = providers_images[provider['providerId'].to_s] unless Rails.env.development?
-        provider[:favorite] = true
-      end if @results[:content]
-
-      render json: @results, status: 200
+      results = search_providers_bulk(params[:provider_ids])
+      render json: results, status: 200
     end
 
     private
@@ -41,28 +31,10 @@ module Api
       rescue
         @results = {}
       end
-      favorites = @resource.present? ? @resource.favorites : []
 
-      @results[:content].each do |provider_data|
-        provider_data[:images] = providers_images[provider_data["providerId"].to_s] unless Rails.env.development?
-        provider_data[:favorite] = favorites.any?{|f| f.provider_id == provider_data["providerId"]}
-      end if @results[:content]
+      add_provider_images_and_favorites(@results[:content])
 
       @results
-    end
-
-    def meta_data(age_group_type_id)
-      return @meta_data[age_group_type_id] if @meta_data and @meta_data[age_group_type_id]
-      @meta_data ||= {}
-      @meta_data[age_group_type_id] = NDS.get_agency_option(age_group_type_id).first["value"]
-    end
-
-    def providers_images
-      @providers_images ||= ProviderImageService.get(provider_ids)
-    end
-
-    def provider_ids
-      @results[:content].collect{ |provider_data| provider_data["providerId"] }
     end
 
     # show
@@ -75,12 +47,45 @@ module Api
       end
     end
 
+    # bulk_fetch
+
+    def search_providers_bulk(provider_ids)
+      begin
+        @results = NDS.search_providers_bulk(providerIds: provider_ids)
+      rescue
+        @results = {}
+      end
+
+      add_provider_images_and_favorites(@results[:content])
+
+      @results
+    end
+
+    # general
+
+    def provider_id
+      params[:id]
+    end
+
+    def provider_ids
+      @results[:content].collect{ |provider_data| provider_data['providerId'] }
+    end
+
     def provider_images
       ProviderImageService.get(provider_id)
     end
 
-    def provider_id
-      params[:id]
+    def providers_images
+      @providers_images ||= ProviderImageService.get(provider_ids)
+    end
+
+    def add_provider_images_and_favorites(providers)
+      favorites = @resource.present? ? @resource.favorites : []
+
+      providers.each do |provider|
+        provider[:images] = providers_images[provider['providerId'].to_s] unless Rails.env.development?
+        provider[:favorite] = favorites.any?{ |f| f.provider_id == provider['providerId'] }
+      end if providers
     end
 
     def provider_params
