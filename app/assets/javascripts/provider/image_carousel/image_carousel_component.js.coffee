@@ -1,4 +1,4 @@
-ImageCarouselController = ($scope) ->
+ImageCarouselController = ($scope, $anchorScroll, $location) ->
   $ctrl = @
 
   @onImageClick = (image) ->
@@ -28,10 +28,14 @@ ImageCarouselController = ($scope) ->
     index = _.indexOf($ctrl.images, $ctrl.selected)
     if index - 1 >= 0
       $ctrl.selected = $ctrl.images[index - 1]
+      
+  @scroll = ->
+    elem = angular.element(document.querySelector('#scroll'))
+
 
   return $ctrl
 
-ImageCarouselController.$inject = ['$scope']
+ImageCarouselController.$inject = ['$scope', '$anchorScroll', '$location']
 
 angular
   .module('CCR')

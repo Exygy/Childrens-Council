@@ -1,18 +1,32 @@
 
-.row ng-if="$ctrl.header"
-  .columns.small-1
-    a.oval ng-class="{disabled: $ctrl.isFirst()}" ng-click="$ctrl.previous()"
-      i.fa.fa-chevron-left
-  .columns.small-10
-    h3 
-      | {{ $ctrl.header }}
-      img ng-src="{{$ctrl.selected}}"
-  .columns.small-1
-    a.oval ng-class="{disabled: $ctrl.isLast()}" ng-click="$ctrl.next()"
-      i.fa.fa-chevron-right
-.row
-  .columns.small-12
-    .carousel-container
-      .carousel-scroll 
-        span ng-repeat="(key, image) in $ctrl.images" ng-if="$ctrl.images"
-          img.carousel-item ng-src="{{image}}" ng-click="$ctrl.onImageClick(image)" ng-class="{active: $ctrl.isActive(image)}"
+.ccr-scope
+  .row.carousel-control ng-if="$ctrl.header"
+    .columns.medium-1.small-2
+      .carousel-control
+        .carousel-btn
+          a.oval ng-class="{disabled: $ctrl.isFirst()}" ng-click="$ctrl.previous()"
+            i.fa.fa-chevron-left
+    .columns.small-8.medium-10
+      h2
+        | {{ $ctrl.header }}
+      .carousel-image
+        img ng-src="{{$ctrl.selected}}"
+      .carousel-container
+        #scroll.carousel-scroll 
+          span ng-repeat="(key, image) in $ctrl.images" ng-if="$ctrl.images" id="image-{{key}}"
+            img.carousel-item ng-src="{{image}}" ng-click="$ctrl.onImageClick(image)" ng-class="{active: $ctrl.isActive(image)}"
+      
+    .columns.medium-1.small-2
+      .carousel-control
+        .carousel-btn
+          a.oval ng-class="{disabled: $ctrl.isLast()}" ng-click="$ctrl.next()"
+            i.fa.fa-chevron-right
+  .row ng-if="!$ctrl.header"
+    .columns.small-12
+      .carousel-container
+        #scroll.carousel-scroll 
+          span ng-repeat="(key, image) in $ctrl.images" ng-if="$ctrl.images" id="image-{{key}}"
+            img.carousel-item ng-src="{{image}}" ng-click="$ctrl.onImageClick(image)" ng-class="{active: $ctrl.isActive(image)}"
+
+        / a.oval ng-click="$ctrl.scroll()"
+        /   i.fa.fa-chevron-right
