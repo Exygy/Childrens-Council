@@ -19,7 +19,13 @@ CompareService = (DataService, HttpService) ->
     startIndex = $service.data.currentPageNum * $service.pageSize
     endIndex = startIndex + $service.pageSize
     $service.data.currentPageProviders = $service.data.providers.slice(startIndex, endIndex)
-    $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
+
+    if $service.data.currentPageProviders.length <= 0 && $service.data.currentPageNum > 0
+      $service.data.currentPageNum--
+      setCurrentProviders()
+    else
+      $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
+
 
   $service.fetchProviders = (callback) ->
     that = @
