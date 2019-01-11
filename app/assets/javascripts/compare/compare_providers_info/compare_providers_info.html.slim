@@ -26,8 +26,8 @@
           .columns.small-1
             span.fa.fa-child.c-base
           .columns.small-11
-            span ng-repeat="enrollment in provider.enrollments"
-              | {{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }}
+            span
+              | {{ provider | formatYearsMonthsWeeksAge: provider.ageGroupFrom }} - {{ provider | formatYearsMonthsWeeksAge: provider.ageGroupTo }}
 
 .row.padding-bottom-2
   .columns.small-12
