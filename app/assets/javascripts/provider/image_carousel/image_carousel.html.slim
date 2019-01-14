@@ -12,9 +12,13 @@
       .carousel-image
         img ng-src="{{$ctrl.selected}}"
       .carousel-container
-        #scroll.carousel-scroll 
+        a.oval.scroll-btn.scroll-left ng-click="$ctrl.scrollLeft('#modal-scroll')" ng-if="$ctrl.scrollLeftVisible('#modal-scroll')"
+          i.fa.fa-chevron-left
+        #modal-scroll.carousel-scroll 
           span ng-repeat="(key, image) in $ctrl.images" ng-if="$ctrl.images" id="image-{{key}}"
             img.carousel-item ng-src="{{image}}" ng-click="$ctrl.onImageClick(image)" ng-class="{active: $ctrl.isActive(image)}"
+        a.oval.scroll-btn.scroll-right ng-click="$ctrl.scrollRight('#modal-scroll')" ng-if="$ctrl.scrollRightVisible('#modal-scroll')"
+          i.fa.fa-chevron-right
       
     .columns.medium-1.small-2
       .carousel-control
@@ -24,9 +28,11 @@
   .row ng-if="!$ctrl.header"
     .columns.small-12
       .carousel-container
+        a.oval.scroll-btn.scroll-left ng-click="$ctrl.scrollLeft('#scroll')" ng-if="$ctrl.scrollLeftVisible('#scroll')"
+          i.fa.fa-chevron-left
         #scroll.carousel-scroll 
           span ng-repeat="(key, image) in $ctrl.images" ng-if="$ctrl.images" id="image-{{key}}"
             img.carousel-item ng-src="{{image}}" ng-click="$ctrl.onImageClick(image)" ng-class="{active: $ctrl.isActive(image)}"
+        a.oval.scroll-btn.scroll-right ng-click="$ctrl.scrollRight('#scroll')" ng-if="$ctrl.scrollRightVisible('#scroll')"
+          i.fa.fa-chevron-right
 
-        / a.oval ng-click="$ctrl.scroll()"
-        /   i.fa.fa-chevron-right

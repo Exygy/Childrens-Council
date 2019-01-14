@@ -29,9 +29,38 @@ ImageCarouselController = ($scope, $anchorScroll, $location) ->
     if index - 1 >= 0
       $ctrl.selected = $ctrl.images[index - 1]
       
-  @scroll = ->
-    elem = angular.element(document.querySelector('#scroll'))
+  @scrollLeft = (scrollId) ->
+    elem = angular.element(document.querySelector(scrollId))
+    images = elem.children()
+    marker = elem[0].scrollLeft
+    i = 0
+    if marker > 1
+      while marker - images[i].offsetWidth > 0
+        marker = marker - images[i].offsetWidth
+        i += 1
+      elem[0].scrollLeft -= marker
+      
+  @scrollLeftVisible = (scrollId)  ->
+    elem = angular.element(document.querySelector(scrollId))
+    elem[0].scrollLeft > 0
 
+  @scrollRight = (scrollId) ->
+    elem = angular.element(document.querySelector(scrollId))
+    position = elem.width() + elem.scrollLeft()
+    marker = elem[0].scrollWidth # full width
+    i = 0
+    reversedImages = _.reverse(elem.children())
+    if marker > position
+      while marker - reversedImages[i].offsetWidth > position
+        marker = marker - reversedImages[i].offsetWidth
+        i += 1
+      if marker - position < 10
+        marker += reversedImages[i].offsetWidth
+      elem[0].scrollLeft += marker - position
+
+  @scrollRightVisible = (scrollId) ->
+    elem = angular.element(document.querySelector(scrollId))
+    Math.ceil(elem[0].scrollLeft + elem.width()) < elem[0].scrollWidth
 
   return $ctrl
 
