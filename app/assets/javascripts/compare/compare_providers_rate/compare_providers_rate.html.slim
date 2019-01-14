@@ -1,0 +1,3 @@
+div ng-repeat="rate in $ctrl.ratesForAge"
+  div ng-repeat="r in (rate | formatRate) track by $index"
+    | {{ r }}

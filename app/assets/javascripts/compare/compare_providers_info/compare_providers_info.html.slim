@@ -10,7 +10,7 @@
           .columns.small-1
             span.fa.fa-usd.c-base
           .columns.small-11
-            | {{ provider.rates | ratesToSummary: $ctrl.data.ageWeeks }}
+            compare-providers-rate rates="provider.rates" child="$ctrl.data.child"
 
     .row.collapse.compare-info-row
       .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
@@ -44,21 +44,6 @@
           .columns.small-11
             span ng-if="provider.attributes.meals.length" Yes
             span ng-if="!provider.attributes.meals.length" No
-
-.row.padding-bottom-2
-  .columns.small-12
-    .compare-info-title
-      <h4>Adult:Child Ratio</h4>
-
-  .columns.small-12
-    .row.collapse.compare-info-row
-      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
-        .row.collapse
-          .columns.small-1
-            span.fa.fa-users.c-base
-          .columns.small-11
-            div ng-repeat="enrollment in provider.enrollments"
-              | {{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }}: {{ enrollment.caRatio ? '1:' + enrollment.caRatio : 'n/a' }}
 
 .row.padding-bottom-2
   .columns.small-12
