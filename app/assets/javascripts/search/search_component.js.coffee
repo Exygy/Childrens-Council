@@ -62,10 +62,10 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
       $scope.loading = true
       SearchService.postSearch(
         () -> $state.go('results'),
-        {deleteApiKey: true, reset: true},
+        { deleteApiKey: true, reset: true },
       )
     else
-      $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800);
+      $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800)
     return
 
   $scope.addItem = (collection) ->
@@ -101,8 +101,9 @@ angular.module('CCR').controller('SearchController', SearchController)
 angular
   .module('CCR')
   .component('search', {
-    bindings:
+    bindings: {
       token: '<'
+    }
     controller: SearchController
     templateUrl: "search/search.html"
   })
