@@ -50,11 +50,11 @@
       .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
         .row.collapse
           .columns.small-1
-            span.fa.fa-check-circle.c-base ng-if="provider.attributes.meals.length > 0"
-            span.fa.fa-ban.c-base ng-if="provider.attributes.meals.length == 0"
+            span.fa.fa-check-circle.c-base ng-if="provider.attributes.meals && provider.attributes.meals.length > 0"
+            span.fa.fa-ban.c-base ng-if="!provider.attributes.meals || provider.attributes.meals.length <= 0"
           .columns.small-11
-            span ng-if="provider.attributes.meals.length" Yes
-            span ng-if="!provider.attributes.meals.length" No
+            span ng-if="provider.attributes.meals && provider.attributes.meals.length > 0" Yes
+            span ng-if="!provider.attributes.meals || provider.attributes.meals.length <= 0" No
 
 .row.padding-bottom-2 ng-class="{'hide': !$ctrl.data.showMoreDetails}"
   .columns.small-12

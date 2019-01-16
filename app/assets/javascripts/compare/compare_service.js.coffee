@@ -26,9 +26,15 @@ CompareService = (DataService, HttpService) ->
     else
       $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
 
-
   $service.fetchProviders = (callback) ->
     that = @
+
+    # If there are providers in $service.data.providers that are no longer
+    # in the $service.data.providerIds list, remove those providers. The
+    # list of providerIds is the definitive source.
+    $service.data.providers = $service.data.providers.filter(
+      (p) -> $service.data.providerIds.find((id) -> p.providerId == id)
+    )
 
     notYetFetchedIds = $service.data.providerIds.filter(
       (id) -> !$service.data.providers.find((p) -> p.providerId == id)
