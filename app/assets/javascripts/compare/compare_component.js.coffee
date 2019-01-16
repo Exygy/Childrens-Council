@@ -5,6 +5,7 @@ CompareController = (CompareService) ->
   $ctrl.pageSize = CompareService.pageSize
 
   $ctrl.$onInit = ->
+    CompareService.resetCurrentPage()
     CompareService.fetchProviders(->
       $ctrl.isLoading = false
     )

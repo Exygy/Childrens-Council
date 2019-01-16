@@ -26,6 +26,9 @@ CompareService = (DataService, HttpService) ->
     else
       $service.data.maxPageNum = Math.ceil($service.data.providers.length / $service.pageSize) - 1
 
+  $service.resetCurrentPage = ->
+    $service.data.currentPageNum = 0
+
   $service.fetchProviders = (callback) ->
     that = @
 
