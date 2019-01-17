@@ -2,24 +2,32 @@
 .row.collapse
   .columns.small-2.logo
     img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
-  .columns.small-9.medium-7.padding-left-1
+  .columns.small-9.medium-10.padding-left-1
     h2.item-title
       a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
       br.show-for-small-only
       span
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
+      div.show-for-small-only ng-switch="$ctrl.provider | isFacility"
+        t.fa.fa-building.c-gainsboro ng-switch-when="true"
+        t ng-switch-when="true" Child Care Center
+        t.fa.fa-home.c-gainsboro ng-switch-when="false"
+        t ng-switch-when="false" Family Child Care
+    .row.collapse.hide-for-small
+      .columns.medium-6.compare-toggle-container
+        compare-toggle provider="$ctrl.provider"
+      .columns.medium-6
+        favorite provider="$ctrl.provider" show-text="true"
+  .columns.small-1.favorite-container.show-for-small-only
+    favorite provider="$ctrl.provider" show-text="false"
+.row.collapse
+  .columns.medium-12.show-for-medium-up
+    h2.item-title
       div ng-switch="$ctrl.provider | isFacility"
         t.fa.fa-building.c-gainsboro ng-switch-when="true"
         t ng-switch-when="true" Child Care Center
         t.fa.fa-home.c-gainsboro ng-switch-when="false"
         t ng-switch-when="false" Family Child Care
-  .columns.medium-3
-    .row.collapse
-      .columns.hide-for-small.medium-6.compare-toggle-container
-        compare-toggle provider="$ctrl.provider"
-      .columns.small-12.medium-6.favorite-container
-        favorite provider="$ctrl.provider" show-text="false"
-
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
 
@@ -28,7 +36,7 @@ badges attributes="$ctrl.provider.attributes" show-title="false"
 .cl
 
 ul.general-info.row
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -39,7 +47,7 @@ ul.general-info.row
           span ng-if="!$ctrl.provider.phone"
             'n/a
 
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -47,7 +55,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
 
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -59,7 +67,7 @@ ul.general-info.row
             '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
           span ng-if="!$ctrl.provider.website && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
 
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -67,7 +75,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -75,7 +83,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-  li.columns.small-12.medium-6
+  li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1

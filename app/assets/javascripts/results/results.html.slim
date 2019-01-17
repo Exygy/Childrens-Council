@@ -32,25 +32,25 @@
                   button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
                     | Map
 
-  .row.showing-container
-    .columns.small-5.medium-4
-      results-showing data="$ctrl.data"
-    .columns.small-7.medium-8
-      .row.c-base ng-if="$ctrl.data.providers.length"
-        .small-12.columns.text-right
-          p.results-showing
-            span Sort by:
-            span.margin-left-small
-              span ng-hide="settings.locationType == 'address' && filters.address" Random
-              span ng-show="settings.locationType == 'address' && filters.address" Distance
-              span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'address' && filters.address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
-              span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'address' && filters.address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+      .row.showing-container
+        .columns.small-5.medium-4
+          results-showing data="$ctrl.data"
+        .columns.small-7.medium-8
+          .row.c-base ng-if="$ctrl.data.providers.length"
+            .small-12.columns.text-right
+              p.results-showing
+                span Sort by:
+                span.margin-left-small
+                  span ng-hide="settings.locationType == 'address' && filters.address" Random
+                  span ng-show="settings.locationType == 'address' && filters.address" Distance
+                  span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'address' && filters.address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+                  span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'address' && filters.address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
   .row
-    .medium-4.columns.hide-for-small
+    .medium-12.columns.hide-for-small.filters-container
       .show-for-medium-up ng-include="'results/results_sidebar.html'"
-
-    result-map data="$ctrl.data" ng-if="$ctrl.showMap"
-    result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
+  .row.results-container
+    result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}" 
+    result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns
