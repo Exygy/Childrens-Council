@@ -1,4 +1,4 @@
-.row
+.row.padding-bottom-2
   .columns.small-12.medium-6.large-4.compare-provider-header ng-repeat="provider in $ctrl.providers"
     .row.collapse
       .columns.small-12.compare-provider-remove.padding-bottom-1
@@ -21,3 +21,6 @@
 
       .columns.small-12
         badges attributes="provider.attributes" show-title="false"
+
+      .columns.small-12
+        qris-rating qris="provider.attributes.qualityRating" inline="true"
