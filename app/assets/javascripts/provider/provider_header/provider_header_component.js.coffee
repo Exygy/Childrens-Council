@@ -20,6 +20,8 @@ angular
   .component('providerHeader', {
     bindings:
       provider: '<'
+      search: '<'
+
     controller: ProviderHeaderController
     templateUrl: "provider/provider_header/provider_header.html"
   })

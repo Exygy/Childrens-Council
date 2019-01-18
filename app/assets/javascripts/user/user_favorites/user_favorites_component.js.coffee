@@ -14,7 +14,6 @@ UserFavoritesController = ($timeout, $anchorScroll, $scope, FavoriteService) ->
     $ctrl.favorites = data
     $ctrl.isLoading = false
 
-
   return $ctrl
 
 UserFavoritesController.$inject = ['$timeout', '$anchorScroll', '$scope', 'FavoriteService']

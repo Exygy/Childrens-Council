@@ -47,7 +47,7 @@ module Api
     end
 
     def provider_ids
-      @results.collect{ |provider_data| provider_data["providerId"] }
+      @results[:content].collect{ |provider_data| provider_data['providerId'] }
     end
 
     def providers_images

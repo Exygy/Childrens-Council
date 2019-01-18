@@ -1,10 +1,16 @@
-span ng-if="$ctrl.qris"
-  h3
-    ' Quality Rating
-    a target="_blank" href="http://qualityconnections.first5sf.org/families/"
-      span.fa.fa-info-circle.tip-top data-width="250" tooltip="Learn more about the QRIS Rating" tooltip-placement="left"
+span.badge.quality-rating ng-if="$ctrl.qris"
+  span ng-if="!$ctrl.inline"
+    h3
+      ' Quality Rating
+      a target="_blank" href="http://qualityconnections.first5sf.org/families/"
+        span.fa.fa-info-circle.tip-top data-width="250" tooltip="Learn more about the QRIS Rating" tooltip-placement="left"
 
-  span.pull-right
-    span.fa.fa-star ng-repeat="star in [1,2,3,4,5]" ng-class="{yellow: (star <= $ctrl.qris)}"
+    span.pull-right
+      span.fa.fa-star ng-repeat="star in [1,2,3,4,5]" ng-class="{yellow: (star <= $ctrl.qris)}"
 
-  .cl
+    .cl
+
+  span ng-if="$ctrl.inline"
+    span
+      ' Quality Rating:&nbsp;
+      span.fa.fa-star ng-repeat="star in [1,2,3,4,5]" ng-class="{yellow: (star <= $ctrl.qris)}"

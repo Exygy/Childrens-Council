@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'providers/' => 'home#index'
   get 'providers/:id' => 'home#index'
 
+  get 'compare' => 'home#index'
+
   get 'reset_password/:reset_token' => 'home#index', as: 'reset_password'
   get 'account' => 'home#index'
   get 'account/:id' => 'home#index'
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     post 'providers' => 'providers#index'
+    post 'providers/bulk_fetch' => 'providers#bulk_fetch'
     post 'providers/:id' => 'providers#show'
 
     resources :favorites, only: [:create, :destroy, :index]

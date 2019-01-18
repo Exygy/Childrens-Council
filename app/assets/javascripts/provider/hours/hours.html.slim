@@ -15,7 +15,7 @@ h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="hours
           span ng-if="!($ctrl.shiftDays | providerIsClosed:day)"
             ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
             br
-            ' TO
+            ' to
             br
             ' {{ ( ($ctrl.shiftDays | shiftDay:day).endTime ) | formatProviderStartEndDate }}
 .show-for-small
@@ -29,6 +29,6 @@ h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="hours
         span ng-if="!($ctrl.shiftDays | providerIsClosed:day)"
           ' {{ ( ($ctrl.shiftDays | shiftDay:day).startTime ) | formatProviderStartEndDate }}
           br
-          ' TO
+          ' to
           br
           ' {{ ( ($ctrl.shiftDays | shiftDay:day).endTime ) | formatProviderStartEndDate }}

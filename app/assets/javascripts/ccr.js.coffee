@@ -42,6 +42,11 @@ angular.module 'CCR', [
           ]
         }
       })
+      .state('compare', {
+        url: '/compare',
+        component: 'compare',
+        onEnter: hideSidebar,
+      })
       .state('reset_password', {
         url: '/reset_password/:token/',
         component: 'search',
@@ -88,7 +93,7 @@ angular.module 'CCR', [
 
   .config ['$authProvider', ($authProvider) ->
     $authProvider.configure({
-      apiUrl: '<%= ENV["RAILS_API_URL"] %>/api'
+      apiUrl: CCR_ENV['RAILS_API_URL'] + '/api'
     })
   ]
   .run ['$rootScope', '$state', '$transitions', ($rootScope, $state, $transitions) ->

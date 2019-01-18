@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.19'
+gem 'nds_api', '0.1.20'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -70,8 +70,11 @@ gem 'newrelic_rpm'
 
 gem 'kaminari', '~> 1.1.1'
 
-group :development, :test do
+# Enforce dependency versions to avoid vulnerabilities
+gem 'loofah', '~> 2.2.3'
+gem 'rack', '~> 1.6.11'
 
+group :development, :test do
   gem 'rb-readline'
 
   # `rails g rspec:install`
@@ -87,6 +90,8 @@ group :development, :test do
 
   # `rails generate teaspoon:install --coffee`
   gem 'teaspoon-jasmine'
+
+  gem 'dotenv-rails'
 end
 
 group :development do
