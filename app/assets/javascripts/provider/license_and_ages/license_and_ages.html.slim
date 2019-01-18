@@ -1,7 +1,7 @@
-a name="licenses"
-h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="licenses" License & Ages Served
+a name="licenses" ng-if="!$ctrl.compact"
+h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="licenses" ng-if="!$ctrl.compact" License & Ages Served
 
-table.table-lines
+table.table-lines ng-if="!$ctrl.compact"
   thead
     tr
       th
@@ -17,8 +17,11 @@ table.table-lines
           | \#{{$ctrl.generalInfo[license_field]}}
       td
         span
-          | {{  enrollmentField(license_field, 'ageGroup') | friendlyAgeGroup }}: {{  enrollmentField(license_field, 'ageGroupTypeId') | toAgeGroupType | friendlyAgeGroupType }}
+          | {{ enrollmentField(license_field, 'ageGroup') | friendlyAgeGroup }}: {{ enrollmentField(license_field, 'ageGroupTypeId') | toAgeGroupType | friendlyAgeGroupType }}
 
       td
         span
-          | {{  enrollmentField(license_field, 'licensedCapacity') }}
+          | {{ enrollmentField(license_field, 'licensedCapacity') }}
+
+span ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field] && $ctrl.compact"
+  | Fcc: {{ enrollmentField(license_field, 'ageGroupTypeId') | toAgeGroupType | friendlyAgeGroupType }}

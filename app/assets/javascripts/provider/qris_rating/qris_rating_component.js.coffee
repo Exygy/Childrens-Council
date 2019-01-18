@@ -9,6 +9,7 @@ angular
   .component('qrisRating', {
     bindings:
       qris: '<'
+      inline: '<'
     controller: QrisRatingController
     templateUrl: "provider/qris_rating/qris_rating.html"
   })

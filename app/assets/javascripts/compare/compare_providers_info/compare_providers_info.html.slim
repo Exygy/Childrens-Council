@@ -1,0 +1,97 @@
+.row.padding-bottom-2
+  .columns.small-12
+    .compare-info-title
+      <h4>Program Details</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-usd.c-base
+          .columns.small-11
+            compare-providers-rate rates="provider.rates" child="$ctrl.data.child"
+
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-clock-o.c-base
+          .columns.small-11
+            | {{ provider.shiftDays | scheduleHoursToSummary }}
+
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-child.c-base
+          .columns.small-11
+            span
+              | {{ provider | formatYearsMonthsWeeksAge: provider.ageGroupFrom }} - {{ provider | formatYearsMonthsWeeksAge: provider.ageGroupTo }}
+
+.row.padding-bottom-2
+  .columns.small-12
+    .compare-info-title
+      <h4>Teaching Approach</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-heart.c-base
+          .columns.small-11
+            span ng-if="provider.generalInfo.local2 && provider.generalInfo.local2.length > 0"
+              | {{ (provider.generalInfo.local2 | filterPrograms: 'careApproaches').join(', ') }}
+            span ng-if="!provider.generalInfo.local2 || provider.generalInfo.local2.length <= 0"
+              | Please contact provider for details
+
+.row.padding-bottom-2
+  .columns.small-12
+    .compare-info-title
+      <h4>Meals Included</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-check-circle.c-base ng-if="provider.attributes.meals && provider.attributes.meals.length > 0"
+            span.fa.fa-ban.c-base ng-if="!provider.attributes.meals || provider.attributes.meals.length <= 0"
+          .columns.small-11
+            span ng-if="provider.attributes.meals && provider.attributes.meals.length > 0" Yes
+            span ng-if="!provider.attributes.meals || provider.attributes.meals.length <= 0" No
+
+.row.padding-bottom-2 ng-class="{'hide': !$ctrl.data.showMoreDetails}"
+  .columns.small-12
+    .compare-info-title
+      <h4>Languages Spoken</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-check-circle.c-base
+          .columns.small-11
+            span ng-if="provider.languages.length"
+              | {{ provider.languages.join(', ') }}
+            span ng-if="!provider.languages.length"
+              | No information provided
+
+.row.padding-bottom-2 ng-class="{'hide': !$ctrl.data.showMoreDetails}"
+  .columns.small-12
+    .compare-info-title
+      <h4>Financial Assistance</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-check-circle.c-base
+          .columns.small-11
+            div ng-if="provider.generalInfo.local1.length"
+              | Accepts {{ provider.generalInfo.local1.join(', Accepts ') }}
+            div ng-if="!provider.generalInfo.local1.length"
+              p No information provided

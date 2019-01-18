@@ -2,7 +2,7 @@
 .row.collapse
   .columns.small-2.logo
     img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
-  .columns.small-9.medium-8.padding-left-1
+  .columns.small-9.medium-7.padding-left-1
     h2.item-title
       a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
       br.show-for-small-only
@@ -13,8 +13,12 @@
         t ng-switch-when="true" Child Care Center
         t.fa.fa-home.c-gainsboro ng-switch-when="false"
         t ng-switch-when="false" Family Child Care
-  .columns.small-1.medium-2.favorite-container
-    favorite provider="$ctrl.provider" show-text="false"
+  .columns.medium-3
+    .row.collapse
+      .columns.hide-for-small.medium-6.compare-toggle-container
+        compare-toggle provider="$ctrl.provider"
+      .columns.small-12.medium-6.favorite-container
+        favorite provider="$ctrl.provider" show-text="false"
 
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}

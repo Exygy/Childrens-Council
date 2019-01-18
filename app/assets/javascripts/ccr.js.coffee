@@ -42,6 +42,11 @@ angular.module 'CCR', [
           ]
         }
       })
+      .state('compare', {
+        url: '/compare',
+        component: 'compare',
+        onEnter: hideSidebar,
+      })
       .state('reset_password', {
         url: '/reset_password/:token/',
         component: 'search',

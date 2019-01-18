@@ -1,0 +1,6 @@
+div ng-repeat="rate in $ctrl.ratesForAge" ng-if="$ctrl.ratesForAge.length > 0"
+  div ng-repeat="r in (rate | formatRate) track by $index"
+    | {{ r }}
+
+div ng-if="$ctrl.ratesForAge.length <= 0"
+  | Please contact provider for details

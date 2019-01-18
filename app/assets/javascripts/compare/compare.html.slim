@@ -1,0 +1,48 @@
+#ccr-scope
+  header.infinite-background.page-header.padding-top-1
+    .row
+      .columns.medium-8.small-3
+        a.compare-back-to-search ui-sref="search"
+          i.fa.fa-chevron-left
+          | Back to Child Care Finder
+      .columns.small-8.medium-4.text-right
+        user-menu
+
+    .row
+      .columns.small-12.medium-9
+        h1.compare-header Comparing {{ $ctrl.data.providers.length }} options
+
+  .loading ng-show="$ctrl.isLoading"
+
+  div ng-hide="$ctrl.isLoading"
+    .row
+      .columns.small-12.medium-4.padding-top-2.padding-bottom-2
+        a.compare-back-to-results.round.button.bg-blue ui-sref="results"
+          i.fa.fa-chevron-left
+          | Back to results list
+
+    .row
+      .small-12.columns
+        ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.currentPageProviders.length"
+          li.results-item.c-base.margin-top-4
+            h2 No providers selected to compare.
+            p Do a search for providers to select some to compare.
+
+        compare-providers-headers providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
+        compare-providers-info providers="$ctrl.data.currentPageProviders" ng-if="$ctrl.data.currentPageProviders.length"
+
+      compare-pager class="top" position="top" ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+
+    .row ng-if="!$ctrl.data.showMoreDetails"
+      .columns.small-12.padding-top-2.padding-bottom-2.text-center
+        button.compare-more-details.round ng-click="$ctrl.showMoreDetails()"
+          | Compare More Details
+
+    .row.margin-bottom-4 ng-if="$ctrl.data.providers.length > $ctrl.pageSize"
+      compare-pager class="margin-bottom-2" position="bottom"
+
+    result-map data="$ctrl.data" ng-if="$ctrl.data.showMoreDetails"
+
+    .row.padding-top-2
+    .columns.medium-8.medium-offset-4.text-right
+      a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!

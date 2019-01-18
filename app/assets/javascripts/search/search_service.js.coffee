@@ -47,7 +47,6 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
       delete params.address
       delete params.zips
 
-
   # Reformat and rename program params to match API fields.
   $service.setPrograms = (params) ->
     # The API field used to search for care approaches and religious programs

@@ -42,6 +42,7 @@ angular
     bindings:
       provider: '<'
       showText: '<'
+      compact: '<'
     controller: FavoriteController
     templateUrl: "provider/favorite/favorite.html"
   })

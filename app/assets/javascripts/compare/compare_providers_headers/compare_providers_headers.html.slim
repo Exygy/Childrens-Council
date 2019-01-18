@@ -1,0 +1,26 @@
+.row.padding-bottom-2
+  .columns.small-12.medium-6.large-4.compare-provider-header ng-repeat="provider in $ctrl.providers"
+    .row.collapse
+      .columns.small-12.compare-provider-remove.padding-bottom-1
+        span ng-click="$ctrl.removeProviderFromCompare(provider.providerId)"
+          i.fa.fa-close
+          | Remove from Compare
+
+      .columns.small-12.padding-bottom-1
+        img.compare-headshot ng-src="{{provider.images.headshot}}"
+
+      .columns.small-12.medium-9.large-11
+        h2.compare-provider-title
+          a ui-sref="provider({id: provider.providerId})"
+            | {{ provider | providerName }}
+        a.compare-provider-subtitle ui-sref="provider({id: provider.providerId})"
+          | View Profile
+
+      .columns.small-12.medium-3.large-1.favorite-container
+        favorite provider="provider" compact="true"
+
+      .columns.small-12
+        badges attributes="provider.attributes" show-title="false"
+
+      .columns.small-12
+        qris-rating qris="provider.attributes.qualityRating" inline="true"
