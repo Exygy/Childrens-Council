@@ -11,6 +11,7 @@ angular.module 'CCR', [
   'ngSanitize',
   'templates',
   'truncate',
+  'ui.carousel',
   'ui.select',
   'ui.slider',
   'ui.router',
@@ -82,7 +83,7 @@ angular.module 'CCR', [
     delete $httpProvider.defaults.headers.common['X-Requested-With']
     $httpProvider.defaults.headers.common['Accept'] = 'application/json'
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
-    $httpProvider.interceptors.push('APIInterceptor')
+    $httpProvider.interceptors.push('APIInterceptor');
   ]
 
   .config ['$authProvider', ($authProvider) ->

@@ -21,12 +21,9 @@ config/database.yml
 vendor/assets/stylesheets/style.min.css
 vendor/assets/stylesheets/style.css
 app/assets/stylesheets/style.min.css
-public/assets/style.min.css
 
 .idea/
 .idea/workspace.xml
-.vscode/
-TAGS
 
 node_modules
 

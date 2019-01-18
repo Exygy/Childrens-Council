@@ -1,4 +1,6 @@
-.close-container 
-  a.oval.small ng-click="close()" 
-    i.fa.fa-times
-image-carousel images="urls" header="header" selected="selected"
+span ng-repeat="(key, url) in urls"
+  img.env ng-src="{{url}}" style="width:294px;height:195px;"
+
+
+
+ui-carousel slides="tttt" slides-to-show="3" slides-to-scroll="1" autoplay="true" autoplay-speed="2000" dots="true"

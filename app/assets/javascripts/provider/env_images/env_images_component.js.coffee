@@ -1,34 +1,24 @@
-EnvImagesController = ($scope, $modal, $timeout, $filter)  ->
+EnvImagesController = ($scope, $modal)  ->
   $ctrl = @
 
-  @$onInit = () ->
-    $ctrl.urls = _.values($ctrl.urls)
-
-  @openCarousel = (image) ->
+  $scope.openCarousel = () ->
     $modal.open {
       templateUrl: '/assets/provider/env_images/carousel/carousel.html'
       controller: 'CarouselController'
-      resolve: {
+      resolve:
         urls: ->
            $ctrl.urls
-        selected: ->
-          image
-        header: ->
-          $filter('providerName')($ctrl.provider)
-      }
     }
 
   return @
 
-EnvImagesController.$inject = ['$scope', '$modal', '$timeout', '$filter']
+EnvImagesController.$inject = ['$scope', '$modal']
 
 angular
   .module('CCR')
   .component('envImages', {
-    bindings: {
+    bindings:
       urls: '<'
-      provider: '<'
-    }
     controller: EnvImagesController
     templateUrl: "provider/env_images/env_images.html"
   })
