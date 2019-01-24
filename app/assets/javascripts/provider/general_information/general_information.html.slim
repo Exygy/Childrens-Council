@@ -1,11 +1,11 @@
 a name="general-information"
 h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-information" General Information
 
-.row.info-grid
-  .columns.medium-6 ng-if="$ctrl.provider.images.logo"
+.row.provider-info-grid-row ng-if="$ctrl.provider.images.logo"
+  .columns.medium-6
     img.headshot ng-src="{{ $ctrl.provider.images.logo }}" style="width:100px;height:100px;"
 
-.row.info-grid
+.row.provider-info-grid-row
   .columns.medium-6 ng-if="$ctrl.provider.primaryOwner"
     span.fa.fa-user.info-icon
     .margin-left-2
@@ -26,6 +26,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
       span
         ' {{ $ctrl.provider.typeOfCare }}
 
+.row.provider-info-grid-row ng-if="$ctrl.provider.phone || $ctrl.provider.email"
   .columns.medium-6 ng-if="$ctrl.provider.phone"
     span.fa.fa-phone-square.info-icon
     .margin-left-2
@@ -39,6 +40,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
       h4.label-gray.lighter Email
       a href="mailto:{{ $ctrl.provider.email }}" {{ $ctrl.provider.email }}
 
+.row.provider-info-grid-row ng-if="$ctrl.provider.website || $ctrl.provider.generalInfo.socialMediaUrl"
   .columns.medium-6 ng-if="$ctrl.provider.website"
     span.fa.fa-globe.info-icon
     .margin-left-2
@@ -51,6 +53,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
       h4.label-gray.lighter Social Media
       a ng-href="{{ $ctrl.provider.generalInfo.socialMediaUrl | prefixUrl }}" target="_blank" {{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
 
+.row.provider-info-grid-row ng-if="($ctrl.provider.generalInfo.local2 | filterPrograms: 'careApproaches').length || ($ctrl.provider.generalInfo.local2 | filterPrograms: 'religiousPrograms').length"
   .columns.medium-6 ng-if="($ctrl.provider.generalInfo.local2 | filterPrograms: 'careApproaches').length"
     span.fa.fa-heart.info-icon
     .margin-left-2
@@ -66,6 +69,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
       span
         ' {{ ($ctrl.provider.generalInfo.local2 | filterPrograms: 'religiousPrograms').join(', ') }}
 
+.row.provider-info-grid-row ng-if="$ctrl.provider.co_op || ($ctrl.provider.attributes | pottyTraining)"
   .columns.medium-6 ng-if="$ctrl.provider.co_op"
     span.fa.fa-users.info-icon
     .margin-left-2

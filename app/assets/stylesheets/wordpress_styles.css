@@ -67,11 +67,3 @@ a.map_toggle {
    border: 1px solid rgba(72, 181, 233, 0.6);
    border-radius: 2px 2px 0 0;*/
 }
-
-.info-grid .columns {
-  word-break: break-all;
-}
-
-.info-grid .columns.email-info:after {
-  content: none;
-}
