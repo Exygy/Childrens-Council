@@ -2,23 +2,26 @@
 
 DataService = ($rootScope) ->
   $service = @
-  $service.formatMealsForFilter = (mealsList) ->
-    [
-      {
-        label: 'No Preference'
-        value: null
-      },
-      {
-        label: 'Yes'
-        value: mealsList
-      },
-      # TODO: Find out how we can query the API for no meals offered. The value
-      # here is a dummy value until we figure that out.
-      {
-        label: 'No'
-        value: ['No meals']
-      }
-    ]
+  $service.mealsForFilter = [
+    {
+      label: 'No Preference'
+      value: null
+    },
+    # At the direction of Children's Council, when the value "Yes" is selected for the
+    # meals filter, we query for providers who offer lunch. Although there are other
+    # possible meals, there is not yet a way to query the NDS API for multiple meal types
+    # that a provider offers. Until the API supports that, Children's Council has directed
+    # that we just use lunch as the meal type that is queried when a user wants to search
+    # for a provider who offers meals, because lunch is the most common meal.
+    {
+      label: 'Yes'
+      value: ['Lunch']
+    },
+    {
+      label: 'No'
+      value: ['No meals']
+    }
+  ]
 
   $service.providerData =
     financialAssistance: <%= api_service.filter_data('financial_assistance').to_json %>
@@ -33,7 +36,7 @@ DataService = ($rootScope) ->
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
-    meals: $service.formatMealsForFilter(<%= api_service.filter_data('meals') %>)
+    meals: $service.mealsForFilter
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: <%= api_service.filter_data('religious_programs') %>
     shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>

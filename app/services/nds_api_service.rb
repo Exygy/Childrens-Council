@@ -3,8 +3,7 @@ class NdsApiService
     4 => :languages,
     8 => :care_approaches,
     9 => :language_immersion_programs,
-    15 => :neighborhoods,
-    111 => :meals
+    15 => :neighborhoods
   }
 
   def fetch_filter_data(id)
