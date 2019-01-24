@@ -3,7 +3,7 @@ h2.text-capitalize.margin-top-3.margin-bottom-1 data-magellan-destination="finan
 
 div ng-if="$ctrl.provider.generalInfo.local1.length && financialAssistance"
   accordion close-others="false" role="tablist"
-    financial-assistance-item item="getFinancialAssist(assistance)" index="$index" ng-repeat="assistance in $ctrl.provider.generalInfo.local1 track by $index" ng-if="assistance != 'FCCHEN' && assistance != 'Early Learning Scholarship' && assistance != 'Early Learning Scholarship GAP'"
+    financial-assistance-item item="getFinancialAssist(assistance)" index="$index" ng-repeat="assistance in $ctrl.provider.generalInfo.local1 track by $index" ng-if="assistance != 'FCCHEN' && assistance != 'Early Learning Scholarship GAP'"
 
 div ng-if="!$ctrl.provider.generalInfo.local1.length"
   p No information provided
