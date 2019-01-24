@@ -15,7 +15,7 @@
         .small-9.medium-4.columns.text-right
           user-menu printText="Print List"
       .row
-        .small-12.medium-9.columns
+        .small-12.medium-9.columns.margin-bottom-1
           h1.results-header We found {{ $ctrl.data.totalNumProviders || '0' }} options
         .medium-3.columns.text-right.small-12.padding-top-1
           .row.collapse
@@ -23,7 +23,7 @@
               button.round.smaller.active ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
                 i.fa.fa-sliders
                 | Filters
-            .columns.small-7.medium-12
+            .columns.small-7.show-for-small
               ul.pager.radius
                 li
                   button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"

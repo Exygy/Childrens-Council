@@ -13,11 +13,11 @@
         t ng-switch-when="true" Child Care Center
         t.fa.fa-home.c-gainsboro ng-switch-when="false"
         t ng-switch-when="false" Family Child Care
-    .row.collapse.hide-for-small
-      .columns.medium-6.compare-toggle-container
-        compare-toggle provider="$ctrl.provider"
+    .row.collapse.hide-for-small.padding-bottom-small
       .columns.medium-6
         favorite provider="$ctrl.provider" show-text="true"
+      .columns.medium-6
+        compare-toggle provider="$ctrl.provider"
   .columns.small-1.favorite-container.show-for-small-only
     favorite provider="$ctrl.provider" show-text="false"
 .row.collapse
@@ -31,7 +31,7 @@
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
 
-badges attributes="$ctrl.provider.attributes" show-title="false"
+badges attributes="$ctrl.provider.attributes" show-title="false" show-info-item-only="true"
 
 .cl
 
@@ -51,14 +51,6 @@ ul.general-info.row
     span.item-detail
       .row.collapse
         .columns.small-1
-          span.fa.fa-clock-o.c-base
-        .columns.small-11
-          '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
-
-  li.columns.small-12
-    span.item-detail
-      .row.collapse
-        .columns.small-1
           span.fa.fa-external-link.c-base
         .columns.small-11
           a ng-href="{{ $ctrl.provider.website | prefixUrl }}" target="_blank" ng-if="$ctrl.provider.website"
@@ -71,17 +63,25 @@ ul.general-info.row
     span.item-detail
       .row.collapse
         .columns.small-1
-          span.fa.fa-calendar-check-o.c-base
+          span.fa.fa-usd.c-base
         .columns.small-11
-          '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
+          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
   li.columns.small-12
     span.item-detail
       .row.collapse
         .columns.small-1
-          span.fa.fa-usd.c-base
+          span.fa.fa-clock-o.c-base
         .columns.small-11
-          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+          '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
+
+  li.columns.small-12
+    span.item-detail
+      .row.collapse
+        .columns.small-1
+          span.fa.fa-calendar-check-o.c-base
+        .columns.small-11
+          '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
   li.columns.small-12
     span.item-detail
@@ -96,7 +96,7 @@ ul.general-info.row
             |{{ $ctrl.provider.generalInfo.config1 }}
           |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-          a.map_toggle ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
+          a.map_toggle.show-for-small ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
             span ng-if="!show_map" See map
             span ng-if="show_map" Hide map
 
