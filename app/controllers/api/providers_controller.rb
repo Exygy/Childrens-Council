@@ -122,9 +122,10 @@ module Api
         weeklySchedule: [],
         zips: []
       ).tap do |whitelisted|
+        # parameters that are hashes cannot be permitted with the permit method as
+        # most parameters are above, so we manually whitelist any hash params here
         whitelisted[:locationA] = params[:providers][:locationA]
         whitelisted[:locationB] = params[:providers][:locationB]
-        whitelisted[:attributesLocal3] = params[:providers][:attributesLocal3]
       end
     end
   end

@@ -46,7 +46,6 @@ DataService = ($rootScope) ->
     zips: <%= api_service.filter_data('zip_codes') %>
 
   $service.filters =
-    address: null
     addresses: ['']
     agesServiced: null
     attributesLocal3: [''] # contains language immersion program names
@@ -84,7 +83,7 @@ DataService = ($rootScope) ->
   }
 
   $service.searchSettings = {
-    locationType: 'address'
+    locationType: 'addresses'
   }
 
   $service.parent = {
@@ -168,8 +167,8 @@ DataService = ($rootScope) ->
   $service.cleanAddressFilters = () ->
     filters = angular.copy $service.filters
     delete filters.locationA
+    delete filters.locationB
     delete filters.attributesLocal17
-#    delete filters.attributesLocal3
     delete filters.zip
     $service.filters = filters
 

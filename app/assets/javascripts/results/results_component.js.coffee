@@ -5,6 +5,7 @@ ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $au
   $ctrl.$onInit = ->
     $ctrl.data = ResultsService.searchResultsData
     $ctrl.filters = ResultsService.filters
+    $ctrl.settings = ResultsService.searchSettings
     $ctrl.showMap = false
     if !$ctrl.data && $ctrl.parent
       SearchService.postSearch()

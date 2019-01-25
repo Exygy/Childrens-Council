@@ -32,10 +32,10 @@ SearchService = (
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   $service.setSearchLocation = (params) ->
-    if params.address == ''
-      delete params.address
+    if params.addresses && _.isEmpty(params.addresses[0])
+      delete params.addresses
 
-    if $service.searchSettings.locationType == 'address' && params.addresses
+    if $service.searchSettings.locationType == 'addresses' && params.addresses
       params.addresses = _.map(params.addresses, (address) ->
         if address.indexOf(', San Francisco, CA') == -1
           address += ', San Francisco, CA'
@@ -48,7 +48,7 @@ SearchService = (
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
-      
+
       delete params.addresses
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
@@ -185,6 +185,7 @@ SearchService = (
         that.searchResultsData.isFirstPage = response.data.first
         that.searchResultsData.isLastPage = response.data.last
         that.searchResultsData.pageSize = response.data.size
+      console.log 'in searchservice performSearch, the $service.filters are', $service.filters
       callback(response.data) if callback
       that.searchResultsData.isLoading = false
 
