@@ -23,7 +23,7 @@
 //= require ng-token-auth
 //= require angular-cookie
 //= require AngularDevise
-//= require ngmap
+//= require ngmap/build/scripts/ng-map.min.js
 //= require angular-ui-router
 //= require angular-cookies
 //= require angular-rails-templates

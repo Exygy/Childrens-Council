@@ -1,17 +1,18 @@
 ResultsService = (DataService, SearchService) ->
-  @filterData = DataService.filterData
-  @filters = DataService.filters
-  @parent = DataService.parent
-  @searchSettings = DataService.searchSettings
-  @searchResultsData = DataService.searchResultsData
+  $service = @
+  $service.filterData = DataService.filterData
+  $service.filters = DataService.filters
+  $service.parent = DataService.parent
+  $service.searchSettings = DataService.searchSettings
+  $service.searchResultsData = DataService.searchResultsData
 
-  @nextPage = (callback) ->
-    SearchService.performSearch callback, (@searchResultsData.currentPage + 1)
+  $service.nextPage = (callback) ->
+    SearchService.performSearch callback, ($service.searchResultsData.currentPage + 1)
 
-  @prevPage = (callback) ->
-    SearchService.performSearch callback, (@searchResultsData.currentPage - 1)
+  $service.prevPage = (callback) ->
+    SearchService.performSearch callback, ($service.searchResultsData.currentPage - 1)
 
-  @
+  $service
 
 ResultsService.$inject = ['DataService', 'SearchService']
 angular.module('CCR').service('ResultsService', ResultsService)
