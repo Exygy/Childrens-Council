@@ -1,4 +1,6 @@
-SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyFormParamsToVacancyDateRangeService, DataService, GeocodingService, HttpService, $rootScope) ->
+SearchService = (
+  $http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyDateService,
+  DataService, GeocodingService, HttpService, $rootScope) ->
   $service = @
   $service.filterData = DataService.filterData
   $service.filters = DataService.filters
@@ -108,7 +110,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
 
   $service.setVacancies = (params) ->
-    params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
+    params.vacancyDateRange = VacancyDateService.convert(params.vacancyType, params.vacancyFutureDate)
     delete params.vacancyType
     delete params.vacancyFutureDate
 
@@ -204,5 +206,5 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyFormParamsToVacancyDateRangeService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyDateService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)
