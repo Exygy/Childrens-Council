@@ -1,6 +1,7 @@
-ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $auth, $scope) ->
+ResultsController = ($timeout, $anchorScroll, CompareService, ResultsService, SearchService, $auth, $scope) ->
   $ctrl = @
   $ctrl.parent = $auth.currentUser()
+  $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
   $ctrl.$onInit = ->
     $ctrl.data = ResultsService.searchResultsData
@@ -17,7 +18,7 @@ ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $au
 
   return $ctrl
 
-ResultsController.$inject = ['$timeout', '$anchorScroll', 'ResultsService', 'SearchService', '$auth', '$scope']
+ResultsController.$inject = ['$timeout', '$anchorScroll', 'CompareService', 'ResultsService', 'SearchService', '$auth', '$scope']
 
 angular
   .module('CCR')

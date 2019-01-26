@@ -10,7 +10,7 @@ module Api
     def show
       provider = nds_provider
       if provider
-        provider[:images] = provider_images unless Rails.env.development?
+        provider[:images] = provider_images if Rails.env.development?
         provider[:favorite] = @resource.favorites.find_by_provider_id(params[:id]).present? if @resource
       end
       render json: provider ? provider : {not_found: true}, status: provider ? 200 : 404
@@ -83,7 +83,7 @@ module Api
       favorites = @resource.present? ? @resource.favorites : []
 
       providers.each do |provider|
-        provider[:images] = providers_images[provider['providerId'].to_s] unless Rails.env.development?
+        provider[:images] = providers_images[provider['providerId'].to_s] if Rails.env.development?
         provider[:favorite] = favorites.any?{ |f| f.provider_id == provider['providerId'] }
       end if providers
     end
