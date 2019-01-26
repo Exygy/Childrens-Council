@@ -1,4 +1,4 @@
-.columns.small-12.map-container ng-class="{'medium-8': !$ctrl.data.mapFullWidth}"
+.medium-7.columns.map-container
   .loading ng-show="$ctrl.data.isLoading"
 
   div ng-hide="$ctrl.data.isLoading"
@@ -10,4 +10,17 @@
 
     provider-map providers="$ctrl.data.providers" info-window="true" map-id="'map-provider-results'"
 
-    results-pager class="map-results-pager" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length && !$ctrl.data.hideMapPager"
+    results-pager class="map-results-pager show-for-small" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
+
+  .panel.cyan.margin-top-2
+    a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank"
+      strong.smaller For special needs: Contact us
+    p.smaller Our Inclusion Team specializes in finding child care for children with special needs.
+
+    a href="//www.childrenscouncil.org/families/overview/" target="_blank"
+      strong.smaller I need help choosing a provider
+    p.smaller Request free 1-on-1 counseling.
+
+    a href="//www.childrenscouncil.org/families/help-paying-for-child-care/financial-assistance/" target="_blank"
+      strong.smaller Do I qualify for financial assistance?
+    p.smaller Try our friendly income calculator.

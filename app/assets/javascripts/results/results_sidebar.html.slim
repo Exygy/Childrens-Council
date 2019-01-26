@@ -1,128 +1,52 @@
-.bg-white
-  .panel.filters ng-controller="ResultsFilterController"
-    a.right href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
-      strong.results-edit
-        | Edit
-        i.fa.fa-sliders
+.infinite-background.grey
+  .bg-white
+    .row.collapse.filters-row ng-controller="ResultsFilterController"
+      .columns.medium-8
+        .panel.filters
+          h3.margin-bottom-2 
+            | Filters
+            a.results-edit href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
+              | Show more filters & edit
+              i.fa.fa-sliders
+          .row.collapse
+            .columns.medium-4.padding-right-1
+              h4 Desired locations
+              p.smaller ng-if="filters[settings.locationType]"
+                span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
+                span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
+                span ng-if="settings.locationType == 'address'" {{ filters.addresses | addressesToString }}
+                
 
-    h3.margin-bottom-2 Refine Search Filters
+              p ng-if="!filters[settings.locationType]" Any
 
-    ul.no-bullet
-      li
-        h4 Desired locations
-        p ng-if="filters[settings.locationType]"
-          span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
-          span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
-          span ng-if="settings.locationType == 'address'" {{ filters.address }}, San Francisco, CA
+            .columns.medium-4.padding-right-1
+              h4 Average Rate
+              p.smaller
+                | {{ filters.monthlyRate | ratesToString }}
 
-        p ng-if="!filters[settings.locationType]" Any
+            .columns.medium-4.padding-right-1
+              h4 Vacancy Type
+              p.smaller
+                | {{ filters | vacancyToString }}
 
-      li
-        h4 Average Rate
-        p
-          | {{ filters.monthlyRate | ratesToString }}
+      .columns.medium-4.filters-column
+        .panel.filters.divider
+          h3.margin-bottom-2
+            | Child
+            a.results-edit href='#' ng-click="openChildModal(0)" data-reveal-id="filtersModal"
+              | Edit
+              i.fa.fa-sliders
 
-      li
-        h4 Vacancy Type
-        p
-          | {{ filters | vacancyToString }}
-      li
-        h4 Financial Assistance
-        p
-          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
-          span ng-hide="filters.financialAssistance.length"
-
-      li
-        h4 Teaching Philosophy
-        ul.no-bullet ng-if="filters.careApproaches.length && filters.careApproaches[0].length"
-          li ng-repeat="careApproach in filters.careApproaches track by $index"
-            ' {{ careApproach }}
-        p ng-hide="filters.careApproaches.length && filters.careApproaches[0].length" Any
-
-      li
-        h4 Language Program
-        ul.no-bullet ng-if="filters.attributesLocal3.length && filters.attributesLocal3[0].length"
-          li ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
-            ' {{ languageProgram }}
-        p ng-hide="filters.attributesLocal3.length && filters.attributesLocal3[0].length" Any
-
-      li
-        h4 Languages Spoken
-        ul.no-bullet ng-if="filters.languages.length && filters.languages[0].length"
-          li ng-repeat="language in filters.languages track by $index"
-            ' {{ language }}
-        p ng-hide="filters.languages.length && filters.languages[0].length" Any
-
-      div ng-show="showMoreFilters"
-        li
-          h4 Religious Program
-          ul.no-bullet ng-if="filters.religiousPrograms.length && filters.religiousPrograms[0].length"
-            li ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
-              ' {{ religiousProgram }}
-          p ng-hide="filters.religiousPrograms.length && filters.religiousPrograms[0].length" Any
-
-        li
-          h4 Parent CO-OP
-          p
-            ' {{ filters.co_op | booleanFilterToText }}
-
-        li
-          h4 Meals Included
-          p
-            ' {{ filters.meals | mealsToFilterTitle }}
-
-        li
-          h4 Potty Training
-          p
-            ' {{ filters.pottyTraining | booleanFilterToText }}
-
-        li
-          h4 Provider Type
-          p ng-show="filters.typesOfCare.length == 1"
-            ' {{ filters.typesOfCare.join('') }}
-          p ng-hide="filters.typesOfCare.length == 1" Any
-
-      a.text-uppercase.small href="#" ng-click="showMoreFilters = !showMoreFilters"
-        b ng-hide="showMoreFilters" Show more
-        b ng-show="showMoreFilters" Show less
-
-    hr.margin-bottom-2
-
-    / TODO: Here we pass 0 as the child ID because we are only allowing
-    / users to enter info for one child. In the future this will need
-    / to support multiple children.
-    a.right ng-click="openChildModal(0)"
-      strong.results-edit
-        | Edit
-        i.fa.fa-sliders
-
-    h3.margin-bottom-2 Child
-
-    ul.no-bullet.margin-bottom-none
-      li
-        h4 Age
-        p
-          | {{ parent.children[0].ageWeeks | ageToYearsAndMonths }}
-
-      li
-        h4 Schedule
-        p.margin-bottom-none
-          | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
-          br
-          | {{ filters | scheduleFiltersAggregator }}
-          br
-          | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
-
-
-  .c-base.margin-top-2
-    a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank"
-      strong For special needs: Contact Us
-    p Our Inclusion Team specializes in finding child care for children with special needs.
-
-    a href="//www.childrenscouncil.org/families/overview/" target="_blank"
-      strong I need help choosing a provider
-    p Request free 1-on-1 counseling.
-
-/    a href="//www.childrenscouncil.org/families/help-paying-for-child-care/financial-assistance/" target="_blank"
-/      strong Do I qualify for financial assistance?
-/    p Try our friendly income calculator
+          .row.collapse
+            .columns.medium-6.padding-right-1
+              h4 Age
+              p.smaller
+                | {{ parent.children[0].ageWeeks | ageToYearsAndMonths }}
+            .columns.medium-6.padding-right-1
+              h4 Schedule
+              p.smaller.margin-bottom-none
+                | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
+                br
+                | {{ filters | scheduleFiltersAggregator }}
+                br
+                | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}

@@ -2,10 +2,14 @@ h5 Desired locations
 tabset.tabs-inline role="tablist"
   tab ng-click="setLocationType('address')" active="locationTabs.address.active" heading="Closest to an address"
     #address-tab.row role="tabpanel"
-      .medium-8.columns
-        label.show-for-sr for="near-address" Search by distance from an address in San Francisco
-        input#near-address type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="filters.address"
-        .address-city , San Francisco, CA
+      .repeater-container ng-repeat="address in filters.addresses track by $index"
+        .medium-8.columns
+          label.show-for-sr for="near-address" Search by distance from an address in San Francisco
+          input#near-address type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="filters.addresses[$index]"
+          .address-city , San Francisco, CA
+          button.inline.repeater.remove-address type="button" aria-label="Remove address" ng-show="$index > 0" ng-click="removeItem(filters.addresses, $index)" Remove
+    div
+      button.inline.add-another-address type="button" aria-label="Add another address" ng-show="hasFinalValue(filters.addresses) && filters.addresses.length < 2" ng-click="addItem(filters.addresses)" Add another
 
   tab ng-click="setLocationType('zips')" active="locationTabs.zips.active" heading="By zip code"
     #zip-code-tab.row role="tabpanel"

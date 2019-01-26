@@ -24,8 +24,9 @@ angular
   .module('CCR')
   .component('badges', {
     bindings:
-      attributes: '<',
+      attributes: '<'
       showTitle: '<'
+      showInfoItemOnly: '<'
     controller: BadgesController
     templateUrl: "badges/badges.html"
   })

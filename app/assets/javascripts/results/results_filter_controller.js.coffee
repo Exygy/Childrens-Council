@@ -2,7 +2,6 @@ ResultsFilterController = ($scope, $modal, ResultsService) ->
   $scope.filters = ResultsService.filters
   $scope.settings = ResultsService.searchSettings
   $scope.parent = ResultsService.parent
-  $scope.showMoreFilters = false
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
