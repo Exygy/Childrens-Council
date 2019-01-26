@@ -157,6 +157,12 @@ DataService = ($rootScope) ->
         $service.filters.vacancyFutureDate = fromDate.toLocaleDateString("en-US")
         $service.filters.vacancyType = 'Future Date'
 
+  $service.updateSearchResult = (providerId, data) ->
+    provider = $service.searchResultsData.providers.find((p) -> p.providerId == providerId)
+    return false unless provider
+    _.each(data, (val, key) ->
+      _.set(provider, key, val)
+    )
 
   $service.cleanAddressFilters = () ->
     filters = angular.copy $service.filters

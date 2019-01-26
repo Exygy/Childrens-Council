@@ -1,4 +1,4 @@
-FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
+FavoriteController = (FavoriteService, DataService, $modal, $auth, $scope) ->
   $ctrl = @
   $ctrl.parent = $auth.currentUser()
 
@@ -11,7 +11,8 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
         templateUrl: 'user/login/login.html',
       }
 
-  $ctrl.handleFavorite = ->
+  $ctrl.handleFavorite = (responseData) ->
+    DataService.updateSearchResult(responseData.provider_id, {favorite: true})
     $ctrl.provider.favorite = true
 
   $ctrl.unFavorite = ->
@@ -23,7 +24,8 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
         templateUrl: 'user/login/login.html',
       }
 
-  $ctrl.handleUnFavorite = ->
+  $ctrl.handleUnFavorite = (responseData) ->
+    DataService.updateSearchResult(responseData.provider_id, {favorite: false})
     $ctrl.provider.favorite = false
 
   $scope.$on 'auth:validation-success', (event, user) ->
@@ -34,7 +36,7 @@ FavoriteController = (FavoriteService, $modal, $auth, $scope) ->
 
   return $ctrl
 
-FavoriteController.$inject = ['FavoriteService', '$modal', '$auth', '$scope',]
+FavoriteController.$inject = ['FavoriteService', 'DataService', '$modal', '$auth', '$scope',]
 
 angular
   .module('CCR')
