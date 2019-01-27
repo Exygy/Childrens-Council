@@ -48,7 +48,6 @@ SearchService = (
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
-
       delete params.addresses
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
@@ -107,7 +106,6 @@ SearchService = (
             to: params.monthlyRate[1]
         else
           params.monthlyRate = from: params.monthlyRate[0]
-
 
   $service.setVacancies = (params) ->
     params.vacancyDateRange = VacancyDateService.convert(params.vacancyType, params.vacancyFutureDate)
@@ -171,31 +169,31 @@ SearchService = (
     }
 
   $service.performSearch = (callback, page) =>
-    that = $service
-    that.searchResultsData.providers = []
-    that.searchResultsData.isLoading = true
-    params = that.httpParams()
+    $service.searchResultsData.providers = []
+    $service.searchResultsData.isLoading = true
+    params = $service.httpParams()
     if page
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
       if response.data
-        that.searchResultsData.providers = response.data.content
-        that.searchResultsData.totalNumProviders = response.data.totalElements
-        that.searchResultsData.currentPage = response.data.number
-        that.searchResultsData.isFirstPage = response.data.first
-        that.searchResultsData.isLastPage = response.data.last
-        that.searchResultsData.pageSize = response.data.size
-      console.log 'in searchservice performSearch, the $service.filters are', $service.filters
+        $service.searchResultsData.providers = response.data.content
+        $service.searchResultsData.totalNumProviders = response.data.totalElements
+        $service.searchResultsData.currentPage = response.data.number
+        $service.searchResultsData.isFirstPage = response.data.first
+        $service.searchResultsData.isLastPage = response.data.last
+        $service.searchResultsData.pageSize = response.data.size
       callback(response.data) if callback
-      that.searchResultsData.isLoading = false
+      $service.searchResultsData.isLoading = false
 
     searchParams = params.data.providers
-    if searchParams.addresses
+    if searchParams.addresses && searchParams.addresses[0]
       GeocodingService.geocodeAddress(searchParams.addresses[0]).then (coords) =>
         searchParams.locationA = coords
+        $service.filters.locationA = coords
         if searchParams.addresses[1]
           GeocodingService.geocodeAddress(searchParams.addresses[1]).then (coords) =>
             searchParams.locationB = coords
+            $service.filters.locationB = coords
             $service.serverRequest(params, serverRequestCallback)
         else
           $service.serverRequest(params, serverRequestCallback)

@@ -5,7 +5,7 @@ tabset.tabs-inline role="tablist"
       .repeater-container ng-repeat="address in filters.addresses track by $index"
         .medium-8.columns
           label.show-for-sr for="near-address" Search by distance from an address in San Francisco
-          input#near-address type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="filters.addresses[$index]"
+          input#near-address type="text" placeholder="Enter any address in San Francisco" name="address-{{$index}}" ng-model="filters.addresses[$index]"
           .address-city , San Francisco, CA
           button.inline.repeater.remove-address type="button" aria-label="Remove address" ng-show="$index > 0" ng-click="removeItem(filters.addresses, $index)" Remove
     div

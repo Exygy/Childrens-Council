@@ -9,7 +9,7 @@ ResultListController = ($scope, $modal, CompareService, ResultsService) ->
 
   $scope.openResultFiltersModal = () ->
     $modal.open {
-      templateUrl: 'results/result_filters_modal.html'
+      templateUrl: 'results/modals/result_filters_modal.html'
       controller: 'ResultFiltersModalController'
     }
 
@@ -23,5 +23,5 @@ angular
     bindings:
       data: '<'
     controller: ResultListController
-    templateUrl: "results/result_list/result_list.html"
+    templateUrl: "results/components/result_list/result_list.html"
   })

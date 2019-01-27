@@ -140,6 +140,8 @@ DataService = ($rootScope) ->
         lastSearch.providers.acceptsChildren = [lastSearch.providers.acceptsChildren]
 
     $service.searchSettings = settings
+
+    # Copy the providers filter search parameters from the last request into the current filters
     $service.filters = Object.assign($service.filters, lastSearch.providers)
 
     $service.filters.monthlyRate = _.map lastSearch.providers.monthlyRate, (v, k) ->
@@ -166,6 +168,7 @@ DataService = ($rootScope) ->
 
   $service.cleanAddressFilters = () ->
     filters = angular.copy $service.filters
+    filters.addresses = ['']
     delete filters.locationA
     delete filters.locationB
     delete filters.attributesLocal17

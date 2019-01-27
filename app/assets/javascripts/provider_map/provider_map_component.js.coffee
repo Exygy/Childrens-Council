@@ -1,4 +1,4 @@
-ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, $element, $compile) ->
+ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchService, $element, $compile) ->
   $ctrl = @
 
   $ctrl.$onInit = ->
@@ -25,31 +25,37 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, $element, 
         angular.element(document.getElementById('providerContent')).append(temp)
       , 200)
 
+  $ctrl.searchingBtwnTwoPoints = ->
+    $ctrl.filters.locationA && $ctrl.filters.locationB
+
+  $ctrl.searchingWithAddresses = ->
+    $ctrl.filters.addresses && $ctrl.filters.addresses.length > 1
+
+  $ctrl.getLocationACoords = ->
+    [$ctrl.filters.locationA.latitude, $ctrl.filters.locationA.longitude]
+
+  $ctrl.getLocationBCoords = ->
+    [$ctrl.filters.locationB.latitude, $ctrl.filters.locationB.longitude]
+
   setMap = (providers) ->
     if providers.length
       $ctrl.providers = ProviderMapService.mapify(providers)
-      if $scope.map
-        fitBounds($scope.map)
-      else
-        NgMap.getMap($ctrl.mapId).then (map) ->
-          $scope.map = map
-          fitBounds(map)
+      NgMap.getMap($ctrl.mapId).then (map) ->
+        $scope.map = map
+        google.maps.event.addListener($scope.map, 'dragend', redoSearchInBounds)
 
-  fitBounds = (map) ->
-    bounds = new google.maps.LatLngBounds()
-    if $ctrl.providers.length
-      for provider in $ctrl.providers
-        bounds.extend new google.maps.LatLng(
-          provider.position.split(',')[0],
-          provider.position.split(',')[1]
-        )
-      $timeout (->
-        $scope.map.fitBounds(bounds)
-      ), 10
+  redoSearchInBounds = ->
+    newBounds = $scope.map.getBounds()
+    ne = newBounds.getNorthEast()
+    sw = newBounds.getSouthWest()
+    $ctrl.filters.locationA = { latitude: ne.lat(), longitude: ne.lng() }
+    $ctrl.filters.locationB = { latitude: sw.lat(), longitude: sw.lng() }
+    $ctrl.filters.addresses = ['']
+    SearchService.postSearch()
 
   return $ctrl
 
-ProviderMapController.$inject = ['$timeout', '$scope', 'NgMap', 'ProviderMapService', '$element', '$compile']
+ProviderMapController.$inject = ['$timeout', '$scope', 'NgMap', 'ProviderMapService', 'SearchService', '$element', '$compile']
 
 angular
   .module('CCR')
@@ -58,6 +64,7 @@ angular
       infoWindow: '<',
       mapId: '<'
       providers: '<'
+      filters: '<'
     controller: ProviderMapController
     templateUrl: "provider_map/provider_map.html"
   })
