@@ -17,12 +17,12 @@ ProviderMapService = () ->
               provider.gmap_icon_title = "Child Care Center"
               provider.display_address = address.street1
               provider.display_address += ' ' + address.street2 if address.street2
-              provider.icon = '<%= image_path "facility_marker.png" %>'
+              provider.icon = '<%= image_path "cc-center.svg" %>'
             else
               provider.gmap_icon = "fa-home"
               provider.gmap_icon_title = "Family Child Care"
               provider.display_address = provider.generalInfo.config1
-              provider.icon = '<%= image_path "home_marker.png" %>'
+              provider.icon = '<%= image_path "family-care.svg" %>'
 
             map_providers.push provider if provider.position
     return map_providers
