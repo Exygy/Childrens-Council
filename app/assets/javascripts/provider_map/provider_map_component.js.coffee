@@ -28,7 +28,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
       , 200)
 
   $ctrl.searchingBtwnTwoPoints = ->
-    $ctrl.filters.locationA && $ctrl.filters.locationB
+    $ctrl.filters && $ctrl.filters.locationA && $ctrl.filters.locationB
 
   $ctrl.searchingWithAddresses = ->
     $ctrl.filters.addresses && $ctrl.filters.addresses.length > 1
