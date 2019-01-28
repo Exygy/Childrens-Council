@@ -1,6 +1,8 @@
 ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchService, $element, $compile) ->
   $ctrl = @
 
+  $ctrl.searchOnDrag = false
+
   $ctrl.$onInit = ->
     setMap($ctrl.providers)
 
@@ -42,7 +44,9 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
       $ctrl.providers = ProviderMapService.mapify(providers)
       NgMap.getMap($ctrl.mapId).then (map) ->
         $scope.map = map
-        google.maps.event.addListener($scope.map, 'dragend', redoSearchInBounds)
+        google.maps.event.addListener($scope.map, 'dragend', ->
+          redoSearchInBounds() if $ctrl.searchOnDrag
+        )
 
   redoSearchInBounds = ->
     newBounds = $scope.map.getBounds()

@@ -3,3 +3,7 @@ div ng-if="$ctrl.providers.length"
     marker ng-repeat="provider in $ctrl.providers track by $index" on-click="$ctrl.openInfoWindow(provider, map)" id="custom-marker-{{provider.providerId}}" position="{{provider.position}}" icon="{{provider.icon}}" optimized="false" events="{{provider.events}}"
     marker id="custom-marker-address-a" position="{{$ctrl.getLocationACoords()}}" optimized="false" ng-if="$ctrl.searchingBtwnTwoPoints() && $ctrl.searchingWithAddresses()"
     marker id="custom-marker-address-b" position="{{$ctrl.getLocationBCoords()}}" optimized="false" ng-if="$ctrl.searchingBtwnTwoPoints() && $ctrl.searchingWithAddresses()"
+  span.map-drag-search-toggle-box
+    input type="checkbox" id="map-drag-search-toggle" name="map-drag-search-toggle" ng-model="$ctrl.searchOnDrag"
+    label for="map-drag-search-toggle"
+      | Search As I Move Map
