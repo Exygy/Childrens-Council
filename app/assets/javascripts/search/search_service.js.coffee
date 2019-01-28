@@ -49,10 +49,14 @@ SearchService = (
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
       delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.zips
 
   # Reformat and rename program params to match API fields.
