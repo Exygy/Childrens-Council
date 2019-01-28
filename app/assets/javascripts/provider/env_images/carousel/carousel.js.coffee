@@ -1,11 +1,15 @@
-CarouselController = ($scope, urls)  ->
+CarouselController = ($scope, urls, selected, header, $modalInstance)  ->
+  $ctrl = @
   $scope.urls = urls
+  $scope.selected = selected
+  $scope.header = header
 
-  $scope.tttt = [1,2,3,4]
+  $scope.close = ->
+    $modalInstance.close()
 
   return @
 
-CarouselController.$inject = ['$scope', 'urls']
+CarouselController.$inject = ['$scope', 'urls', 'selected', 'header', '$modalInstance']
 
 angular
   .module('CCR')
