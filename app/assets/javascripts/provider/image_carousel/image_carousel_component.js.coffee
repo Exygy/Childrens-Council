@@ -28,7 +28,7 @@ ImageCarouselController = ($scope, $anchorScroll, $location) ->
     index = _.indexOf($ctrl.images, $ctrl.selected)
     if index - 1 >= 0
       $ctrl.selected = $ctrl.images[index - 1]
-      
+
   @scrollLeft = (scrollId) ->
     elem = angular.element(document.querySelector(scrollId))
     images = elem.children()
@@ -39,7 +39,7 @@ ImageCarouselController = ($scope, $anchorScroll, $location) ->
         marker = marker - images[i].offsetWidth
         i += 1
       elem[0].scrollLeft -= marker
-      
+
   @scrollLeftVisible = (scrollId)  ->
     elem = angular.element(document.querySelector(scrollId))
     elem[0].scrollLeft > 0

@@ -6,7 +6,7 @@ EnvImagesController = ($scope, $modal, $timeout, $filter)  ->
 
   @openCarousel = (image) ->
     $modal.open {
-      templateUrl: '/assets/provider/env_images/carousel/carousel.html'
+      templateUrl: 'provider/env_images/image_carousel_modal.html'
       controller: 'CarouselController'
       resolve: {
         urls: ->
