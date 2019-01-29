@@ -1,4 +1,4 @@
-ResultListController = ($scope, $modal, CompareService, ResultsService) ->
+ResultListController = ($scope, $modal, CompareService, ProviderMapService, ResultsService) ->
   $ctrl = @
   $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
@@ -13,9 +13,17 @@ ResultListController = ($scope, $modal, CompareService, ResultsService) ->
       controller: 'ResultFiltersModalController'
     }
 
+  $ctrl.handleResultItemMouseenter = (provider) ->
+    marker = ProviderMapService.getProviderMarker({providerId: provider.providerId})
+    ProviderMapService.highlightMarker(marker, provider.typeOfCare)
+
+  $ctrl.handleResultItemMouseleave = (provider) ->
+    marker = ProviderMapService.getProviderMarker({providerId: provider.providerId})
+    ProviderMapService.unHighlightMarker(marker, provider.typeOfCare)
+
   return $ctrl
 
-ResultListController.$inject = ['$scope', '$modal', 'CompareService', 'ResultsService']
+ResultListController.$inject = ['$scope', '$modal', 'CompareService', 'ProviderMapService', 'ResultsService']
 
 angular
   .module('CCR')

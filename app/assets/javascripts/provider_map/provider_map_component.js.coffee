@@ -44,6 +44,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
       $ctrl.providers = ProviderMapService.mapify(providers)
       NgMap.getMap($ctrl.mapId).then (map) ->
         $scope.map = map
+        ProviderMapService.setMap(map)
         google.maps.event.addListener($scope.map, 'dragend', ->
           redoSearchInBounds() if $ctrl.searchOnDrag
         )
@@ -56,6 +57,18 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
     $ctrl.filters.locationB = { latitude: sw.lat(), longitude: sw.lng() }
     $ctrl.filters.addresses = ['']
     SearchService.postSearch()
+
+  $ctrl.handleMarkerMouseover = (event, providerData, map) ->
+    marker = ProviderMapService.getProviderMarker({markerId: providerData.markerId})
+    ProviderMapService.highlightMarker(marker, providerData.typeOfCare)
+    provider = $ctrl.providers.find((p) -> p.providerId == providerData.providerId)
+    provider.highlighted = true
+
+  $ctrl.handleMarkerMouseleave = (event, providerData, map) ->
+    marker = ProviderMapService.getProviderMarker({markerId: providerData.markerId})
+    ProviderMapService.unHighlightMarker(marker, providerData.typeOfCare)
+    provider = $ctrl.providers.find((p) -> p.providerId == providerData.providerId)
+    provider.highlighted = false
 
   return $ctrl
 

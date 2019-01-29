@@ -1,6 +1,12 @@
 ProviderMapService = () ->
+  $service = @
+  $service.map = null
+  $service.ccCenterIcon = '<%= image_path "cc-center.svg" %>'
+  $service.ccCenterHoverIcon = '<%= image_path "cc-center-hover.svg" %>'
+  $service.familyCareIcon = '<%= image_path "family-care.svg" %>'
+  $service.familyCareHoverIcon = '<%= image_path "family-care-hover.svg" %>'
 
-  @mapify = (providers) ->
+  $service.mapify = (providers) ->
     map_providers = []
     if providers
       for provider, index in providers
@@ -11,23 +17,52 @@ ProviderMapService = () ->
 
             provider.isIconVisibleOnClick = true
             provider.closeClick = 'none'
+            provider.markerId = $service.buildProviderMarkerId(provider.providerId)
 
             if provider.typeOfCare == "Child Care Center"
               provider.gmap_icon = "fa-building"
               provider.gmap_icon_title = "Child Care Center"
               provider.display_address = address.street1
               provider.display_address += ' ' + address.street2 if address.street2
-              provider.icon = '<%= image_path "cc-center.svg" %>'
+              provider.icon = $service.ccCenterIcon
             else
               provider.gmap_icon = "fa-home"
               provider.gmap_icon_title = "Family Child Care"
               provider.display_address = provider.generalInfo.config1
-              provider.icon = '<%= image_path "family-care.svg" %>'
+              provider.icon = $service.familyCareIcon
 
             map_providers.push provider if provider.position
+
     return map_providers
 
-  @
+  $service.setMap = (map) ->
+    $service.map = map
+
+  $service.buildProviderMarkerId = (providerId) ->
+    'custom-marker-' + providerId
+
+  $service.getProviderMarker = (data) ->
+    if $service.map && data
+      if data.markerId
+        _.find($service.map.markers, {id: data.markerId})
+      else if data.providerId
+        _.find($service.map.markers, {id: $service.buildProviderMarkerId(data.providerId)})
+
+  $service.highlightMarker = (marker, typeOfCare) ->
+    if marker && typeOfCare
+      if typeOfCare == 'Family Child Care'
+        marker.setIcon($service.familyCareHoverIcon)
+      else if typeOfCare == 'Child Care Center'
+        marker.setIcon($service.ccCenterHoverIcon)
+
+  $service.unHighlightMarker = (marker, typeOfCare) ->
+    if marker && typeOfCare
+      if typeOfCare == 'Family Child Care'
+        marker.setIcon($service.familyCareIcon)
+      else if typeOfCare == 'Child Care Center'
+        marker.setIcon($service.ccCenterIcon)
+
+  $service
 
 ProviderMapService.$inject = []
 angular.module('CCR').service('ProviderMapService', ProviderMapService)

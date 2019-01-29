@@ -9,7 +9,7 @@ div ng-hide="$ctrl.data.isLoading"
       p Try changing filters for a less specific search.
 
   ul.results-list.no-bullet ng-if="$ctrl.data.providers.length"
-    li.results-item ng-repeat="provider in $ctrl.data.providers"
+    li.results-item ng-repeat="provider in $ctrl.data.providers" ng-class="{'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
       result provider="provider"
 
   results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
