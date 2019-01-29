@@ -51,9 +51,12 @@
   .row
     .medium-12.columns.hide-for-small.filters-container
       .show-for-medium-up ng-include="'results/templates/results_filter_bar.html'"
-  .row.results-container
-    result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
-    result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
+  .row.results-container#results-map-container
+    .medium-5.columns
+      result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
+    .medium-7.column
+      div sticky="" sticky-container-id="results-map-container"
+        result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns

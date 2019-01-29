@@ -40,7 +40,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
     [$ctrl.filters.locationB.latitude, $ctrl.filters.locationB.longitude]
 
   setMap = (providers) ->
-    if providers.length
+    if providers && providers.length
       $ctrl.providers = ProviderMapService.mapify(providers)
       NgMap.getMap($ctrl.mapId).then (map) ->
         $scope.map = map
