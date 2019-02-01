@@ -20,6 +20,14 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
             itemBottom = pos + elementHeight
             stuckAtBottomTop = containerHeight - elementHeight
 
+            # Element is stuck at bottom, but container height is now less than or
+            # equal to the element height, so unstick it from the bottom
+            if (item.isStuckAtBottom && containerHeight <= elementHeight)
+              item.element.addClass(stuckClass);
+              item.element.removeClass(stuckAtBottomClass);
+              item.element.css('top', '0px')
+              item.isStuckAtBottom = false
+
             # Scroll is past the element and it's not stuck, so stick the element
             if (!item.isStuck && pos > item.start)
               item.element.addClass('stuck')
