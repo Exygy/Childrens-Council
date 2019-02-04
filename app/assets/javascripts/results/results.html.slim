@@ -57,6 +57,7 @@
     .medium-7.column
       div sticky="" sticky-container-id="results-map-container" ng-if="$ctrl.data.providers.length"
         result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
+      div ng-include="'results/templates/results_help_links.html'" ng-if="!$ctrl.data.providers.length"
 
   .row
     .medium-4.columns

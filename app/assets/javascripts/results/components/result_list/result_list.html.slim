@@ -1,10 +1,10 @@
 .loading ng-show="$ctrl.data.isLoading"
 
 div ng-hide="$ctrl.data.isLoading"
-  div ng-include="'results/templates/low-results-message.html'" ng-if="filters.vacancyType && filters.vacancyType[0]"
+  div ng-include="'results/templates/low_results_message.html'" ng-if="filters.vacancyType && filters.vacancyType[0]"
 
   ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.providers.length"
-    li.results-item.c-base.margin-top-4
+    li.results-item.results-item-empty.c-base.margin-top-4
       h2 No child care provider matches found.
       p Try changing filters for a less specific search.
 
