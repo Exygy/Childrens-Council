@@ -55,7 +55,7 @@
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
     .medium-7.column
-      div sticky="" sticky-container-id="results-map-container"
+      div sticky="" sticky-container-id="results-map-container" ng-if="$ctrl.data.providers.length"
         result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
