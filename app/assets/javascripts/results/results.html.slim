@@ -51,13 +51,11 @@
   .row
     .medium-12.columns.hide-for-small.filters-container
       .show-for-medium-up ng-include="'results/templates/results_filter_bar.html'"
-  .row.results-container#results-map-container
+  .row.results-container#results-map-scroll-container
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
-    .medium-7.column
-      div sticky="" sticky-container-id="results-map-container" ng-if="$ctrl.data.providers.length"
-        result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
-      div ng-include="'results/templates/results_help_links.html'" ng-if="!$ctrl.data.providers.length"
+    .medium-7.columns#results-map-container
+      result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns

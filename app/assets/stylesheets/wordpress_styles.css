@@ -37,15 +37,6 @@
   z-index: 10000000 !important;
 }
 
-.map-results-pager {
-  position: absolute;
-  right: 0;
-  right: 7px;
-  z-index: 10000;
-  top: 10px;
-  width: 240px;
-}
-
 .loading.map_loader {
   position: absolute;
   z-index: 1000000;
