@@ -8,7 +8,7 @@ div sticky="" sticky-container-id="results-map-container" sticky-scroll-containe
           h2 No child care provider matches found.
           p Try changing filters for a less specific search.
 
-    div.margin-bottom-2 ng-if="$ctrl.data.providers"
+    div.margin-bottom-2 ng-if="$ctrl.data.providers.length"
       provider-map providers="$ctrl.data.providers" filters="filters" info-window="true" map-id="'map-provider-results'"
 
     results-pager class="show-for-small" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
