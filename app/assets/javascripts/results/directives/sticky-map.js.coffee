@@ -77,7 +77,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
       debouncedRecheckDisabled = _.debounce(
         (e) ->
           recheckDisabled()
-        , 15)
+        , 110)
 
       recheckPositions = () ->
         scope.stickyElements.forEach((item) ->
@@ -96,7 +96,6 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
         )
 
       windowEl.bind('load', recheckDisabled)
-      windowEl.bind('load', recheckPositions)
       windowEl.on('scroll', debouncedOnScroll)
       windowEl.on('resize', debouncedRecheckDisabled)
       windowEl.bind('resize', recheckPositions)
