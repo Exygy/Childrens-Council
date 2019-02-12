@@ -37,5 +37,5 @@ angular
     bindings:
       provider: '<'
     controller: CompareToggleController
-    templateUrl: 'results/compare_toggle/compare_toggle.html'
+    templateUrl: 'results/components/compare_toggle/compare_toggle.html'
   })

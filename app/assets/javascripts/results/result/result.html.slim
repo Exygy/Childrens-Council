@@ -36,7 +36,7 @@ badges attributes="$ctrl.provider.attributes" show-title="false" show-info-item-
 .cl
 
 ul.general-info.row
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -47,7 +47,7 @@ ul.general-info.row
           span ng-if="!$ctrl.provider.phone"
             'n/a
 
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -59,7 +59,7 @@ ul.general-info.row
             '{{ $ctrl.provider.generalInfo.socialMediaUrl | toSocialNetworkName }}
           span ng-if="!$ctrl.provider.website && !$ctrl.provider.generalInfo.socialMediaUrl" n/a
 
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -67,7 +67,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
 
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -75,7 +75,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider.shiftDays | scheduleHoursToSummary }}
 
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -83,7 +83,7 @@ ul.general-info.row
         .columns.small-11
           '{{ $ctrl.provider | vacanciesSummary: ageWeeks }}
 
-  li.columns.small-12
+  li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
       .row.collapse
         .columns.small-1
@@ -96,13 +96,7 @@ ul.general-info.row
             |{{ $ctrl.provider.generalInfo.config1 }}
           |, {{ $ctrl.provider.addresses | physicalAddress: 'city' }} {{ $ctrl.provider.addresses | physicalAddress: 'state' }} {{ $ctrl.provider.addresses | physicalAddress: 'zip' }}
 
-          a.map_toggle.show-for-small ng-click="$parent.toogleMap()" ng-if="$ctrl.provider.addresses[0].latitude && $ctrl.provider.addresses[0].longitude"
-            span ng-if="!show_map" See map
-            span ng-if="show_map" Hide map
-
 .cl
-
-provider-map providers="[$ctrl.provider]" map-id="'map-provider-' + $ctrl.provider.providerId" info-window="false" ng-if="show_map"
 
 p.updated_at
   ' Profile last updated

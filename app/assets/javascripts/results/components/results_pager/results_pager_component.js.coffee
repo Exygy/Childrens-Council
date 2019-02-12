@@ -39,6 +39,6 @@ angular
       pageSize: '<'
       service: '<'
       callback: '<'
-    templateUrl: 'results/components/results_pager.html'
+    templateUrl: 'results/components/results_pager/results_pager.html'
     controller: ResultPagerController
   })

@@ -8,8 +8,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $scope.searchSettings.show_why_asking = false
   $scope.loading = SearchService.searchResultsData.isLoading
   $scope.locationTabs =
-    address:
-      active: $scope.searchSettings.locationType == 'address'
+    addresses:
+      active: $scope.searchSettings.locationType == 'addresses'
     zips:
       active: $scope.searchSettings.locationType == 'zips'
     neighborhoods:
@@ -17,8 +17,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
   $ctrl.setLocationTabs = () ->
     $scope.locationTabs =
-      address:
-        active: $scope.searchSettings.locationType == 'address'
+      addresses:
+        active: $scope.searchSettings.locationType == 'addresses'
       zips:
         active: $scope.searchSettings.locationType == 'zips'
       neighborhoods:
@@ -81,10 +81,10 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
       false
 
   $scope.setLocationType = (type) ->
-#   Clean locations
-    $scope.filters.address = ""
-    $scope.filters.zips = [""]
-    $scope.filters.neighborhoods = [""]
+    # Reset locations
+    $scope.filters.addresses = ['']
+    $scope.filters.zips = ['']
+    $scope.filters.neighborhoods = ['']
 
     $scope.locationTabs[type].active = true
     $scope.searchSettings.locationType = type

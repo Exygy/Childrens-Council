@@ -32,10 +32,10 @@ SearchService = (
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   $service.setSearchLocation = (params) ->
-    if params.address == ''
-      delete params.address
+    if params.addresses && _.isEmpty(params.addresses[0])
+      delete params.addresses
 
-    if $service.searchSettings.locationType == 'address' && params.addresses
+    if $service.searchSettings.locationType == 'addresses' && params.addresses
       params.addresses = _.map(params.addresses, (address) ->
         if address.indexOf(', San Francisco, CA') == -1
           address += ', San Francisco, CA'
@@ -48,12 +48,15 @@ SearchService = (
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
-      
       delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
       delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.zips
 
   # Reformat and rename program params to match API fields.
@@ -107,7 +110,6 @@ SearchService = (
             to: params.monthlyRate[1]
         else
           params.monthlyRate = from: params.monthlyRate[0]
-
 
   $service.setVacancies = (params) ->
     params.vacancyDateRange = VacancyDateService.convert(params.vacancyType, params.vacancyFutureDate)
@@ -171,30 +173,31 @@ SearchService = (
     }
 
   $service.performSearch = (callback, page) =>
-    that = $service
-    that.searchResultsData.providers = []
-    that.searchResultsData.isLoading = true
-    params = that.httpParams()
+    $service.searchResultsData.providers = []
+    $service.searchResultsData.isLoading = true
+    params = $service.httpParams()
     if page
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
       if response.data
-        that.searchResultsData.providers = response.data.content
-        that.searchResultsData.totalNumProviders = response.data.totalElements
-        that.searchResultsData.currentPage = response.data.number
-        that.searchResultsData.isFirstPage = response.data.first
-        that.searchResultsData.isLastPage = response.data.last
-        that.searchResultsData.pageSize = response.data.size
+        $service.searchResultsData.providers = response.data.content
+        $service.searchResultsData.totalNumProviders = response.data.totalElements
+        $service.searchResultsData.currentPage = response.data.number
+        $service.searchResultsData.isFirstPage = response.data.first
+        $service.searchResultsData.isLastPage = response.data.last
+        $service.searchResultsData.pageSize = response.data.size
       callback(response.data) if callback
-      that.searchResultsData.isLoading = false
+      $service.searchResultsData.isLoading = false
 
     searchParams = params.data.providers
-    if searchParams.addresses
+    if searchParams.addresses && searchParams.addresses[0]
       GeocodingService.geocodeAddress(searchParams.addresses[0]).then (coords) =>
         searchParams.locationA = coords
+        $service.filters.locationA = coords
         if searchParams.addresses[1]
           GeocodingService.geocodeAddress(searchParams.addresses[1]).then (coords) =>
             searchParams.locationB = coords
+            $service.filters.locationB = coords
             $service.serverRequest(params, serverRequestCallback)
         else
           $service.serverRequest(params, serverRequestCallback)

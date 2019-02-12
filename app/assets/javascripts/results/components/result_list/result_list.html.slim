@@ -1,0 +1,17 @@
+.loading ng-show="$ctrl.data.isLoading"
+
+div ng-hide="$ctrl.data.isLoading"
+  div ng-include="'results/templates/low_results_message.html'" ng-if="$ctrl.data.providers.length && filters.vacancyType && filters.vacancyType[0]"
+
+  ul.results-list.no-bullet.no-result ng-if="!$ctrl.data.providers.length"
+    li.results-item.results-item-empty.c-base
+      h2 No child care provider matches found.
+      p Try changing filters for a less specific search.
+
+  ul.results-list.no-bullet ng-if="$ctrl.data.providers.length"
+    li.results-item ng-repeat="provider in $ctrl.data.providers" ng-class="{'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
+      result provider="provider"
+
+  results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
+
+  ng-include src="'results/templates/results_help_links.html'" class="hide-for-medium-up"

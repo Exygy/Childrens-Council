@@ -14,7 +14,8 @@
               p.smaller ng-if="filters[settings.locationType]"
                 span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
                 span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
-                span ng-if="settings.locationType == 'address'" {{ filters.addresses | addressesToString }}
+                span ng-if="settings.locationType == 'addresses'" {{ filters.addresses | addressesToString }}
+
               p ng-if="!filters[settings.locationType]" Any
 
             .columns.medium-4.padding-right-1
