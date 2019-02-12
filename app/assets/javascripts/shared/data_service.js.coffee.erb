@@ -41,7 +41,7 @@ DataService = ($rootScope) ->
     religiousPrograms: <%= api_service.filter_data('religious_programs') %>
     shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
     typesOfCare: ['Family Child Care', 'Child Care Center']
-    vacancyTypes: ['Available Now', 'Future Date']
+    vacancyTypes: ['Available Now']
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
     zips: <%= api_service.filter_data('zip_codes') %>
 
