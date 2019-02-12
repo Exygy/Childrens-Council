@@ -8,11 +8,12 @@ h5
       span.icon
       .label
         | {{ type }}
-
-.row ng-show="filters.vacancyType == 'Future Date'"
-  .medium-6.medium-offset-6.columns.margin-top-1
-    .row
-      .columns.medium-6
-        p.label-text Enter Future Start Date
-      .columns.medium-6
-        input#vacancy-future-date type="text" placeholder="MM/DD/YYYY" name="vacancy-future-date" ng-model="filters.vacancyFutureDate"
+/ TODO: Either uncomment or remove this block once Children's Council decides
+/       how they want to handle searching by Future Date vacancies.
+/ .row ng-show="filters.vacancyType == 'Future Date'"
+/   .medium-6.medium-offset-6.columns.margin-top-1
+/     .row
+/       .columns.medium-6
+/         p.label-text Enter Future Start Date
+/       .columns.medium-6
+/         input#vacancy-future-date type="text" placeholder="MM/DD/YYYY" name="vacancy-future-date" ng-model="filters.vacancyFutureDate"
