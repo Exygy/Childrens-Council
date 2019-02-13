@@ -28,7 +28,8 @@ module Api
     def search_providers_with_images(search_params, page = 0, size = 15)
       begin
         @results = NDS.search_providers(search_params, page: page || 0, size: size )
-      rescue
+      rescue StandardError => e
+        Rails.logger.error e.message
         @results = {}
       end
 
