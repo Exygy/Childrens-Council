@@ -65,7 +65,7 @@ ul.general-info.row
         .columns.small-1
           span.fa.fa-usd.c-base
         .columns.small-11
-          '{{ $ctrl.provider.rates | ratesToSummary: ageWeeks }}
+          '{{ $ctrl.provider.rates | monthlyRatesToSummary: ageWeeks }}
 
   li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
