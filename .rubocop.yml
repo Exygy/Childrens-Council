@@ -8,7 +8,8 @@ AllCops:
     - 'db/migrate/*'
     - 'db/schema.rb'
     - 'bin/**/*'
-  RunRailsCops: true
+  Rails:
+    Enabled: true
 
 # We don't care about method length, since we check method cyclomatic
 # complexity.
@@ -19,10 +20,14 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Enabled: false
 
-Style/TrailingComma:
-  # Trailing commas make for clearer diffs because the last line won't appear
-  # to have been changed, as it would if it lacked a comma and had one added.
-  EnforcedStyleForMultiline: comma
+# Trailing commas make for clearer diffs because the last line won't appear
+# to have been changed, as it would if it lacked a comma and had one added.
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
