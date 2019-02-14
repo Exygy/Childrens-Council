@@ -1,39 +1,33 @@
-RatesSummaryFilter = (RatesService) ->
+MonthlyRatesSummaryFilter = (RatesService) ->
 
-  rateDataFieldNameToString = (field_name) ->
-    if field_name.indexOf('Monthly')
-      return '/month'
-    if field_name.indexOf('Weekly')
-      return '/week'
-    if field_name.indexOf('Daily')
-      return '/day'
-    if field_name.indexOf('Hourly')
-      return '/hour'
-    if field_name.indexOf('Other')
-      return ' - other'
-    return ''
+  # Children's Council's direction for this monthly rate filter is that
+  # we should prefer to display the full time monthly rate over the
+  # part time rate.
+  getMonthlyRate = (rate) ->
+    rate.ftMonthly || rate.ptMonthly
 
-  hasRateData = (rate_data) ->
-    for key of rate_data
-      if rate_data.hasOwnProperty(key)
-        return true
-    return false
+  formatRateForDisplay = (rate) ->
+    monthlyRateValue = getMonthlyRate(rate)
 
-  formatRatesToDisplay = (rates_to_display) ->
-    if rates_to_display.length
-      for field_name of rates_to_display[0]
-        return '$' + rates_to_display[0][field_name] + rateDataFieldNameToString(field_name)
-
-  (rates, age_in_weeks) ->
-    ratesData = RatesService.selectRatesForAge(rates, age_in_weeks)
-    rates_to_display = ratesData.filter((r) -> hasRateData(r))
-    rate_to_display_str = formatRatesToDisplay(rates_to_display)
-
-    if rate_to_display_str
-      return 'approximately ' + rate_to_display_str
+    if monthlyRateValue
+      "approximately $#{monthlyRateValue}/month"
     else
-      return 'n/a'
+      'see details'
 
-RatesSummaryFilter.$inject = ['RatesService']
+  (rates, ageInWeeks) ->
+    # Select only the providers' rates for age groups that include the given age
+    ratesData = RatesService.selectRatesForAge(rates, ageInWeeks)
+    return 'n/a' if _.isEmpty(ratesData) || _.every(ratesData, isEmpty)
 
-angular.module('CCR').filter('ratesToSummary', RatesSummaryFilter)
+    # A provider can have multiple age group rates that cover the given age.
+    # At this time, Children's Council's direction for handling this case in
+    # this monthly rate filter is to use only the first age group rate that
+    # is returned from the API.
+    rate = ratesData[0]
+
+    # Format the rate as text
+    formatRateForDisplay(rate)
+
+MonthlyRatesSummaryFilter.$inject = ['RatesService']
+
+angular.module('CCR').filter('monthlyRatesToSummary', MonthlyRatesSummaryFilter)
