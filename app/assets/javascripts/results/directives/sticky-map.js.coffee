@@ -30,7 +30,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
                 item.isStuckAtBottom = false
 
               # Scroll is past the element and it's not stuck, so stick the element
-              if (!item.isStuck && pos > item.start)
+              if (!item.isStuck && pos > Math.max(item.start, item.topLimit))
                 item.element.css('width', item.element[0].offsetWidth + 'px')
                 item.element.addClass('stuck')
                 item.isStuck = true
@@ -116,6 +116,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
       scrollContainer: scrollContainer
       scrollContainerOffset: scrollContainer.offset().top
       start: element.offset().top
+      topLimit: attrs.stickyTopLimit
 
     scope.stickyElements.push(stickyElement)
 
