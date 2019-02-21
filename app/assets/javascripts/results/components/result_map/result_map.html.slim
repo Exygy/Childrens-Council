@@ -13,7 +13,7 @@ div
 
     div sticky="" sticky-container-id="results-map-container" sticky-scroll-container-id="results-map-scroll-container" sticky-disabled-below-width="640" sticky-top-limit="622.96875"
       div.margin-bottom-2 ng-if="$ctrl.data.providers.length"
-        provider-map providers="$ctrl.data.providers" filters="filters" info-window="true" map-id="'map-provider-results'"
+        provider-map providers="$ctrl.data.providers" filters="filters" info-window="true" show-search-on-drag="true" map-id="'map-provider-results'"
 
         results-pager class="show-for-small" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
 

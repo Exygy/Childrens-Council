@@ -78,10 +78,11 @@ angular
   .module('CCR')
   .component('providerMap', {
     bindings:
-      infoWindow: '<',
+      filters: '<'
+      infoWindow: '<'
       mapId: '<'
       providers: '<'
-      filters: '<'
+      showSearchOnDrag: '<'
     controller: ProviderMapController
     templateUrl: "provider_map/provider_map.html"
   })
