@@ -3,8 +3,8 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
 
   $ctrl.$onInit = ->
     setMap($ctrl.providers)
-    $ctrl.filters.settings = {} unless $ctrl.filters.settings
-    $ctrl.searchOnDrag = $ctrl.filters.settings.searchingByMapArea
+    if $ctrl.filters && !_.isEmpty($ctrl.filters.settings)
+      $ctrl.searchOnDrag = $ctrl.filters.settings.searchingByMapArea
 
   $ctrl.$onChanges = (obj) ->
     setMap(obj.providers.currentValue)
