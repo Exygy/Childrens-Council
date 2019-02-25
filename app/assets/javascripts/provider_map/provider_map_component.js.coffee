@@ -56,6 +56,8 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
     $ctrl.filters.locationA = { latitude: ne.lat(), longitude: ne.lng() }
     $ctrl.filters.locationB = { latitude: sw.lat(), longitude: sw.lng() }
     $ctrl.filters.addresses = ['']
+    $ctrl.filters.neighborhoods = ['']
+    $ctrl.filters.zips = ['']
     SearchService.postSearch()
 
   $ctrl.handleMarkerMouseover = (event, providerData, map) ->
