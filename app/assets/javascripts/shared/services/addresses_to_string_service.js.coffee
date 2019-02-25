@@ -1,6 +1,8 @@
 AddressesToStringService = ->
   @toString = (addresses) ->
-    if addresses.length == 1
+    if _.isEmpty(addresses)
+      'None'
+    else if addresses.length == 1
       addresses[0]
     else
       'Between ' + _.join(addresses, ' and ')

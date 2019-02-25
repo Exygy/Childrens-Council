@@ -1,10 +1,10 @@
 ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchService, $element, $compile) ->
   $ctrl = @
 
-  $ctrl.searchOnDrag = false
-
   $ctrl.$onInit = ->
     setMap($ctrl.providers)
+    $ctrl.filters.settings = {} unless $ctrl.filters.settings
+    $ctrl.searchOnDrag = $ctrl.filters.settings.searchingByMapArea
 
   $ctrl.$onChanges = (obj) ->
     setMap(obj.providers.currentValue)
@@ -53,6 +53,8 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
     newBounds = $scope.map.getBounds()
     ne = newBounds.getNorthEast()
     sw = newBounds.getSouthWest()
+    $ctrl.filters.settings = {} unless $ctrl.filters.settings
+    $ctrl.filters.settings.searchingByMapArea = true
     $ctrl.filters.locationA = { latitude: ne.lat(), longitude: ne.lng() }
     $ctrl.filters.locationB = { latitude: sw.lat(), longitude: sw.lng() }
     $ctrl.filters.addresses = ['']

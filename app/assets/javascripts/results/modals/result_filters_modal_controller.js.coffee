@@ -8,6 +8,8 @@ ResultFiltersModalController = ($scope, $modalInstance, $anchorScroll, ResultsSe
       resetFilters()
 
   $scope.postSearch = ->
+    ResultsService.filters.settings = {} unless ResultsService.filters.settings
+    ResultsService.filters.settings.searchingByMapArea = false
     SearchService.postSearch()
     $modalInstance.close()
     $anchorScroll('search-results-wrapper')

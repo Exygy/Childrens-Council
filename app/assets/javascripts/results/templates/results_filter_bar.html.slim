@@ -11,10 +11,13 @@
           .row.collapse
             .columns.medium-4.padding-right-1
               h4 Desired locations
-              p.smaller ng-if="filters[settings.locationType]"
+              p.smaller ng-if="filters[settings.locationType] && !filters.settings.searchingByMapArea"
                 span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
                 span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
                 span ng-if="settings.locationType == 'addresses'" {{ filters.addresses | addressesToString }}
+              p.smaller ng-if="filters.settings.searchingByMapArea"
+                span
+                  | Specified by Map Area
 
               p ng-if="!filters[settings.locationType]" Any
 

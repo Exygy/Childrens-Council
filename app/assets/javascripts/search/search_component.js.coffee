@@ -60,6 +60,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     validateForm()
     if $scope.searchForm.$valid
       $scope.loading = true
+      $scope.filters.settings = {} unless $scope.filters.settings
+      $scope.filters.settings.searchingByMapArea = false
       SearchService.postSearch(
         () -> $state.go('results'),
         { deleteApiKey: true, reset: true },
