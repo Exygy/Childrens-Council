@@ -2,6 +2,8 @@
 angular.module('CCR').directive('sticky', ['$window', ($window) ->
   stuckClass = 'stuck'
   stuckAtBottomClass = 'stuck-at-bottom'
+  stickyDisabledClass = 'sticky-disabled'
+  stickToBottomBuffer = 200
 
   link = (scope, element, attrs) ->
     windowEl = angular.element($window)
@@ -9,75 +11,90 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
     if (scope.stickyElements == undefined)
       scope.stickyElements = []
 
-      debouncedOnScroll = _.debounce(
+      stick = (item) ->
+        item.element.css('width', item.element[0].offsetWidth + 'px')
+        item.element.addClass(stuckClass)
+        item.element.css('top', '0px')
+        item.isStuck = true
+        if (item.placeholder)
+          item.placeholder = angular.element('<div></div>')
+                                    .css({height: item.element.outerHeight() + 'px'})
+                                    .insertBefore(item.element)
+
+      unstick = (item) ->
+        item.element.removeClass(stuckClass)
+        item.element.css('width', '100%')
+        item.element.css('top', 'auto')
+        item.isStuck = false
+        if (item.placeholder)
+          item.placeholder.remove()
+          item.placeholder = true
+
+      stickToBottom = (item) ->
+        stuckAtBottomTop = item.scrollContainer.height() - item.element[0].offsetHeight
+        item.element.addClass(stuckAtBottomClass)
+        item.element.css('top', stuckAtBottomTop + 'px')
+        item.isStuckAtBottom = true
+
+      unstickFromBottom = (item) ->
+        item.element.removeClass(stuckAtBottomClass)
+        item.element.css('top', 'auto')
+        item.isStuckAtBottom = false
+
+      updateStickyElements = () ->
+        pos = windowEl.scrollTop()
+
+        scope.stickyElements.forEach((item) ->
+          elementHeight = item.element[0].offsetHeight
+          scrollContainerHeight = item.scrollContainer.height()
+
+          if ((scrollContainerHeight - stickToBottomBuffer) <= elementHeight)
+            unstick(item)
+            unstickFromBottom(item)
+          else if (!item.disabled)
+            scrollContainerBottom = item.scrollContainerOffset + scrollContainerHeight
+            itemBottom = pos + elementHeight
+
+            if (item.isStuck)
+              if (pos < Math.min(item.start, item.topLimit))
+                # Scroll is above the stuck element, so unstick it
+                unstick(item)
+              else if (item.isStuck && itemBottom > scrollContainerBottom)
+                # Element has reached bottom of scrollContainer, so stick it there
+                unstick(item)
+                stickToBottom(item)
+            else
+              if (item.isStuckAtBottom && pos <= item.element.offset().top)
+                # Element was stuck at bottom of scrollContainer, scroll is
+                # now high up enough to unstick it from bottom
+                unstickFromBottom(item)
+                stick(item) if (pos >= Math.max(item.start, item.topLimit))
+              else if (pos >= Math.max(item.start, item.topLimit) && !item.isStuckAtBottom)
+                # Scroll is past the element and it's not stuck, so stick the element
+                stick(item)
+        )
+
+      debouncedUpdateStickyElements = _.debounce(
         (e) ->
-          pos = windowEl.scrollTop()
-
-          scope.stickyElements.forEach((item) ->
-            if (!item.stickyDisabled)
-              elementHeight = item.element[0].offsetHeight
-              scrollContainerHeight = item.scrollContainer.height()
-              scrollContainerBottom = item.scrollContainerOffset + scrollContainerHeight
-              itemBottom = pos + elementHeight
-              stuckAtBottomTop = scrollContainerHeight - elementHeight
-
-              # Element is stuck at bottom, but scrollContainer height is now less than or
-              # equal to the element height, so unstick it from the bottom
-              if (item.isStuckAtBottom && scrollContainerHeight <= elementHeight)
-                item.element.addClass(stuckClass);
-                item.element.removeClass(stuckAtBottomClass);
-                item.element.css('top', '0px')
-                item.isStuckAtBottom = false
-
-              # Scroll is past the element and it's not stuck, so stick the element
-              if (!item.isStuck && pos > Math.max(item.start, item.topLimit))
-                item.element.css('width', item.element[0].offsetWidth + 'px')
-                item.element.addClass('stuck')
-                item.isStuck = true
-                if (item.placeholder)
-                  item.placeholder = angular.element("<div></div>")
-                                          .css({height: item.element.outerHeight() + "px"})
-                                          .insertBefore(item.element)
-              # Scroll is before the element and it is stuck, so unstick it
-              else if (item.isStuck && pos < item.start)
-                item.element.removeClass('stuck')
-                item.isStuck = false
-                item.element.css('width', '100%')
-                if (item.placeholder)
-                  item.placeholder.remove()
-                  item.placeholder = true
-              # Scroll is past where we want the element to stop being sticky, so unstick it
-              # and set it to be relatively positioned at the bottom of the scrollContainer
-              else if (item.isStuck && itemBottom > scrollContainerBottom && !item.isStuckAtBottom)
-                item.element.removeClass(stuckClass);
-                item.element.addClass(stuckAtBottomClass);
-                item.element.css('top', stuckAtBottomTop + 'px')
-                item.isStuckAtBottom = true
-              # Scroll is above where we want the element to stop being sticky, so stick it again
-              else if (item.isStuckAtBottom && pos <= item.element.offset().top)
-                item.element.addClass(stuckClass);
-                item.element.removeClass(stuckAtBottomClass);
-                item.element.css('top', '0px')
-                item.isStuckAtBottom = false
-          )
+          updateStickyElements()
         , 15)
 
       recheckDisabled = () ->
         scope.stickyElements.forEach((item) ->
           if (item.disabledBelowWidth)
             if (item.disabled && (windowEl.width() > item.disabledBelowWidth))
-              item.element.removeClass('sticky-disabled')
+              item.element.removeClass(stickyDisabledClass)
               item.disabled = false
               item.scrollContainerOffset = item.scrollContainer.offset().top
             else if (!item.disabled && (windowEl.width() <= item.disabledBelowWidth))
-              item.element.addClass('sticky-disabled')
+              item.element.addClass(stickyDisabledClass)
               item.disabled = true
         )
 
       debouncedRecheckDisabled = _.debounce(
         (e) ->
           recheckDisabled()
-        , 110)
+        , 100)
 
       recheckPositions = () ->
         scope.stickyElements.forEach((item) ->
@@ -96,7 +113,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
         )
 
       windowEl.bind('load', recheckDisabled)
-      windowEl.on('scroll', debouncedOnScroll)
+      windowEl.on('scroll', debouncedUpdateStickyElements)
       windowEl.on('resize', debouncedRecheckDisabled)
       windowEl.bind('resize', recheckPositions)
       windowEl.bind('resize', recheckWidths)
@@ -117,11 +134,16 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
       scrollContainerOffset: scrollContainer.offset().top
       start: element.offset().top
       topLimit: attrs.stickyTopLimit
-
     scope.stickyElements.push(stickyElement)
+
+    scope.$watch 'providers', (oldValue, newValue) ->
+      if (newValue)
+        updateStickyElements()
 
   return {
     restrict: 'A'
+    scope:
+      providers: '<'
     link: link
   }
 ])
