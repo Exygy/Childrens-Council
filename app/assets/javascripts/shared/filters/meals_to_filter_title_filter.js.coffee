@@ -1,7 +1,7 @@
 MealsToFilterTitleFilter = () ->
   (meals) ->
     if meals && meals.length
-      if meals[0] == 'dummy value for no meals'
+      if meals[0] == 'No meals'
         'No'
       else
         'Yes'

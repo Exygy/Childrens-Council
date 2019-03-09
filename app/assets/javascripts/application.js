@@ -23,7 +23,7 @@
 //= require ng-token-auth
 //= require angular-cookie
 //= require AngularDevise
-//= require ngmap
+//= require ngmap/build/scripts/ng-map.min.js
 //= require angular-ui-router
 //= require angular-cookies
 //= require angular-rails-templates
@@ -32,7 +32,6 @@
 //= require angular-moment
 //= require angular-sanitize
 //= require angular-ui-slider/src/slider.js
-//= require angular-ui-carousel
 //= require checklist-model
 //= require deep-filter/index.umd.js
 //= require ui-select/dist/select.js

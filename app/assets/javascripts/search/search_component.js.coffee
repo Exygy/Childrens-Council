@@ -8,8 +8,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $scope.searchSettings.show_why_asking = false
   $scope.loading = SearchService.searchResultsData.isLoading
   $scope.locationTabs =
-    address:
-      active: $scope.searchSettings.locationType == 'address'
+    addresses:
+      active: $scope.searchSettings.locationType == 'addresses'
     zips:
       active: $scope.searchSettings.locationType == 'zips'
     neighborhoods:
@@ -17,8 +17,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
   $ctrl.setLocationTabs = () ->
     $scope.locationTabs =
-      address:
-        active: $scope.searchSettings.locationType == 'address'
+      addresses:
+        active: $scope.searchSettings.locationType == 'addresses'
       zips:
         active: $scope.searchSettings.locationType == 'zips'
       neighborhoods:
@@ -60,12 +60,14 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     validateForm()
     if $scope.searchForm.$valid
       $scope.loading = true
+      $scope.filters.settings = {} unless $scope.filters.settings
+      $scope.filters.settings.searchingByMapArea = false
       SearchService.postSearch(
         () -> $state.go('results'),
-        {deleteApiKey: true, reset: true},
+        { deleteApiKey: true, reset: true },
       )
     else
-      $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800);
+      $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800)
     return
 
   $scope.addItem = (collection) ->
@@ -81,10 +83,10 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
       false
 
   $scope.setLocationType = (type) ->
-#   Clean locations
-    $scope.filters.address = ""
-    $scope.filters.zips = [""]
-    $scope.filters.neighborhoods = [""]
+    # Reset locations
+    $scope.filters.addresses = ['']
+    $scope.filters.zips = ['']
+    $scope.filters.neighborhoods = ['']
 
     $scope.locationTabs[type].active = true
     $scope.searchSettings.locationType = type
@@ -101,8 +103,9 @@ angular.module('CCR').controller('SearchController', SearchController)
 angular
   .module('CCR')
   .component('search', {
-    bindings:
+    bindings: {
       token: '<'
+    }
     controller: SearchController
     templateUrl: "search/search.html"
   })

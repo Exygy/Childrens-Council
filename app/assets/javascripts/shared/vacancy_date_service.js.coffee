@@ -1,4 +1,4 @@
-VacancyFormParamsToVacancyDateRangeService = ->
+VacancyDateService = ->
   $service = @
 
   $service.dates = () ->
@@ -39,6 +39,6 @@ VacancyFormParamsToVacancyDateRangeService = ->
 
   return $service
 
-VacancyFormParamsToVacancyDateRangeService.$inject = []
+VacancyDateService.$inject = []
 
-angular.module('CCR').service('VacancyFormParamsToVacancyDateRangeService', VacancyFormParamsToVacancyDateRangeService)
+angular.module('CCR').service('VacancyDateService', VacancyDateService)

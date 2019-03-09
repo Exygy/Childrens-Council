@@ -15,15 +15,18 @@
         .small-9.medium-4.columns.text-right
           user-menu printText="Print List"
       .row
-        .small-12.medium-9.columns
+        .columns.small-12.medium-9.margin-bottom-1
           h1.results-header We found {{ $ctrl.data.totalNumProviders || '0' }} options
-        .medium-3.columns.text-right.small-12.padding-top-1
+        .columns.medium-3.hide-for-small
+          a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0"
+            | Compare Now ({{$ctrl.providerIdsToCompare.length}})
+        .columns.medium-3.text-right.small-12.padding-top-1.show-for-small
           .row.collapse
-            .columns.small-5.show-for-small.text-left ng-controller="ResultsFilterController"
+            .columns.small-5.text-left ng-controller="ResultsFilterController"
               button.round.smaller.active ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
                 i.fa.fa-sliders
                 | Filters
-            .columns.small-7.medium-12
+            .columns.small-7
               ul.pager.radius
                 li
                   button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
@@ -32,25 +35,27 @@
                   button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
                     | Map
 
-  .row.showing-container
-    .columns.small-5.medium-4
-      results-showing data="$ctrl.data"
-    .columns.small-7.medium-8
-      .row.c-base ng-if="$ctrl.data.providers.length"
-        .small-12.columns.text-right
-          p.results-showing
-            span Sort by:
-            span.margin-left-small
-              span ng-hide="settings.locationType == 'address' && filters.address" Random
-              span ng-show="settings.locationType == 'address' && filters.address" Distance
-              span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'address' && filters.address" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
-              span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'address' && filters.address" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+      .row.showing-container
+        .columns.small-5.medium-4
+          results-showing data="$ctrl.data"
+        .columns.small-7.medium-8
+          .row.c-base ng-if="$ctrl.data.providers.length"
+            .small-12.columns.text-right
+              p.results-showing
+                span Sort by:
+                span.margin-left-small
+                  span ng-hide="settings.locationType == 'addresses' && filters.addresses" Random
+                  span ng-show="settings.locationType == 'addresses' && filters.addresses" Distance
+                  span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+                  span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
   .row
-    .medium-4.columns.hide-for-small
-      .show-for-medium-up ng-include="'results/results_sidebar.html'"
-
-    result-map data="$ctrl.data" ng-if="$ctrl.showMap"
-    result-list data="$ctrl.data" ng-if="!$ctrl.showMap"
+    .medium-12.columns.hide-for-small.filters-container
+      .show-for-medium-up ng-include="'results/templates/results_filter_bar.html'"
+  .row.results-container#results-map-scroll-container
+    .medium-5.columns
+      result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
+    .medium-7.columns#results-map-container
+      result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns

@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.20'
+gem 'nds_api', '0.1.21'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -139,7 +139,15 @@ group :development do
 
   # `guard init teaspoon`
   gem 'guard-teaspoon', require: false
-  gem 'byebug'
+
+  # Debugging console
+  gem 'pry-byebug'
+
+  # Run git hooks
+  gem 'overcommit'
+
+  # Used by Overcommit to check best practices in Rails code
+  gem 'rails_best_practices'
 end
 
 group :staging, :production do

@@ -21,5 +21,5 @@ angular
   bindings:
     data: '<'
   controller: ResultsShowingController
-  templateUrl: "results/results_showing.html"
+  templateUrl: "results/components/results_showing/results_showing.html"
 })

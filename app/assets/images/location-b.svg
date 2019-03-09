@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="51px" viewBox="0 0 30 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>map-marker / points</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="map-marker-/-points" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-8" fill="#E73624">
+            <g id="Group-7">
+                <path d="M15,50.1523878 C17.375901,43.3354128 19.1587327,38.7618215 20.3484953,36.4316138 C26.2384656,24.8958216 30,22.1964518 30,15 C30,6.71572875 23.2842712,0 15,0 C6.71572875,0 3.03434394e-16,6.71572875 0,15 C0,23.1954825 4.99373582,25.8448979 10.2935691,36.4316138 C11.6136772,39.0686041 13.1824875,43.6421955 15,50.1523878 Z" id="Oval"></path>
+            </g>
+        </g>
+        <path d="M9.306,22 L14.022,8.626 L16.812,8.626 L21.528,22 L18.558,22 L17.568,19.03 L13.032,19.03 L12.006,22 L9.306,22 Z M13.752,16.906 L16.884,16.906 L15.354,12.37 L15.318,12.37 L13.752,16.906 Z" id="A" fill="#FFFFFF"></path>
+    </g>
+</svg>

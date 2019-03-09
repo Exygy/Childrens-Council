@@ -80,7 +80,9 @@ class Parent < ActiveRecord::Base
   end
 
   def last_search
-    referral_logs.last_search.params.except('format', 'action', 'controller') if referral_logs.present?
+    if referral_logs.present? && referral_logs.last_search.present?
+      referral_logs.last_search.params.except('format', 'action', 'controller')
+    end
   end
 
   def set_provider

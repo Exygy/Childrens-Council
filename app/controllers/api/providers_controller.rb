@@ -28,7 +28,8 @@ module Api
     def search_providers_with_images(search_params, page = 0, size = 15)
       begin
         @results = NDS.search_providers(search_params, page: page || 0, size: size )
-      rescue
+      rescue StandardError => e
+        Rails.logger.error e.message
         @results = {}
       end
 
@@ -122,8 +123,10 @@ module Api
         weeklySchedule: [],
         zips: []
       ).tap do |whitelisted|
+        # parameters that are hashes cannot be permitted with the permit method as
+        # most parameters are above, so we manually whitelist any hash params here
         whitelisted[:locationA] = params[:providers][:locationA]
-        whitelisted[:attributesLocal3] = params[:providers][:attributesLocal3]
+        whitelisted[:locationB] = params[:providers][:locationB]
       end
     end
   end

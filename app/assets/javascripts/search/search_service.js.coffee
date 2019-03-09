@@ -1,4 +1,6 @@
-SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyFormParamsToVacancyDateRangeService, DataService, GeocodingService, HttpService, $rootScope) ->
+SearchService = (
+  $http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyDateService,
+  DataService, GeocodingService, HttpService, $rootScope) ->
   $service = @
   $service.filterData = DataService.filterData
   $service.filters = DataService.filters
@@ -10,7 +12,7 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     $service.filters = service.filters
     $service.parent = service.parent
     $service.searchSettings = service.searchSettings
-    $rootScope.$broadcast('search-service:updated', $service);
+    $rootScope.$broadcast('search-service:updated', $service)
 
   $service.deleteApiKey = ->
     $cookies.remove CC_COOKIE
@@ -30,21 +32,31 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   $service.setSearchLocation = (params) ->
-    if params.address == ''
-      delete params.address
+    if params.addresses && _.isEmpty(params.addresses[0])
+      delete params.addresses
 
-    if $service.searchSettings.locationType == 'address' && params.address
-      if params.address.indexOf(', San Francisco, CA') == -1
-        params.address += ', San Francisco, CA'
-      params.distance = 5 # set the search radius in miles
+    if $service.searchSettings.locationType == 'addresses' && params.addresses
+      params.addresses = _.map(params.addresses, (address) ->
+        if address.indexOf(', San Francisco, CA') == -1
+          address += ', San Francisco, CA'
+        address
+      )
+      if params.addresses.length == 1
+        params.distance = 5 # set the search radius in miles
+      else
+        delete params.distance
       delete params.zips
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'zips' && params.zips.length && params.zips[0].length
-      delete params.address
+      delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.neighborhoods
     else if $service.searchSettings.locationType == 'neighborhoods' && params.neighborhoods.length && params.neighborhoods[0].length
       params.attributesLocal17 = params.neighborhoods
-      delete params.address
+      delete params.addresses
+      delete params.locationA
+      delete params.locationB
       delete params.zips
 
   # Reformat and rename program params to match API fields.
@@ -99,9 +111,8 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
         else
           params.monthlyRate = from: params.monthlyRate[0]
 
-
   $service.setVacancies = (params) ->
-    params.vacancyDateRange = VacancyFormParamsToVacancyDateRangeService.convert(params.vacancyType, params.vacancyFutureDate)
+    params.vacancyDateRange = VacancyDateService.convert(params.vacancyType, params.vacancyFutureDate)
     delete params.vacancyType
     delete params.vacancyFutureDate
 
@@ -162,29 +173,34 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
     }
 
   $service.performSearch = (callback, page) =>
-    that = $service
-    that.searchResultsData.providers = []
-    that.searchResultsData.isLoading = true
-    params = that.httpParams()
+    $service.searchResultsData.providers = []
+    $service.searchResultsData.isLoading = true
+    params = $service.httpParams()
     if page
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
       if response.data
-        that.searchResultsData.providers = response.data.content
-        that.searchResultsData.totalNumProviders = response.data.totalElements
-        that.searchResultsData.currentPage = response.data.number
-        that.searchResultsData.isFirstPage = response.data.first
-        that.searchResultsData.isLastPage = response.data.last
-        that.searchResultsData.pageSize = response.data.size
+        $service.searchResultsData.providers = response.data.content
+        $service.searchResultsData.totalNumProviders = response.data.totalElements
+        $service.searchResultsData.currentPage = response.data.number
+        $service.searchResultsData.isFirstPage = response.data.first
+        $service.searchResultsData.isLastPage = response.data.last
+        $service.searchResultsData.pageSize = response.data.size
       callback(response.data) if callback
-      that.searchResultsData.isLoading = false
+      $service.searchResultsData.isLoading = false
 
     searchParams = params.data.providers
-    if searchParams.address
-      GeocodingService.geocodeAddress(searchParams.address).then (coords) =>
+    if searchParams.addresses && searchParams.addresses[0]
+      GeocodingService.geocodeAddress(searchParams.addresses[0]).then (coords) =>
         searchParams.locationA = coords
-#        delete searchParams.address
-        $service.serverRequest(params, serverRequestCallback)
+        $service.filters.locationA = coords
+        if searchParams.addresses[1]
+          GeocodingService.geocodeAddress(searchParams.addresses[1]).then (coords) =>
+            searchParams.locationB = coords
+            $service.filters.locationB = coords
+            $service.serverRequest(params, serverRequestCallback)
+        else
+          $service.serverRequest(params, serverRequestCallback)
     else
       $service.serverRequest(params, serverRequestCallback)
 
@@ -193,5 +209,5 @@ SearchService = ($http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, Vacanc
 
   $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyFormParamsToVacancyDateRangeService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyDateService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)

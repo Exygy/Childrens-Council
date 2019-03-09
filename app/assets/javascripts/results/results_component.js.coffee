@@ -1,10 +1,12 @@
-ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $auth, $scope) ->
+ResultsController = ($timeout, $anchorScroll, CompareService, ResultsService, SearchService, $auth, $scope) ->
   $ctrl = @
   $ctrl.parent = $auth.currentUser()
+  $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
   $ctrl.$onInit = ->
     $ctrl.data = ResultsService.searchResultsData
     $ctrl.filters = ResultsService.filters
+    $ctrl.settings = ResultsService.searchSettings
     $ctrl.showMap = false
     if !$ctrl.data && $ctrl.parent
       SearchService.postSearch()
@@ -16,7 +18,7 @@ ResultsController = ($timeout, $anchorScroll, ResultsService, SearchService, $au
 
   return $ctrl
 
-ResultsController.$inject = ['$timeout', '$anchorScroll', 'ResultsService', 'SearchService', '$auth', '$scope']
+ResultsController.$inject = ['$timeout', '$anchorScroll', 'CompareService', 'ResultsService', 'SearchService', '$auth', '$scope']
 
 angular
   .module('CCR')
