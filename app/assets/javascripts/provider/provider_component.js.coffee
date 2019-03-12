@@ -6,7 +6,12 @@ ProviderController = ($anchorScroll, $scope, $timeout, ProviderService, ResultsS
     ProviderService.get $ctrl.id, (provider) ->
       $scope.provider = provider
 
-  $timeout $anchorScroll()
+  $timeout(
+    () ->
+      $anchorScroll()
+    ,
+    1000
+  )
 
   return $ctrl
 

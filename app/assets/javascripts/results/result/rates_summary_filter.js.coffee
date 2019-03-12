@@ -1,4 +1,4 @@
-MonthlyRatesSummaryFilter = (RatesService) ->
+MonthlyRatesSummaryFilter = (RatesService, $sce) ->
 
   # Children's Council's direction for this monthly rate filter is that
   # we should prefer to display the full time monthly rate over the
@@ -6,17 +6,19 @@ MonthlyRatesSummaryFilter = (RatesService) ->
   getMonthlyRate = (rate) ->
     rate.ftMonthly || rate.ptMonthly
 
-  formatRateForDisplay = (rate) ->
+  formatRateForDisplay = (rate, providerId) ->
     monthlyRateValue = getMonthlyRate(rate)
 
     if monthlyRateValue
       "approximately $#{monthlyRateValue}/month"
     else
-      'see details'
+      providerId = providerId.toString().replace(/[^0-9]/g, '')
+      providerLink = "<a href='/providers/#{providerId}/#provider-rates'>see details</a>"
+      $sce.trustAsHtml(providerLink)
 
-  (rates, ageInWeeks) ->
+  (provider, ageInWeeks) ->
     # Select only the providers' rates for age groups that include the given age
-    ratesData = RatesService.selectRatesForAge(rates, ageInWeeks)
+    ratesData = RatesService.selectRatesForAge(provider.rates, ageInWeeks)
     return 'n/a' if _.isEmpty(ratesData) || _.every(ratesData, isEmpty)
 
     # A provider can have multiple age group rates that cover the given age.
@@ -26,8 +28,8 @@ MonthlyRatesSummaryFilter = (RatesService) ->
     rate = ratesData[0]
 
     # Format the rate as text
-    formatRateForDisplay(rate)
+    formatRateForDisplay(rate, provider.providerId)
 
-MonthlyRatesSummaryFilter.$inject = ['RatesService']
+MonthlyRatesSummaryFilter.$inject = ['RatesService', '$sce']
 
 angular.module('CCR').filter('monthlyRatesToSummary', MonthlyRatesSummaryFilter)
