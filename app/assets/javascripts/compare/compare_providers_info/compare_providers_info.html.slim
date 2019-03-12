@@ -32,6 +32,20 @@
 .row.padding-bottom-2
   .columns.small-12
     .compare-info-title
+      <h4>Teacher to Child Ratio</h4>
+
+  .columns.small-12
+    .row.collapse.compare-info-row
+      .columns.small-12.medium-6.large-4.compare-info-item ng-repeat="provider in $ctrl.providers"
+        .row.collapse
+          .columns.small-1
+            span.fa.fa-users.c-base
+          .columns.small-11
+            compare-providers-ratio enrollments="provider.enrollments" child="$ctrl.data.child"
+
+.row.padding-bottom-2
+  .columns.small-12
+    .compare-info-title
       <h4>Teaching Approach</h4>
 
   .columns.small-12

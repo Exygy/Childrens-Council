@@ -26,12 +26,14 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
       img.headshot ng-src="{{ $ctrl.provider.images.headshot }}" style="max-width:294px;width: 100%;"
 
     .large-8.columns.small-12
-      .row
+      .row.collapse
         .small-12.columns.show-for-small.padding-top-1.padding-bottom-1
           favorite provider="$ctrl.provider" show-text='true'
-        .medium-9.columns
+        .medium-6.columns
           a name="about"
           h2.text-capitalize.margin-bottom-1 data-magellan-destination="about" About
+        .medium-3.columns.hide-for-small
+          email-share provider="$ctrl.provider"
         .medium-3.columns.hide-for-small
           favorite provider="$ctrl.provider"
       p
