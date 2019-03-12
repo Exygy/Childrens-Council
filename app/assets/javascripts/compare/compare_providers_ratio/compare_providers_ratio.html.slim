@@ -1,0 +1,5 @@
+div ng-repeat="enrollment in $ctrl.enrollmentsForAge"
+  |{{ enrollment.ageGroupTypeId | toAgeGroupType | friendlyAgeGroupType }}: {{ enrollment.caRatio ? '1:' + enrollment.caRatio : 'Ask program directly' }}
+
+div ng-if="$ctrl.enrollments.length <= 0"
+  | Ask program directly
