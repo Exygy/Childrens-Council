@@ -22,9 +22,14 @@ angular.module 'CCR', [
     $locationProvider.html5Mode(true)
     $stateProvider
       .state('search', {
-        url: '/',
+        url: '/?searchType',
         component: 'search',
         onEnter: showSidebar,
+        resolve: {
+          searchType: ['$stateParams', ($stateParams) ->
+            return $stateParams.searchType
+          ]
+        }
       })
       .state('results', {
         url: '/providers/',

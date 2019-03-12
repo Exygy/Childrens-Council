@@ -50,12 +50,13 @@
                   span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
   .row
     .medium-12.columns.hide-for-small.filters-container
-      .show-for-medium-up ng-include="'results/templates/results_filter_bar.html'"
+      .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
+      .show-for-medium-up ng-include="'results/templates/results_name_filter_bar.html'" ng-if="!$ctrl.isCriteriaSearch()"
   .row.results-container#results-map-scroll-container
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
     .medium-7.columns#results-map-container
-      result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
+      result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns

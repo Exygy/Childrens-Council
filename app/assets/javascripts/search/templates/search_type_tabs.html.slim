@@ -1,0 +1,23 @@
+.search-type-tab-toggles
+  button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'criteria'}" ng-click="$ctrl.setSearchType('criteria')" type="button"
+    | Search By Criteria
+  button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'name'}" ng-click="$ctrl.setSearchType('name')" type="button"
+    | Search By Program Name
+
+.search-type-tab-content ng-class="{active: searchSettings.searchType == 'criteria'}"
+  section.margin-bottom-2
+    child-age-filter model="parent.children[0]"
+
+  section.margin-bottom-3
+    span ng-include="'search/filters/location_filter.html'"
+
+  schedule-filter model="parent.children[0]" filters="filters"
+
+  section.margin-top-2.margin-bottom-1
+    span ng-include="'search/filters/care_type_filter.html'"
+
+.search-type-tab-content ng-class="{active: searchSettings.searchType == 'name'}"
+  section
+    h4 Business or Provider Name
+    input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
+

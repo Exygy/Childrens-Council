@@ -3,9 +3,15 @@ ResultListController = ($scope, $modal, CompareService, ProviderMapService, Resu
   $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
   $scope.filters = ResultsService.filters
+  $ctrl.searchSettings = ResultsService.searchSettings
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
+    $scope.searchSettings = service.searchSettings
+
+  $scope.$on 'results-service:updated', (event, service) ->
+    $scope.filters = service.filters
+    $scope.searchSettings = service.searchSettings
 
   $scope.openResultFiltersModal = () ->
     $modal.open {
