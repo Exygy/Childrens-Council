@@ -13,6 +13,7 @@ angular
   .component('resultMap', {
     bindings:
       data: '<'
+      showSearchOnDrag: '<'
     controller: ResultMapController
     templateUrl: "results/components/result_map/result_map.html"
   })
