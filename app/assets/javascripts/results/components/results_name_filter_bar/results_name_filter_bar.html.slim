@@ -1,10 +1,10 @@
-.infinite-background.grey ng-controller="ResultsFilterController"
+.infinite-background.grey
   .panel.filters
     h3.margin-bottom-1
-      | Showing all results for "{{$ctrl.filters.name}}"
+      | Showing all results for "{{$ctrl.searchedName}}"
     .row.collapse
       .columns.small-12.medium-6
-        input type="text" ng-model="filters.name"
+        input type="text" ng-model="$ctrl.filters.name"
       .columns.small-12.medium-6.padding-left-2
         button.bg-green-yellow.rounded type="button" ng-click="$ctrl.postSearch()"
           | Search

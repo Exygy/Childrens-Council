@@ -1,15 +1,16 @@
 ResultsFilterController = ($scope, $modal, ResultsService) ->
   $ctrl = @
-  $scope.filters = ResultsService.filters
-  $scope.settings = ResultsService.searchSettings
-  $scope.parent = ResultsService.parent
+
+  $ctrl.$onInit = ->
+    updateDataFromService(ResultsService)
 
   $scope.$on 'search-service:updated', (event, service) ->
-    $scope.filters = service.filters
-    $scope.parent = service.parent
-    $scope.settings = service.searchSettings
+    updateDataFromService(service)
 
   $scope.$on 'results-service:updated', (event, service) ->
+    updateDataFromService(service)
+
+  updateDataFromService = (service) ->
     $scope.filters = service.filters
     $scope.parent = service.parent
     $scope.settings = service.searchSettings
