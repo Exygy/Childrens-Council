@@ -22,6 +22,7 @@ RatesService = (AgeToAgeGroupService) ->
     ageGroups.indexOf(rate.ageGroup) > -1
 
   @selectRatesForAge = (rates, ageInWeeks) ->
+    # Select only the providers' rates for age groups that include the given age
     ageGroups = AgeToAgeGroupService.ageToAgeGroup(ageInWeeks)
     rates.filter((r) -> rateIsInAgeGroups(ageGroups, r))
          .map((r) -> selectRateDataOnly(r))

@@ -174,8 +174,6 @@ SearchService = (
     }
 
   $service.httpParams = ->
-    console.log "SearchService setting httpParams"
-    console.log "search type is", $service.searchSettings.searchType
     if $service.searchSettings.searchType == 'name'
       url = '/api/providers/search_by_name'
     else
