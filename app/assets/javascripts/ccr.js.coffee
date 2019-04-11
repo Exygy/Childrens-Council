@@ -18,68 +18,79 @@ angular.module 'CCR', [
   .constant '_', window._
   .constant 'deepFilter', window.deepFilter
   .constant 'CC_COOKIE', 'cc_api_key'
-  .config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider, $stateProvider, $urlRouterProvider) ->
-    $locationProvider.html5Mode(true)
-    $stateProvider
-      .state('search', {
-        url: '/',
-        component: 'search',
-        onEnter: showSidebar,
-      })
-      .state('results', {
-        url: '/providers/',
-        component: 'results',
-        onEnter: hideSidebar,
-      })
-      .state('provider', {
-        url: '/providers/:id/',
-        component: 'provider',
-        onEnter: hideSidebar,
-        resolve: {
-          id: ['$stateParams', ($stateParams) ->
-            return $stateParams.id;
-          ]
-        }
-      })
-      .state('compare', {
-        url: '/compare',
-        component: 'compare',
-        onEnter: hideSidebar,
-      })
-      .state('reset_password', {
-        url: '/reset_password/:token/',
-        component: 'search',
-        onEnter: showSidebar,
-        resolve: {
-          token: ['$stateParams', ($stateParams) ->
-            return $stateParams.token;
-          ]
-        }
-      })
-      .state('account_info', {
-        url: '/account/info/',
-        component: 'account',
-        onEnter: hideSidebar
-        resolve: {
-          security: ['$q', '$auth', ($q, $auth) ->
-            if(!$auth.retrieveData('auth_headers'))
-              return $q.reject("Not Authorized")
-          ]
-        }
-      })
-      .state('account_favorites', {
-        url: '/account/favorites/',
-        component: 'favorites',
-        onEnter: hideSidebar
-        resolve: {
-          security: ['$q', '$auth', ($q, $auth) ->
-            if(!$auth.retrieveData('auth_headers'))
-              return $q.reject("Not Authorized")
-          ]
-        }
-      })
+  .config [
+    '$locationProvider', '$stateProvider', '$urlRouterProvider', '$urlServiceProvider',
+    ($locationProvider, $stateProvider, $urlRouterProvider, $urlServiceProvider) ->
+      $locationProvider.html5Mode(true)
 
-    $urlRouterProvider.otherwise('/')
+      # Allow optional trailing slashes
+      $urlServiceProvider.config.strictMode(false)
+
+      $stateProvider
+        .state('search', {
+          url: '/?searchType',
+          component: 'search',
+          onEnter: showSidebar,
+          resolve: {
+            searchType: ['$stateParams', ($stateParams) ->
+              return $stateParams.searchType
+            ]
+          }
+        })
+        .state('results', {
+          url: '/providers',
+          component: 'results',
+          onEnter: hideSidebar,
+        })
+        .state('provider', {
+          url: '/providers/:id',
+          component: 'provider',
+          onEnter: hideSidebar,
+          resolve: {
+            id: ['$stateParams', ($stateParams) ->
+              return $stateParams.id;
+            ]
+          }
+        })
+        .state('compare', {
+          url: '/compare',
+          component: 'compare',
+          onEnter: hideSidebar,
+        })
+        .state('reset_password', {
+          url: '/reset_password/:token/',
+          component: 'search',
+          onEnter: showSidebar,
+          resolve: {
+            token: ['$stateParams', ($stateParams) ->
+              return $stateParams.token;
+            ]
+          }
+        })
+        .state('account_info', {
+          url: '/account/info/',
+          component: 'account',
+          onEnter: hideSidebar
+          resolve: {
+            security: ['$q', '$auth', ($q, $auth) ->
+              if(!$auth.retrieveData('auth_headers'))
+                return $q.reject("Not Authorized")
+            ]
+          }
+        })
+        .state('account_favorites', {
+          url: '/account/favorites/',
+          component: 'favorites',
+          onEnter: hideSidebar
+          resolve: {
+            security: ['$q', '$auth', ($q, $auth) ->
+              if(!$auth.retrieveData('auth_headers'))
+                return $q.reject("Not Authorized")
+            ]
+          }
+        })
+
+      $urlRouterProvider.otherwise('/')
   ]
   .config ['$httpProvider', ($httpProvider) ->
     # HTTP Access Control https://en.wikipedia.org/wiki/Cross-origin_resource_sharing

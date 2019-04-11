@@ -2,7 +2,7 @@ ruby '2.5.0'
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # interface with NDS API
-gem 'nds_api', '0.1.21'
+gem 'nds_api', '0.1.23'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

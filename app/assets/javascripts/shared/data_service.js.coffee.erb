@@ -35,6 +35,7 @@ DataService = ($rootScope) ->
     foundOptions: <%= api_service.filter_data('found_options').to_json %>
     languageImmersionPrograms: <%= api_service.filter_data('language_immersion_programs') %>
     languages: <%= api_service.filter_data('languages') %>.map((lang) -> lang.trim())
+    name: null
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     meals: $service.mealsForFilter
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
@@ -84,6 +85,7 @@ DataService = ($rootScope) ->
 
   $service.searchSettings = {
     locationType: 'addresses'
+    searchType: 'criteria'
   }
 
   $service.parent = {
@@ -121,7 +123,7 @@ DataService = ($rootScope) ->
     else
       $service.parent = angular.merge($service.parent, currentParent)
 
-    $rootScope.$broadcast('data-service:updated', $service);
+    $rootScope.$broadcast('data-service:updated', $service)
 
   $service.setSettings = (lastSearch) ->
     settings = angular.copy $service.searchSettings
@@ -158,6 +160,10 @@ DataService = ($rootScope) ->
       else
         $service.filters.vacancyFutureDate = fromDate.toLocaleDateString("en-US")
         $service.filters.vacancyType = 'Future Date'
+
+  $service.setSearchType = (type) ->
+    $service.searchSettings.searchType = type
+    $rootScope.$broadcast('data-service:updated', $service)
 
   $service.updateSearchResult = (providerId, data) ->
     provider = $service.searchResultsData.providers.find((p) -> p.providerId == providerId)

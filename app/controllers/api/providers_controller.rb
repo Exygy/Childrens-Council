@@ -21,6 +21,11 @@ module Api
       render json: results, status: 200
     end
 
+    def search_by_name
+      results = search_providers_by_name(provider_params[:name], params[:page])
+      render json: results, status: 200
+    end
+
     private
 
     # index
@@ -54,6 +59,21 @@ module Api
       begin
         @results = NDS.search_providers_bulk(providerIds: provider_ids)
       rescue
+        @results = {}
+      end
+
+      add_provider_images_and_favorites(@results[:content])
+
+      @results
+    end
+
+    # search by name
+
+    def search_providers_by_name(name, page = 0, size = 15)
+      begin
+        @results = NDS.providers_by_owner_or_center_name(name: name, page: (page || 0), size: size)
+      rescue StandardError => e
+        Rails.logger.error e.message
         @results = {}
       end
 
@@ -100,6 +120,7 @@ module Api
         :ageGroup,
         :agesServiced,
         :distance,
+        :name,
         :yearlySchedule,
         acceptsChildren: [],
         ageGroups: [],

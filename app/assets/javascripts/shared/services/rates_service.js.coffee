@@ -1,31 +1,31 @@
 RatesService = (AgeToAgeGroupService) ->
-  rateValueFields = ->
-    return [
-      'ftMonthly',
-      'ftWeekly',
-      'ftDaily',
-      'ftHourly',
-      'ftOther',
-      'ptMonthly',
-      'ptWeekly',
-      'ptDaily',
-      'ptHourly',
-      'ptOther']
+  rateTypes = [
+    'ftMonthly',
+    'ftWeekly',
+    'ftDaily',
+    'ftHourly',
+    'ftOther',
+    'ptMonthly',
+    'ptWeekly',
+    'ptDaily',
+    'ptHourly',
+    'ptOther'
+  ]
 
-  rateData = (rate) ->
-    rate_data = {}
-    for rate_field in rateValueFields()
-      if rate[rate_field]
-        rate_data[rate_field] = rate[rate_field]
-    return rate_data
+  selectRateDataOnly = (rate) ->
+    rateData = {}
+    rateTypes.forEach (type) ->
+      rateData[type] = rate[type] if rate[type]
+    rateData
 
-  rateIsInAgeGroups = (age_groups, rate) ->
-    age_groups.indexOf(rate.ageGroup) > -1
+  rateIsInAgeGroups = (ageGroups, rate) ->
+    ageGroups.indexOf(rate.ageGroup) > -1
 
-  @selectRatesForAge = (rates, age_in_weeks) ->
-    age_groups = AgeToAgeGroupService.ageToAgeGroup(age_in_weeks)
-    rates.filter((r) -> rateIsInAgeGroups(age_groups, r))
-         .map((r) -> rateData(r))
+  @selectRatesForAge = (rates, ageInWeeks) ->
+    # Select only the providers' rates for age groups that include the given age
+    ageGroups = AgeToAgeGroupService.ageToAgeGroup(ageInWeeks)
+    rates.filter((r) -> rateIsInAgeGroups(ageGroups, r))
+         .map((r) -> selectRateDataOnly(r))
 
   @
 

@@ -1,9 +1,16 @@
 ResultsFilterController = ($scope, $modal, ResultsService) ->
-  $scope.filters = ResultsService.filters
-  $scope.settings = ResultsService.searchSettings
-  $scope.parent = ResultsService.parent
+  $ctrl = @
+
+  $ctrl.$onInit = ->
+    updateDataFromService(ResultsService)
 
   $scope.$on 'search-service:updated', (event, service) ->
+    updateDataFromService(service)
+
+  $scope.$on 'results-service:updated', (event, service) ->
+    updateDataFromService(service)
+
+  updateDataFromService = (service) ->
     $scope.filters = service.filters
     $scope.parent = service.parent
     $scope.settings = service.searchSettings
@@ -22,6 +29,8 @@ ResultsFilterController = ($scope, $modal, ResultsService) ->
          childId: ->
            childId
     }
+
+  $ctrl
 
 ResultsFilterController.$inject = ['$scope', '$modal', 'ResultsService']
 angular.module('CCR').controller('ResultsFilterController', ResultsFilterController)

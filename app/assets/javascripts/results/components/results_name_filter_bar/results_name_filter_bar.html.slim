@@ -1,0 +1,17 @@
+.infinite-background.grey
+  .panel.filters
+    h3.margin-bottom-1
+      | Showing all results for "{{$ctrl.searchedName}}"
+    .row.collapse
+      .columns.small-12.medium-6
+        input type="text" ng-model="$ctrl.filters.name"
+      .columns.small-12.medium-6.padding-left-2
+        button.bg-green-yellow.rounded type="button" ng-click="$ctrl.postSearch()"
+          | Search
+    .row.collapse.margin-bottom-1
+      .columns.small-12
+        span
+          ' Looking for a more specific search?
+        a ui-sref="search({searchType: 'criteria'})"
+          | Try searching with search criteria.
+

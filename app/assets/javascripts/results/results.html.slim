@@ -48,16 +48,38 @@
                   span ng-show="settings.locationType == 'addresses' && filters.addresses" Distance
                   span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
                   span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+
+  .row.results-print-header
+    .columns.small-12
+      h1 Child Care and Preschool Options
+      p
+        | Thank you for trusting Children's Council as you search for
+          child care or preschool. Give us a call at 415.343.3300 if
+          you have questions or email us at rr@childrenscouncil.org.
+          To learn of any complaints filed against your selected
+          options, please contact Community Care Licensing at
+          1.844.538.8766 or https://secure.dss.ca.gov/CareFacilitySearch/
+
+
   .row
     .medium-12.columns.hide-for-small.filters-container
-      .show-for-medium-up ng-include="'results/templates/results_filter_bar.html'"
+      .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
+      .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
+        results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
   .row.results-container#results-map-scroll-container
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
     .medium-7.columns#results-map-container
-      result-map data="$ctrl.data" ng-class="{'hide-for-small': !$ctrl.showMap}"
+      result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
     .medium-4.columns
     .medium-8.columns.text-right
-      a target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
+      a.survey-link target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
+
+  .row.results-print-footer
+    .columns.small-12
+      h2
+        ' Check out full profiles on the Child Care Finder at
+        span.results-print-footer-link
+          | https://www.childrenscouncil.org/childcarefinder

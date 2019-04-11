@@ -1,4 +1,4 @@
-ProviderController = ($anchorScroll, $scope, $timeout, ProviderService, ResultsService) ->
+ProviderController = ($scope, ProviderService, ResultsService) ->
   $ctrl = @
 
   $ctrl.hasSearchResult = ResultsService.searchResultsData && ResultsService.searchResultsData.providers.length > 0
@@ -6,14 +6,10 @@ ProviderController = ($anchorScroll, $scope, $timeout, ProviderService, ResultsS
     ProviderService.get $ctrl.id, (provider) ->
       $scope.provider = provider
 
-  $timeout $anchorScroll()
-
   return $ctrl
 
 ProviderController.$inject = [
-  '$anchorScroll',
   '$scope',
-  '$timeout',
   'ProviderService',
   'ResultsService'
 ]

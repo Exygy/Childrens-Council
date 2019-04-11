@@ -65,7 +65,10 @@ ul.general-info.row
         .columns.small-1
           span.fa.fa-usd.c-base
         .columns.small-11
-          '{{ $ctrl.provider.rates | monthlyRatesToSummary: ageWeeks }}
+          span ng-if="!$ctrl.providerHasOnlyNonMonthlyRates()"
+            | {{$ctrl.getProviderMonthlyRateValue() | monthlyRatesToSummary}}
+          a ng-if="$ctrl.providerHasOnlyNonMonthlyRates()" ui-sref="provider({id: $ctrl.provider.providerId, '#': 'provider-rates'})"
+            | see details
 
   li.columns.small-12 ng-class="{'medium-6': $ctrl.infoGridFormat}"
     span.item-detail
@@ -101,3 +104,8 @@ ul.general-info.row
 p.updated_at
   ' Profile last updated
   ' {{ ($ctrl.provider.lastModifiedTime | amParse:'YYYY-MM-DD HH:mm:ss') | amDateFormat: 'MMMM DD, YYYY' }}
+
+.tour-notes
+  h2 Tour Notes
+  p Write your thoughts after your visit below
+  .tour-notes-box

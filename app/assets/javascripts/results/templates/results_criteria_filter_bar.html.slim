@@ -8,7 +8,7 @@
             a.results-edit href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
               | Show more filters & edit
               i.fa.fa-pencil
-          .row.collapse
+          .row.collapse.margin-bottom-1
             .columns.medium-4.padding-right-1
               h4 Desired locations
               p.smaller ng-if="filters[settings.locationType] && !filters.settings.searchingByMapArea"
@@ -31,6 +31,13 @@
               h4 Vacancy
               p.smaller
                 | {{ filters | vacancyToString }}
+          .row.collapse.margin-bottom-1
+            .columns.small-12
+              span
+                ' Looking for a specific provider?
+              a ui-sref="search({searchType: 'name'})"
+                | Try searching by name.
+
 
       .columns.medium-4.filters-column
         .panel.filters.divider

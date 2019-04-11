@@ -30,6 +30,9 @@ SearchService = (
     DataService.current_page = 1
     $service.performSearch callback
 
+  $service.setSearchType = (type) ->
+    DataService.setSearchType(type)
+
   # Rename location params to NDS API names, and ensure addresses have SF in them.
   $service.setSearchLocation = (params) ->
     if params.addresses && _.isEmpty(params.addresses[0])
@@ -123,24 +126,29 @@ SearchService = (
       params.acceptsChildren = params.acceptsChildren[0]
 
   $service.getSearchParams = ->
-    search_params = angular.copy $service.filters
+    if $service.searchSettings.searchType == 'name'
+      searchParams =
+        name: $service.filters.name
+    else
+      searchParams = angular.copy $service.filters
+      delete searchParams.name
 
-    # those params should be children specific when the feature is built
-    search_params.agesServiced = $service.parent.children[0].ageWeeks
-    search_params.yearlySchedule = $service.parent.children[0].yearlySchedule
-    search_params.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+      # those params should be children specific when the feature is built
+      searchParams.agesServiced = $service.parent.children[0].ageWeeks
+      searchParams.yearlySchedule = $service.parent.children[0].yearlySchedule
+      searchParams.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
-    # TODO: set shift info in params
-    # @setShiftParams(search_params)
-    $service.setSearchLocation(search_params)
-    $service.setPrograms(search_params)
-    $service.setEnvironments(search_params)
-    $service.setAgeGroup(search_params)
-    $service.setAcceptsChildren(search_params)
-    $service.setMonthlyRate(search_params)
-    $service.setVacancies(search_params)
+      # TODO: set shift info in params
+      # @setShiftParams(searchParams)
+      $service.setSearchLocation(searchParams)
+      $service.setPrograms(searchParams)
+      $service.setEnvironments(searchParams)
+      $service.setAgeGroup(searchParams)
+      $service.setAcceptsChildren(searchParams)
+      $service.setMonthlyRate(searchParams)
+      $service.setVacancies(searchParams)
 
-    search_params
+      searchParams
 
   $service.cleanEmptyParams = (params) ->
     deepFilter params, (value, key) ->
@@ -166,9 +174,14 @@ SearchService = (
     }
 
   $service.httpParams = ->
+    if $service.searchSettings.searchType == 'name'
+      url = '/api/providers/search_by_name'
+    else
+      url = '/api/providers'
+
     {
       method: 'POST'
-      url: '/api/providers'
+      url: url
       data: $service.queryParams()
     }
 

@@ -12,15 +12,20 @@
   div ng-hide="loading"
     user-prompt
     form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
-      span ng-include="'search/filters/initial_filters.html'"
+      section.margin-top-2.margin-bottom-3
+        p Welcome to our San Francisco child care database! Here you can search for the licensed child care environment that best fits your family’s needs.
 
-      section.panel.radius.margin-top-3.padding-2
+      h2.margin-bottom-1 Let's get started!
+
+      ng-include src="'search/templates/search_type_tabs.html'"
+
+      section.panel.radius.padding-2
         h5.margin-bottom-none About you
 
-        a href="#" ng-click="settings.show_why_asking = !settings.show_why_asking"
+        a href="#" ng-click="settings.showWhyAsking = !settings.showWhyAsking"
           small Why are we asking for your information?
 
-        p.fade ng-show="settings.show_why_asking"
+        p.fade ng-show="settings.showWhyAsking"
           small
             | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
             a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.

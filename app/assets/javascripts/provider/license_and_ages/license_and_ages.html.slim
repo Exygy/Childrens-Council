@@ -10,6 +10,8 @@ table.table-lines ng-if="!$ctrl.compact"
         h4.label-gray.lighter Ages served
       th
         h4.label-gray.lighter Capacity
+      th
+        h4.label-gray.lighter Ratio
   tbody
     tr ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field]"
       td
@@ -22,6 +24,9 @@ table.table-lines ng-if="!$ctrl.compact"
       td
         span
           | {{ enrollmentField(license_field, 'licensedCapacity') }}
+      td
+        span
+          | {{ enrollmentField(license_field, 'caRatio') ? '1:' + enrollmentField(license_field, 'caRatio') : 'Ask program directly' }}
 
 span ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field] && $ctrl.compact"
   | Fcc: {{ enrollmentField(license_field, 'ageGroupTypeId') | toAgeGroupType | friendlyAgeGroupType }}

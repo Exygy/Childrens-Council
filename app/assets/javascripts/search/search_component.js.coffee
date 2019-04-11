@@ -5,7 +5,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $scope.parent = SearchService.parent
   $scope.searchSettings = SearchService.searchSettings
   $scope.searchSettings.contact_type = ''
-  $scope.searchSettings.show_why_asking = false
+  $scope.searchSettings.showWhyAsking = false
   $scope.loading = SearchService.searchResultsData.isLoading
   $scope.locationTabs =
     addresses:
@@ -42,6 +42,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     $ctrl.setLocationTabs()
 
   $ctrl.$onInit = () ->
+    $ctrl.setSearchType($ctrl.searchType) if $ctrl.searchType
+
     if $ctrl.token
       $modal.open {
         resolve: {
@@ -51,6 +53,9 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
         controller: 'userResetPasswordCtrl',
         templateUrl: 'user/reset_password/reset_password.html'
       }
+
+  $ctrl.setSearchType = (type) ->
+    SearchService.setSearchType(type)
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
@@ -104,6 +109,7 @@ angular
   .module('CCR')
   .component('search', {
     bindings: {
+      searchType: '<'
       token: '<'
     }
     controller: SearchController
