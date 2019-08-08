@@ -2,6 +2,8 @@ module Api
   class ProvidersController < ApiController
     include CollectReferrals
 
+    skip_before_action :check_parent_credentials, only: :show
+
     def index
       results = search_providers_with_images(provider_params, params[:page])
       render json: results, status: 200
