@@ -21,7 +21,7 @@ module Api
     end
 
     def send_apikey
-      response.headers['Cc-Apikey'] = @current_parent.api_key
+      response.headers['Cc-Apikey'] = @current_parent.api_key if @current_parent
     end
 
     def get_parent
