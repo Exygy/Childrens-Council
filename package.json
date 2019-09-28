@@ -4,7 +4,14 @@
   "dependencies": {
     "bower": "latest"
   },
-  "scripts": {},
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "cypress": "^3.4.1"
+  },
+  "scripts": {
+    "cypress": "cypress open",
+    "test": "concurrently \"rails s -p 3001\" \"cypress open\""
+  },
   "name": "childrens-council",
   "version": "0.1.0"
 }
