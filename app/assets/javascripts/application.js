@@ -10,8 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+//= require ./jquery-prod.js
 //= require jquery-ui
 //= require foundation/js/foundation/foundation.js
 //= require foundation/js/foundation/foundation.magellan.js
