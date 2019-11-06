@@ -71,7 +71,7 @@ gem 'newrelic_rpm'
 gem 'kaminari', '~> 1.1.1'
 
 # Enforce dependency versions to avoid vulnerabilities
-gem 'loofah', '~> 2.2.3'
+gem 'loofah', '~> 2.3.1'
 gem 'rack', '~> 1.6.11'
 
 group :development, :test do
