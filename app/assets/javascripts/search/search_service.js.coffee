@@ -66,7 +66,9 @@ SearchService = (
   $service.setPrograms = (params) ->
     # The API field used to search for care approaches and religious programs
     # is the same, so we concatenate these program names into a single list.
-    params.generalLocal2 = []
+
+    # Exygy - PH - 2020-06-17 - Only retrieve COVID-19 providers
+    params.generalLocal2 = ['COVID19 Open to Essential Workers']
 
     if params.careApproaches.length && params.careApproaches[0]
       params.generalLocal2 = params.generalLocal2.concat(params.careApproaches)
