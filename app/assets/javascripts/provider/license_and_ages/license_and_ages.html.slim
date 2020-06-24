@@ -15,7 +15,7 @@ table.table-lines ng-if="!$ctrl.compact"
   tbody
     tr ng-repeat="license_field in ['config5', 'config7', 'config9', 'config11']" ng-if="$ctrl.generalInfo[license_field]"
       td
-        a href="https://secure.dss.ca.gov/CareFacilitySearch/Search/Detailview/{{ $ctrl.generalInfo[license_field] }}/510#detailview" target="_blank"
+        a href="https://www.ccld.dss.ca.gov/carefacilitysearch/FacDetail/{{ $ctrl.generalInfo[license_field] }}" target="_blank"
           | \#{{$ctrl.generalInfo[license_field]}}
       td
         span
