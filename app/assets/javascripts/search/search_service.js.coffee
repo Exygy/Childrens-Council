@@ -205,7 +205,7 @@ SearchService = (
       if response.data
         providers = $service.covid19ProvidersOnlyFilter(response.data.content)
         if $service.searchSettings.searchType == 'name'
-          totalProviderCount = providers.length
+          totalProviderCount = if providers.length < 16 then providers.length else response.data.totalElements
         else
           totalProviderCount = response.data.totalElements
         
