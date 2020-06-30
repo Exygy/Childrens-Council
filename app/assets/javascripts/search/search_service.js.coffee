@@ -203,7 +203,7 @@ SearchService = (
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
       if response.data
-        $service.searchResultsData.providers = covid19ProvidersOnlyFilter(response.data.content)
+        $service.searchResultsData.providers = $service.covid19ProvidersOnlyFilter(response.data.content)
         $service.searchResultsData.totalNumProviders = response.data.totalElements
         $service.searchResultsData.currentPage = response.data.number
         $service.searchResultsData.isFirstPage = response.data.first
