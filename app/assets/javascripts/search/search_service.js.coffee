@@ -7,6 +7,7 @@ SearchService = (
   $service.parent = DataService.parent
   $service.searchSettings = DataService.searchSettings
   $service.searchResultsData = DataService.searchResultsData
+  $service.covid19ProvidersOnly = true
 
   $rootScope.$on 'data-service:updated', (event, service) ->
     $service.filters = service.filters
@@ -66,7 +67,7 @@ SearchService = (
   $service.setPrograms = (params) ->
     # The API field used to search for care approaches and religious programs
     # is the same, so we concatenate these program names into a single list.
-    params.generalLocal2 = ['COVID19 Open to Essential Workers']
+    params.generalLocal2 = $service.covid19ProvidersOnly ? ['COVID19 Open to Essential Workers'] : []
 
     if params.careApproaches.length && params.careApproaches[0]
       params.generalLocal2 = params.generalLocal2.concat(params.careApproaches)
@@ -185,6 +186,15 @@ SearchService = (
       data: $service.queryParams()
     }
 
+  $service.covid19ProvidersOnlyFilter = (providers) =>
+    unless $service.covid19ProvidersOnly
+      return providers
+
+    covid19ProvidersOnlyFilterFunction = (provider) ->
+      return provider.generalInfo.local2.indexOf('COVID19 Open to Essential Workers') > -1
+
+    return providers.filter(covid19ProvidersOnlyFilterFunction)
+
   $service.performSearch = (callback, page) =>
     $service.searchResultsData.providers = []
     $service.searchResultsData.isLoading = true
@@ -193,7 +203,7 @@ SearchService = (
       params.url += "?page=#{page}"
     serverRequestCallback = (response) ->
       if response.data
-        $service.searchResultsData.providers = response.data.content
+        $service.searchResultsData.providers = covid19ProvidersOnlyFilter(response.data.content)
         $service.searchResultsData.totalNumProviders = response.data.totalElements
         $service.searchResultsData.currentPage = response.data.number
         $service.searchResultsData.isFirstPage = response.data.first
