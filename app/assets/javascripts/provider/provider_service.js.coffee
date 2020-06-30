@@ -15,5 +15,5 @@ ProviderService = (SearchService, HttpService) ->
     )
   return @
 
-ProviderService.$inject = ['HttpService']
+ProviderService.$inject = ['SearchService', 'HttpService']
 angular.module('CCR').service('ProviderService', ProviderService)
