@@ -191,7 +191,10 @@ SearchService = (
       return providers
 
     covid19ProvidersOnlyFilterFunction = (provider) ->
-      return provider.generalInfo.local2.indexOf('COVID19 Open to Essential Workers') > -1
+      if provider.generalInfo && provider.generalInfo.local2
+        return provider.generalInfo.local2.indexOf('COVID19 Open to Essential Workers') > -1
+      else
+        return false
 
     return providers.filter(covid19ProvidersOnlyFilterFunction)
 
