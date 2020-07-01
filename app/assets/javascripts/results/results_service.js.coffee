@@ -1,5 +1,6 @@
 ResultsService = ($rootScope, DataService, SearchService) ->
   $service = @
+  $service.covid19ProvidersOnly = DataService.covid19ProvidersOnly
   $service.filterData = DataService.filterData
   $service.filters = DataService.filters
   $service.parent = DataService.parent

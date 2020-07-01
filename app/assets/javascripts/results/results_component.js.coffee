@@ -5,6 +5,7 @@ ResultsController = (
   $ctrl = @
 
   $ctrl.$onInit = ->
+    $ctrl.covid19ProvidersOnly = ResultsService.covid19ProvidersOnly
     $ctrl.parent = $auth.currentUser()
     $ctrl.providerIdsToCompare = CompareService.data.providerIds
     $ctrl.data = ResultsService.searchResultsData

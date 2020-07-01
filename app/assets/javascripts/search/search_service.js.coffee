@@ -7,7 +7,7 @@ SearchService = (
   $service.parent = DataService.parent
   $service.searchSettings = DataService.searchSettings
   $service.searchResultsData = DataService.searchResultsData
-  $service.covid19ProvidersOnly = true
+  $service.covid19ProvidersOnly = DataService.covid19ProvidersOnly
 
   $rootScope.$on 'data-service:updated', (event, service) ->
     $service.filters = service.filters
