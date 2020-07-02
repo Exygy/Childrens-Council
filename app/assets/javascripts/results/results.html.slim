@@ -1,5 +1,3 @@
-div ng-include="'shared/covid_banner.html'"
-
 #ccr-scope
   rheader#search-results-wrapper.page-header
     header.infinite-background.page-header.padding-top-1
@@ -36,6 +34,8 @@ div ng-include="'shared/covid_banner.html'"
                 li
                   button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
                     | Map
+
+      ng-include src="'shared/covid_banner.html'"
 
       .row.showing-container
         .columns.small-5.medium-4
