@@ -35,8 +35,6 @@
                   button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
                     | Map
 
-      ng-include src="'results/templates/covid_banner.html'"
-
       .row.showing-container
         .columns.small-5.medium-4
           results-showing data="$ctrl.data"
@@ -68,6 +66,9 @@
       .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
       .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
         results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
+
+  ng-include src="'results/templates/covid_banner.html'"
+
   .row.results-container#results-map-scroll-container
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
