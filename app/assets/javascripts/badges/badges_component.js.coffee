@@ -3,12 +3,15 @@ BadgesController = ($scope, BadgesService) ->
   $scope.badges = []
 
   $ctrl.attributeNames = ->
-    ['local12', 'accreditations', 'training']
+    ['local2', 'local12', 'accreditations', 'training']
 
   $ctrl.getAttributes = (attribute_name) ->
     $ctrl.attributes[attribute_name]
 
   @$onInit = ->
+
+    console.log($ctrl.attributes)
+
     for attribute_name in $ctrl.attributeNames()
       attributes = $ctrl.getAttributes(attribute_name)
       if attributes
