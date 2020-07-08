@@ -44,6 +44,9 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
       updateStickyElements = () ->
         pos = windowEl.scrollTop()
 
+        console.log('updateStickyElements')
+        console.log(item.topLimit)
+
         scope.stickyElements.forEach((item) ->
           elementHeight = item.element[0].offsetHeight
           scrollContainerHeight = item.scrollContainer.height()
