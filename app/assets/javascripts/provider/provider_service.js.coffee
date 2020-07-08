@@ -1,13 +1,11 @@
-ProviderService = (SearchService, HttpService) ->
+ProviderService = (HttpService) ->
   @get = (id, callback) ->
     that = @
     HttpService.http(
       { method: 'POST', url: '/api/providers/'+id },
       (response) ->
         if callback
-          filterProviders = SearchService.covid19ProvidersOnlyFilter([response.data])
-          if filterProviders.length > 0
-            callback(filterProviders[0])
+          callback(response.data)
 
       (error) ->
         console.log("ERROR")
@@ -15,5 +13,5 @@ ProviderService = (SearchService, HttpService) ->
     )
   return @
 
-ProviderService.$inject = ['SearchService', 'HttpService']
+ProviderService.$inject = ['HttpService']
 angular.module('CCR').service('ProviderService', ProviderService)
