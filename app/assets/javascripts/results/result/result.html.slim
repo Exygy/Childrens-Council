@@ -31,7 +31,7 @@
 p
   '{{ $ctrl.provider.generalInfo.generalComment | words:25 }}
 
-badges attributes="Object.assign($ctrl.provider.attributes, $ctrl.provider.generalInfo)" show-title="false" show-info-item-only="true"
+badges provider="$ctrl.provider" show-title="false" show-info-item-only="true"
 
 .cl
 
