@@ -68,12 +68,6 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
                 # Element was stuck at bottom of scrollContainer, scroll is
                 # now high up enough to unstick it from bottom
                 unstickFromBottom(item)
-                
-                console.log(pos)
-                console.log(item.start)
-                console.log(item.topLimit)
-                console.log(Math.max(item.start, item.topLimit))
-                
                 stick(item) if (pos >= Math.max(item.start, item.topLimit))
               else if (pos >= Math.max(item.start, item.topLimit) && !item.isStuckAtBottom)
                 # Scroll is past the element and it's not stuck, so stick the element

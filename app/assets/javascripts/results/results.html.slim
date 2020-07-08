@@ -66,8 +66,9 @@
       .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
       .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
         results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
-
-  ng-include src="'results/templates/covid_banner.html'"
+  
+  .row
+    ng-include src="'results/templates/covid_banner.html'"
 
   .row.results-container#results-map-scroll-container
     .medium-5.columns
