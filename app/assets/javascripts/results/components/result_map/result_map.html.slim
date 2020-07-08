@@ -11,7 +11,7 @@ div
     div ng-if="!$ctrl.data.providers.length"
       ng-include src="'results/templates/results_help_links.html'"
 
-    div sticky="" sticky-container-id="results-map-container" sticky-scroll-container-id="results-map-scroll-container" sticky-disabled-below-width="840" sticky-top-limit="822.96875" providers="$ctrl.data.providers"
+    div sticky="" sticky-container-id="results-map-container" sticky-scroll-container-id="results-map-scroll-container" sticky-disabled-below-width="640" sticky-top-limit="1000" providers="$ctrl.data.providers"
       div.margin-bottom-2 ng-if="$ctrl.data.providers.length"
         provider-map providers="$ctrl.data.providers" filters="filters" info-window="true" show-search-on-drag="$ctrl.showSearchOnDrag" map-id="'map-provider-results'"
 
