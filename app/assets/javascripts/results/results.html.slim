@@ -16,7 +16,7 @@
           user-menu printText="Print List"
       .row
         .columns.small-12.medium-9.margin-bottom-1
-          h1.results-header ng-if="($ctrl.covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !$ctrl.covid19ProvidersOnly" We found {{ $ctrl.data.totalNumProviders || '0' }} options
+          h1.results-header ng-if="(covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !covid19ProvidersOnly" We found {{ $ctrl.data.totalNumProviders || '0' }} options
         .columns.medium-3.hide-for-small
           a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0"
             | Compare Now ({{$ctrl.providerIdsToCompare.length}})
@@ -67,7 +67,7 @@
       .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
         results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
   
-  .row
+  .row ng-if="covid19ProvidersOnly"
     ng-include src="'results/templates/covid_banner.html'"
 
   .row.results-container#results-map-scroll-container

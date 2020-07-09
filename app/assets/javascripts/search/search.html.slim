@@ -7,7 +7,7 @@
 /    a href="//www.childrenscouncil.org/families/find-child-care/children-with-special-needs/" target="_blank" contact us
 /    ' . A member of our Inclusion team will follow up to help.
 
-ng-include src="'search/templates/covid_banner.html'"
+ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html'"
 
 #ccr-scope
   .loading ng-show="loading"

@@ -1,5 +1,6 @@
 SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $ctrl = @
+  $scope.covid19ProvidersOnly = SearchService.covid19ProvidersOnly
   $scope.filterData = SearchService.filterData
   $scope.filters = SearchService.filters
   $scope.parent = SearchService.parent

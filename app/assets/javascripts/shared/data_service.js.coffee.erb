@@ -1,6 +1,6 @@
 <% api_service = NdsApiService.new %>
 
-DataService = ($rootScope) ->
+DataService = ($rootScope, $window) ->
   $service = @
   $service.mealsForFilter = [
     {
@@ -83,7 +83,7 @@ DataService = ($rootScope) ->
     totalNumProviders: 0
   }
 
-  $service.covid19ProvidersOnly = true
+  $service.covid19ProvidersOnly = $window.hasOwnProperty("covid19OpenedProvidersOnly") ? $window.covid19OpenedProvidersOnly : false
 
   $service.searchSettings = {
     locationType: 'addresses'
@@ -195,5 +195,5 @@ DataService = ($rootScope) ->
 
   $service
 
-DataService.$inject = ['$rootScope']
+DataService.$inject = ['$rootScope', '$window']
 angular.module('CCR').service('DataService', DataService)
