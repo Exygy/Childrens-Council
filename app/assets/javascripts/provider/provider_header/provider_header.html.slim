@@ -63,10 +63,9 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
         .provider-covid-banner i.fa.fa-check-circle { 
           color:#ADC42D;
         }
-
       </style>
 
-      div class="provider-covid-banner open" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
+      div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
         i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
         | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
 
