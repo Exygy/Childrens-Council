@@ -17,20 +17,6 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
       user-menu
 
   .row
-
-    .large-12.columns.provider-covid-banner-small
-      div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
-        i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
-        | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
-
-    .large-12.columns.small-9
-      h1.provider-title
-        | {{ $ctrl.providerName($ctrl.provider) }}
-      div.smaller.show-for-small.provider-name
-        '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
-
-    .large-12.columns.provider-covid-banner-large
-
       css:
         .provider-covid-banner {
           color: #666666;
@@ -87,7 +73,18 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
           }
         }
 
+    .large-12.columns.provider-covid-banner-small
+      div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
+        i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
+        | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
 
+    .large-12.columns.small-9
+      h1.provider-title
+        | {{ $ctrl.providerName($ctrl.provider) }}
+      div.smaller.show-for-small.provider-name
+        '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
+
+    .large-12.columns.provider-covid-banner-large
       div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
         i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
         | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
