@@ -32,16 +32,6 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
     .large-12.columns.provider-covid-banner-large
 
       css:
-        @media screen and (max-width: 640px) {
-          .provider-covid-banner.provider-covid-banner-small {
-            display: block;
-          }
-          .provider-covid-banner.provider-covid-banner-large {
-            display: none;
-          }
-        }
-
-
         .provider-covid-banner {
           color: #666666;
           display: inline-block;
@@ -52,6 +42,14 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
           margin-bottom: 47px;
           padding: 23px 19px 18px 17px;
           text-transform: uppercase;          
+        }
+
+        .provider-covid-banner.provider-covid-banner-small {
+          display: none;
+        }
+
+        .provider-covid-banner.provider-covid-banner-large {
+          display: block;
         }
 
         .provider-covid-banner.open {
@@ -79,6 +77,16 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
         .provider-covid-banner i.fa.fa-check-circle { 
           color:#ADC42D;
         }
+
+        @media screen and (max-width: 640px) {
+          .provider-covid-banner.provider-covid-banner-small {
+            display: block;
+          }
+          .provider-covid-banner.provider-covid-banner-large {
+            display: none;
+          }
+        }
+
 
       div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
         i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
