@@ -22,6 +22,24 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
         | {{ $ctrl.providerName($ctrl.provider) }}
       div.smaller.show-for-small.provider-name
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
+
+    .large-12.columns.small-9
+
+
+
+
+      div style="border:solid 1px #E73624;background-color:#FFE4E1;color: #666666;font-family: 'BentonSans Bold';font-size: 14px;letter-spacing: 0.4px;line-height: 14px;"
+        i.fa.fa-times-circle aria-hidden="true" style="color:#E73624"
+        | Jennifer’s Day Care is not open during to COVID-19. 
+
+      div style="border:solid 1px #ADC42D;background-color:#F9FFD9;color: #666666;font-family: 'BentonSans Bold';font-size: 14px;letter-spacing: 0.4px;line-height: 14px;"
+        i.fa.fa-times-circle aria-hidden="true" style="color:#ADC42D"
+        | Jennifer’s Day care is currently open during COVID-19. 
+
+
+
+
+
     .large-4.columns.small-3.provider-image
       img.headshot ng-src="{{ $ctrl.provider.images.headshot }}"
 
