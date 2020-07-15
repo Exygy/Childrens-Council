@@ -26,21 +26,48 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
     .large-12.columns.small-9
 
 
+      <style>
+        .provider-covid-banner {
+          color: #666666;
+          display: inline-block;
+          font-family: 'BentonSans Bold';
+          font-size: 14px;
+          letter-spacing: 0.4px;
+          line-height: 14px;
+          padding: 23px 19px 18px 17px;
+          text-transform: uppercase;          
+        }
 
+        .provider-covid-banner.open {
+          background-color:#FFE4E1;
+          border:solid 1px #E73624;
+        }
 
-      div style="border:solid 1px #E73624;background-color:#FFE4E1;color: #666666;font-family: 'BentonSans Bold';font-size: 14px;letter-spacing: 0.4px;line-height: 14px;padding: 23px 19px 18px 17px;text-transform: uppercase;display: inline-block" ng-if="!providerIsOpenDuringCovd19"
-        i.fa.fa-times-circle aria-hidden="true" style="color:#E73624;margin-right: 15px;font-size: 20px;float: left;margin-top: -6px;"
-        | Jennifer’s Day Care is not open during to COVID-19. 
+        .provider-covid-banner.closed {
+          background-color:#F9FFD9;
+          border:solid 1px #ADC42D;
+        }
 
-      br
-      br
+        .provider-covid-banner i.fa {
+          float: left;
+          font-size: 20px;
+          margin-right: 15px;
+          margin-top: -6px;
+        }
 
-      div style="border:solid 1px #ADC42D;background-color:#F9FFD9;color: #666666;font-family: 'BentonSans Bold';font-size: 14px;letter-spacing: 0.4px;line-height: 14px;padding: 23px 19px 18px 17px;text-transform: uppercase;display: inline-block" ng-if="providerIsOpenDuringCovd19"
-        i.fa.fa-check-circle aria-hidden="true" style="color:#ADC42D;margin-right: 15px;font-size: 20px;float: left;margin-top: -6px;"
-        | Jennifer’s Day care is currently open during COVID-19. 
+        .provider-covid-banner i.fa.fa-times-circle { 
+          color:#E73624;
+        }
 
+        .provider-covid-banner i.fa.fa-check-circle { 
+          color:#ADC42D;
+        }
 
+      </style>
 
+      div class="provider-covid-banner open" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
+        i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
+        | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
 
 
     .large-4.columns.small-3.provider-image
