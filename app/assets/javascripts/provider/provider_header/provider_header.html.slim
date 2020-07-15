@@ -17,23 +17,38 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
       user-menu
 
   .row
+
+    .large-12.columns.provider-covid-banner-small
+      div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
+        i.fa aria-hidden="true" ng-class="{'fa-check-circle': providerIsOpenDuringCovd19, 'fa-times-circle': !providerIsOpenDuringCovd19}"
+        | {{ $ctrl.providerName($ctrl.provider) }} is {{ providerIsOpenDuringCovd19 ? 'currently' : 'not' }} open during to COVID-19. 
+
     .large-12.columns.small-9
       h1.provider-title
         | {{ $ctrl.providerName($ctrl.provider) }}
       div.smaller.show-for-small.provider-name
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
 
-    .large-12.columns.small-9
-
+    .large-12.columns.provider-covid-banner-large
 
       css:
+        @media screen and (max-width: 640px) {
+          .provider-covid-banner.provider-covid-banner-small {
+            display: block;
+          }
+          .provider-covid-banner.provider-covid-banner-large {
+            display: none;
+          }
+        }
+
+
         .provider-covid-banner {
           color: #666666;
           display: inline-block;
           font-family: 'BentonSans Bold';
           font-size: 14px;
           letter-spacing: 0.4px;
-          line-height: 14px;
+          line-height: 22px;
           margin-bottom: 47px;
           padding: 23px 19px 18px 17px;
           text-transform: uppercase;          
@@ -54,7 +69,7 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
           float: left;
           font-size: 20px;
           margin-right: 15px;
-          margin-top: -6px;
+          margin-top: -1px;
         }
 
         .provider-covid-banner i.fa.fa-times-circle { 
