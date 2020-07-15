@@ -1,4 +1,4 @@
-ProviderHeaderController =  ->
+ProviderHeaderController = ($scope, SearchService) ->
   $ctrl = @
 
   $ctrl.providerName = (provider) ->
@@ -10,10 +10,14 @@ ProviderHeaderController =  ->
         name = "Name Unknown"
     name
 
+  
+  $ctrl.$onInit = () ->
+    filterProviders = SearchService.covid19ProvidersOnlyFilter([$ctrl.provider])
+    $scope.providerIsOpenDuringCovd19 = filterProviders.length > 0
 
   return $ctrl
 
-ProviderHeaderController.$inject = []
+ProviderHeaderController.$inject = ['$scope', 'SearchService']
 
 angular
   .module('CCR')
