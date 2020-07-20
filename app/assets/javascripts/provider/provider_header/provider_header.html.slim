@@ -17,61 +17,61 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
       user-menu
 
   .row
-      css:
-        .provider-covid-banner {
-          color: #666666;
-          display: inline-block;
-          font-family: 'BentonSans Bold';
-          font-size: 14px;
-          letter-spacing: 0.4px;
-          line-height: 22px;
-          margin-bottom: 47px;
-          padding: 23px 19px 18px 17px;
-          text-transform: uppercase;          
-        }
+    css:
+      .provider-covid-banner {
+        color: #666666;
+        display: inline-block;
+        font-family: 'BentonSans Bold';
+        font-size: 14px;
+        letter-spacing: 0.4px;
+        line-height: 22px;
+        margin-bottom: 47px;
+        padding: 23px 19px 18px 17px;
+        text-transform: uppercase;          
+      }
 
+      .provider-covid-banner-small {
+        display: none;
+      }
+
+      .provider-covid-banner-large {
+        display: block;
+      }
+
+      .provider-covid-banner.open {
+        background-color:#F9FFD9;
+        border:solid 1px #ADC42D;
+
+      }
+
+      .provider-covid-banner.closed {
+        background-color:#FFE4E1;
+        border:solid 1px #E73624;
+      }
+
+      .provider-covid-banner i.fa {
+        float: left;
+        font-size: 20px;
+        margin-right: 15px;
+        margin-top: -1px;
+      }
+
+      .provider-covid-banner i.fa.fa-times-circle { 
+        color:#E73624;
+      }
+
+      .provider-covid-banner i.fa.fa-check-circle { 
+        color:#ADC42D;
+      }
+
+      @media screen and (max-width: 640px) {
         .provider-covid-banner-small {
-          display: none;
-        }
-
-        .provider-covid-banner-large {
           display: block;
         }
-
-        .provider-covid-banner.open {
-          background-color:#F9FFD9;
-          border:solid 1px #ADC42D;
-
+        .provider-covid-banner-large {
+          display: none;
         }
-
-        .provider-covid-banner.closed {
-          background-color:#FFE4E1;
-          border:solid 1px #E73624;
-        }
-
-        .provider-covid-banner i.fa {
-          float: left;
-          font-size: 20px;
-          margin-right: 15px;
-          margin-top: -1px;
-        }
-
-        .provider-covid-banner i.fa.fa-times-circle { 
-          color:#E73624;
-        }
-
-        .provider-covid-banner i.fa.fa-check-circle { 
-          color:#ADC42D;
-        }
-
-        @media screen and (max-width: 640px) {
-          .provider-covid-banner-small {
-            display: block;
-          }
-          .provider-covid-banner-large {
-            display: none;
-          }
-        }
+      }
 
     .large-12.columns.provider-covid-banner-small
       div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
