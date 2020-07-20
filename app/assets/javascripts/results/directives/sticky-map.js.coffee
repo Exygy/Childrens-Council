@@ -53,7 +53,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
           console.log(elementHeight)
           console.log(scrollContainerHeight)
 
-
+          elementHeight = 900
 
           if ((scrollContainerHeight - stickToBottomBuffer) <= elementHeight)
             unstick(item)
