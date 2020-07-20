@@ -3,7 +3,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
   stuckClass = 'stuck'
   stuckAtBottomClass = 'stuck-at-bottom'
   stickyDisabledClass = 'sticky-disabled'
-  stickToBottomBuffer = 200
+  stickToBottomBuffer = 400
 
   link = (scope, element, attrs) ->
     windowEl = angular.element($window)
