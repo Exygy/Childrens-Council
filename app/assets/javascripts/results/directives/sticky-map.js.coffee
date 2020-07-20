@@ -47,13 +47,12 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
         scope.stickyElements.forEach((item) ->
           elementHeight = item.element[0].offsetHeight
           scrollContainerHeight = item.scrollContainer.height()
+          item.topLimit = parseInt(item.topLimit)
 
           console.log('updateStickyElements')
           console.log(item.topLimit)
           console.log(elementHeight)
           console.log(scrollContainerHeight)
-
-          elementHeight = 900
 
           if ((scrollContainerHeight - stickToBottomBuffer) <= elementHeight)
             unstick(item)
