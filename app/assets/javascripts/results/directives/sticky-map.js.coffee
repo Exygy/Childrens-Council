@@ -67,6 +67,9 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
 
             if (item.isStuck)
               console.log('unstick - 1')
+              console.log(item.start)
+              console.log(item.topLimit)
+              console.log(Math.min(item.start, item.topLimit))
               if (pos < Math.min(item.start, item.topLimit))
                 # Scroll is above the stuck element, so unstick it
                 console.log('unstick - 2')
