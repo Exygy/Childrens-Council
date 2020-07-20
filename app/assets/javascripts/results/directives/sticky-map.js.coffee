@@ -49,16 +49,7 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
           scrollContainerHeight = item.scrollContainer.height()
           item.topLimit = parseInt(item.topLimit)
 
-          console.log('updateStickyElements')
-          console.log(item.topLimit)
-          console.log(elementHeight)
-          console.log(item.element[0])
-          console.log(scrollContainerHeight)
-
-          # scrollContainerHeight = 790
-
           if ((scrollContainerHeight - stickToBottomBuffer) <= elementHeight)
-            console.log('unstick')
             unstick(item)
             unstickFromBottom(item)
           else if (!item.disabled)
@@ -66,31 +57,20 @@ angular.module('CCR').directive('sticky', ['$window', ($window) ->
             itemBottom = pos + elementHeight
 
             if (item.isStuck)
-              console.log('unstick - 1')
-              console.log(item)
-              console.log(item.start)
-              console.log(item.topLimit)
-              console.log(Math.min(item.start, item.topLimit))
-              console.log(pos)
-              if (pos < item.topLimit)
+              if (pos < item.topLimit) # WAS if (pos < Math.min(item.start, item.topLimit)) - EDIT PH - 2020-07-20
                 # Scroll is above the stuck element, so unstick it
-                console.log('unstick - 2')
                 unstick(item)
               else if (item.isStuck && itemBottom > scrollContainerBottom)
                 # Element has reached bottom of scrollContainer, so stick it there
-                console.log('unstick - 3')
                 unstick(item)
                 stickToBottom(item)
             else
-              console.log('unstick - 5')
               if (item.isStuckAtBottom && pos <= item.element.offset().top)
                 # Element was stuck at bottom of scrollContainer, scroll is
                 # now high up enough to unstick it from bottom
-                console.log('unstick - 5.1')
                 unstickFromBottom(item)
-                stick(item) && console.log('unstick - 5.7') if (pos >= Math.max(item.start, item.topLimit))
+                stick(item) if (pos >= Math.max(item.start, item.topLimit))
               else if (pos >= Math.max(item.start, item.topLimit) && !item.isStuckAtBottom)
-                console.log('unstick - 5.5')
                 # Scroll is past the element and it's not stuck, so stick the element
                 stick(item)
         )
