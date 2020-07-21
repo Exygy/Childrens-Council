@@ -73,7 +73,7 @@
   .row.results-container#results-map-scroll-container
     .medium-5.columns
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
-    .medium-7.columns#results-map-container
+    .medium-7.columns#results-map-container style="position: sticky;top: 10px;"
       result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
