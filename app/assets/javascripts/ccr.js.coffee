@@ -58,7 +58,7 @@ angular.module 'CCR', [
           onEnter: hideSidebar,
         })
         .state('reset_password', {
-          url: '/reset_password/:token/',
+          url: '/reset_password/:token',
           component: 'search',
           onEnter: showSidebar,
           resolve: {
