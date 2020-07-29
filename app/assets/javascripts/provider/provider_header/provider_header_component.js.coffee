@@ -12,6 +12,7 @@ ProviderHeaderController = ($scope, SearchService) ->
 
   
   $ctrl.$onInit = () ->
+    $scope.covid19ProvidersOnly = SearchService.covid19ProvidersOnly
     filterProviders = SearchService.covid19ProvidersOnlyFilter([$ctrl.provider])
     $scope.providerIsOpenDuringCovd19 = filterProviders.length > 0
 
