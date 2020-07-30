@@ -12,12 +12,10 @@
 
 javascript:
   function testt(){
-    var navbarHeight = document.querySelector("nav.row").offsetHeight;
-    var navbarBannerHeight = document.querySelector("section.banner-image").offsetHeight;
-    var fullNavBarHeight = navbarHeight + navbarBannerHeight;
+    var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom
 
     window.addEventListener('scroll', function (event) {
-      var scrollHAsPastHeaderHeight = window.pageYOffset > fullNavBarHeight;
+      var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeader = document.getElementById('sticky-mobile-header');
       var searchResultCountHeaderPosition;
 
