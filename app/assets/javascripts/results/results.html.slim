@@ -16,7 +16,7 @@ javascript:
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
-    window.addEventListener('scroll', function (event) {
+    var onScroll = function (event) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       
       var searchResultCountHeaderPosition;
@@ -34,7 +34,10 @@ javascript:
       searchResultCountHeader.style.top = 0;
       searchResultCountHeader.style.zIndex = 1000;
       searchResultCountHeader.style.width = '100%';
-    }, false);
+    }
+    
+    window.addEventListener('touchmove', onScroll, false);
+    window.addEventListener('scroll', onScroll, false);
   }
   testt()
 
