@@ -1,10 +1,13 @@
 css:
-  @media screen and (max-width: 640px) {
-    .sticky-mobile-header {
-      position: sticky;
-      top: 0;
-      z-index: 10000;
-    }
+  .sticky-mobile-header {
+    display: block;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
   }
 
 #ccr-scope
