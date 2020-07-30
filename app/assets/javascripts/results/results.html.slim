@@ -1,39 +1,36 @@
-css:
-  .sticky-mobile-header {
-    display: block;
-    position: -webkit-sticky;
-    position: -moz-sticky;
-    position: -o-sticky;
-    position: -ms-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
-  }
+/ css:
+/   .sticky-mobile-header {
+/     display: block;
+/     position: -webkit-sticky;
+/     position: -moz-sticky;
+/     position: -o-sticky;
+/     position: -ms-sticky;
+/     position: sticky;
+/     top: 0;
+/     z-index: 10000;
+/   }
 
 javascript:
-  var navbarHeight;
-  var navbarBannerHeight;
-  var fullNavBarHeight;
+  function testt(){
+    var navbarHeight = document.querySelector("nav.row").offsetHeight;
+    var navbarBannerHeight = document.querySelector("section.banner-image").offsetHeight;
+    var fullNavBarHeight = navbarHeight + navbarBannerHeight;
 
-  document.addEventListener("DOMContentLoaded", function(){
-    navbarHeight = document.querySelector("nav.row").offsetHeight;
-    navbarBannerHeight = document.querySelector("section.banner-image").offsetHeight;
-    fullNavBarHeight = navbarHeight + navbarBannerHeight;
-  });
+    window.addEventListener('scroll', function (event) {
+      var scrollHAsPastHeaderHeight = window.pageYOffset > fullNavBarHeight;
+      var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+      var searchResultCountHeaderPosition;
 
-  window.addEventListener('scroll', function (event) {
-    var scrollHAsPastHeaderHeight = window.pageYOffset > fullNavBarHeight;
-    var searchResultCountHeader = document.getElementById('sticky-mobile-header');
-    var searchResultCountHeaderPosition;
+      if(scrollHAsPastHeaderHeight){
+        searchResultCountHeaderPosition = 'fixed'
+      }else{
+        searchResultCountHeaderPosition = 'relative'
+      }
 
-    if(scrollHAsPastHeaderHeight){
-      searchResultCountHeaderPosition = 'fixed'
-    }else{
-      searchResultCountHeaderPosition = 'relative'
-    }
-
-    searchResultCountHeader.style.position = searchResultCountHeaderPosition;
-  }, false);
+      searchResultCountHeader.style.position = searchResultCountHeaderPosition;
+    }, false);
+  }
+  testt()
 
 
 #ccr-scope
