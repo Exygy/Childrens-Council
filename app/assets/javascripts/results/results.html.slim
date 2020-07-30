@@ -16,10 +16,15 @@ javascript:
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
-    var onScroll = function (event) {
+    console.log(headerBannerBottomPosition)
+    console.log(searchResultCountHeaderHeight)
+
+    var onScroll = function () {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       
       var searchResultCountHeaderPosition;
+
+      console.log(scrollHAsPastHeaderHeight)
 
       if(scrollHAsPastHeaderHeight){
         searchResultCountHeaderPosition = 'fixed'
@@ -28,6 +33,8 @@ javascript:
         searchResultCountHeaderPosition = 'relative'
         document.querySelector('body').style.paddingTop = 0;
       }
+
+      console.log(searchResultCountHeaderPosition)
 
       searchResultCountHeaderHeight
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
