@@ -10,9 +10,35 @@ css:
     z-index: 10000;
   }
 
+javascript:
+  var navbarHeight;
+  var navbarBannerHeight;
+  var fullNavBarHeight;
+
+  document.addEventListener("DOMContentLoaded", function(){
+    navbarHeight = document.querySelector("nav.row").offsetHeight;
+    navbarBannerHeight = document.querySelector("section.banner-image").offsetHeight;
+    fullNavBarHeight = navbarHeight + navbarBannerHeight;
+  });
+
+  window.addEventListener('scroll', function (event) {
+    var scrollHAsPastHeaderHeight = window.pageYOffset > fullNavBarHeight;
+    var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+    var searchResultCountHeaderPosition;
+
+    if(scrollHAsPastHeaderHeight){
+      searchResultCountHeaderPosition = 'fixed'
+    }else{
+      searchResultCountHeaderPosition = 'relative'
+    }
+
+    searchResultCountHeader.style.postition = searchResultCountHeaderPosition;
+  }, false);
+
+
 #ccr-scope
   rheader#search-results-wrapper.page-header
-    header.infinite-background.page-header.padding-top-1.sticky-mobile-header
+    header.infinite-background.page-header.padding-top-1#sticky-mobile-header
       .row
         .medium-8.columns.hide-for-small
           ul.breadcrumbs
