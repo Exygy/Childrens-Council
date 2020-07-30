@@ -1,6 +1,15 @@
+css:
+  @media screen and (max-width: 640px) {
+    .sticky-mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+  }
+
 #ccr-scope
   rheader#search-results-wrapper.page-header
-    header.infinite-background.page-header.padding-top-1 style="position: sticky;top: 0;z-index: 10000;"
+    header.infinite-background.page-header.padding-top-1.sticky-mobile-header
       .row
         .medium-8.columns.hide-for-small
           ul.breadcrumbs
