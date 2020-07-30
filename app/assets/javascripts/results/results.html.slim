@@ -12,19 +12,24 @@
 
 javascript:
   function testt(){
-    var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom
+    var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
+    var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+    var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
     window.addEventListener('scroll', function (event) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
-      var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+      
       var searchResultCountHeaderPosition;
 
       if(scrollHAsPastHeaderHeight){
         searchResultCountHeaderPosition = 'fixed'
+        document.querySelector('body').style.paddingTop = searchResultCountHeaderHeight;
       }else{
         searchResultCountHeaderPosition = 'relative'
+        document.querySelector('body').style.paddingTop = 0;
       }
 
+      searchResultCountHeaderHeight
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
       searchResultCountHeader.style.top = 0;
       searchResultCountHeader.style.zIndex = 1000;
