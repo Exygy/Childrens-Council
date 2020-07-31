@@ -21,6 +21,9 @@ javascript:
       
       var searchResultCountHeaderPosition;
 
+      console.log(window.pageYOffset)
+      console.log(scrollHAsPastHeaderHeight)
+
       if(scrollHAsPastHeaderHeight){
         searchResultCountHeaderPosition = 'fixed'
         document.querySelector('body').style.paddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
