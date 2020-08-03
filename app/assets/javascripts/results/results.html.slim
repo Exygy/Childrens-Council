@@ -8,25 +8,25 @@ javascript:
     var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeaderPosition;
+      var searchResultCountHeaderWidth;
       var bodyPaddingTop;
 
       if(scrollHAsPastHeaderHeight){
         bodyPaddingTop = searchResultCountHeaderHeight;
-        searchResultCountHeader.style.width = '100%';
         searchResultCountHeaderPosition = 'fixed';
+        searchResultCountHeaderWidth = '100%';
       }else{
         bodyPaddingTop = 0;
-        searchResultCountHeader.style.width = 'calc(100% + 2.5em)';
         searchResultCountHeaderPosition = 'relative';
+        searchResultCountHeaderWidth = 'calc(100% + 2.5em)';
       }
 
-      console.log('searchResultCountHeaderPosition');
-      console.log(searchResultCountHeaderPosition);
-      console.log('bodyPaddingTop');
-      console.log(bodyPaddingTop);
+      console.log('searchResultCountHeaderWidth');
+      console.log(searchResultCountHeaderWidth);
 
+      body.style.paddingTop = bodyPaddingTop + 'px';
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
-      body.style.paddingTop = bodyPaddingTop;
+      searchResultCountHeader.style.width = searchResultCountHeaderWidth;
     }
     
     document.addEventListener('touchmove', onScroll);
