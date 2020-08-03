@@ -12,18 +12,18 @@ javascript:
 
       if(scrollHAsPastHeaderHeight){
         bodyPaddingTop = searchResultCountHeaderHeight;
-        searchResultCountHeader.style.width: '100%';
+        searchResultCountHeader.style.width = '100%';
         searchResultCountHeaderPosition = 'fixed';
       }else{
         bodyPaddingTop = 0;
-        searchResultCountHeader.style.width: 'calc(100% + 2.5em)';
+        searchResultCountHeader.style.width = 'calc(100% + 2.5em)';
         searchResultCountHeaderPosition = 'relative';
       }
 
-      console.log('searchResultCountHeaderPosition')
-      console.log(searchResultCountHeaderPosition)
-      console.log('bodyPaddingTop')
-      console.log(bodyPaddingTop)
+      console.log('searchResultCountHeaderPosition');
+      console.log(searchResultCountHeaderPosition);
+      console.log('bodyPaddingTop');
+      console.log(bodyPaddingTop);
 
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
       body.style.paddingTop = bodyPaddingTop;
