@@ -1,15 +1,3 @@
-/ css:
-/   .sticky-mobile-header {
-/     display: block;
-/     position: -webkit-sticky;
-/     position: -moz-sticky;
-/     position: -o-sticky;
-/     position: -ms-sticky;
-/     position: sticky;
-/     top: 0;
-/     z-index: 10000;
-/   }
-
 javascript:
   function testt(){
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
@@ -17,17 +5,8 @@ javascript:
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
     var onScroll = function (e) {
-
-
-      console.log(e.srcElement.scrollTop)
-
-
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
-      
       var searchResultCountHeaderPosition;
-
-      console.log(window.pageYOffset)
-      console.log(scrollHAsPastHeaderHeight)
 
       if(scrollHAsPastHeaderHeight){
         searchResultCountHeaderPosition = 'fixed'
