@@ -2,6 +2,7 @@ RegisterController = ($scope, $auth, DataService, $modalInstance) ->
   $ctrl = @
   $scope.registering = true
   $scope.errors
+  $scope.filterData = DataService.filterData
 
   $scope.register = (parent, registerForm) ->
     $scope.errors = []

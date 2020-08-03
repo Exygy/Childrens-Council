@@ -54,7 +54,6 @@ div.ccr-scope.register [ng-show="registering"]
               | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
               a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
 
-
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid) }"
             | Home Zipcode
@@ -65,8 +64,8 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.care_reasons.$dirty && registerForm.care_reasons.$invalid) }"
-            | Reasons for considering child care/preschool
-            select.radius id="care-reason" name="care_reasons" ng-model="parent.care_reasons" ng-required="true"
+            | Reasons for Considering Child Care
+            select.radius id="care-reason" name="care_reasons" ng-model="parent.care_reasons" ng-required="true" style="width:100%"
               option [value="" disabled] Select Care Reason
               option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
                 ' {{ care_reason }}
@@ -77,10 +76,10 @@ div.ccr-scope.register [ng-show="registering"]
         section
           label.margin-top-1 for="found-option"
             | How did you hear about us?
-            em
-              small.optional Optional
+            br
+            small.optional Optional
           .repeater-container
-            select#found-option.radius name="found_option" ng-model="parent.found_option"
+            select#found-option.radius name="found_option" ng-model="parent.found_option" style="width:100%"
               option value="" Select
               option ng-repeat="found_option in filterData.foundOptions" value="{{ found_option }}"
                 ' {{ found_option }}
