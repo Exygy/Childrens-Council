@@ -1,5 +1,9 @@
 javascript:
   function setStickyHeader(){
+    if(window.innerWidth > 640){
+      return
+    }
+
     var body = document.querySelector('body');
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
