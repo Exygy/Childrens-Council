@@ -7,12 +7,9 @@ javascript:
     var body = document.querySelector('body');
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
-    var searchResultCountHeaderHeight = 198; //searchResultCountHeader.offsetHeight;
-
-    console.log('headerBannerBottomPosition')
-    console.log(headerBannerBottomPosition)
 
     var onScroll = function (e) {
+      var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeaderPosition;
       var searchResultCountHeaderWidth;
