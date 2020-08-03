@@ -9,26 +9,18 @@ javascript:
       var searchResultCountHeaderPosition;
 
       if(scrollHAsPastHeaderHeight){
-        searchResultCountHeaderPosition = 'fixed'
+        searchResultCountHeader.style.position = 'fixed'
         document.querySelector('body').style.paddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
-        searchResultCountHeader.style.width = 'calc(100% + 2.5em)';
       }else{
-        searchResultCountHeaderPosition = 'relative'
+        searchResultCountHeader.style.position = 'relative'
         document.querySelector('body').style.paddingTop = 0;
-        searchResultCountHeader.style.width = 'calc(100% + 2.5em)';
       }
-
-      searchResultCountHeader.style.position = searchResultCountHeaderPosition;
-      searchResultCountHeader.style.top = 0;
-      searchResultCountHeader.style.zIndex = 1000;
-      searchResultCountHeader.style.marginLeft = '-1.25em';
-      searchResultCountHeader.style.paddingLeft = '1.25em';
-      searchResultCountHeader.style.paddingRight = '1.25em';
     }
     
     document.addEventListener('touchmove', onScroll);
     document.addEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll);
+
+    onScroll();
   }
   testt()
 
