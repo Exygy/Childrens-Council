@@ -48,8 +48,9 @@ javascript:
       searchResultCountHeader.style.paddingRight = '1.25em';
     }
     
-    document.addEventListener('touchmove', onScroll, false);
-    document.addEventListener('scroll', onScroll, false);
+    document.addEventListener('touchmove', onScroll);
+    document.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll);
   }
   testt()
 
