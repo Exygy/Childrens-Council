@@ -44,6 +44,18 @@ div.ccr-scope.register [ng-show="registering"]
               | Password is too short
 
         section
+          h5.margin-bottom-none About you
+
+          a href="#" ng-click="settings.showWhyAsking = !settings.showWhyAsking"
+            small Why are we asking for your information?
+
+          p.fade ng-show="settings.showWhyAsking"
+            small
+              | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
+              a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
+
+
+        section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid) }"
             | Home Zipcode
             input.radius type="text" name="home_zip_code" required="" validate-zip-code="" ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
