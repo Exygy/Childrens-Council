@@ -1,13 +1,16 @@
 javascript:
   function setStickyHeader(){
     if(window.innerWidth > 640){
-      return
+      return;
     }
 
     var body = document.querySelector('body');
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
     var searchResultCountHeaderHeight = 198; //searchResultCountHeader.offsetHeight;
+
+    console.log('headerBannerBottomPosition')
+    console.log(headerBannerBottomPosition)
 
     var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
@@ -24,13 +27,6 @@ javascript:
         searchResultCountHeaderPosition = 'relative';
         searchResultCountHeaderWidth = 'calc(100% + 2.5em)';
       }
-
-      console.log('searchResultCountHeaderPosition');
-      console.log(searchResultCountHeaderPosition);
-      console.log('bodyPaddingTop');
-      console.log(bodyPaddingTop);
-      console.log('searchResultCountHeaderWidth');
-      console.log(searchResultCountHeaderWidth);
 
       body.style.paddingTop = bodyPaddingTop + 'px';
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
