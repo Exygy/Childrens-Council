@@ -6,15 +6,18 @@ javascript:
 
     var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
+      var mobileStickyHeader = document.getElementById('sticky-mobile-header');
       var searchResultCountHeaderPosition;
       var bodyPaddingTop;
 
       if(scrollHAsPastHeaderHeight){
-        searchResultCountHeaderPosition = 'fixed'
         bodyPaddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
+        mobileStickyHeader.style.width: '100%';
+        searchResultCountHeaderPosition = 'fixed';
       }else{
-        searchResultCountHeaderPosition = 'relative'
         bodyPaddingTop = 0;
+        mobileStickyHeader.style.width: 'calc(100% + 2.5em)';
+        searchResultCountHeaderPosition = 'relative';
       }
 
       console.log('searchResultCountHeaderPosition')
