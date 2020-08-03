@@ -1,22 +1,22 @@
 javascript:
   function setStickyHeader(){
+    var body = document.querySelector('body');
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
     var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
-      var mobileStickyHeader = document.getElementById('sticky-mobile-header');
       var searchResultCountHeaderPosition;
       var bodyPaddingTop;
 
       if(scrollHAsPastHeaderHeight){
-        bodyPaddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
-        mobileStickyHeader.style.width: '100%';
+        bodyPaddingTop = searchResultCountHeaderHeight;
+        searchResultCountHeader.style.width: '100%';
         searchResultCountHeaderPosition = 'fixed';
       }else{
         bodyPaddingTop = 0;
-        mobileStickyHeader.style.width: 'calc(100% + 2.5em)';
+        searchResultCountHeader.style.width: 'calc(100% + 2.5em)';
         searchResultCountHeaderPosition = 'relative';
       }
 
@@ -26,7 +26,7 @@ javascript:
       console.log(bodyPaddingTop)
 
       searchResultCountHeader.style.position = searchResultCountHeaderPosition;
-      document.querySelector('body').style.paddingTop = bodyPaddingTop;
+      body.style.paddingTop = bodyPaddingTop;
     }
     
     document.addEventListener('touchmove', onScroll);
