@@ -1,5 +1,5 @@
 javascript:
-  function testt(){
+  function setStickyHeader(){
     var headerBannerBottomPosition = document.querySelector("section.banner-image").getBoundingClientRect().bottom;
     var searchResultCountHeader = document.getElementById('sticky-mobile-header');
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
@@ -7,22 +7,26 @@ javascript:
     var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeaderPosition;
+      var bodyPaddingTop;
 
       if(scrollHAsPastHeaderHeight){
-        searchResultCountHeader.style.position = 'fixed'
-        document.querySelector('body').style.paddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
+        searchResultCountHeaderPosition = 'fixed'
+        bodyPaddingTop = document.getElementById('sticky-mobile-header').offsetHeight;
       }else{
-        searchResultCountHeader.style.position = 'relative'
-        document.querySelector('body').style.paddingTop = 0;
+        searchResultCountHeaderPosition = 'relative'
+        bodyPaddingTop = 0;
       }
+
+      searchResultCountHeader.style.position = searchResultCountHeaderPosition;
+      document.querySelector('body').style.paddingTop = bodyPaddingTop;
     }
     
     document.addEventListener('touchmove', onScroll);
     document.addEventListener('scroll', onScroll);
 
-    onScroll();
+    onScroll()
   }
-  testt()
+  setStickyHeader()
 
 
 #ccr-scope
