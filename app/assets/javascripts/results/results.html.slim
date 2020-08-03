@@ -4,12 +4,12 @@ javascript:
       return;
     }
 
-    var onScroll = function (e) {
-      var body = document.querySelector('body');
-      var sectionBannerImage = document.querySelector("section.banner-image");
-      var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+    var body = document.querySelector('body');
+    var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+    var sectionBannerImage = document.querySelector("section.banner-image");
+    var headerBannerBottomPosition = sectionBannerImage.getBoundingClientRect().bottom;
 
-      var headerBannerBottomPosition = sectionBannerImage.getBoundingClientRect().bottom;
+    var onScroll = function (e) {
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
       var searchResultCountHeaderPosition;
