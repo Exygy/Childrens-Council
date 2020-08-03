@@ -4,17 +4,22 @@ javascript:
       return;
     }
 
-    var body = document.querySelector('body');
-    var sectionBannerImage = document.querySelector("section.banner-image");
-    var searchResultCountHeader = document.getElementById('sticky-mobile-header');
-
     var onScroll = function (e) {
+      var body = document.querySelector('body');
+      var sectionBannerImage = document.querySelector("section.banner-image");
+      var searchResultCountHeader = document.getElementById('sticky-mobile-header');
+
       var headerBannerBottomPosition = sectionBannerImage.getBoundingClientRect().bottom;
       var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
       var searchResultCountHeaderPosition;
       var searchResultCountHeaderWidth;
       var bodyPaddingTop;
+
+      console.log('headerBannerBottomPosition')
+      console.log(headerBannerBottomPosition)
+      console.log('scrollHAsPastHeaderHeight')
+      console.log(scrollHAsPastHeaderHeight)
 
       if(scrollHAsPastHeaderHeight){
         bodyPaddingTop = searchResultCountHeaderHeight;
