@@ -17,11 +17,16 @@ javascript:
     var searchResultCountHeaderHeight = searchResultCountHeader.offsetHeight;
 
     var onScroll = function (e) {
-      var scrollHAsPastHeaderHeight = e.srcElement.scrollTop > headerBannerBottomPosition;
+
+
+      console.log(e.srcElement.scrollTop)
+
+
+      var scrollHAsPastHeaderHeight = window.pageYOffset > headerBannerBottomPosition;
       
       var searchResultCountHeaderPosition;
 
-      console.log(e.srcElement.scrollTop)
+      console.log(window.pageYOffset)
       console.log(scrollHAsPastHeaderHeight)
 
       if(scrollHAsPastHeaderHeight){
