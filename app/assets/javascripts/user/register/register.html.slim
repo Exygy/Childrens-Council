@@ -46,7 +46,7 @@ div.ccr-scope.register [ng-show="registering"]
         section
           h5.margin-bottom-none Additional Information
 
-          a href="#" ng-click="settings.showWhyAsking = !settings.showWhyAsking; return false;"
+          a ng-click="settings.showWhyAsking = !settings.showWhyAsking;"
             small Why are we collecting this information?
 
           p.fade ng-show="settings.showWhyAsking"
