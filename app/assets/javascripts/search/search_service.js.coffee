@@ -120,6 +120,22 @@ SearchService = (
     delete params.vacancyType
     delete params.vacancyFutureDate
 
+  $service.setPreschoolProgram = (params) ->
+    console.log('setPreschoolProgram')
+
+    if params.preschoolProgram
+      params.generalLocal2 = params.generalLocal2.concat(['Preschool Program'])
+
+    
+    console.log(params)
+    console.log(params.preschoolProgram)
+
+    delete params.preschoolProgram
+
+    console.log(params)
+
+
+
   $service.setAcceptsChildren = (params) ->
     if params.acceptsChildren and params.acceptsChildren.length == 2
       params.acceptsChildren = 'BOTH'
@@ -148,6 +164,7 @@ SearchService = (
       $service.setAcceptsChildren(searchParams)
       $service.setMonthlyRate(searchParams)
       $service.setVacancies(searchParams)
+      $service.setPreschoolProgram(searchParams)
 
       searchParams
 
