@@ -65,12 +65,13 @@ div.ccr-scope.register [ng-show="registering"]
         section
           label.margin-top-1 for="found-option"
             | How did you hear about us?
-            br
-            small.optional style="margin:0" Optional          
-            select#found-option.radius name="found_option" ng-model="parent.found_option" style="width:100%"
+            select#found-option.radius name="found_option" ng-model="parent.found_option" ng-required="true" style="width:100%"
               option value=""
               option ng-repeat="found_option in filterData.foundOptions" value="{{ found_option }}"
                 ' {{ found_option }}
+          small.error ng-show="parent.found_option.$dirty && parent.found_option == ''"
+            span.fa.fa-exclamation-circle
+            | Selecting an option is required
 
     .row
       .small-6.large-centered.columns
