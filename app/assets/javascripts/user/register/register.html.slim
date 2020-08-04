@@ -63,13 +63,13 @@ div.ccr-scope.register [ng-show="registering"]
               | 5 digit zip code is required
 
         section
-          label.large.c-black.text-normal ng-class="{ error: (registerForm.care_reasons.$dirty && registerForm.care_reasons.$invalid) }"
+          label.large.c-black.text-normal ng-class="{ error: (registerForm.care_reason.$dirty && registerForm.care_reason.$invalid) }"
             | Reasons for Considering Child Care*
-            select.radius id="care-reason" name="care_reasons" ng-model="parent.care_reasons" ng-required="true" style="width:100%"
+            select.radius id="care-reason" name="care_reason" ng-model="parent.care_reason" ng-required="true" style="width:100%"
               option [value="" disabled]
               option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
                 ' {{ care_reason }}
-          small.error ng-show="parent.care_reasons.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
+          small.error ng-show="parent.care_reason.$dirty && parent.care_reason == ''"
             span.fa.fa-exclamation-circle
             | Selecting a care reason is required
 
