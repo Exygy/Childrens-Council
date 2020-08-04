@@ -66,7 +66,7 @@ class Parents::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:api_key])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:api_key, :home_zip_code, :full_name])
   end
 
   def configure_account_update_params
