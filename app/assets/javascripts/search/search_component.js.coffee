@@ -72,6 +72,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
         () -> $state.go('results'),
         { deleteApiKey: true, reset: true },
       )
+      $("html, body").animate({ scrollTop: 0 }, 800)
     else
       $("html, body").animate({ scrollTop: $('.ng-invalid').not('form').offset().top - 50 }, 800)
     return
