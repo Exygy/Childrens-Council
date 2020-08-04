@@ -13,7 +13,7 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.email.$dirty && registerForm.email.$invalid) }"
-            | First and Last Name
+            | First and Last Name *
             input.panel.radius type="text" name="full_name" required=""  validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
             small.error ng-show="(registerForm.full_name.$dirty && registerForm.full_name.$invalid)" 
               span.fa.fa-exclamation-circle
@@ -21,7 +21,7 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.email.$dirty && registerForm.email.$invalid) }"
-            | Email
+            | Email *
             input.panel.radius type="text" name="email" required="" ng-model="parent.email"
             small.error ng-show="(registerForm.email.$dirty && registerForm.email.$invalid)"
               span.fa.fa-exclamation-circle
@@ -29,34 +29,34 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid) }"
-            | Confirm email
+            | Confirm Email *
             input.radius type="text" name="confirm_email" required="" ng-model="parent.confirm_email" ng-pattern="parent.email"
             small.error ng-show="(registerForm.confirm_email.$dirty && registerForm.confirm_email.$invalid)"
               span.fa.fa-exclamation-circle
-              |  Email do not match
+              |  Email does not match
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.password.$dirty && registerForm.password.$invalid) }"
-            | Password
+            | Password *
             input.radius type="password" name="password" required="" ng-minlength="8" ng-model="parent.password"
             small.error ng-show="(registerForm.password.$dirty && registerForm.password.$invalid)"
               span.fa.fa-exclamation-circle
               | Password is too short
 
         section
-          h5.margin-bottom-none About you
+          h5.margin-bottom-none Additional Information
 
           a href="#" ng-click="settings.showWhyAsking = !settings.showWhyAsking"
-            small Why are we asking for your information?
+            small Why are we collecting this information?
 
           p.fade ng-show="settings.showWhyAsking"
             small
-              | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
-              a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
+              | Children's Council is a non-profit receiving funding from California Department of Education (CDE) to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
+              a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank" Read our full privacy policy.
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid) }"
-            | Home Zipcode
+            | Home Zipcode *
             input.radius type="text" name="home_zip_code" required="" validate-zip-code="" ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
             small.error ng-show="(registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid)"
               span.fa.fa-exclamation-circle
@@ -64,9 +64,9 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.care_reasons.$dirty && registerForm.care_reasons.$invalid) }"
-            | Reasons for Considering Child Care
+            | Reasons for Considering Child Care *
             select.radius id="care-reason" name="care_reasons" ng-model="parent.care_reasons" ng-required="true" style="width:100%"
-              option [value="" disabled] Select Care Reason
+              option [value="" disabled]
               option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
                 ' {{ care_reason }}
           small.error ng-show="parent.care_reasons.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
@@ -77,10 +77,9 @@ div.ccr-scope.register [ng-show="registering"]
           label.margin-top-1 for="found-option"
             | How did you hear about us?
             br
-            small.optional Optional
-          .repeater-container
+            small.optional style="margin:0" Optional          
             select#found-option.radius name="found_option" ng-model="parent.found_option" style="width:100%"
-              option value="" Select
+              option value=""
               option ng-repeat="found_option in filterData.foundOptions" value="{{ found_option }}"
                 ' {{ found_option }}
 
