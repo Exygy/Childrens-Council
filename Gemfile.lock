@@ -198,7 +198,6 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack-timeout (0.5.1)
     rails (4.2.11)
       actionmailer (= 4.2.11)
       actionpack (= 4.2.11)
@@ -380,7 +379,6 @@ DEPENDENCIES
   rack (~> 1.6.11)
   rack-cors
   rack-livereload
-  rack-timeout
   rails (= 4.2.11)
   rails-assets-angular-devise!
   rails_12factor
@@ -406,4 +404,4 @@ RUBY VERSION
    ruby 2.5.0p0
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

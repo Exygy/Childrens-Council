@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     passwords: 'parents/passwords'
   }
 
+  get 'all_provider_ids' => 'home#provider_ids'
+
   get 'home/index'
   get 'wordpress_template' => 'home#wordpress_template'
 

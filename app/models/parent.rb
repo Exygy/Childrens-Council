@@ -29,6 +29,7 @@
 #  current_sign_in_ip     :string
 #  last_sign_in_ip        :string
 #  allow_password_change  :boolean          default(FALSE), not null
+#  found_option           :text
 #
 # Indexes
 #

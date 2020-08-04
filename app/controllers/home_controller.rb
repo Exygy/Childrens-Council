@@ -7,6 +7,10 @@ class HomeController < ApplicationController
     end
   end
 
+  def provider_ids
+    render json: NdsApiService.new.fetch_all_provider_ids, status: 200
+  end
+
   def wordpress_template
     render 'wordpress_template', layout: false
   end

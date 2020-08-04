@@ -22,6 +22,17 @@ class NdsApiService
     YAML.load_file(yaml_file_path(type))
   end
 
+  def fetch_all_provider_ids
+    provider_ids = [] 
+    number_of_pages = NDS.search_providers({}, page: 0, size: 30 )[:totalPages]
+    number_of_pages.times do |page_number|  
+        NDS.search_providers({}, page: page_number, size: 30 )[:content].each do |provider|
+            provider_ids << provider['providerId']
+        end
+    end
+    provider_ids.uniq
+  end
+
   private
 
   def yaml_file_path(type)
