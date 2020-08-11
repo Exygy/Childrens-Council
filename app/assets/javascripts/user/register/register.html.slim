@@ -38,10 +38,10 @@ div.ccr-scope.register [ng-show="registering"]
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.password.$dirty && registerForm.password.$invalid) }"
             | Password *
-            input.radius type="password" name="password" required="" ng-minlength="8" ng-model="parent.password"
+            input.radius type="password" name="password" required="" ng-minlength="7" ng-model="parent.password"
             small.error ng-show="(registerForm.password.$dirty && registerForm.password.$invalid)"
               span.fa.fa-exclamation-circle
-              | Password is too short
+              | Password must be 7 characters or longer
 
         section
           h5.margin-bottom-none Additional Information
@@ -64,7 +64,7 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.margin-top-1 for="found-option"
-            | How did you hear about us?
+            | How did you hear about us? *
             select#found-option.radius name="found_option" ng-model="parent.found_option" ng-required="true" style="width:100%"
               option value=""
               option ng-repeat="found_option in filterData.foundOptions" value="{{ found_option }}"
