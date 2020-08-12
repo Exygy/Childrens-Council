@@ -73,7 +73,7 @@ header#provider-content-wrapper.infinite-background.page-header.padding-top-1
         }
       }
 
-    {{ covid19ProvidersOnly }}
+    | {{ covid19ProvidersOnly }}
 
     .large-12.columns.provider-covid-banner-small ng-if="covid19ProvidersOnly"
       div class="provider-covid-banner" ng-class="{'open': providerIsOpenDuringCovd19, 'closed': !providerIsOpenDuringCovd19}"
