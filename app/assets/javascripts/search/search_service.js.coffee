@@ -122,6 +122,7 @@ SearchService = (
 
   $service.setPreschoolProgram = (params) ->
     if params.preschoolProgram
+      params.generalLocal2 = params.generalLocal2 || []
       params.generalLocal2 = params.generalLocal2.concat(['Preschool Program'])
     delete params.preschoolProgram
 
