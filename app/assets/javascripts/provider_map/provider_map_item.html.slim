@@ -1,7 +1,7 @@
 .results-item.noborder.gmap-window ng-if="$ctrl.provider"
   div
     h3.item-title
-      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
+      a.ga-provider-name href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
     favorite provider="$ctrl.provider"
     p.small
       small ng-if="$ctrl.provider | isFacility"

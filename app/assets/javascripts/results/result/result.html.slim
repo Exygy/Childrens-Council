@@ -4,7 +4,7 @@
     img.thumbnail ng-src="{{ $ctrl.provider.images.headshot }}"
   .columns.small-9.medium-10.padding-left-1
     h2.item-title
-      a href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
+      a.ga-provider-name href="#" ui-sref="provider({id: $ctrl.provider.providerId})" {{ $ctrl.provider | providerName }}
       br.show-for-small-only
       span
         '{{ $ctrl.provider.primaryOwner.firstName }} {{$ctrl.provider.primaryOwner.lastName}}
