@@ -1,60 +1,38 @@
 css:
-    #ccr-scope .covid-banner-wrapper {
-        border: solid 9px #C5D82E;
-        border-radius: 34px;
-        min-height:240px;
-        margin-top:20px;
-        margin-bottom:30px;
-        padding: 0 0 0 15px;
-    }
+  .provider-covid-banner {
+    color: #666666;
+    display: inline-block;
+    font-family: 'BentonSans Bold';
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 22px;
+    margin-bottom: 47px;
+    padding: 18px 19px 15px 17px;
+    text-transform: uppercase;          
+  }
 
-    #ccr-scope .covid-banner-content {
-        float:left;
-        padding-top: 35px;
-        width:50%;
-    }
+  .provider-covid-banner.open {
+    background-color:#F9FFD9;
+    border:solid 2px #ADC42D;
 
-    #ccr-scope .covid-banner-content h4 { 
-        color:#333333;
-        font-size:24px;
-        font-weight:bold;
-        line-height: 40px;
-        margin-bottom:19px;
-        text-transform: inherit;
-    }
+  }
 
-    #ccr-scope .covid-banner-content badge {
-        float: left;
-        margin-top: -3px;
-        padding-right: 25px;
-    }
+  .provider-covid-banner i.fa {
+    float: left;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: -1px;
+  }
 
-    #ccr-scope .covid-banner-content badge img {
-        background-color: transparent;
-    }
+  .provider-covid-banner i.fa.fa-exclamation-circle { 
+    color:#ADC42D;
+  }
 
-    #ccr-scope .covid-banner-image {
-        border-radius: 30px;
-        float:left;
-        width:50%;
-    }
 
-    #ccr-scope .covid-banner-image img {
-        border-radius: 30px;
-    }
+.provider-covid-banner ng-if="covid19ProvidersOnly" style="padding:0"
+    .provider-covid-banner.open
+        i.fa.fa-exclamation-circle aria-hidden="true"
+        | All child care programs displayed are open during COVID-19
+        p Look for programs with the COVID-19 Safety badge indicating participation in a COVID-19 health and safety training. 
 
-    @media only screen and (max-width: 600px) {
-        #ccr-scope .covid-banner-content, #ccr-scope .covid-banner-image {
-            float:none;
-            width:100%;
-        }
-    }
 
-.covid-banner-wrapper
-    .covid-banner-content
-        h4 Only child care programs open during COVID-19 are displayed below.
-        badge name="'DPH Training Complete'"
-        p Programs with this badge have participated in a COVID-19 health and safety training.
-    .covid-banner-image
-        img src="http://www.childrenscouncil.org/wp-content/uploads/cc_child-playing.png"
-    .cl
