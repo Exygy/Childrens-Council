@@ -1,3 +1,54 @@
+    css:
+      .provider-covid-banner {
+        color: #666666;
+        display: inline-block;
+        font-family: 'BentonSans Bold';
+        font-size: 14px;
+        letter-spacing: 0.4px;
+        line-height: 22px;
+        margin-bottom: 47px;
+        padding: 23px 19px 18px 17px;
+        text-transform: uppercase;          
+      }
+
+      .provider-covid-banner-small {
+        display: none;
+      }
+
+      .provider-covid-banner-large {
+        display: block;
+      }
+
+      .provider-covid-banner.open {
+        background-color:#F9FFD9;
+        border:solid 1px #ADC42D;
+
+      }
+
+      .provider-covid-banner i.fa {
+        float: left;
+        font-size: 20px;
+        margin-right: 15px;
+        margin-top: -1px;
+      }
+
+      .provider-covid-banner i.fa.fa-times-circle { 
+        color:#E73624;
+      }
+
+      .provider-covid-banner i.fa.fa-check-circle { 
+        color:#ADC42D;
+      }
+
+      @media screen and (max-width: 640px) {
+        .provider-covid-banner-small {
+          display: block;
+        }
+        .provider-covid-banner-large {
+          display: none;
+        }
+      }
+
 /p.c-base
 /  small
 /    strong Note
@@ -15,10 +66,12 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
   div ng-hide="loading"
     user-prompt
     form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
-      section.margin-top-2.margin-bottom-3
-        p Welcome to our San Francisco child care database! Here you can search for the licensed child care environment that best fits your family’s needs.
-
       h2.margin-bottom-1 Let's get started!
+
+      .large-12.columns.provider-covid-banner-small ng-if="covid19ProvidersOnly"
+        .provider-covid-banner.open
+          i.fa.fa-check-circle aria-hidden="true"
+          | All child care programs displayed are open during COVID-19
 
       ng-include src="'search/templates/search_type_tabs.html'"
 
