@@ -11,17 +11,9 @@ css:
     text-transform: uppercase;          
   }
 
-  .provider-covid-banner-small {
-    display: none;
-  }
-
-  .provider-covid-banner-large {
-    display: block;
-  }
-
   .provider-covid-banner.open {
     background-color:#F9FFD9;
-    border:solid 1px #ADC42D;
+    border:solid 2px #ADC42D;
 
   }
 
@@ -59,9 +51,9 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
     form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
       h2.margin-bottom-1 Let's get started!
 
-      .large-12.columns.provider-covid-banner-small ng-if="covid19ProvidersOnly"
+      .large-12.columns.provider-covid-banner-small ng-if="covid19ProvidersOnly" style="padding:0"
         .provider-covid-banner.open
-          i.fa.fa-check-circle aria-hidden="true"
+          i.fa.fa-exclamation-circle aria-hidden="true"
           | All child care programs displayed are open during COVID-19
 
       ng-include src="'search/templates/search_type_tabs.html'"
