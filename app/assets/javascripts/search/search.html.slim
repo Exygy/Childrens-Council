@@ -1,4 +1,10 @@
 css:
+
+  #main > h1 {
+    color: #424242;
+    font-size: 36px;
+  }
+
   .provider-covid-banner {
     color: #666666;
     display: inline-block;
@@ -24,21 +30,8 @@ css:
     margin-top: -1px;
   }
 
-  .provider-covid-banner i.fa.fa-times-circle { 
-    color:#E73624;
-  }
-
-  .provider-covid-banner i.fa.fa-check-circle { 
+  .provider-covid-banner i.fa.fa-exclamation-circle { 
     color:#ADC42D;
-  }
-
-  @media screen and (max-width: 640px) {
-    .provider-covid-banner-small {
-      display: block;
-    }
-    .provider-covid-banner-large {
-      display: none;
-    }
   }
 
 ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html'"
