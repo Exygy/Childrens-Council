@@ -66,9 +66,6 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
   $scope.submitSearch = ->
     validateForm()
-
-    console.log($scope.searchForm.$valid)
-
     if $scope.searchForm.$valid
       $("html, body").animate({ scrollTop: 0 }, 800)
       $scope.loading = true

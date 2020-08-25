@@ -145,10 +145,6 @@ SearchService = (
       searchParams.yearlySchedule = $service.parent.children[0].yearlySchedule
       searchParams.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
-
-
-      console.log(searchParams)
-
       # TODO: set shift info in params
       # @setShiftParams(searchParams)
       $service.setSearchLocation(searchParams)
