@@ -93,7 +93,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
 
       .search-type-tab-content.active style="paddding-top:0;"
         section.margin-top-1
-          h5 Reason for requesting care
+          h5 Reason for requesting care *
           select.radius id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
             option [value="" disabled] Select Care Reason
             option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
@@ -116,10 +116,9 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
             small
               | Children's Council provides referrals and not recommendations. As a parent, you have the right to get information about any substantiated or inconclusive complaints about a licensed program that you select for your child. 
               br
-              br
               a ng-click="showAgreementDetails = !showAgreementDetails" 
-                | View Details
-                i class="fa fa-chevron-down" aria-hidden="true"
+                | View Details  
+                i class="fa" ng-class="{ 'fa-chevron-down': !showAgreementDetails, 'fa-chevron-up': showAgreementDetails }" aria-hidden="true" style="margin-left:4px;"
               br
               span ng-show="showAgreementDetails"
                 | That information is public and available by calling the California Community Care Licensing hotline at 1-844-538-8766 or
