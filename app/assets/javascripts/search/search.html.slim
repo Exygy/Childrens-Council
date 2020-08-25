@@ -53,62 +53,8 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
       ng-include src="'search/templates/search_type_tabs.html'"
 
       section.panel.radius.padding-2
-        h5.margin-bottom-none About you
-
-        a href="#" ng-click="settings.showWhyAsking = !settings.showWhyAsking"
-          small Why are we asking for your information?
-
-        p.fade ng-show="settings.showWhyAsking"
-          small
-            | Children's Council is a non-profit receiving funding from CDE to help families find child care that meets their needs. CDE requires us to provide statistical information captured in the questions below. Your personal information below will remain private.
-            a href="http://www.childrenscouncil.org/privacy-policy/" target="_blank"  Read our full privacy policy.
-
-        label.margin-top-1 ng-class="{ error: (searchForm.full_name.$dirty && searchForm.full_name.$invalid) }"
-          | Your name *
-          input.radius placeholder="First and last name" type="text" name="full_name" required="" validate-first-name-last-name="" ng-model="parent.full_name" ng-model-options="{ updateOn: 'blur' }"
-          small.error ng-show="(searchForm.full_name.$dirty && searchForm.full_name.$invalid)"
-            span.fa.fa-exclamation-circle
-            |  Your first name and last name are required
-
-
-        label.margin-top-1 for="email" ng-class="{ error: (searchForm.phone.$invalid && searchForm.phone.$dirty) && (searchForm.email.$invalid && searchForm.email.$invalid) }"
-          | Email address <em>or</em> phone *
-
-        tabset.tabs-inline role="tablist"
-          tab select="setContactType('email')"
-            tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'email'}}" controls="email-tab" Email address
-
-            #email-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'email'}}"
-              label.show-for-sr for="email" Email
-              input#email.radius type="email" name="email" ng-model="parent.email" placeholder="Email Address" ng-class="{ error: (searchForm.email.$dirty && searchForm.email.$invalid) }" ng-required="parent.phone === ''"
-              small.error ng-show="searchForm.email.$dirty && searchForm.email.$invalid"
-                span.fa.fa-exclamation-circle
-                | Email or phone number is required
-
-          tab select="setContactType('phone')"
-            tab-heading role="tab" tabindex="0" aria-selected="{{settings.contact_type === 'phone'}}" controls="phone-tab" Phone
-
-            #phone-tab role="tabpanel" aria-hidden="{{settings.contact_type !== 'phone'}}"
-              label.show-for-sr for="phone" Phone
-
-              input#phone.radius type="tel" name="phone" ng-model="parent.phone" placeholder="Phone" ng-class="{ error: (searchForm.phone.$dirty && searchForm.phone.$invalid) }" ng-required="parent.email === '' || searchForm.email.$invalid" ng-minlength="10" ng-maxlength="10"
-
-              small.error ng-show="searchForm.phone.$dirty && searchForm.phone.$invalid"
-                span.fa.fa-exclamation-circle
-                | 10 digit phone number or email is required
-        label for="zip-code" ng-class="{ error: (searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid) }"
-          | Home zip code *
-        .row
-          .columns.large-5
-            input#zip-code.radius placeholder="5 digit zip code" type="text" name="home_zip_code" required="" validate-zip-code=""  ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
-              small.error ng-show="searchForm.home_zip_code.$dirty && searchForm.home_zip_code.$invalid"
-                span.fa.fa-exclamation-circle
-                | 5 digit zip code is required
-
-        label ng-class="{ error: searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '') }" Reasons for considering child care/preschool *
-
         .repeater-container ng-repeat="care_reason in parent.care_reasons track by $index"
-          label.show-for-sr for="care-reason-{{ $index + 1 }}" Search by care_reason
+          label.show-for-sr for="care-reason-{{ $index + 1 }}" Reason for requesting care
           select.radius id="care-reason-{{ $index + 1 }}" name="care_reason_{{ $index + 1 }}" ng-model="parent.care_reasons[$index]" ng-required="true"
             option [value="" disabled] Select Care Reason
             option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
@@ -121,17 +67,6 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
           span.fa.fa-exclamation-circle
           | Selecting a care reason is required
-
-        label.margin-top-1 for="found-option"
-          | How did you hear about us?
-          em
-            small.optional Optional
-
-        .repeater-container
-          select#found-option.radius name="found_option" ng-model="parent.found_option"
-            option value="" Select
-            option ng-repeat="found_option in filterData.foundOptions" value="{{ found_option }}"
-              ' {{ found_option }}
 
       section.margin-top-2
         small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
