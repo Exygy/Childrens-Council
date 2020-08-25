@@ -35,7 +35,7 @@ css:
     color:#ADC42D;
   }
 
-  select {
+  select.radius.form-select {
     border-radius: 3px;
     border: 1px solid #AAAAAA;
     background-color: #F7F6F3;
@@ -73,7 +73,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           .row
             .medium-10.columns
               h5 Child's Age in Years *
-              select.radius id="child-age-in-years" name="child_age_in_years" ng-model="filters.ageGroups" ng-required="true"
+              select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="filters.ageGroups" ng-required="true"
                 option [value="" disabled] Select Value
                 option value="INFANT_1" Less than 1 year old
                 option value="TODDLER_1" 1 year old
@@ -116,7 +116,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           .row
             .medium-10.columns
               h5 Reason for requesting care *
-              select.radius id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
+              select.radius.form-select id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
                 option [value="" disabled] Select Care Reason
                 option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
                   ' {{ care_reason }}
