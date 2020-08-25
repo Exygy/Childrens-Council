@@ -141,16 +141,20 @@ SearchService = (
       delete searchParams.name
 
       # those params should be children specific when the feature is built
-      searchParams.agesServiced = $service.parent.children[0].ageWeeks
+      # searchParams.agesServiced = $service.parent.children[0].ageWeeks
       searchParams.yearlySchedule = $service.parent.children[0].yearlySchedule
       searchParams.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
+
+
+
+      console.log(searchParams)
 
       # TODO: set shift info in params
       # @setShiftParams(searchParams)
       $service.setSearchLocation(searchParams)
       $service.setPrograms(searchParams)
       $service.setEnvironments(searchParams)
-      $service.setAgeGroup(searchParams)
+      # $service.setAgeGroup(searchParams)
       $service.setAcceptsChildren(searchParams)
       $service.setMonthlyRate(searchParams)
       $service.setVacancies(searchParams)
