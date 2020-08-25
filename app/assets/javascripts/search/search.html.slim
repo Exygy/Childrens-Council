@@ -35,6 +35,19 @@ css:
     color:#ADC42D;
   }
 
+  select {
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+    background-color: #F7F6F3;
+    height: 52px;
+    padding: 0.625rem;
+    color: #333333;
+    font-family: "Benton Sans";
+    font-size: 16px;
+    letter-spacing: 0.08px;
+    line-height: 16px;
+  }
+
 ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html'"
 
 #ccr-scope
@@ -57,7 +70,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           | Search By Program Name
 
       .search-type-tab-content ng-class="{active: searchSettings.searchType == 'criteria'}" style="paddding-bottom:0;"
-        section.margin-bottom-2
+        section.margin-bottom-1
           .row
             .medium-10.columns
               h5 Child's Age in Years *
@@ -74,7 +87,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 span.fa.fa-exclamation-circle
                 | Selecting a Child's Age in Years
 
-        section.margin-bottom-3
+        section.margin-bottom-1
           .row
             .medium-10.columns
               h5 Zipcode *
@@ -84,7 +97,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 span.fa.fa-exclamation-circle
                 | Required
 
-        section.margin-top-1
+        section.margin-bottom-1
           h5 Weekly Schedule
           #day-schedule-panel.clearfix
             span ng-repeat="day in filterData.days"
@@ -100,7 +113,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
 
       .search-type-tab-content.active style="paddding-top:0;"
-        section.margin-top-1
+        section.margin-bottom-1
           .row
             .medium-10.columns
               h5 Reason for requesting care *
@@ -113,7 +126,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 span.fa.fa-exclamation-circle
                 | Selecting a care reason is required
 
-        section.margin-top-2
+        section.margin-bottom-1
           small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
             span.fa.fa-exclamation-circle
             | You must agree to the terms of service to continue
