@@ -83,7 +83,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         section.margin-top-1
           h5 Weekly Schedule
           #day-schedule-panel.clearfix
-            span ng-repeat="day in filters.days"
+            span ng-repeat="day in filterData.days"
               .checkbox-day.checkbox-left
                 input type="checkbox" id="schedule-day-{{day | attribute}}" name="schedule_day_{{day | attribute}}" checklist-value="day" checklist-model="$ctrl.model.weeklySchedule"
                 label for="schedule-day-{{day | attribute}}"
