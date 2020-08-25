@@ -95,16 +95,17 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           h4 Business or Provider Name
           input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
 
-      section.margin-top-1
-        label for="care-reason" Reason for requesting care
-        select.radius id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
-          option [value="" disabled] Select Care Reason
-          option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
-            ' {{ care_reason }}
+      .search-type-tab-content.active
+        section.margin-top-1
+          h5 Reason for requesting care
+          select.radius id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
+            option [value="" disabled] Select Care Reason
+            option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
+              ' {{ care_reason }}
 
-        small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
-          span.fa.fa-exclamation-circle
-          | Selecting a care reason is required
+          small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
+            span.fa.fa-exclamation-circle
+            | Selecting a care reason is required
 
       section.margin-top-2
         small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
