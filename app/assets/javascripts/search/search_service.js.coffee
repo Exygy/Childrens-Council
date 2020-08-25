@@ -1,5 +1,5 @@
 SearchService = (
-  $http, $cookies, CC_COOKIE, AgeInWeekToAgeGroupsService, VacancyDateService,
+  $http, $cookies, CC_COOKIE, AgeInYearToAgeGroupsService, VacancyDateService,
   DataService, GeocodingService, HttpService, $rootScope) ->
   $service = @
   $service.filterData = DataService.filterData
@@ -99,8 +99,8 @@ SearchService = (
 
   $service.setAgeGroup = (params) ->
     if params.agesServiced
-      weeks = params.agesServiced
-      params.ageGroups = AgeInWeekToAgeGroupsService.convert(weeks)
+      year = params.agesServiced
+      params.ageGroups = AgeInYearToAgeGroupsService.convert(year)
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
@@ -141,7 +141,7 @@ SearchService = (
       delete searchParams.name
 
       # those params should be children specific when the feature is built
-      # searchParams.agesServiced = $service.parent.children[0].ageWeeks
+      searchParams.agesServiced = $service.parent.children[0].ageyear
       searchParams.yearlySchedule = $service.parent.children[0].yearlySchedule
       searchParams.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
@@ -150,7 +150,7 @@ SearchService = (
       $service.setSearchLocation(searchParams)
       $service.setPrograms(searchParams)
       $service.setEnvironments(searchParams)
-      # $service.setAgeGroup(searchParams)
+      $service.setAgeGroup(searchParams)
       $service.setAcceptsChildren(searchParams)
       $service.setMonthlyRate(searchParams)
       $service.setVacancies(searchParams)
@@ -248,5 +248,5 @@ SearchService = (
 
   $service
 
-SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInWeekToAgeGroupsService', 'VacancyDateService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
+SearchService.$inject = ['$http', '$cookies', 'CC_COOKIE', 'AgeInYearToAgeGroupsService', 'VacancyDateService', 'DataService', 'GeocodingService', 'HttpService', '$rootScope']
 angular.module('CCR').service('SearchService', SearchService)

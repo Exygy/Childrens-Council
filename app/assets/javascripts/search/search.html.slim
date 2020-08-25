@@ -73,16 +73,16 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           .row
             .medium-10.columns
               h5 Child's Age *
-              select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="filters.ageGroups" ng-required="true"
+              select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="parent.children[0].ageyear" ng-required="true"
                 option [value="" disabled] Select Age
-                option value="INFANT_1" Less than 1 year old
-                option value="TODDLER_1" 1 year old
-                option value="PRESCHOOL_1" 2 years old 
-                option value="PRESCHOOL_1" 3 years old 
-                option value="PRESCHOOL_1" 4 years old
-                option value="PRESCHOOL_1" 5 years or older
+                option value="less_than_1_year_old" Less than 1 year old
+                option value="1_year_old" 1 year old
+                option value="2_year_old" 2 years old 
+                option value="3_year_old" 3 years old 
+                option value="4_year_old" 4 years old
+                option value="5_year_old_or_holder" 5 years or older
 
-              small.error ng-show="searchForm.child_age_in_years.$dirty && !filters.ageGroups"
+              small.error ng-show="searchForm.child_age_in_years.$dirty && !parent.children[0].ageyear"
                 span.fa.fa-exclamation-circle
                 | Selecting a Child's Age in Years
 
