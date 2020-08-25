@@ -50,6 +50,8 @@ module Api
     end
 
     def parent_params_valid?
+      return true
+      
       ( parent_param_api_key ) or ( parent_param_full_name and (parent_param_email or parent_param_phone) )
     end
 
