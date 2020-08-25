@@ -72,9 +72,9 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         section.margin-bottom-1
           .row
             .medium-10.columns
-              h5 Child's Age in Years *
+              h5 Child's Age *
               select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="filters.ageGroups" ng-required="true"
-                option [value="" disabled] Select Value
+                option [value="" disabled] Select Age
                 option value="INFANT_1" Less than 1 year old
                 option value="TODDLER_1" 1 year old
                 option value="PRESCHOOL_1" 2 years old 
@@ -90,11 +90,11 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           .row
             .medium-10.columns
               h5 Zipcode *
-              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zips[0]" ng-required="true" placeholder="Input Zipcode"
+              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
   
-              small.error ng-show="searchForm.zipcode.$dirty && searchForm.zipcode.$invalid"
+              small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || filters.zips[0].length != 5 || isNaN(filters.zips[0]))"
                 span.fa.fa-exclamation-circle
-                | Required
+                | 5 digit zip code is required.
 
         section.margin-bottom-1
           h5 Weekly Schedule

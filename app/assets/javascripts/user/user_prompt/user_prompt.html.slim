@@ -1,11 +1,9 @@
-.text-center.user-prompt ng-show="!parent"
+.text-center.user-prompt
   h4 Already have an Account?
 
   p
     | Log in to use your previous search criteria, save favorites, and compare options side-by-side. You can also
-    a href="#searchForm"  search as guest
+    a  ng-click="createAccount()"  create an account
     | .
 
   button.round.button.text-uppercase.bg-green-yellow ng-click="login()" Log In
-
-  / button.round.button.user-prompt-register-btn.margin-1.text-uppercase ng-click="createAccount()" Create Account
