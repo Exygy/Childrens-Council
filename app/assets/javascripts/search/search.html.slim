@@ -70,21 +70,17 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 option value="PRESCHOOL_1" 4 years old
                 option value="PRESCHOOL_1" 5 years or older
 
-              | {{ parent.children[0].ageWeeks.$dirty }}
-              | {{ parent.children[0].ageWeeks }}
-
-              small.error ng-show="parent.children[0].ageWeeks.$dirty && parent.children[0].ageWeeks == ''"
+              small.error ng-show="searchForm.child_age_in_years.$dirty && searchForm.child_age_in_years.$invalid"
                 span.fa.fa-exclamation-circle
                 | Selecting a Child's Age in Years
-
 
         section.margin-bottom-3
           .row
             .medium-10.columns
               h5 Zipcode *
-              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zip" ng-required="true" placeholder="Input Zipcode"
+              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zips[0]" ng-required="true" placeholder="Input Zipcode"
   
-              small.error ng-show="filters.zip == ''"
+              small.error ng-show="searchForm.zipcode.$dirty && searchForm.zipcode.$invalid"
                 span.fa.fa-exclamation-circle
                 | Required
 
@@ -113,7 +109,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
                   ' {{ care_reason }}
 
-              small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
+              small.error ng-show="searchForm.care_reason.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
                 span.fa.fa-exclamation-circle
                 | Selecting a care reason is required
 

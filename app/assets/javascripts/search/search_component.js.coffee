@@ -43,6 +43,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     $ctrl.setLocationTabs()
 
   $ctrl.$onInit = () ->
+    # $scope.searchSettings.locationType = 'zips'
+
     $ctrl.setSearchType($ctrl.searchType) if $ctrl.searchType
 
     if $ctrl.token
@@ -60,10 +62,17 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
   validateForm = () ->
     for field_name, field_obj of $scope.searchForm
+
+      if field_name[0] != '$'
+        console.log(field_name, field_obj)
+
       $scope.searchForm[field_name].$setDirty() if field_name[0] != '$'
 
   $scope.submitSearch = ->
     validateForm()
+
+    console.log($scope.searchForm.$valid)
+
     if $scope.searchForm.$valid
       $("html, body").animate({ scrollTop: 0 }, 800)
       $scope.loading = true
