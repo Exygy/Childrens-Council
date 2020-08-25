@@ -101,7 +101,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           #day-schedule-panel.clearfix
             span ng-repeat="day in filterData.days"
               .checkbox-day.checkbox-left
-                input type="checkbox" id="schedule-day-{{day | attribute}}" name="schedule_day_{{day | attribute}}" checklist-value="day" checklist-model="$ctrl.model.weeklySchedule"
+                input type="checkbox" id="schedule-day-{{day | attribute}}" name="schedule_day_{{day | attribute}}" checklist-value="day" checklist-model="parent.children[0].weeklySchedule"
                 label for="schedule-day-{{day | attribute}}"
                   | {{day | abbreviateDay}}
               div.clearfix.schedule_day_clearfix ng-if="$index == 4"
