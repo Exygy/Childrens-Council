@@ -54,7 +54,6 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
   .loading ng-show="loading"
 
   div ng-hide="loading"
-    user-prompt
     form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
       h2.margin-bottom-1 Let's get started!
 
@@ -149,3 +148,6 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                 | . You may contact the same number to report a complaint or concern regarding any licensed care facility. Read our referral policies and disclaimers. I agree to receive information about Children’s Council via email (you can opt-out at any time).
 
           input.round.large.button.bg-green-yellow.margin-top-3.main-search-button type="submit" value="Search"
+      
+      section.panel.radius.padding-2
+        user-prompt
