@@ -50,19 +50,57 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           i.fa.fa-exclamation-circle aria-hidden="true"
           | All child care programs displayed are open during COVID-19
 
-      ng-include src="'search/templates/search_type_tabs.html'"
+      .search-type-tab-toggles
+        button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'criteria'}" ng-click="$ctrl.setSearchType('criteria')" type="button"
+          | Search By Criteria
+        button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'name'}" ng-click="$ctrl.setSearchType('name')" type="button"
+          | Search By Program Name
 
-      section.panel.radius.padding-2
-        .repeater-container ng-repeat="care_reason in parent.care_reasons track by $index"
-          label.show-for-sr for="care-reason-{{ $index + 1 }}" Reason for requesting care
-          select.radius id="care-reason-{{ $index + 1 }}" name="care_reason_{{ $index + 1 }}" ng-model="parent.care_reasons[$index]" ng-required="true"
-            option [value="" disabled] Select Care Reason
-            option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
-              ' {{ care_reason }}
+      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'criteria'}"
+        section.margin-bottom-2
+          .row
+            .medium-7.columns
+              h5 Child's Age in Years *
+              select.radius id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.model.ageWeeks" ng-required="true"
+                option [value="" disabled] Select Value
+                option value="" Less than 1 year old
+                option value="" 1 year old
+                option value="" 2 years old 
+                option value="" 3 years old 
+                option value="" 4 years old
+                option value="" 5 years or older
 
-          button.inline.repeater type="button" aria-label="Remove care reason" ng-show="$index > 0" ng-click="removeItem(parent.care_reasons, $index)" Remove
+        section.margin-bottom-3
+          h5 Desired locations
+          #zip-code-tab.row role="tabpanel"
+            .medium-5.columns
+              ui-select.repeater-input ng-model="filters.zips[0]" theme="selectize" aria-label="Select zip code"
+                  ui-select-match placeholder="Zip code" allow-clear="true"
+                    | {{$select.selected}}
+                  ui-select-choices repeat="zipCode in (filterData.zips | filter: $select.search)"
+                    | {{zipCode}}
+  
+        section.margin-top-1
+          h5 Weekly Schedule
+          #day-schedule-panel.clearfix
+            span ng-repeat="day in $ctrl.days"
+              .checkbox-day.checkbox-left
+                input type="checkbox" id="schedule-day-{{day | attribute}}" name="schedule_day_{{day | attribute}}" checklist-value="day" checklist-model="$ctrl.model.weeklySchedule"
+                label for="schedule-day-{{day | attribute}}"
+                  | {{day | abbreviateDay}}
+              div.clearfix.schedule_day_clearfix ng-if="$index == 4"
 
-        button.inline type="button" aria-label="Add another care reason" ng-show="hasFinalValue(parent.care_reasons) && parent.care_reasons.length < 3" ng-click="addItem(parent.care_reasons)" Add another
+      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'name'}"
+        section
+          h4 Business or Provider Name
+          input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
+
+      section.margin-top-1
+        label for="care-reason" Reason for requesting care
+        select.radius id="care-reason" name="care_reason" ng-model="parent.care_reasons[0]" ng-required="true"
+          option [value="" disabled] Select Care Reason
+          option ng-repeat="care_reason in filterData.careReasons" value="{{ care_reason }}"
+            ' {{ care_reason }}
 
         small.error ng-show="searchForm.care_reason_1.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
           span.fa.fa-exclamation-circle
