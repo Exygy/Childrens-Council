@@ -108,8 +108,10 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
 
       .search-type-tab-content ng-class="{active: searchSettings.searchType == 'name'}" style="padding-bottom:0;"
         section.margin-bottom-1
-          h4 Business or Provider Name
-          input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
+          .row
+            .medium-10.columns
+              h4 Business or Provider Name
+              input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
 
       .search-type-tab-content.active style="padding-top:0.5rem;"
         section.margin-bottom-1
