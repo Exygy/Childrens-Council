@@ -1,4 +1,5 @@
 angular.module 'CCR', [
+  'angularjs-dropdown-multiselect',
   'angularMoment',
   'checklist-model',
   'Devise',

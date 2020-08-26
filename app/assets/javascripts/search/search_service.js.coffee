@@ -101,7 +101,7 @@ SearchService = (
     if params.agesServiced
       year = params.agesServiced
       params.ageGroups = AgeInYearToAgeGroupsService.convert(year)
-      delete params.agesServiced
+      # delete params.agesServiced
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate

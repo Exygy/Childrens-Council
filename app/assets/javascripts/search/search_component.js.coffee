@@ -43,7 +43,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     $ctrl.setLocationTabs()
 
   $ctrl.$onInit = () ->
-    $scope.searchSettings.locationType = 'zips'
+    SearchService.searchSettings.locationType = 'zips'
 
     $ctrl.setSearchType($ctrl.searchType) if $ctrl.searchType
 

@@ -1,3 +1,38 @@
+css:
+  select.radius.form-select {
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+    background-color: #F7F6F3;
+    height: 52px;
+    padding: 0.625rem;
+    color: #333333;
+    font-family: "Benton Sans";
+    font-size: 16px;
+    letter-spacing: 0.08px;
+    line-height: 16px;
+  }
+
+  .row.refine-search .columns.small-2.medium-2 {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    width: 190px;
+  }
+
+  .row.refine-search .columns.small-2.medium-2:first-child { 
+    padding-left: 1.25em;
+  }
+
+  .row.refine-search .columns.small-2.medium-2:last-child { 
+    padding-right: 1.25em;
+    width: 220px;
+  }
+
+  .row.refine-search .columns.small-2.medium-2 input[type="submit"] {
+    margin-top: 22px !important;
+    padding: 20px 0 17px;
+    width: 196px;
+  }
+
 javascript:
   function setStickyHeader(){
     if(window.innerWidth > 640){
@@ -56,11 +91,9 @@ javascript:
         .small-9.medium-4.columns.text-right
           user-menu printText="Print List"
       .row
-        .columns.small-12.medium-9.margin-bottom-1
-          h1.results-header ng-if="(covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !covid19ProvidersOnly" We found {{ $ctrl.data.totalNumProviders || '0' }} options
-        .columns.medium-3.hide-for-small
-          a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0"
-            | Compare Now ({{$ctrl.providerIdsToCompare.length}})
+        .columns.small-12.medium-12.margin-bottom-1
+          h1.results-header ng-if="(covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !covid19ProvidersOnly" style="color:#000000;font-size:36px;"
+            | We found {{ $ctrl.data.totalNumProviders || '0' }} options
         .columns.medium-3.text-right.small-12.padding-top-1.show-for-small
           .row.collapse
             .columns.small-5.text-left ng-controller="ResultsFilterController"
@@ -75,6 +108,101 @@ javascript:
                 li
                   button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
                     | Map
+
+      / br
+      / br
+      / br
+      / | {{ $ctrl.settings }}
+      / br
+      / br
+      / | {{ $ctrl.parentFilter }}
+      / br
+      / br
+      / | {{ filterData.days }}
+      / br
+      / br
+      / | {{ tttttttt }}
+      / br
+      / br
+      / | {{ $ctrl.filters }}
+      / br
+      / br
+      / br
+                    
+      .row.refine-search.refine-search-large
+        .columns.small-2.medium-2
+          h5 Child's Age
+          select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+            option [value="" disabled] Select Age
+            option value="less_than_1_year_old" Less than 1 year old
+            option value="1_year_old" 1 year old
+            option value="2_year_old" 2 years old 
+            option value="3_year_old" 3 years old 
+            option value="4_year_old" 4 years old
+            option value="5_year_old_or_holder" 5 years or older
+
+        .columns.small-2.medium-2
+          h5 Location Type
+          select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
+            option value="zips" By zip code
+            option value="neighborhoods" By neighborhood
+            option value="addresses" Closest to an address
+
+
+
+        
+
+
+
+        .columns.small-2.medium-2
+          div style="height:23px;width:100%;"
+          div ng-if="$ctrl.settings.locationType == 'zips'"
+            input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+
+          div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
+            select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+              option value="" Select Neighborhood
+
+          div ng-if="$ctrl.settings.locationType == 'addresses'"
+            input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+
+
+
+
+
+
+
+
+
+
+
+
+        .columns.small-2.medium-2
+          h5 Weekly Schedule
+          select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="parent.children[0].ageyear" ng-required="true"
+            option [value="" disabled] Select Age
+            option value="less_than_1_year_old" Less than 1 year old
+            option value="1_year_old" 1 year old
+            option value="2_year_old" 2 years old 
+            option value="3_year_old" 3 years old 
+            option value="4_year_old" 4 years old
+            option value="5_year_old_or_holder" 5 years or older
+
+
+          div ng-dropdown-multiselect="" options="weekDays" selected-model="tttttttt" checkboxes="true" extra-settings="weekDaysDropdownSettings"
+
+
+
+
+
+
+
+
+
+
+        .columns.small-2.medium-2
+          input.round.large.button.bg-green-yellow.margin-top-2.main-search-button type="submit" value="Search Again"
+
 
       .row.showing-container
         .columns.small-5.medium-4
@@ -114,6 +242,10 @@ javascript:
       ng-include src="'results/templates/covid_banner.html'" ng-if="covid19ProvidersOnly"
       result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
     .medium-7.columns#results-map-container style="position: sticky;top: 10px;"
+      a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0" style="display:block;margin-top:0px"
+        | Compare Now ({{$ctrl.providerIdsToCompare.length}})
+      .cl
+      div style="height:10px;"
       result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
   .row
