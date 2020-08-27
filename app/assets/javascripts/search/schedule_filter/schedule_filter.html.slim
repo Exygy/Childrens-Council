@@ -1,9 +1,0 @@
-section.margin-top-1
-  h5 Weekly Schedule
-  #day-schedule-panel.clearfix
-    span ng-repeat="day in $ctrl.days"
-      .checkbox-day.checkbox-left
-        input type="checkbox" id="schedule-day-{{day | attribute}}" name="schedule_day_{{day | attribute}}" checklist-value="day" checklist-model="$ctrl.model.weeklySchedule"
-        label for="schedule-day-{{day | attribute}}"
-          | {{day | abbreviateDay}}
-      div.clearfix.schedule_day_clearfix ng-if="$index == 4"

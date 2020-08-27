@@ -4,20 +4,23 @@
 # the values we need, so we are not using the API for these options.
 ---
 -
-  label: 21st Century Community Learning Centers
-  value: 21st
-  description: <i>This school participates in 21stCentury.</i> Through this program, schools provide academic enrichment opportunities through their after school, before school and summer learning programs for pre-K to 12thgrade. Family income is required. You can apply directly at school sites.
--
-  label: After School Education and Safety (ASES)
-  value: ASES
-  description: <i>This school participates in ASES.</i> Through this program, after school is offered with an educational enrichment and literacy element and nutritious snacks at no-cost for K-9th grade students. Family income is required. You can apply directly at after school sites.
--
-  label: CalWORKs/AP Vouchers
+  label: CalWORKs
   value: CalWORKs/AP Vouchers
   description: This option only applies for families currently receiving CalWORKs benefits. You may select this option to view child care providers that accept vouchers (child care payments from CalWORKs). Keep in mind that some providers may have not notified us that they accept vouchers.
   links:
     - 'Apply: <a href="https://www.sfhsa.org/services/jobs-money/calworks" target="_blank">www.sfhsa.org/services/jobs-money/calworks<a>'
-  showInFilter: true
+-
+  label: Preschool for All
+  value: Preschool for All
+  description: Through this program, preschool is offered at a reduced cost or free for children age 4 who reside in San Francisco county. Family income is not required. You can apply directly at child care sites in the Preschool for All Network.
+  links:
+    - 'More information: <a href="http://sfoece.org/parents-families/" target="_blank">www.sfoece.org/parents-families/</a>'
+-
+  label: Head Start and Early Head Start
+  value: Head Start
+  description: Head Start and Early Head Start programs provide free learning and development services to children age 0-5 from low-income families. Eligibility is based on family income and other requirements.
+  links:
+    - 'More information: <a href="https://www.acf.hhs.gov/ohs" target="_blank">www.acf.hhs.gov/ohs</a>'
 -
   label: Early Learning Scholarship
   value: Early Learning Scholarship
@@ -25,27 +28,7 @@
   links:
     - 'View income guidelines: <a href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank">www.childrenscouncil.org/families/help-paying-for-child-care/</a>'
     - 'Apply for an ELS voucher: <a href="https://www.earlylearningsf.org">www.earlylearningsf.org</a>'
-  showInFilter: true
 -
-  label: Head Start
-  value: Head Start
-  description: Head Start and Early Head Start programs provide free learning and development services to children age 0-5 from low-income families. Eligibility is based on family income and other requirements.
-  links:
-    - 'More information: <a href="https://www.acf.hhs.gov/ohs" target="_blank">www.acf.hhs.gov/ohs</a>'
-  showInFilter: true
--
-  label: Preschool for All
-  value: Preschool for All
-  description: Through this program, preschool is offered at a reduced cost or free for children age 4 who reside in San Francisco county. Family income is not required. You can apply directly at child care sites in the Preschool for All Network.
-  links:
-    - 'More information: <a href="http://sfoece.org/parents-families/" target="_blank">www.sfoece.org/parents-families/</a>'
-  showInFilter: true
--
-  label: Scholarship
+  label: Other Scholarships
   value: Scholarship
   description: Some child care and preschool sites offer full or partial tuition discounts. Inquire and apply directly at the sites you are interested in.
-  showInFilter: true
--
-  label: Sibling discount
-  value: Sibling discount
-  description: A discount is applied to the tuition rate when two or more children from a family are enrolled in the same program. The tuition discount amount varies per program.

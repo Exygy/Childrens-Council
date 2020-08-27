@@ -1,8 +1,0 @@
-h5 Desired locations
-#zip-code-tab.row role="tabpanel"
-  .medium-5.columns
-    ui-select.repeater-input ng-model="filters.zips[0]" theme="selectize" aria-label="Select zip code"
-        ui-select-match placeholder="Zip code" allow-clear="true"
-          | {{$select.selected}}
-        ui-select-choices repeat="zipCode in (filterData.zips | filter: $select.search)"
-          | {{zipCode}}

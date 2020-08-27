@@ -21,15 +21,6 @@ ResultsFilterController = ($scope, $modal, ResultsService) ->
       controller: 'ResultFiltersModalController'
     }
 
-  $scope.openChildModal = (childId) ->
-    $modal.open {
-      templateUrl: 'results/modals/child_filter_modal.html'
-      controller: 'ChildModalController'
-      resolve:
-         childId: ->
-           childId
-    }
-
   $ctrl
 
 ResultsFilterController.$inject = ['$scope', '$modal', 'ResultsService']

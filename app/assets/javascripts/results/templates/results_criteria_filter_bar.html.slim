@@ -1,62 +1,95 @@
-.infinite-background.grey
-  .bg-white
-    .row.collapse.filters-row ng-controller="ResultsFilterController"
-      .columns.medium-8
-        .panel.filters
-          h3.margin-bottom-2
-            | Filters
-            a.results-edit.ga-filter-button href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
-              | Show more filters & edit
-              i.fa.fa-pencil
-          .row.collapse.margin-bottom-1
-            .columns.medium-4.padding-right-1
-              h4 Desired locations
-              p.smaller ng-if="filters[settings.locationType] && !filters.settings.searchingByMapArea"
-                span ng-if="settings.locationType == 'neighborhoods'" {{ filters.neighborhoods | entitiesToString }}
-                span ng-if="settings.locationType == 'zips'" {{ filters.zips | entitiesToString }}
-                span ng-if="settings.locationType == 'addresses'" {{ filters.addresses | addressesToString }}
+css:
+  .select.radius.filter-select {
+    border-radius: 26px;
+    border: 2px solid #2794B3;
+    background-color: #FFFFFF;
+    height: 32px;
+    padding: 0.625rem;
+    color: #2794B3;
+    font-family: "Benton Sans";
+    font-size: 12px;
+    line-height: 12px;
+    text-transform: uppercase;
+  }
 
-              p ng-if="filters.settings.searchingByMapArea"
-                span
-                  | Specified by Map Area
+  .select.radius.filter-select ul.dropdown-menu.dropdown-menu-form {
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px;
+    border-bottom: 2px solid #2794B3;
+    border-left: 2px solid #2794B3;
+    border-right: 2px solid #2794B3;
+    margin-top: -18px;
+    margin-left: -2px !important;
+    margin-right: -2px !important;
+    padding: 15px 10px;
+  }
 
-              p ng-if="!filters[settings.locationType] && !filters.settings.searchingByMapArea" Any
+  .select.radius.filter-select label {
+    font-size: 12px;
+    text-transform: none;
+    color: #2794B3;
+    font-family: "BentonSans Bold";
+  }
 
-            .columns.medium-4.padding-right-1
-              h4 Average Rate
-              p.smaller
-                | {{ filters.monthlyRate | ratesToString }}
+  .select.radius.filter-select label::before {
+      height: 15px;
+      width: 15px;
+  }
 
-            .columns.medium-4.padding-right-1
-              h4 Vacancy
-              p.smaller
-                | {{ filters | vacancyToString }}
-          .row.collapse.margin-bottom-1
-            .columns.small-12
-              span
-                ' Looking for a specific provider?
-              a ui-sref="search({searchType: 'name'})"
-                | Try searching by name.
+  .select.radius.filter-select label span {
+    font-family: "BentonSans Bold" !important;
+  }
 
+  .select.radius.filter-select input:checked + span:before {
+    color: #2794b3;
+    content: "\f00c";
+    font-family: "FontAwesome";
+    position: absolute;
+    left: -18px;
+    top: -2px;
+  }
 
-      .columns.medium-4.filters-column
-        .panel.filters.divider
-          h3.margin-bottom-2
-            | Child
-            a.results-edit href='#' ng-click="openChildModal(0)" data-reveal-id="filtersModal"
-              | Edit
-              i.fa.fa-pencil
+  .select.radius.filter-select .btn.btn-default.dropdown-toggle, 
+  .select.radius.filter-select .edit-results {
+    background: transparent;
+    color: #2794B3;
+    font-family: "BentonSans Bold";
+    font-size: 12px;
+    padding: 9px 10px;
+    text-align: center;
+    text-shadow: none;
+    text-transform: uppercase;
+    width: 100%;
+  }
 
-          .row.collapse
-            .columns.medium-6.padding-right-1
-              h4 Age
-              p.smaller
-                | {{ parent.children[0].ageWeeks | ageToYearsAndMonths }}
-            .columns.medium-6.padding-right-1
-              h4 Schedule
-              p.smaller.margin-bottom-none
-                | {{ parent.children[0].yearlySchedule | scheduleYearValueToLabel }}
-                br
-                | {{ filters | scheduleFiltersAggregator }}
-                br
-                | {{ parent.children[0].weeklySchedule | scheduleDaysToText }}
+  .select.radius.filter-select .btn.btn-default.dropdown-toggle:focus {
+    outline: none;
+  }
+
+  .select.radius.filter-select .multiselect-parent.btn-group.dropdown-multiselect  {
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+  }
+
+  @media only screen and (max-width: 600px) {
+  }
+
+div style="padding-top: 20px"
+  .columns.medium-2 style="width: 80px;padding-top: 5px;"
+    h3 Filters
+  .columns.medium-2 style="width: 220px;padding-right: 0;"
+    .select.radius.filter-select.financial-assistance ng-dropdown-multiselect="" options="financialAssistanceOptions" selected-model="financialAssistanceDropDownSelection" checkboxes="true" extra-settings="financialAssistanceDropdownSettings" events="financialAssistanceDropDownCallback"
+  .columns.medium-2 style="width: 220px;padding-right: 0;padding-left: 15px;"
+    .select.radius.filter-select.other-schedule ng-dropdown-multiselect="" options="otherScheduleOptionOptions" selected-model="otherScheduleOptionDropDownSelection" checkboxes="true" extra-settings="otherScheduleOptionDropdownSettings" events="otherScheduleOptionDropDownCallback"
+  .columns.medium-2 style="width: 200px;padding-right: 0;padding-left: 15px;"
+    .select.radius.filter-select.preschool-program ng-dropdown-multiselect="" options="preschoolProgramOptions" selected-model="preschoolProgramDropDownSelection" checkboxes="true" extra-settings="preschoolProgramDropdownSettings" events="preschoolProgramDropDownCallback"
+  .columns.medium-2 style="width: 215px;padding-right: 0;padding-left: 15px;float: left;" ng-controller="ResultsFilterController"
+    .select.radius.filter-select
+      a.edit-results.ga-filter-button href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal" style="font-family: BentonSans Bold;font-size: 12px;display: block;padding: 0;"
+        | View & Edit All Filters
+

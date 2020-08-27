@@ -253,7 +253,7 @@ javascript:
 
           .columns.small-2.medium-2
             h5 Weekly Schedule
-            .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
+            .select.radius.form-select.week-days ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
 
           .columns.small-2.medium-2
             input.round.large.button.bg-green-yellow.margin-top-2.main-search-button type="submit" value="Search Again"
@@ -325,13 +325,12 @@ javascript:
         input.round.large.button.bg-green-yellow.margin-top-2.main-search-button.pull-right type="submit" value="Search"
 
 
-
     .row
       .medium-12.columns.hide-for-small.filters-container
         .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
         .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
           results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
-    
+
 
     .row.results-container#results-map-scroll-container
       .medium-5.columns
