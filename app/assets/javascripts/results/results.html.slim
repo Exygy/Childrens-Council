@@ -161,192 +161,193 @@ javascript:
 
 
 #ccr-scope
-  rheader#search-results-wrapper.page-header
-    header.infinite-background.page-header.padding-top-1#sticky-mobile-header
-      .row
-        .medium-8.columns.hide-for-small
-          ul.breadcrumbs
-            li
-              a ui-sref="search" Find Child Care
-            li.current
-              a ui-sref="results" Search Results
-        .columns.small-3.show-for-small
-          a ui-sref="results"
-            i.fa.fa-angle-left
-            | Back
-        .small-9.medium-4.columns.text-right
-          user-menu printText="Print List"
-      .row
-        .columns.small-12.medium-12.margin-bottom-1
-          h1.results-header ng-if="(covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !covid19ProvidersOnly" style="color:#000000;font-size:36px;"
-            | We found {{ $ctrl.data.totalNumProviders || '0' }} options
-        .columns.medium-3.text-right.small-12.padding-top-1.show-for-small
-          .row.collapse
-            .columns.small-5.text-left ng-controller="ResultsFilterController"
-              button.round.smaller.active ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
-                i.fa.fa-sliders
-                | Filters
-            .columns.small-7
-              ul.pager.radius
-                li
-                  button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
-                    | List
-                li
-                  button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
-                    | Map
+  form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
+    rheader#search-results-wrapper.page-header
+      header.infinite-background.page-header.padding-top-1#sticky-mobile-header
+        .row
+          .medium-8.columns.hide-for-small
+            ul.breadcrumbs
+              li
+                a ui-sref="search" Find Child Care
+              li.current
+                a ui-sref="results" Search Results
+          .columns.small-3.show-for-small
+            a ui-sref="results"
+              i.fa.fa-angle-left
+              | Back
+          .small-9.medium-4.columns.text-right
+            user-menu printText="Print List"
+        .row
+          .columns.small-12.medium-12.margin-bottom-1
+            h1.results-header ng-if="(covid19ProvidersOnly && (($ctrl.data.totalNumProviders < 15 && $ctrl.settings.searchType == 'name') || $ctrl.settings.searchType != 'name')) || !covid19ProvidersOnly" style="color:#000000;font-size:36px;"
+              | We found {{ $ctrl.data.totalNumProviders || '0' }} options
+          .columns.medium-3.text-right.small-12.padding-top-1.show-for-small
+            .row.collapse
+              .columns.small-5.text-left ng-controller="ResultsFilterController"
+                button.round.smaller.active ng-click="openResultFiltersModal()" data-reveal-id="filtersModal"
+                  i.fa.fa-sliders
+                  | Filters
+              .columns.small-7
+                ul.pager.radius
+                  li
+                    button ng-click="$ctrl.showMap = false" ng-class="{'button-pressed': !$ctrl.showMap}"
+                      | List
+                  li
+                    button ng-click="$ctrl.showMap = true" ng-class="{'button-pressed': $ctrl.showMap}"
+                      | Map
 
-      / br
-      / br
-      / br
-      / | {{ $ctrl.settings }}
-      / br
-      / br
-      / | {{ $ctrl.parentFilter }}
-      / br
-      / br
-      / | {{ filterData.days }}
-      / br
-      / br
-      / | {{ tttttttt }}
-      / br
-      / br
-      / | {{ $ctrl.filters }}
-      / br
-      / br
-      / br
-                    
-      .row.refine-search.refine-search-large
-        .columns.small-2.medium-2
-          h5 Child's Age
-          select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
-            option [value="" disabled] Select Age
-            option value="less_than_1_year_old" Less than 1 year old
-            option value="1_year_old" 1 year old
-            option value="2_year_old" 2 years old 
-            option value="3_year_old" 3 years old 
-            option value="4_year_old" 4 years old
-            option value="5_year_old_or_holder" 5 years or older
+        / br
+        / br
+        / br
+        / | {{ $ctrl.settings }}
+        / br
+        / br
+        / | {{ $ctrl.parentFilter }}
+        / br
+        / br
+        / | {{ filterData.days }}
+        / br
+        / br
+        / | {{ tttttttt }}
+        / br
+        / br
+        / | {{ $ctrl.filters }}
+        / br
+        / br
+        / br
+                      
+        .row.refine-search.refine-search-large
+          .columns.small-2.medium-2
+            h5 Child's Age
+            select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+              option [value="" disabled] Select Age
+              option value="less_than_1_year_old" Less than 1 year old
+              option value="1_year_old" 1 year old
+              option value="2_year_old" 2 years old 
+              option value="3_year_old" 3 years old 
+              option value="4_year_old" 4 years old
+              option value="5_year_old_or_holder" 5 years or older
 
-        .columns.small-2.medium-2
-          h5 Location Type
-          select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
-            option value="zips" By zip code
-            option value="neighborhoods" By neighborhood
-            option value="addresses" Closest to an address
+          .columns.small-2.medium-2
+            h5 Location Type
+            select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
+              option value="zips" By zip code
+              option value="neighborhoods" By neighborhood
+              option value="addresses" Closest to an address
 
-        .columns.small-2.medium-2
-          div style="height:23px;width:100%;"
-          div ng-if="$ctrl.settings.locationType == 'zips'"
-            input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+          .columns.small-2.medium-2
+            div style="height:23px;width:100%;"
+            div ng-if="$ctrl.settings.locationType == 'zips'"
+              input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
 
-          div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
-            select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
-              option value="" Select Neighborhood
+            div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
+              select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+                option value="" Select Neighborhood
 
-          div ng-if="$ctrl.settings.locationType == 'addresses'"
-            input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+            div ng-if="$ctrl.settings.locationType == 'addresses'"
+              input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
 
-        .columns.small-2.medium-2
-          h5 Weekly Schedule
-          .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
+          .columns.small-2.medium-2
+            h5 Weekly Schedule
+            .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
 
-        .columns.small-2.medium-2
-          input.round.large.button.bg-green-yellow.margin-top-2.main-search-button type="submit" value="Search Again"
+          .columns.small-2.medium-2
+            input.round.large.button.bg-green-yellow.margin-top-2.main-search-button type="submit" value="Search Again"
 
-      .row.showing-container
-        .columns.small-5.medium-4
-          results-showing data="$ctrl.data"
-        .columns.small-7.medium-8
-          .row.c-base ng-if="$ctrl.data.providers.length"
-            .small-12.columns.text-right
-              p.results-showing
-                span Sort by:
-                span.margin-left-small
-                  span ng-hide="settings.locationType == 'addresses' && filters.addresses" Random
-                  span ng-show="settings.locationType == 'addresses' && filters.addresses" Distance
-                  span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
-                  span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+        .row.showing-container
+          .columns.small-5.medium-4
+            results-showing data="$ctrl.data"
+          .columns.small-7.medium-8
+            .row.c-base ng-if="$ctrl.data.providers.length"
+              .small-12.columns.text-right
+                p.results-showing
+                  span Sort by:
+                  span.margin-left-small
+                    span ng-hide="settings.locationType == 'addresses' && filters.addresses" Random
+                    span ng-show="settings.locationType == 'addresses' && filters.addresses" Distance
+                    span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+                    span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
 
-  .row.results-print-header
-    .columns.small-12
-      h1 Child Care and Preschool Options
-      p
-        | Thank you for trusting Children's Council as you search for
-          child care or preschool. Give us a call at 415.343.3300 if
-          you have questions or email us at rr@childrenscouncil.org.
-          To learn of any complaints filed against your selected
-          options, please contact Community Care Licensing at
-          1.844.538.8766 or https://www.ccld.dss.ca.gov/carefacilitysearch/.
+    .row.results-print-header
+      .columns.small-12
+        h1 Child Care and Preschool Options
+        p
+          | Thank you for trusting Children's Council as you search for
+            child care or preschool. Give us a call at 415.343.3300 if
+            you have questions or email us at rr@childrenscouncil.org.
+            To learn of any complaints filed against your selected
+            options, please contact Community Care Licensing at
+            1.844.538.8766 or https://www.ccld.dss.ca.gov/carefacilitysearch/.
 
-  .row.refine-search.refine-search-small style="margin-top:20px"
-    .columns.small-6.medium-2
-      h5 Child's Age
-      select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
-        option [value="" disabled] Select Age
-        option value="less_than_1_year_old" Less than 1 year old
-        option value="1_year_old" 1 year old
-        option value="2_year_old" 2 years old 
-        option value="3_year_old" 3 years old 
-        option value="4_year_old" 4 years old
-        option value="5_year_old_or_holder" 5 years or older
+    .row.refine-search.refine-search-small style="margin-top:20px"
+      .columns.small-6.medium-2
+        h5 Child's Age
+        select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+          option [value="" disabled] Select Age
+          option value="less_than_1_year_old" Less than 1 year old
+          option value="1_year_old" 1 year old
+          option value="2_year_old" 2 years old 
+          option value="3_year_old" 3 years old 
+          option value="4_year_old" 4 years old
+          option value="5_year_old_or_holder" 5 years or older
 
-    .columns.small-6.medium-2
-      h5 Weekly Schedule
-      .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
+      .columns.small-6.medium-2
+        h5 Weekly Schedule
+        .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
 
-  .row.refine-search.refine-search-small
-    .columns.small-6.medium-2
-      h5 Location Type
-      select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
-        option value="zips" By zip code
-        option value="neighborhoods" By neighborhood
-        option value="addresses" Closest to an address
+    .row.refine-search.refine-search-small
+      .columns.small-6.medium-2
+        h5 Location Type
+        select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
+          option value="zips" By zip code
+          option value="neighborhoods" By neighborhood
+          option value="addresses" Closest to an address
 
-    .columns.small-6.medium-2
-      div style="height:23px;width:100%;"
-      div ng-if="$ctrl.settings.locationType == 'zips'"
-        input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+      .columns.small-6.medium-2
+        div style="height:23px;width:100%;"
+        div ng-if="$ctrl.settings.locationType == 'zips'"
+          input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
 
-      div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
-        select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
-          option value="" Select Neighborhood
+        div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
+          select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+            option value="" Select Neighborhood
 
-      div ng-if="$ctrl.settings.locationType == 'addresses'"
-        input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+        div ng-if="$ctrl.settings.locationType == 'addresses'"
+          input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
 
-  .row.refine-search.refine-search-small style="margin-bottom:20px"
-    .columns.small-6
-    .columns.small-6
-      input.round.large.button.bg-green-yellow.margin-top-2.main-search-button.pull-right type="submit" value="Search"
+    .row.refine-search.refine-search-small style="margin-bottom:20px"
+      .columns.small-6
+      .columns.small-6
+        input.round.large.button.bg-green-yellow.margin-top-2.main-search-button.pull-right type="submit" value="Search"
 
 
 
-  .row
-    .medium-12.columns.hide-for-small.filters-container
-      .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
-      .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
-        results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
-  
+    .row
+      .medium-12.columns.hide-for-small.filters-container
+        .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
+        .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
+          results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
+    
 
-  .row.results-container#results-map-scroll-container
-    .medium-5.columns
-      ng-include src="'results/templates/covid_banner.html'" ng-if="covid19ProvidersOnly"
-      result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
-    .medium-7.columns#results-map-container style="position: sticky;top: 10px;"
-      a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0" style="display:block;margin-top:0px"
-        | Compare Now ({{$ctrl.providerIdsToCompare.length}})
-      .cl
-      div style="height:10px;"
-      result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
+    .row.results-container#results-map-scroll-container
+      .medium-5.columns
+        ng-include src="'results/templates/covid_banner.html'" ng-if="covid19ProvidersOnly"
+        result-list data="$ctrl.data" ng-class="{'hide-for-small': $ctrl.showMap}"
+      .medium-7.columns#results-map-container style="position: sticky;top: 10px;"
+        a.button.bg-blue.compare-btn ui-sref="compare" ng-if="$ctrl.data.providers.length" ng-disabled="$ctrl.providerIdsToCompare.length <= 0" style="display:block;margin-top:0px"
+          | Compare Now ({{$ctrl.providerIdsToCompare.length}})
+        .cl
+        div style="height:10px;"
+        result-map data="$ctrl.data" show-search-on-drag="$ctrl.isCriteriaSearch()" ng-class="{'hide-for-small': !$ctrl.showMap}"
 
-  .row
-    .medium-4.columns
-    .medium-8.columns.text-right
-      a.survey-link target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
+    .row
+      .medium-4.columns
+      .medium-8.columns.text-right
+        a.survey-link target="_blank" href="http://www.childrenscouncil.org/rrsurvey/" Please take a moment to tell us how we've done!
 
-  .row.results-print-footer
-    .columns.small-12
-      h2
-        ' Check out full profiles on the Child Care Finder at
-        span.results-print-footer-link
-          | https://www.childrenscouncil.org/childcarefinder
+    .row.results-print-footer
+      .columns.small-12
+        h2
+          ' Check out full profiles on the Child Care Finder at
+          span.results-print-footer-link
+            | https://www.childrenscouncil.org/childcarefinder

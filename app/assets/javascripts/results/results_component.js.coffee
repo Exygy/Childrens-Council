@@ -20,7 +20,7 @@ ResultsController = (
     text = $scope.weekDaysDropDownSelection.length + ' day' + pluralize + ' selected'
     button = text + '<i class="fa fa-caret-down" aria-hidden="true" style="float: right;font-size: 10px;margin-top: 4px;"></i>'
 
-    SearchService.filterData.days = $scope.weekDaysDropDownSelection.map (day) ->
+    ResultsService.parent.children[0].weeklySchedule = $scope.weekDaysDropDownSelection.map (day) ->
       return day.id
 
     $('.btn.btn-default.dropdown-toggle').html(button)
@@ -32,9 +32,22 @@ ResultsController = (
     onInitDone: weekDaysDropdownOnChangeCallback,
     onSelectionChanged: weekDaysDropdownOnChangeCallback
   
-  $scope.weekDaysDropDownSelection = []
+  $scope.weekDaysDropDownSelection = ResultsService.parent.children[0].weeklySchedule.map (day) ->
+    return { "label": day, "id": day }
+
   $scope.weekDays = SearchService.filterData.days.map (day) ->
     return { "label": day, "id": day }
+
+  validateForm = () ->
+    for field_name, field_obj of $scope.searchForm
+      $scope.searchForm[field_name].$setDirty() if field_name[0] != '$'
+
+  $scope.submitSearch = ->
+    validateForm()
+    if $scope.searchForm.$valid
+      SearchService.postSearch()
+    return
+
 
   $ctrl.$onInit = ->
     $ctrl.parent = $auth.currentUser()
