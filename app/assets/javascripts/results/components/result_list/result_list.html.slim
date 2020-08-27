@@ -12,6 +12,22 @@ div ng-hide="$ctrl.data.isLoading"
     li.results-item ng-repeat="provider in $ctrl.data.providers" ng-class="{'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
       result provider="provider"
 
+  .row.showing-container-small
+    .columns.small-12
+      results-showing data="$ctrl.data"
+  .row.showing-container-small
+    .columns.small-12
+      .row.c-base ng-if="$ctrl.data.providers.length"
+        .small-12.columns
+          p.results-showing
+            span Sort by:
+            span.margin-left-small
+              span ng-hide="settings.locationType == 'addresses' && filters.addresses" Random
+              span ng-show="settings.locationType == 'addresses' && filters.addresses" Distance
+              span.fa.fa-info-circle.margin-left-small.tip-top ng-hide="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="Why random? Children's Council is non-profit organization and acts in the best interest of families and the public. The results below are based on your search criteria, but listed randomly to give providers equal treatment." tooltip-placement="right"
+              span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
+
+
   results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
 
   ng-include src="'results/templates/results_help_links.html'" class="hide-for-medium-up"
