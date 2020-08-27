@@ -157,8 +157,7 @@ ResultsController = (
     enableSearch: false,
 
   preschoolProgramDropdownOnChangeCallback = () ->
-    # ResultsService.parent.children[0].weeklySchedule = $scope.preschoolProgramDropDownSelection.map (day) ->
-    #   return day.id
+    ResultsService.filters.preschoolProgram = $scope.preschoolProgramDropDownSelection.length > 0
 
     $('.preschool-program .btn.btn-default.dropdown-toggle').html('Preschool Programs')
     setTimeout () -> 
@@ -169,10 +168,7 @@ ResultsController = (
     onInitDone: preschoolProgramDropdownOnChangeCallback,
     onSelectionChanged: preschoolProgramDropdownOnChangeCallback
   
-  $scope.preschoolProgramDropDownSelection = []
-  # $scope.preschoolProgramDropDownSelection = SearchService.filterData.preschoolProgram.map (program) ->
-  #   return { "label": program.label, "id": program.label }
-
+  $scope.preschoolProgramDropDownSelection = if ResultsService.filters.preschoolProgram then [{ "label": 'Preschool Program', "id": 'Preschool Program' }] else []
   $scope.preschoolProgramOptions = [{ "label": 'Preschool Program', "id": 'Preschool Program' }]
 
 
