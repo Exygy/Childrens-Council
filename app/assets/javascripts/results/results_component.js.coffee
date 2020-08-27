@@ -18,13 +18,14 @@ ResultsController = (
   weekDaysDropdownOnChangeCallback = () ->
     pluralize = if $scope.weekDaysDropDownSelection.length == 1 then '' else 's'
     text = $scope.weekDaysDropDownSelection.length + ' day' + pluralize + ' selected'
+    button = text + '<i class="fa fa-caret-down" aria-hidden="true" style="float: right;font-size: 10px;margin-top: 4px;"></i>'
 
     SearchService.filterData.days = $scope.weekDaysDropDownSelection.map (day) ->
       return day.id
 
-    $('.btn.btn-default.dropdown-toggle').text(text)
+    $('.btn.btn-default.dropdown-toggle').html(button)
     setTimeout () -> 
-      $('.btn.btn-default.dropdown-toggle').text(text)
+      $('.btn.btn-default.dropdown-toggle').html(button)
     , 100
 
   $scope.weekDaysDropDownCallback =
