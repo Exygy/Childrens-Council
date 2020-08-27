@@ -13,12 +13,25 @@ ResultsController = (
     scrollableHeight: '350px',
     scrollable: true,
     enableSearch: false,
-    buttonDefaultText: 'Weeks',
-    smartButtonTextConverter: (t, a) -> 
-      console.log(t, a)
-      return 'test'
+    buttonDefaultText: 'Weeks'
+
+  weekDaysDropdownOnChangeCallback = () ->
+    pluralize = if $scope.weekDaysDropDownSelection.length == 1 then '' else 's'
+    text = $scope.weekDaysDropDownSelection.length + ' day' + pluralize + ' selected'
+
+    SearchService.filterData.days = $scope.weekDaysDropDownSelection.map (day) ->
+      return day.id
+
+    $('.btn.btn-default.dropdown-toggle').text(text)
+    setTimeout () -> 
+      $('.btn.btn-default.dropdown-toggle').text(text)
+    , 100
+
+  $scope.weekDaysDropDownCallback =
+    onInitDone: weekDaysDropdownOnChangeCallback,
+    onSelectionChanged: weekDaysDropdownOnChangeCallback
   
-  $scope.tttttttt = []
+  $scope.weekDaysDropDownSelection = []
   $scope.weekDays = SearchService.filterData.days.map (day) ->
     return { "label": day, "id": day }
 

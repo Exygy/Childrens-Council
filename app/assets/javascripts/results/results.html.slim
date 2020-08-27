@@ -13,7 +13,7 @@ css:
     line-height: 16px;
   }
 
-  ul.dropdown-menu.dropdown-menu-form {
+  .select.radius.form-select ul.dropdown-menu.dropdown-menu-form {
     background-color: #F7F6F3;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -26,7 +26,7 @@ css:
     margin-right: -1px !important;
   }
 
-  input:checked + span:before {
+  .select.radius.form-select input:checked + span:before {
     color: #2794b3;
     content: "\f00c";
     font-family: "FontAwesome";
@@ -35,7 +35,7 @@ css:
     top: -2px;
   }
 
-  .btn.btn-default.dropdown-toggle {
+  .select.radius.form-select .btn.btn-default.dropdown-toggle {
     background: transparent;
     color: black;
     text-align: left;
@@ -49,7 +49,7 @@ css:
     text-shadow: none;
   }
 
-  .btn.btn-default.dropdown-toggle:focus {
+  .select.radius.form-select .btn.btn-default.dropdown-toggle:focus {
     outline: none;
   }
 
@@ -62,25 +62,61 @@ css:
     z-index: 10000;
   }
 
+  .row.refine-search.refine-search-large {
+    display: block;
+  }
+
+  .row.refine-search.refine-search-small {
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .row.refine-search.refine-search-large {
+      display: none;
+    }
+
+    .row.refine-search.refine-search-small {
+      display: block;
+    }
+  }
+
   .row.refine-search .columns.small-2.medium-2 {
     padding-left: 0.25em;
     padding-right: 0.25em;
     width: 190px;
   }
 
-  .row.refine-search .columns.small-2.medium-2:first-child { 
+  .row.refine-search .columns.small-6 {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+  }
+
+  .row.refine-search .columns.small-2.medium-2:first-child,
+  .row.refine-search .columns.small-6:first-child { 
     padding-left: 1.25em;
   }
 
-  .row.refine-search .columns.small-2.medium-2:last-child { 
+  .row.refine-search .columns.small-2.medium-2:last-child,
+  .row.refine-search .columns.small-6:last-child { 
     padding-right: 1.25em;
+  }
+
+  .row.refine-search .columns.small-2.medium-2:last-child { 
     width: 220px;
+  }
+
+  .row.refine-search .columns.small-2.medium-2 input[type="submit"],
+  .row.refine-search .columns.small-6 input[type="submit"] {
+    padding: 20px 0 17px;
+    width: 196px;
   }
 
   .row.refine-search .columns.small-2.medium-2 input[type="submit"] {
     margin-top: 22px !important;
-    padding: 20px 0 17px;
-    width: 196px;
+  }
+
+  .row.refine-search .columns.small-6 input[type="submit"] {
+    margin-top: 0 !important;
   }
 
 javascript:
@@ -198,12 +234,6 @@ javascript:
             option value="neighborhoods" By neighborhood
             option value="addresses" Closest to an address
 
-
-
-        
-
-
-
         .columns.small-2.medium-2
           div style="height:23px;width:100%;"
           div ng-if="$ctrl.settings.locationType == 'zips'"
@@ -216,29 +246,12 @@ javascript:
           div ng-if="$ctrl.settings.locationType == 'addresses'"
             input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
 
-
-
-
-
-
-
-
-
-
-
-
         .columns.small-2.medium-2
           h5 Weekly Schedule
-          .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="tttttttt" checkboxes="true" extra-settings="weekDaysDropdownSettings"
-
-
-
-
-
+          .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
 
         .columns.small-2.medium-2
           input.round.large.button.bg-green-yellow.margin-top-2.main-search-button type="submit" value="Search Again"
-
 
       .row.showing-container
         .columns.small-5.medium-4
@@ -264,6 +277,48 @@ javascript:
           To learn of any complaints filed against your selected
           options, please contact Community Care Licensing at
           1.844.538.8766 or https://www.ccld.dss.ca.gov/carefacilitysearch/.
+
+  .row.refine-search.refine-search-small style="margin-top:20px"
+    .columns.small-6.medium-2
+      h5 Child's Age
+      select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+        option [value="" disabled] Select Age
+        option value="less_than_1_year_old" Less than 1 year old
+        option value="1_year_old" 1 year old
+        option value="2_year_old" 2 years old 
+        option value="3_year_old" 3 years old 
+        option value="4_year_old" 4 years old
+        option value="5_year_old_or_holder" 5 years or older
+
+    .columns.small-6.medium-2
+      h5 Weekly Schedule
+      .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
+
+  .row.refine-search.refine-search-small
+    .columns.small-6.medium-2
+      h5 Location Type
+      select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
+        option value="zips" By zip code
+        option value="neighborhoods" By neighborhood
+        option value="addresses" Closest to an address
+
+    .columns.small-6.medium-2
+      div style="height:23px;width:100%;"
+      div ng-if="$ctrl.settings.locationType == 'zips'"
+        input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+
+      div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
+        select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+          option value="" Select Neighborhood
+
+      div ng-if="$ctrl.settings.locationType == 'addresses'"
+        input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+
+  .row.refine-search.refine-search-small style="margin-bottom:20px"
+    .columns.small-6
+    .columns.small-6
+      input.round.large.button.bg-green-yellow.margin-top-2.main-search-button.pull-right type="submit" value="Search Again"
+
 
 
   .row
