@@ -1,5 +1,6 @@
 css:
-  select.radius.form-select {
+  select.radius.form-select, 
+  .select.radius.form-select {
     border-radius: 3px;
     border: 1px solid #AAAAAA;
     background-color: #F7F6F3;
@@ -10,6 +11,55 @@ css:
     font-size: 16px;
     letter-spacing: 0.08px;
     line-height: 16px;
+  }
+
+  ul.dropdown-menu.dropdown-menu-form {
+    background-color: #F7F6F3;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #AAAAAA;
+    border-left: 1px solid #AAAAAA;
+    border-right: 1px solid #AAAAAA;
+    margin-top: -4px;
+    padding: 0 10px;
+    margin-left: -1px !important;
+    margin-right: -1px !important;
+  }
+
+  input:checked + span:before {
+    color: #2794b3;
+    content: "\f00c";
+    font-family: "FontAwesome";
+    position: absolute;
+    left: -17px;
+    top: -2px;
+  }
+
+  .btn.btn-default.dropdown-toggle {
+    background: transparent;
+    color: black;
+    text-align: left;
+    text-transform: none;
+    width: 100%;
+
+    color: #333333;
+    font-family: "Benton Sans";
+    font-size: 16px;
+    padding: 15px 10px;
+    text-shadow: none;
+  }
+
+  .btn.btn-default.dropdown-toggle:focus {
+    outline: none;
+  }
+
+  .select.radius.form-select .multiselect-parent.btn-group.dropdown-multiselect  {
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
   }
 
   .row.refine-search .columns.small-2.medium-2 {
@@ -179,21 +229,7 @@ javascript:
 
         .columns.small-2.medium-2
           h5 Weekly Schedule
-          select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="parent.children[0].ageyear" ng-required="true"
-            option [value="" disabled] Select Age
-            option value="less_than_1_year_old" Less than 1 year old
-            option value="1_year_old" 1 year old
-            option value="2_year_old" 2 years old 
-            option value="3_year_old" 3 years old 
-            option value="4_year_old" 4 years old
-            option value="5_year_old_or_holder" 5 years or older
-
-
-          div ng-dropdown-multiselect="" options="weekDays" selected-model="tttttttt" checkboxes="true" extra-settings="weekDaysDropdownSettings"
-
-
-
-
+          .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="tttttttt" checkboxes="true" extra-settings="weekDaysDropdownSettings"
 
 
 

@@ -10,9 +10,13 @@ ResultsController = (
   $scope.weekDaysDropdownSettings =
     showCheckAll: false
     showUncheckAll: false
-    scrollableHeight: '400px',
+    scrollableHeight: '350px',
     scrollable: true,
-    enableSearch: false
+    enableSearch: false,
+    buttonDefaultText: 'Weeks',
+    smartButtonTextConverter: (t, a) -> 
+      console.log(t, a)
+      return 'test'
   
   $scope.tttttttt = []
   $scope.weekDays = SearchService.filterData.days.map (day) ->
