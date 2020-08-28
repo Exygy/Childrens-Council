@@ -18,6 +18,14 @@ ResultsController = (
 
 
 
+  $(document).on 'DOMNodeInserted', (e) ->
+    target = $(e.target)
+    if !target.hasClass('dropdown-menu-form')
+      return
+
+    if target.closest('.select').hasClass('filter-select')
+      target.append('<li style="text-align:center;margin-top:15px;"><input type="submit" style="border-radius: 26px;text-shadow: none;border: 2px solid #2794B3;background-color: #FFFFFF;height: 32px;padding: 0.625rem;color: #2794B3;font-family: BentonSans Bold;font-size: 12px;line-height: 12px;text-transform: uppercase;" value="Apply"/></li>')
+
 
 
 
@@ -29,8 +37,7 @@ ResultsController = (
     showUncheckAll: false
     scrollableHeight: '350px',
     scrollable: true,
-    enableSearch: false,
-    buttonDefaultText: 'Weeks'
+    enableSearch: false
 
   weekDaysDropdownOnChangeCallback = () ->
     pluralize = if $scope.weekDaysDropDownSelection.length == 1 then '' else 's'
@@ -65,14 +72,6 @@ ResultsController = (
 
 
 
-  $(document).on 'DOMNodeInserted', (e) ->
-    target = $(e.target)
-    if !target.hasClass('dropdown-menu-form')
-      return
-
-    if target.closest('.select').hasClass('filter-select')
-      target.append('<li style="text-align:center;margin-top:15px;"><input type="submit" style="border-radius: 26px;text-shadow: none;border: 2px solid #2794B3;background-color: #FFFFFF;height: 32px;padding: 0.625rem;color: #2794B3;font-family: BentonSans Bold;font-size: 12px;line-height: 12px;text-transform: uppercase;" value="Apply"/></li>')
-
 
 
 
@@ -86,7 +85,7 @@ ResultsController = (
     showUncheckAll: false
     scrollableHeight: '310px',
     scrollable: true,
-    enableSearch: false,
+    enableSearch: false
 
   financialAssistanceDropdownOnChangeCallback = () ->
     # ResultsService.parent.children[0].weeklySchedule = $scope.financialAssistanceDropDownSelection.map (day) ->
@@ -124,7 +123,7 @@ ResultsController = (
     showUncheckAll: false
     scrollableHeight: '420px',
     scrollable: true,
-    enableSearch: false,
+    enableSearch: false
 
   otherScheduleOptionDropdownOnChangeCallback = () ->
     # ResultsService.parent.children[0].weeklySchedule = $scope.otherScheduleOptionDropDownSelection.map (day) ->
@@ -167,7 +166,7 @@ ResultsController = (
     showUncheckAll: false
     scrollableHeight: '130px',
     scrollable: true,
-    enableSearch: false,
+    enableSearch: false
 
   preschoolProgramDropdownOnChangeCallback = () ->
     ResultsService.filters.preschoolProgram = $scope.preschoolProgramDropDownSelection.length > 0
