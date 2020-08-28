@@ -246,11 +246,11 @@ javascript:
           .columns.small-2.medium-2
             div style="height:23px;width:100%;"
             div ng-if="$ctrl.settings.locationType == 'zips'"
-              input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+              input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
 
               small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
                 span.fa.fa-exclamation-circle
-                | 5 digit zip code is required.
+                | Enter a 5 digit zip code or search by a different location type.
 
             div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
               select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods" ng-required="true"
@@ -258,14 +258,14 @@ javascript:
 
               small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
                 span.fa.fa-exclamation-circle
-                | Neighborhood is required.
+                | Select a neighborhood or search by a different location type.
 
             div ng-if="$ctrl.settings.locationType == 'addresses'"
-              input.radius type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
+              input.radius type="text" placeholder="Enter Address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
 
               small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
                 span.fa.fa-exclamation-circle
-                | Address is required.
+                | Enter an address or search by a different location type.
 
           .columns.small-2.medium-2
             h5 Weekly Schedule
@@ -311,6 +311,9 @@ javascript:
           option value="4_year_old" 4 years old
           option value="5_year_old_or_holder" 5 years or older
 
+        small.error ng-show="searchForm.child_age_in_years.$dirty && (searchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+          span.fa.fa-exclamation-circle
+          | Child's Age is required
 
       .columns.small-6.medium-2
         h5 Weekly Schedule
@@ -327,27 +330,37 @@ javascript:
       .columns.small-6.medium-2
         div style="height:23px;width:100%;"
         div ng-if="$ctrl.settings.locationType == 'zips'"
-          input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+          input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
+
+          small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
+            span.fa.fa-exclamation-circle
+            | Enter a 5 digit zip code or search by a different location type.
 
         div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
           select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
             option value="" Select Neighborhood
 
+          small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
+            span.fa.fa-exclamation-circle
+            | Select a neighborhood or search by a different location type.
+
         div ng-if="$ctrl.settings.locationType == 'addresses'"
-          input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+          input.radius type="text" placeholder="Enter Address" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+
+          small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
+            span.fa.fa-exclamation-circle
+            | Enter an address or search by a different location type.
 
     .row.refine-search.refine-search-small style="margin-bottom:20px"
       .columns.small-6
       .columns.small-6
         input.round.large.button.bg-green-yellow.margin-top-2.main-search-button.pull-right type="submit" value="Search"
 
-
     .row
       .medium-12.columns.hide-for-small.filters-container
         .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
         .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
           results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
-
 
     .row.results-container#results-map-scroll-container
       .medium-5.columns
