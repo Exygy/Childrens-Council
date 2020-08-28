@@ -6,11 +6,11 @@
   name: Full Time
   description: Care provided for more than 30 hours per week, usually Monday through Friday and 8 hours daily
 -
-  name: Part Time
-  description: Care provided less than 30 hours a week, schedule may vary from 2 to 3 days per week of care or about 4 hours daily.
--
   name: After School
   description: Out of school time care provided, usually for children elementary age. Some child care providers will pick up a child at school.
+-
+  name: Part Time
+  description: Care provided less than 30 hours a week, schedule may vary from 2 to 3 days per week of care or about 4 hours daily.
 -
   name: Before School
   description: Out of school time care provided, usually for children elementary age. Some child care providers will drop a child off at school.
@@ -18,13 +18,13 @@
   name: Evening
   description: Care provided at non-traditional hours, usually after 6pm or later.
 -
-  name: Overnight
-  description: Care provided during late hours and early morning hours.
--
-  name: Non-Traditional Hours
--
   name: Variable/Flexible
   description: Care is provided based around families variable schedule (non-set schedule needs).
 -
+  name: Overnight
+  description: Care provided during late hours and early morning hours.
+-
   name: Drop In
   description: Care provided for random days, subject to child care providers availability and license capacity.
+-
+  name: Non-Traditional Hours
