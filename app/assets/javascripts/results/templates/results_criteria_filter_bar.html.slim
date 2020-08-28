@@ -81,12 +81,73 @@ div style="padding-top: 20px"
     h3 Filters
   .columns.medium-2 style="width: 220px;padding-right: 0;"
     .select.radius.filter-select.financial-assistance ng-dropdown-multiselect="" options="financialAssistanceOptions" selected-model="$ctrl.filters.financialAssistance" checkboxes="true" extra-settings="financialAssistanceDropdown.settings" translation-texts="financialAssistanceDropdown.translations" events="financialAssistanceDropDownCallback"
+  
   .columns.medium-2 style="width: 230px;padding-right: 0;padding-left: 15px;"
-    .select.radius.filter-select.other-schedule ng-dropdown-multiselect="" options="otherScheduleOptionOptions" selected-model="$ctrl.parentFilter.children[0].shiftFeatures" checkboxes="true" extra-settings="otherScheduleOptionDropdown.settings" translation-texts="otherScheduleOptionDropdown.translations" events="otherScheduleOptionDropDownCallback"
+    .select.radius.filter-select
+      .multiselect-parent.btn-group.dropdown-multiselect style="" 
+        button.dropdown-toggle.btn.btn-default ng-click="showOtherScheduleOptionOptions = !showOtherScheduleOptionOptions" type="button" 
+          | Other Schedule Options&nbsp;
+          span.caret
+        ul.dropdown-menu.dropdown-menu-form style="display: block; height: 420px; overflow: auto;" ng-if="showOtherScheduleOptionOptions"
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-acceptsChildren-FullTime" name="shift_acceptsChildren_FullTime" checklist-value="'FULL_TIME'" checklist-model="$ctrl.filters.acceptsChildren"
+                span
+                  span Full Time
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-acceptsChildren-PartTime" name="shift_acceptsChildren_PartTime" checklist-value="'PART_TIME'" checklist-model="$ctrl.filters.acceptsChildren"
+                span
+                  span Part Time
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-flag-afterSchool" name="shift_flag_afterSchool" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.afterSchool"
+                span
+                  span After School
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-flag-beforeSchool" name="shift_flag_beforeSchool" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.beforeSchool"
+                span
+                  span Before School
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-shiftLocal1-Evening" name="shift_shiftLocal1_Evening" checklist-value="'Evening'" checklist-model="$ctrl.filters.shiftLocal1"
+                span
+                  span Evening
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-shiftLocal1-Overnight" name="shift_shiftLocal1_Overnight" checklist-value="'Overnight'" checklist-model="$ctrl.filters.shiftLocal1"
+                span
+                  span Overnight
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-flag-open24hours" name="shift_flag_open24hours" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.open24Hours"
+                span
+                  span Non-Traditional Hours
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-flag-rotating" name="shift_flag_rotating" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.rotating"
+                span
+                  span Variable/Flexible
+          li
+            .checkbox
+              label
+                input.checkboxInput type="checkbox" id="shift-flag-acceptsDropIns" name="shift_flag_acceptsDropIns" ng-true-value="true" ng-false-value="null" ng-model="$ctrl.filters.acceptsDropIns"
+                span
+                  span Drop In
+
   .columns.medium-2 style="width: 200px;padding-right: 0;padding-left: 15px;"
     .select.radius.filter-select.preschool-program ng-dropdown-multiselect="" options="preschoolProgramOptions" selected-model="$ctrl.filters.preschoolProgram" checkboxes="true" extra-settings="preschoolProgramDropdown.settings" translation-texts="preschoolProgramDropdown.translations" events="preschoolProgramDropDownCallback"
   .columns.medium-2 style="width: 215px;padding-right: 0;padding-left: 15px;float: left;" ng-controller="ResultsFilterController"
     .select.radius.filter-select
-      a.edit-results.ga-filter-button href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal" style="font-family: BentonSans Bold;font-size: 12px;display: block;padding: 0;"
+      a.edit-results.ga-filter-button href='#' ng-click="openResultFiltersModal()" data-reveal-id="$ctrl.filtersModal" style="font-family: BentonSans Bold;font-size: 12px;display: block;padding: 0;"
         | View & Edit All Filters
 
