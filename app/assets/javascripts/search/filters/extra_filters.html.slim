@@ -31,10 +31,10 @@ css:
 section.margin-top-2
   h5 Average Rate Range
   .row
-    .columns.small-6.medium-2
-      input type="text" name="preschool-program" ng-model="filters.monthlyRate[0]" placeholder="Min"
-    .columns.small-6.medium-2 style="float:left"
-      input type="text" name="preschool-program" ng-model="filters.monthlyRate[1]" placeholder="Max"
+    .columns.small-6.medium-3
+      input type="text" name="monthyrate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true"
+    .columns.small-6.medium-3 style="float:left"
+      input type="text" name="monthyrate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true"
 
 section.margin-top-2
   h5 Financial Assistance  
