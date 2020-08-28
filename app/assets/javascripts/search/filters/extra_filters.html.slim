@@ -86,13 +86,78 @@ section.margin-top-2
 section.margin-top-2
   h5 Other Schedule Options
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in formattedShiftFeatures track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreOtherScheduleOptions)"
+    .columns.medium-6 style="float:left"
       .checkbox
-        label for="shift-feature-{{$index}}"
-          input.checkboxInput type="checkbox" id="shift-feature-{{$index}}" name="shift-feature" data-checklist-value="type" data-checklist-model="parent.children[0].shiftFeatures"
+        label for="shift-acceptsChildren-FullTime"
+          input.checkboxInput type="checkbox" id="shift-acceptsChildren-FullTime" name="shift_acceptsChildren_FullTime" checklist-value="'FULL_TIME'" checklist-model="filters.acceptsChildren"
           span.icon
           .label
-            | {{ type.id }}
+            | Full Time
+
+    .columns.medium-6 style="float:left"
+      .checkbox
+        label for="shift-flag-afterSchool"
+          input.checkboxInput type="checkbox" id="shift-flag-afterSchool" name="shift_flag_afterSchool" ng-true-value="true" ng-false-value="null" ng-model="filters.afterSchool"
+          span.icon
+          .label
+            | After School
+
+    .columns.medium-6 style="float:left"
+      .checkbox
+        label for="shift-acceptsChildren-PartTime"
+          input.checkboxInput type="checkbox" id="shift-acceptsChildren-PartTime" name="shift_acceptsChildren_PartTime" checklist-value="'PART_TIME'" checklist-model="filters.acceptsChildren"
+          span.icon
+          .label
+            | Part Time
+
+    .columns.medium-6 style="float:left"
+      .checkbox
+        label for="shift-flag-beforeSchool"
+          input.checkboxInput type="checkbox" id="shift-flag-beforeSchool" name="shift_flag_beforeSchool" ng-true-value="true" ng-false-value="null" ng-model="filters.beforeSchool"
+          span.icon
+          .label
+            | Before School
+
+    .columns.medium-6 style="float:left" ng-show="showMoreOtherScheduleOptions"
+      .checkbox
+        label for="shift-shiftLocal1-Evening"
+          input.checkboxInput type="checkbox" id="shift-shiftLocal1-Evening" name="shift_shiftLocal1_Evening" checklist-value="'Evening'" checklist-model="filters.shiftLocal1"
+          span.icon
+          .label
+            | Evening
+
+    .columns.medium-6 style="float:left" ng-show="showMoreOtherScheduleOptions"
+      .checkbox
+        label for="shift-flag-rotating"
+          input.checkboxInput type="checkbox" id="shift-flag-rotating" name="shift_flag_rotating" ng-true-value="true" ng-false-value="null" ng-model="filters.rotating"
+          span.icon
+          .label
+            | Variable/Flexible
+
+    .columns.medium-6 style="float:left" ng-show="showMoreOtherScheduleOptions"
+      .checkbox
+        label for="shift-shiftLocal1-Overnight"
+          input.checkboxInput type="checkbox" id="shift-shiftLocal1-Overnight" name="shift_shiftLocal1_Overnight" checklist-value="'Overnight'" checklist-model="filters.shiftLocal1"
+          span.icon
+          .label
+            | Overnight
+
+    .columns.medium-6 style="float:left" ng-show="showMoreOtherScheduleOptions"
+      .checkbox
+        label for="shift-flag-acceptsDropIns"
+          input.checkboxInput type="checkbox" id="shift-flag-acceptsDropIns" name="shift_flag_acceptsDropIns" ng-true-value="true" ng-false-value="null" ng-model="filters.acceptsDropIns"
+          span.icon
+          .label
+            | Drop In
+
+    .columns.medium-6 style="float:left" ng-show="showMoreOtherScheduleOptions"
+      .checkbox
+        label for="shift-flag-open24hours"
+          input.checkboxInput type="checkbox" id="shift-flag-open24hours" name="shift_flag_open24hours" ng-true-value="true" ng-false-value="null" ng-model="filters.open24Hours"
+          span.icon
+          .label
+            | Non-Traditional Hours
+
   br
   a ng-click="showMoreOtherScheduleOptions = !showMoreOtherScheduleOptions" 
     | See More Options

@@ -83,7 +83,7 @@ SearchService = (
     # The API field called generalLocal1 is used to search for financial
     # assistance programs
     if params.financialAssistance.length
-      params.generalLocal1 = params.financialAssistance
+      params.generalLocal1 = $service.cleanMultiSelectDropdownSelections(params.financialAssistance)
 
     delete params.careApproaches
     delete params.religiousPrograms
@@ -105,7 +105,7 @@ SearchService = (
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
-      if params.monthlyRate[0] == 0 && params.monthlyRate[1] == 3000
+      if (params.monthlyRate[0] == 0 && params.monthlyRate[1] == 3000) || (!params.monthlyRate[0] && !params.monthlyRate[1])
         delete params.monthlyRate
       else
         if params.monthlyRate[1] != 3000
@@ -122,10 +122,14 @@ SearchService = (
     delete params.vacancyFutureDate
 
   $service.setPreschoolProgram = (params) ->
-    if params.preschoolProgram
+    if params.preschoolProgram.length > 0
       params.generalLocal2 = params.generalLocal2 || []
       params.generalLocal2 = params.generalLocal2.concat(['Preschool Program'])
     delete params.preschoolProgram
+
+  $service.cleanMultiSelectDropdownSelections = (selections) ->
+    return selections.map (selection) -> 
+      return selection.id
 
   $service.setAcceptsChildren = (params) ->
     if params.acceptsChildren and params.acceptsChildren.length == 2
