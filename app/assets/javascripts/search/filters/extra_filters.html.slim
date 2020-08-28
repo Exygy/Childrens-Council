@@ -1,121 +1,198 @@
-/section.margin-top-2
-/  h5#age-label.c-black Cost per month
-/  .row
-/    .medium-7.columns
-/      .ui-slider-container
-/        #age.margin-top-1.margin-bottom-3 [ui-slider min="0" max="3000" ng-model="filters.cost_per_month" use-decimals aria-labeledBy="ageLabel"]
-/          span.age-label style="left:{{(filters.cost_per_month / 3000) * 100}}%;"
-/            | ${{ filters.cost_per_month }}
-/          span.age-min 0
-/          span.age-max $3,000
-/          - 4.times do |i|
-/            span.tick class="tick-#{i + 1}"
+css:
+  .checkbox input.checkboxInput:checked + span:before {
+      color: #2794b3;
+      content: "\f00c";
+      font-family: "FontAwesome";
+      position: absolute;
+      left: -18px;
+      top: -2px;
+  }
+
+  .radio input.radioInput {
+    display:none;
+  }
+
+  .radio label::before {
+    height: 19px;
+    margin-top: 1px;
+    width: 19px;
+  }
+
+  .radio input.radioInput:checked + span:before {
+    color: #2794b3;
+    content: "\f111";
+    font-family: "FontAwesome";
+    position: absolute;
+    left: -16px;
+    top: 1px;
+    font-size: 13px;
+  }
 
 section.margin-top-2
-  span ng-include="'search/filters/rates_filter.html'"
+  h5 Average Rate Range
+  .row
+    .columns.small-6.medium-2
+      input type="text" name="preschool-program" ng-model="filters.monthlyRate[0]" placeholder="Min"
+    .columns.small-6.medium-2 style="float:left"
+      input type="text" name="preschool-program" ng-model="filters.monthlyRate[1]" placeholder="Max"
 
 section.margin-top-2
-  span ng-include="'search/filters/vacancies_filter.html'"
+  h5 Financial Assistance  
+  div.header-info
+    a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
+      | Check if you qualify
+  
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.financialAssistance"
+      .checkbox
+        label for="financial-assistance-{{type}}"
+          input.checkboxInput type="checkbox" id="financial-assistance-{{type}}" name="financial-assistance" checklist-value="type.value" checklist-model="filters.financialAssistance"
+          span.icon
+          .label
+            | {{ type.label }}
+
+section.margin-top-2
+  h5 Immediate Openings
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.vacancyTypes"
+      .checkbox
+        label for="vacancy-type-{{type}}"
+          input.checkboxInput type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="vacancyTypeAdapter()"
+          span.icon
+          .label
+            | {{ type }}
 
 section.margin-top-2
   h5 Preschool
   .row
     .columns.medium-6
-      label.checkbox-round for="preschool-program"
-        input type="checkbox" id="preschool-program" name="preschool-program" ng-model="filters.preschoolProgram"
-        span.icon
-        .label
-          | Preschool Program
+      .checkbox
+        label for="preschool-program"
+          input.checkboxInput type="checkbox" id="preschool-program" name="preschool-program" ng-model="filters.preschoolProgram"
+          span.icon
+          .label
+            | Preschool Program
 
 section.margin-top-2
-  h5 Provides financial assistance
-  div.header-info
-    a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
-      | Check out more information to see if you qualify.
-  accordion close-others="false" role="tablist"
-    accordion-group is-open="is_financial_assists"
-      accordion-heading
-        #week-schedule-heading role="tab" aria-controls="week-schedule-panel"
-          | {{ filters.financialAssistance | financialAssistanceToFilterTitle }}
-          .right.toggle ng-switch="is_financial_assists"
-            span ng-switch-when="false" Show
-            span ng-switch-when="true" Hide
-            |  options
-
-      #week-schedule-panel.clearfix role="tabpanel" aria-labelledby="week-schedule-heading" aria-hidden="{{!is_financial_assists}}"
-        span ng-repeat="assist in (filterData.financialAssistance | filter:{showInFilter: true}) track by $index"
-          .checkbox-financial-assist
-            input type="checkbox" id="financial-assist-{{$index}}" name="financial-assist_{{$index}}" checklist-value="assist.value" checklist-model="filters.financialAssistance"
-            label for="financial-assist-{{$index}}"
-              b
-                | {{assist.label || assist.value}}
-            p.smaller.checkbox-text.c-base ng-if="assist.description" ng-bind-html="assist.description"
-            p.smaller.checkbox-text.c-base ng-bind-html="link" ng-repeat="link in assist.links" ng-if="assist.links"
+  h5 Child Care Program Type
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.typesOfCare"
+      .checkbox
+        label for="care-type-{{type}}"
+          input.checkboxInput type="checkbox" id="care-type-{{type}}" name="care-type" checklist-value="type" checklist-model="filters.typesOfCare"
+          span.icon
+          .label
+            | {{ type }}
 
 section.margin-top-2
-  h6.text-normal.margin-top-2 Teaching Philosophy
-  div.header-info
-    a.small href="http://www.childrenscouncil.org/families/find-child-care/types-of-child-care/" target="_blank"
-      | What are the differences?
-  .repeater-container ng-repeat="careApproach in filters.careApproaches track by $index"
-    select.radius id="care-approach-id-{{$index + 1}}" name="care_approach_id_{{$index + 1}}" ng-model="filters.careApproaches[$index]"
-      option value="" Select Teaching Philosophy
-      option ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" value="{{ careApproach }}"
-        ' {{ careApproach }}
-    button.inline.repeater type="button" aria-label="Remove teaching philosophy" ng-show="$index > 0" ng-click="removeItem(filters.careApproaches, $index)" Remove
-  button.inline type="button" aria-label="Add another teaching philosophy" ng-show="hasFinalValue(filters.careApproaches) && filters.careApproaches.length < 3" ng-click="addItem(filters.careApproaches)" Add another
+  h5 Other Schedule Options
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.shiftFeatures" ng-show="$index < 4 || ($index >= 4 && showMoreOtherScheduleOptions)"
+      .checkbox
+        label for="shift-feature-{{type.name}}"
+          input.checkboxInput type="checkbox" id="shift-feature-{{type.name}}" name="shift-feature" checklist-value="type.name" checklist-model="filters.typesOfCare"
+          span.icon
+          .label
+            | {{ type.name }}
+  br
+  a ng-click="showMoreOtherScheduleOptions = !showMoreOtherScheduleOptions" 
+    | See More Options
+    i class="fa" ng-class="{ 'fa-chevron-down': !showMoreOtherScheduleOptions, 'fa-chevron-up': showMoreOtherScheduleOptions }" aria-hidden="true" style="margin-left:4px;"
+
 
 section.margin-top-2
-  h6.text-normal.margin-top-2 Language Immersion Programs
-  .repeater-container ng-repeat="languageProgram in filters.attributesLocal3 track by $index"
-    select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.attributesLocal3[$index]"
-      option value="" Select Language Immersion Program
-      option ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy) track by $index" value="{{ languageProgram }}"
-        ' {{ languageProgram }}
-    button.inline.repeater type="button" aria-label="Remove language immersion program" ng-show="$index > 0" ng-click="removeItem(filters.attributesLocal3, $index)" Remove
-  button.inline type="button" aria-label="Add another Language Immersion Program" ng-show="hasFinalValue(filters.attributesLocal3) && filters.attributesLocal3.length < 3" ng-click="addItem(filters.attributesLocal3)" Add another
+  h5 School Schedule
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.yearlySchedules"
+      .radio
+        label for="year-schedule-{{type.label}}"
+          input.radioInput type="radio" id="year-schedule-{{type.label}}" name="year-schedule" checklist-value="type.value" checklist-model="filters.yearlySchedules"
+          span.icon
+          .label
+            | {{ type.label }}
+
+section.margin-top-2
+  h5 Meals Included
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.meals"
+      .radio
+        label for="meals-included-{{type.label}}"
+          input.radioInput type="radio" id="meals-included-{{type.label}}" name="meals-included" checklist-value="type.value" checklist-model="filters.meals"
+          span.icon
+          .label
+            | {{ type.label }}
+
+section.margin-top-2
+  h5 Other
+  .row
+    .columns
+      .checkbox
+        label for="parent-coop"
+          input.checkboxInput type="checkbox" id="parent-coop" name="parent-coop" ng-model="filters.parentCoop"
+          span.icon
+          .label
+            | Parent Co-op
+  .row
+    .columns
+      .checkbox
+        label for="potty-training"
+          input.checkboxInput type="checkbox" id="potty-training" name="potty-training" ng-model="filters.pottyTraining"
+          span.icon
+          .label
+            | Potty Training Support
+
+section.margin-top-2
+  h5 Teaching Philosophy
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreCareApproach)"
+      .checkbox
+        label for="care-approaches-{{$index}}"
+          input.checkboxInput type="checkbox" id="care-approaches-{{$index}}" name="care-approaches-{{$index}}" checklist-value="careApproach" checklist-model="filters.careApproaches"
+          span.icon
+          .label
+            | {{ careApproach }}
+
+  br
+  a ng-click="showMoreCareApproach = !showMoreCareApproach" 
+    | See More Options
+    i class="fa" ng-class="{ 'fa-chevron-down': !showMoreCareApproach, 'fa-chevron-up': showMoreCareApproach }" aria-hidden="true" style="margin-left:4px;"
+
+
+section.margin-top-2
+  h5 Language Immersion Programs
+  .row
+    .columns.medium-6 style="float:left" ng-repeat="languageProgram in (filterData.languageImmersionPrograms | orderBy) track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreLanguageProgram)"
+      .checkbox
+        label for="language-program-{{$index}}"
+          input.checkboxInput type="checkbox" id="language-program-{{$index}}" name="language-program-{{$index}}" checklist-value="languageProgram" checklist-model="filters.attributesLocal3"
+          span.icon
+          .label
+            | {{ languageProgram }}
+  br
+  a ng-click="showMoreLanguageProgram = !showMoreLanguageProgram" 
+    | See More Options
+    i class="fa" ng-class="{ 'fa-chevron-down': !showMoreLanguageProgram, 'fa-chevron-up': showMoreLanguageProgram }" aria-hidden="true" style="margin-left:4px;"
 
 section.margin-top-2
   h6.text-normal.margin-top-2 Languages Spoken
   .repeater-container ng-repeat="language in filters.languages track by $index"
     select.radius id="language-id-{{$index + 1}}" name="language_id_{{$index + 1}}" ng-model="filters.languages[$index]"
-      option value="" Select Spoken Language
+      option value="" Select Language
       option ng-repeat="language in filterData.languages track by $index" value="{{ language }}"
         ' {{ language }}
     button.inline.repeater type="button" aria-label="Remove spoken language" ng-show="$index > 0" ng-click="removeItem(filters.languages, $index)" Remove
   button.inline type="button" aria-label="Add another Spoken Language" ng-show="hasFinalValue(filters.languages) && filters.languages.length < 3" ng-click="addItem(filters.languages)" Add another
 
 section.margin-top-2
-  h6.text-normal.margin-top-2 Religious Program
-  .repeater-container ng-repeat="religiousProgram in filters.religiousPrograms track by $index"
-    select.radius id="religion-id-{{$index + 1}}" name="religion_id_{{$index + 1}}" ng-model="filters.religiousPrograms[$index]"
-      option value="" Select Religious Program
-      option ng-repeat="religiousProgram in (filterData.religiousPrograms | orderBy) track by $index" value="{{ religiousProgram }}"
-        ' {{ religiousProgram }}
-    button.inline.repeater type="button" aria-label="Remove religious program" ng-show="$index > 0" ng-click="removeItem(filters.religiousPrograms, $index)" Remove
-  button.inline type="button" aria-label="Add another Religious program" ng-show="hasFinalValue(filters.religiousPrograms) && filters.religiousPrograms.length < 3" ng-click="addItem(filters.religiousPrograms)" Add another
+  h5 Religious Program
+  .row
+    .columns.medium-6 style="float:left"
+      .checkbox ng-repeat="religiousProgram in (filterData.religiousPrograms | orderBy) track by $index"
+        label for="religious-program-{{$index}}"
+          input.checkboxInput type="checkbox" id="religious-program-{{$index}}" name="religious-program-{{$index}}" checklist-value="religiousProgram" checklist-model="filters.religiousPrograms[0]"
+          span.icon
+          .label
+            | {{ religiousProgram }}
 
-section.margin-top-2
-  h5
-    | Parent Co-Op
-    a.fa.fa-info-circle.margin-left-small href="http://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank" aria-label="More information about Cooperative Child Care"
-  #parent-coop-panel.button-group
-    button type="button" ng-model="filters.parentCoop" btn-radio="false" ng-class="['round', 'small', 'btn-radio']" No Preference
-    button type="button" ng-model="filters.parentCoop" btn-radio="true" ng-class="['round', 'small', 'btn-radio']" Yes
+br
 
-section.margin-top-2
-  h5 Meals included in tuition
-  #meals-included-panel.button-group
-    button type="button" ng-model="filters.meals" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.meals"
-      | {{ choice.label }}
-
-section.margin-top-2
-  h5
-    | Potty training support
-    a.fa.fa-info-circle.margin-left-small.tooltip-round tooltip="Provider supports with child's potty training" tooltip-placement="right"
-  #potty-training-panel.button-group
-    button type="button" ng-model="filters.pottyTraining" btn-radio="choice.value" ng-class="['round', 'small', 'btn-radio']" ng-repeat="choice in filterData.pottyTraining"
-      | {{ choice.label }}
-
-section.margin-top-2.margin-bottom-2
-  span ng-include="'search/filters/care_type_filter.html'"
