@@ -232,6 +232,10 @@ javascript:
               option value="4_year_old" 4 years old
               option value="5_year_old_or_holder" 5 years or older
 
+            small.error ng-show="searchForm.child_age_in_years.$dirty && (searchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+              span.fa.fa-exclamation-circle
+              | Child's Age is required
+              
           .columns.small-2.medium-2
             h5 Location Type
             select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
@@ -244,12 +248,24 @@ javascript:
             div ng-if="$ctrl.settings.locationType == 'zips'"
               input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
 
+              small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
+                span.fa.fa-exclamation-circle
+                | 5 digit zip code is required.
+
             div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
-              select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
-                option value="" Select Neighborhood
+              select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods" ng-required="true"
+                option [value="" disabled] Select Neighborhood
+
+              small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
+                span.fa.fa-exclamation-circle
+                | Neighborhood is required.
 
             div ng-if="$ctrl.settings.locationType == 'addresses'"
-              input.radius type="text" placeholder="Enter any address in San Francisco" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+              input.radius type="text" placeholder="Enter any address in San Francisco" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
+
+              small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
+                span.fa.fa-exclamation-circle
+                | Address is required.
 
           .columns.small-2.medium-2
             h5 Weekly Schedule
@@ -294,6 +310,7 @@ javascript:
           option value="3_year_old" 3 years old 
           option value="4_year_old" 4 years old
           option value="5_year_old_or_holder" 5 years or older
+
 
       .columns.small-6.medium-2
         h5 Weekly Schedule

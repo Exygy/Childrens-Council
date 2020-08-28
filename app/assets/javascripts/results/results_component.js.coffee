@@ -11,6 +11,19 @@ ResultsController = (
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   $scope.weekDaysDropdownSettings =
     showCheckAll: false
     showUncheckAll: false
