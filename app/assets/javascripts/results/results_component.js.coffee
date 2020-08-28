@@ -18,6 +18,27 @@ ResultsController = (
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   $(document).on 'DOMNodeInserted', (e) ->
     target = $(e.target)
     if !target.hasClass('dropdown-menu-form')
@@ -77,112 +98,52 @@ ResultsController = (
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  defaultDropdown = 
+    settings:
+      showCheckAll: false
+      showUncheckAll: false
+      scrollable: true,
+      enableSearch: false,
+      dynamicTitle: false
+    translations:
+      buttonDefaultText: 'Default'
+
+
     
-
-
-  $scope.financialAssistanceDropdownSettings =
-    showCheckAll: false
-    showUncheckAll: false
-    scrollableHeight: '310px',
-    scrollable: true,
-    enableSearch: false
-
-  financialAssistanceDropdownOnChangeCallback = () ->
-    # ResultsService.parent.children[0].weeklySchedule = $scope.financialAssistanceDropDownSelection.map (day) ->
-    #   return day.id
-
-    $('.financial-assistance .btn.btn-default.dropdown-toggle').html('Financial Assistance')
-    setTimeout () -> 
-      $('.financial-assistance .btn.btn-default.dropdown-toggle').html('Financial Assistance')
-    , 100
-
-  $scope.financialAssistanceDropDownCallback =
-    onInitDone: financialAssistanceDropdownOnChangeCallback,
-    onSelectionChanged: financialAssistanceDropdownOnChangeCallback
-  
-  $scope.financialAssistanceDropDownSelection = []
-  # $scope.financialAssistanceDropDownSelection = SearchService.filterData.financialAssistance.map (program) ->
-  #   return { "label": program.label, "id": program.label }
+  defaultDropdown.settings.scrollableHeight = '310px'
+  defaultDropdown.translations.buttonDefaultText = 'Financial Assistance'
+  $scope.financialAssistanceDropdown = angular.copy(defaultDropdown)
 
   $scope.financialAssistanceOptions = SearchService.filterData.financialAssistance.map (program) ->
     return { "label": program.label, "id": program.value }
 
 
-
-
-
-
-
-
-
-
-
-
-  $scope.otherScheduleOptionDropdownSettings =
-    showCheckAll: false
-    showUncheckAll: false
-    scrollableHeight: '420px',
-    scrollable: true,
-    enableSearch: false
-
-  otherScheduleOptionDropdownOnChangeCallback = () ->
-    # ResultsService.parent.children[0].weeklySchedule = $scope.otherScheduleOptionDropDownSelection.map (day) ->
-    #   return day.id
-
-    $('.other-schedule .btn.btn-default.dropdown-toggle').html('Other Schedule Options')
-    setTimeout () -> 
-      $('.other-schedule .btn.btn-default.dropdown-toggle').html('Other Schedule Options')
-    , 100
-
-  $scope.otherScheduleOptionDropDownCallback =
-    onInitDone: otherScheduleOptionDropdownOnChangeCallback,
-    onSelectionChanged: otherScheduleOptionDropdownOnChangeCallback
+  defaultDropdown.settings.scrollableHeight = '420px'
+  defaultDropdown.translations.buttonDefaultText = 'Other Schedule Options'
+  $scope.otherScheduleOptionDropdown = angular.copy(defaultDropdown)
   
-  $scope.otherScheduleOptionDropDownSelection = []
-  # $scope.otherScheduleOptionDropDownSelection = SearchService.filterData.otherScheduleOption.map (program) ->
-  #   return { "label": program.label, "id": program.label }
-
   $scope.otherScheduleOptionOptions = SearchService.filterData.shiftFeatures.map (shift) ->
     return { "label": shift.name, "id": shift.name }
 
 
+  defaultDropdown.settings.scrollableHeight = '130px'
+  defaultDropdown.translations.buttonDefaultText = 'Preschool Programs'
+  $scope.preschoolProgramDropdown = angular.copy(defaultDropdown)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  $scope.preschoolProgramDropdownSettings =
-    showCheckAll: false
-    showUncheckAll: false
-    scrollableHeight: '130px',
-    scrollable: true,
-    enableSearch: false
-
-  preschoolProgramDropdownOnChangeCallback = () ->
-    ResultsService.filters.preschoolProgram = $scope.preschoolProgramDropDownSelection.length > 0
-
-    $('.preschool-program .btn.btn-default.dropdown-toggle').html('Preschool Programs')
-    setTimeout () -> 
-      $('.preschool-program .btn.btn-default.dropdown-toggle').html('Preschool Programs')
-    , 100
-
-  $scope.preschoolProgramDropDownCallback =
-    onInitDone: preschoolProgramDropdownOnChangeCallback,
-    onSelectionChanged: preschoolProgramDropdownOnChangeCallback
-  
-  $scope.preschoolProgramDropDownSelection = if ResultsService.filters.preschoolProgram then [{ "label": 'Preschool Program', "id": 'Preschool Program' }] else []
   $scope.preschoolProgramOptions = [{ "label": 'Preschool Program', "id": 'Preschool Program' }]
-
 
 
 
@@ -204,6 +165,30 @@ ResultsController = (
     if $scope.searchForm.$valid
       SearchService.postSearch()
     return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

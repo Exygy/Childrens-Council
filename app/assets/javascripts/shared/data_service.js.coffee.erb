@@ -38,6 +38,7 @@ DataService = ($rootScope, $window) ->
     name: null
     neighborhoods: <%= api_service.filter_data('neighborhoods') %>
     meals: $service.mealsForFilter
+    preschoolProgram: { "id": 'Preschool Program' }
     pottyTraining: [{label: 'No Preference', value: null}, {label: 'Yes', value: 'Potty Training'}]
     religiousPrograms: <%= api_service.filter_data('religious_programs') %>
     shiftFeatures: <%= api_service.filter_data('shift_features').to_json %>
@@ -62,6 +63,8 @@ DataService = ($rootScope, $window) ->
     rotating: null # Shift Flags - Rotating
     acceptsChildren: ['FULL_TIME'] # Accepts Children
     shiftLocal1: []
+
+    preschoolProgram: []
 
     languages: ['']
     meals: null
@@ -107,7 +110,7 @@ DataService = ($rootScope, $window) ->
       {
         ageWeeks: ''
         selected: true
-        shiftFeatures: ['Full Time']
+        shiftFeatures: [{id: 'Full Time' }]
         weeklySchedule: $service.filterData.days.slice(0, 5)
         yearlySchedule: 'FULL_YEAR'
       }

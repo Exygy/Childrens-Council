@@ -75,19 +75,16 @@ css:
     width: 100%;
     z-index: 100;
   }
-
-  @media only screen and (max-width: 600px) {
-  }
-
+ 
 div style="padding-top: 20px"
   .columns.medium-2 style="width: 80px;padding-top: 5px;"
     h3 Filters
   .columns.medium-2 style="width: 220px;padding-right: 0;"
-    .select.radius.filter-select.financial-assistance ng-dropdown-multiselect="" options="financialAssistanceOptions" selected-model="financialAssistanceDropDownSelection" checkboxes="true" extra-settings="financialAssistanceDropdownSettings" events="financialAssistanceDropDownCallback"
+    .select.radius.filter-select.financial-assistance ng-dropdown-multiselect="" options="financialAssistanceOptions" selected-model="$ctrl.filters.financialAssistance" checkboxes="true" extra-settings="financialAssistanceDropdown.settings" translation-texts="financialAssistanceDropdown.translations" events="financialAssistanceDropDownCallback"
   .columns.medium-2 style="width: 230px;padding-right: 0;padding-left: 15px;"
-    .select.radius.filter-select.other-schedule ng-dropdown-multiselect="" options="otherScheduleOptionOptions" selected-model="otherScheduleOptionDropDownSelection" checkboxes="true" extra-settings="otherScheduleOptionDropdownSettings" events="otherScheduleOptionDropDownCallback"
+    .select.radius.filter-select.other-schedule ng-dropdown-multiselect="" options="otherScheduleOptionOptions" selected-model="$ctrl.parentFilter.children[0].shiftFeatures" checkboxes="true" extra-settings="otherScheduleOptionDropdown.settings" translation-texts="otherScheduleOptionDropdown.translations" events="otherScheduleOptionDropDownCallback"
   .columns.medium-2 style="width: 200px;padding-right: 0;padding-left: 15px;"
-    .select.radius.filter-select.preschool-program ng-dropdown-multiselect="" options="preschoolProgramOptions" selected-model="preschoolProgramDropDownSelection" checkboxes="true" extra-settings="preschoolProgramDropdownSettings" events="preschoolProgramDropDownCallback"
+    .select.radius.filter-select.preschool-program ng-dropdown-multiselect="" options="preschoolProgramOptions" selected-model="$ctrl.filters.preschoolProgram" checkboxes="true" extra-settings="preschoolProgramDropdown.settings" translation-texts="preschoolProgramDropdown.translations" events="preschoolProgramDropDownCallback"
   .columns.medium-2 style="width: 215px;padding-right: 0;padding-left: 15px;float: left;" ng-controller="ResultsFilterController"
     .select.radius.filter-select
       a.edit-results.ga-filter-button href='#' ng-click="openResultFiltersModal()" data-reveal-id="filtersModal" style="font-family: BentonSans Bold;font-size: 12px;display: block;padding: 0;"

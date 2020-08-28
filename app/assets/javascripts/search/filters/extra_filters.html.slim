@@ -42,21 +42,21 @@ section.margin-top-2
     a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
       | Check if you qualify
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.financialAssistance"
+    .columns.medium-6 style="float:left" ng-repeat="type in formattedFinancialAssistance track by $index"
       .checkbox
-        label for="financial-assistance-{{type}}"
-          input.checkboxInput type="checkbox" id="financial-assistance-{{type}}" name="financial-assistance" checklist-value="type.value" checklist-model="filters.financialAssistance"
+        label for="financial-assistance-{{$index}}"
+          input.checkboxInput type="checkbox" id="financial-assistance-{{$index}}" name="financial-assistance" data-checklist-value="type" data-checklist-model="filters.financialAssistance"
           span.icon
           .label
-            | {{ type.label }}
+            | {{ type.id }}
 
 section.margin-top-2
   h5 Immediate Openings
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.vacancyTypes"
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.vacancyTypes track by $index"
       .checkbox
-        label for="vacancy-type-{{type}}"
-          input.checkboxInput type="checkbox" id="vacancy-type-{{type}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="vacancyTypeAdapter()"
+        label for="vacancy-type-{{$index}}"
+          input.checkboxInput type="checkbox" id="vacancy-type-{{$index}}" name="vacancy-type" checklist-value="type" checklist-model="filters.vacancyType" ng-change="vacancyTypeAdapter()"
           span.icon
           .label
             | {{ type }}
@@ -67,7 +67,7 @@ section.margin-top-2
     .columns.medium-6
       .checkbox
         label for="preschool-program"
-          input.checkboxInput type="checkbox" id="preschool-program" name="preschool-program" ng-model="filters.preschoolProgram"
+          input.checkboxInput type="checkbox" id="preschool-program" name="preschool-program" data-checklist-value="filterData.preschoolProgram" data-checklist-model="filters.preschoolProgram"
           span.icon
           .label
             | Preschool Program
@@ -75,10 +75,10 @@ section.margin-top-2
 section.margin-top-2
   h5 Child Care Program Type
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.typesOfCare"
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.typesOfCare track by $index"
       .checkbox
         label for="care-type-{{type}}"
-          input.checkboxInput type="checkbox" id="care-type-{{type}}" name="care-type" checklist-value="type" checklist-model="filters.typesOfCare"
+          input.checkboxInput type="checkbox" id="care-type-{{$index}}" name="care-type" checklist-value="type" checklist-model="filters.typesOfCare"
           span.icon
           .label
             | {{ type }}
@@ -86,13 +86,13 @@ section.margin-top-2
 section.margin-top-2
   h5 Other Schedule Options
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.shiftFeatures" ng-show="$index < 4 || ($index >= 4 && showMoreOtherScheduleOptions)"
+    .columns.medium-6 style="float:left" ng-repeat="type in formattedShiftFeatures track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreOtherScheduleOptions)"
       .checkbox
-        label for="shift-feature-{{type.name}}"
-          input.checkboxInput type="checkbox" id="shift-feature-{{type.name}}" name="shift-feature" checklist-value="type.name" checklist-model="parent.children[0].shiftFeatures"
+        label for="shift-feature-{{$index}}"
+          input.checkboxInput type="checkbox" id="shift-feature-{{$index}}" name="shift-feature" data-checklist-value="type" data-checklist-model="parent.children[0].shiftFeatures"
           span.icon
           .label
-            | {{ type.name }}
+            | {{ type.id }}
   br
   a ng-click="showMoreOtherScheduleOptions = !showMoreOtherScheduleOptions" 
     | See More Options
@@ -101,14 +101,11 @@ section.margin-top-2
 
 section.margin-top-2
   h5 School Schedule
-
-  
-
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.yearlySchedules"
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.yearlySchedules track by $index"
       .radio
-        label for="year-schedule-{{type.label}}"
-          input.radioInput type="radio" id="year-schedule-{{type.label}}" name="year-schedule" ng-value="type.value" ng-model="parent.children[0].yearlySchedule"
+        label for="year-schedule-{{$index}}"
+          input.radioInput type="radio" id="year-schedule-{{$index}}" name="year-schedule" ng-value="type.value" ng-model="parent.children[0].yearlySchedule"
           span.icon
           .label
             | {{ type.label }}
@@ -116,10 +113,10 @@ section.margin-top-2
 section.margin-top-2
   h5 Meals Included
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in filterData.meals"
+    .columns.medium-6 style="float:left" ng-repeat="type in filterData.meals track by $index"
       .radio
-        label for="meals-included-{{type.label}}"
-          input.radioInput type="radio" id="meals-included-{{type.label}}" name="meals-included" ng-value="type.value" ng-model="filters.meals"
+        label for="meals-included-{{$index}}"
+          input.radioInput type="radio" id="meals-included-{{$index}}" name="meals-included" ng-value="type.value" ng-model="filters.meals"
           span.icon
           .label
             | {{ type.label }}
@@ -149,7 +146,7 @@ section.margin-top-2
     .columns.medium-6 style="float:left" ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreCareApproach)"
       .checkbox
         label for="care-approaches-{{$index}}"
-          input.checkboxInput type="checkbox" id="care-approaches-{{$index}}" name="care-approaches-{{$index}}" checklist-value="careApproach" checklist-model="filters.careApproaches"
+          input.checkboxInput type="checkbox" id="care-approaches-{{$index}}" name="care-approaches-{{$index}}" data-checklist-value="careApproach" checklist-model="filters.careApproaches"
           span.icon
           .label
             | {{ careApproach }}
