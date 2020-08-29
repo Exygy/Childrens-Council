@@ -6,11 +6,9 @@ module CollectReferrals
   end
 
   def create_referral_log
-    return unless @current_parent
-    
-    ReferralLog.create(
-      params: params,
-      parent: @current_parent
-    )
+    referral_log_params = { params: params }
+    referral_log_params[:parent] = @current_parent if @current_parent
+
+    ReferralLog.create(referral_log_params)
   end
 end

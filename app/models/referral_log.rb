@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  params            :json
-#  parent_id         :integer          not null
+#  parent_id         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  child_age_months  :integer
