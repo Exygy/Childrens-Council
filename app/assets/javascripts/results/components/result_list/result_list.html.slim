@@ -11,7 +11,9 @@ div ng-hide="$ctrl.data.isLoading"
   ul.results-list.no-bullet ng-if="$ctrl.data.providers.length"
     li.results-item ng-repeat="provider in $ctrl.data.providers track by $index" ng-class="{'results-item-empty': ($index > 4 && emailCollectoreStatus.shouldPromptEmailCta), 'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
       result provider="provider" disabled="$index > 4 && emailCollectoreStatus.shouldPromptEmailCta"
-      result-email-cta  ng-if="$index == 5 && emailCollectoreStatus.shouldPromptEmailCta"
+      result-email-cta search-result-count="$ctrl.data.providers.length" ng-if="$index == 5 && emailCollectoreStatus.shouldPromptEmailCta"
+    li ng-if="$ctrl.data.providers.length < 5"
+      result-email-cta search-result-count="$ctrl.data.providers.length" ng-if="emailCollectoreStatus.shouldPromptEmailCta"
 
   .row.showing-container-small
     .columns.small-12

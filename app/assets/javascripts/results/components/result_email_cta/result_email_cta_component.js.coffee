@@ -1,6 +1,12 @@
 ResultEmailCtaController = ($scope, EmailCollectorService) ->
   $ctrl = @
 
+  $scope.position = {
+    'position': 'absolute'
+  }
+  if $ctrl.searchResultCount <= 5
+    $scope.position.position = 'inherit'
+
   validateForm = () ->
     for field_name, field_obj of $scope.emailForm
       $scope.emailForm[field_name].$setDirty() if field_name[0] != '$'
@@ -24,7 +30,7 @@ angular
   .module('CCR')
   .component('resultEmailCta', {
     bindings:
-      data: '<'
+      searchResultCount: '<'
     controller: ResultEmailCtaController
     templateUrl: "results/components/result_email_cta/result_email_cta.html"
   })
