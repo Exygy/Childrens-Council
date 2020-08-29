@@ -1,4 +1,4 @@
-ResultEmailCtaController = ($scope) ->
+ResultEmailCtaController = ($scope, EmailCollectorService) ->
   $ctrl = @
 
   validateForm = () ->
@@ -8,14 +8,17 @@ ResultEmailCtaController = ($scope) ->
   $scope.submitEmailForm = ->
     validateForm()
     if $scope.emailForm.$valid
-      console.log('sibmitt')
+
+      # submit email to backend
+
+
+
+      EmailCollectorService.storeEmail($scope.email)
     return
-
-
 
   return $ctrl
 
-ResultEmailCtaController.$inject = ['$scope']
+ResultEmailCtaController.$inject = ['$scope', 'EmailCollectorService']
 
 angular
   .module('CCR')

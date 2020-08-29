@@ -1,11 +1,12 @@
-ResultListController = ($scope, $modal, CompareService, ProviderMapService, ResultsService) ->
+ResultListController = ($scope, $modal, CompareService, ProviderMapService, ResultsService, EmailCollectorService) ->
   $ctrl = @
   $ctrl.providerIdsToCompare = CompareService.data.providerIds
 
   $scope.filters = ResultsService.filters
   $ctrl.searchSettings = ResultsService.searchSettings
 
-  $scope.shouldPromptEmailCta = true
+  $scope.emailCollectoreStatus = EmailCollectorService.status
+  EmailCollectorService.checkEmailStatus()
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
@@ -31,7 +32,7 @@ ResultListController = ($scope, $modal, CompareService, ProviderMapService, Resu
 
   return $ctrl
 
-ResultListController.$inject = ['$scope', '$modal', 'CompareService', 'ProviderMapService', 'ResultsService']
+ResultListController.$inject = ['$scope', '$modal', 'CompareService', 'ProviderMapService', 'ResultsService', 'EmailCollectorService']
 
 angular
   .module('CCR')
