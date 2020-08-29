@@ -9,7 +9,7 @@ ResultEmailCtaController = ($scope, EmailCollectorService) ->
     validateForm()
     if $scope.emailForm.$valid
 
-      # submit email to backend
+      # TODO: submit email to backend
 
 
 

@@ -8,6 +8,10 @@ ResultListController = ($scope, $modal, CompareService, ProviderMapService, Resu
   $scope.emailCollectoreStatus = EmailCollectorService.status
   EmailCollectorService.checkEmailStatus()
 
+  $scope.$on 'auth:login-success', (event, user) ->
+    EmailCollectorService.checkEmailStatus()
+
+
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
     $scope.searchSettings = service.searchSettings

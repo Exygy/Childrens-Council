@@ -1,20 +1,32 @@
 EmailCollectorService = ($auth, $window) ->
+    $service = @
+    checkAuthTimeout = null
     emailKey = 'ccEmail'
-    @status = 
+    $service.status = 
         shouldPromptEmailCta: true
 
-    @checkEmailStatus = () ->
-        email = $window.localStorage.getItem emailKey 
-        @status.shouldPromptEmailCta = email == null
+    $service.checkEmailStatus = () ->
+        if !checkAuthTimeout
+            # there could be a delay until $auth.currentUser() returns the actual user, checking twice
+            checkAuthTimeout = setTimeout () ->
+                $service.checkEmailStatus()
+                checkAuthTimeout = null
+            , 1000
 
-    @storeEmail = (email) ->
+        if $auth.currentUser()
+            $service.status.shouldPromptEmailCta = false
+            return 
+    
+        email = $window.localStorage.getItem emailKey 
+        $service.status.shouldPromptEmailCta = email == null
+
+    $service.storeEmail = (email) ->
         if !email
             return    
         $window.localStorage.setItem emailKey, email
-        @status.shouldPromptEmailCta = false
+        $service.status.shouldPromptEmailCta = false
 
-    @
-
+    $service
 
 EmailCollectorService.$inject = ['$auth', '$window']
 angular.module('CCR').service('EmailCollectorService', EmailCollectorService)
