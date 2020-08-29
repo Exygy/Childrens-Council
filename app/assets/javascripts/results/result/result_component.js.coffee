@@ -38,6 +38,7 @@ angular
   .module('CCR')
   .component('result', {
     bindings:
+      disabled: '<'
       infoGridFormat: '@'
       provider: '<'
     controller: ResultController

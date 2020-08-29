@@ -9,8 +9,9 @@ div ng-hide="$ctrl.data.isLoading"
       p Try changing filters for a less specific search.
 
   ul.results-list.no-bullet ng-if="$ctrl.data.providers.length"
-    li.results-item ng-repeat="provider in $ctrl.data.providers" ng-class="{'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
-      result provider="provider"
+    li.results-item ng-repeat="provider in $ctrl.data.providers track by $index" ng-class="{'results-item-empty': ($index > 4 && shouldPromptEmailCta), 'results-item-highlighted': provider.highlighted}" ng-mouseenter="$ctrl.handleResultItemMouseenter(provider)" ng-mouseleave="$ctrl.handleResultItemMouseleave(provider)"
+      result provider="provider" disabled="$index > 4 && shouldPromptEmailCta"
+      result-email-cta  ng-if="$index == 5 && shouldPromptEmailCta"
 
   .row.showing-container-small
     .columns.small-12
@@ -28,6 +29,6 @@ div ng-hide="$ctrl.data.isLoading"
               span.fa.fa-info-circle.margin-left-small.tip-top ng-show="settings.locationType == 'addresses' && filters.addresses" data-width="350" tooltip="These results are ordered by the provider's distance from your search address, with the closest providers listed first." tooltip-placement="right"
 
 
-  results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
+  results-pager current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length" disabled="$ctrl.data.providers.length > 5 && shouldPromptEmailCta" style="position:relative;display:block"
 
   ng-include src="'results/templates/results_help_links.html'" class="hide-for-medium-up"

@@ -5,6 +5,8 @@ ResultListController = ($scope, $modal, CompareService, ProviderMapService, Resu
   $scope.filters = ResultsService.filters
   $ctrl.searchSettings = ResultsService.searchSettings
 
+  $scope.shouldPromptEmailCta = true
+
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
     $scope.searchSettings = service.searchSettings

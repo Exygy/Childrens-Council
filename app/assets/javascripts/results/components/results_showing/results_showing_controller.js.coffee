@@ -20,6 +20,7 @@ angular
   .component('resultsShowing', {
   bindings:
     data: '<'
+    disabled: '<'
   controller: ResultsShowingController
   templateUrl: "results/components/results_showing/results_showing.html"
 })

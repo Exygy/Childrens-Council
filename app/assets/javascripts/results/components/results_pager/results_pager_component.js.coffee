@@ -34,6 +34,7 @@ angular
   .component('resultsPager', {
     bindings:
       currentPage: '<'
+      disabled: '<'
       isFirstPage: '<'
       isLastPage: '<'
       pageSize: '<'
