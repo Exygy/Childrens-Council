@@ -16,16 +16,21 @@ module Api
     private
 
     def check_parent_credentials
+      return true 
+
       @current_parent = get_parent if parent_params_valid?
       raise_not_authorized! unless @current_parent and @current_parent.persisted?
     end
 
     def send_apikey
       response.headers['Cc-Apikey'] = @current_parent.api_key if @current_parent
+      response.headers['Cc-Apikey'] = response.headers['Cc-Apikey'] || session[:api_key] if session[:api_key]
     end
 
     def get_parent
-      parent = Parent.where(valid_parent_params).first_or_create
+      parent = Parent.where(valid_parent_params).first_or_create do |p|
+        p.api_key = session[:api_key] if session[:api_key]
+      end
       if has_parent_data
         parent.set_provider
         # Update only on initial create
@@ -50,8 +55,6 @@ module Api
     end
 
     def parent_params_valid?
-      return true
-      
       ( parent_param_api_key ) or ( parent_param_full_name and (parent_param_email or parent_param_phone) )
     end
 

@@ -1,4 +1,4 @@
-ResultEmailCtaController = ($scope, EmailCollectorService) ->
+ResultEmailCtaController = ($scope, EmailCollectorService, HttpService) ->
   $ctrl = @
 
   $scope.position = {
@@ -16,15 +16,21 @@ ResultEmailCtaController = ($scope, EmailCollectorService) ->
     if $scope.emailForm.$valid
 
       # TODO: submit email to backend
+      HttpService.http(
+        { method: 'POST', url: '/api/store_email', data: {email: $scope.email} },
+        (response) ->
+          EmailCollectorService.storeEmail($scope.email)
 
-
-
-      EmailCollectorService.storeEmail($scope.email)
+        (error) ->
+          console.log("ERROR")
+          console.log(error)
+      )
+      
     return
 
   return $ctrl
 
-ResultEmailCtaController.$inject = ['$scope', 'EmailCollectorService']
+ResultEmailCtaController.$inject = ['$scope', 'EmailCollectorService', 'HttpService']
 
 angular
   .module('CCR')

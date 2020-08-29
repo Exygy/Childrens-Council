@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220803165748) do
+ActiveRecord::Schema.define(version: 20220803165749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(version: 20220803165748) do
   end
 
   add_index "referral_logs", ["parent_id"], name: "index_referral_logs_on_parent_id", using: :btree
+
+  create_table "temp_parents", force: :cascade do |t|
+    t.string   "email"
+    t.string   "api_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   add_foreign_key "favorites", "parents", on_delete: :cascade
   add_foreign_key "referral_logs", "parents"

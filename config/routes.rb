@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get 'reset_password/:reset_token' => 'home#index', as: 'reset_password'
   get 'account' => 'home#index'
-  get 'account/:id' => 'home#index'
+  get 'account/:id' => 'home#index'  
 
   root 'home#index'
 
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     post 'providers/bulk_fetch' => 'providers#bulk_fetch'
     post 'providers/search_by_name' => 'providers#search_by_name'
     post 'providers/:id' => 'providers#show'
+
+    post 'store_email' => 'providers#store_email'
 
     resources :favorites, only: [:create, :destroy, :index]
 

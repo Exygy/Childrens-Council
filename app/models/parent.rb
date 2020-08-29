@@ -44,8 +44,7 @@ class Parent < ActiveRecord::Base
   has_many :favorites, -> { order 'favorites.created_at DESC' }
   has_many :referral_logs
 
-  validates :email, uniqueness: { case_sensitive: false }, allow_blank: true, if: '!email.blank?'
-  validates :phone, presence: true, if: 'email.blank?'
+  validates :email, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :phone, length: { is: 10 }, uniqueness: true, allow_blank: true
   validates :home_zip_code, length: { is: 5 }, allow_blank: true
 
@@ -107,6 +106,8 @@ class Parent < ActiveRecord::Base
   private
 
   def set_api_key
+    return if self.api_key
+    
     self.api_key = Devise.friendly_token.first(20)
   end
 
