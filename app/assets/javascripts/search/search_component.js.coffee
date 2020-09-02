@@ -28,9 +28,6 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
 
   # format option data form multiselect dropdowns
-  $scope.formattedFinancialAssistance = SearchService.filterData.financialAssistance.map (financialAssistance) -> 
-    return { id: financialAssistance.value }
-
   $scope.formattedShiftFeatures = SearchService.filterData.shiftFeatures.map (shiftFeature) -> 
     return { id: shiftFeature.name }
 
