@@ -12,8 +12,6 @@ css:
     letter-spacing: 0.08px;
     line-height: 16px;
     text-overflow: ellipsis;
-
-    position: relative;
   }
 
   .select.radius.form-select ul.dropdown-menu.dropdown-menu-form {
@@ -23,7 +21,7 @@ css:
     border-bottom: 1px solid #AAAAAA;
     border-left: 1px solid #AAAAAA;
     border-right: 1px solid #AAAAAA;
-    list-style: none;
+    list-style: none !important;
     margin-top: -4px;
     padding: 0 10px;
     margin-left: -1px !important;
@@ -312,8 +310,7 @@ javascript:
 
         .columns.small-6.medium-2
           h5 Weekly Schedule
-          / .select.radius.form-select ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
-          .select.radius.form-select.week-days ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
+          .select.radius.form-select.week-days style="z-index:100;" ng-dropdown-multiselect="" options="weekDays" selected-model="weekDaysDropDownSelection" checkboxes="true" extra-settings="weekDaysDropdownSettings" events="weekDaysDropDownCallback"
 
       .row.refine-search.refine-search-small
         .columns.small-6.medium-2
