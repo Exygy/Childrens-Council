@@ -123,6 +123,10 @@ css:
     margin-top: 0 !important;
   }
 
+  @media print {
+    
+  }
+
 javascript:
   function setStickyHeader(){
     if(window.innerWidth > 640){
@@ -205,7 +209,7 @@ javascript:
             .columns.small-2.medium-2
               h5 Child's Age
               select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
-                option [value="" disabled] Select Age
+                option [value="" disabled] Select age
                 option value="less_than_1_year_old" Less than 1 year old
                 option value="1_year_old" 1 year old
                 option value="2_year_old" 2 years old 
@@ -215,7 +219,7 @@ javascript:
 
               small.error ng-show="searchForm.child_age_in_years.$dirty && (searchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
                 span.fa.fa-exclamation-circle
-                | Child's Age is required
+                | Child's age is required.
                 
             .columns.small-2.medium-2
               h5 Location Type
@@ -235,14 +239,14 @@ javascript:
 
               div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
                 select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods" ng-required="true"
-                  option [value="" disabled] Select Neighborhood
+                  option [value="" disabled] Select neighborhood
 
                 small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
                   span.fa.fa-exclamation-circle
                   | Select a neighborhood or search by a different location type.
 
               div ng-if="$ctrl.settings.locationType == 'addresses'"
-                input.radius type="text" placeholder="Enter Address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
+                input.radius type="text" placeholder="Enter address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
 
                 small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
                   span.fa.fa-exclamation-circle

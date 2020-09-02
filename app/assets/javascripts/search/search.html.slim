@@ -69,7 +69,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
       .large-12.columns.provider-covid-banner-small ng-if="covid19ProvidersOnly" style="padding:0"
         .provider-covid-banner.open
           i.fa.fa-exclamation-circle aria-hidden="true"
-          | All child care programs displayed are open during COVID-19
+          | Only child care programs open during COVID-19 are displayed.
 
       .search-type-tab-toggles
         button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'criteria'}" ng-click="$ctrl.setSearchType('criteria')" type="button"
