@@ -89,12 +89,12 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         section.margin-bottom-1
           .row
             .medium-10.columns
-              h5 Zipcode *
-              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zips[0]" ng-required="true" placeholder="Input Zip Code"
+              h5 ZIP Code *
+              input.radius type="text" id="zipcode" name="zipcode" ng-model="filters.zips[0]" ng-required="true" placeholder="Input ZIP Code"
   
               small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || filters.zips[0].length != 5 || isNaN(filters.zips[0]))"
                 span.fa.fa-exclamation-circle
-                | 5 digit zip code is required.
+                | 5 digit ZIP Code is required.
 
         section.margin-bottom-1
           h5 Weekly Schedule

@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     post 'providers/bulk_fetch' => 'providers#bulk_fetch'
     post 'providers/search_by_name' => 'providers#search_by_name'
     post 'providers/:id' => 'providers#show'
-
     post 'store_email' => 'providers#store_email'
 
     resources :favorites, only: [:create, :destroy, :index]

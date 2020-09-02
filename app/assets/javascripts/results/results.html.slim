@@ -220,18 +220,18 @@ javascript:
             .columns.small-2.medium-2
               h5 Location Type
               select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
-                option value="zips" By zip code
+                option value="zips" By ZIP Code
                 option value="neighborhoods" By neighborhood
                 option value="addresses" Closest to an address
 
             .columns.small-2.medium-2
               div style="height:23px;width:100%;"
               div ng-if="$ctrl.settings.locationType == 'zips'"
-                input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
+                input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter ZIP Code"
 
                 small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
                   span.fa.fa-exclamation-circle
-                  | Enter a 5 digit zip code or search by a different location type.
+                  | Enter a 5 digit ZIP Code or search by a different location type.
 
               div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
                 select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods" ng-required="true"
@@ -304,7 +304,7 @@ javascript:
         .columns.small-6.medium-2
           h5 Location Type
           select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
-            option value="zips" By zip code
+            option value="zips" By ZIP Code
             option value="neighborhoods" By neighborhood
             option value="addresses" Closest to an address
 
@@ -315,7 +315,7 @@ javascript:
 
             small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
               span.fa.fa-exclamation-circle
-              | Enter a 5 digit zip code or search by a different location type.
+              | Enter a 5 digit ZIP Code or search by a different location type.
 
           div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
             select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"

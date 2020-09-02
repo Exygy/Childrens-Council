@@ -56,11 +56,11 @@ div.ccr-scope.register [ng-show="registering"]
 
         section
           label.large.c-black.text-normal ng-class="{ error: (registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid) }"
-            | Home Zipcode *
+            | Home ZIP Code *
             input.radius type="text" name="home_zip_code" required="" validate-zip-code="" ng-model="parent.home_zip_code" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{5}"
             small.error ng-show="(registerForm.home_zip_code.$dirty && registerForm.home_zip_code.$invalid)"
               span.fa.fa-exclamation-circle
-              | 5 digit zip code is required
+              | 5 digit ZIP Code is required
 
         section
           label.margin-top-1 for="found-option"
