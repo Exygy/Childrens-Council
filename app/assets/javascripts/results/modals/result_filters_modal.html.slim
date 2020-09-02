@@ -25,6 +25,7 @@ css:
 
   @media only screen and (max-width: 40em) {
     input[type="submit"].round.blue-filter-search-button.inverted {
+      margin-right: 20px !important;
       width: 180px; 
     }
     a.round.button.text-uppercase.margin-right-2.blue-filter-search-button {
@@ -40,6 +41,6 @@ css:
       span ng-controller="SearchController"
         span ng-include="'search/filters/extra_filters.html'"
 
-        input.round.button.text-uppercase.margin-right-2.blue-filter-search-button.inverted style="width: 200px;" type="submit" value="Apply Filters" ng-click="postSearch()"
-        a.round.button.text-uppercase.margin-right-2.blue-filter-search-button style="width: 200px;" ng-click="cancel()" Close
+        input.round.button.text-uppercase.margin-right-2.blue-filter-search-button.inverted type="submit" value="Apply Filters" ng-click="postSearch()"
+        a.round.button.text-uppercase.margin-right-2.blue-filter-search-button ng-click="cancel()" Close
       a.close-reveal-modal ng-click="cancel()" ×
