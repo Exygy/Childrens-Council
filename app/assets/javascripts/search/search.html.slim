@@ -77,7 +77,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         button.search-type-tab-toggle ng-class="{active: searchSettings.searchType == 'name'}" ng-click="$ctrl.setSearchType('name')" type="button"
           | Search By Program Name
 
-      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'criteria'}" style="padding-bottom:0;"
+      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'criteria'}" style="padding-bottom:0;" ng-if="searchSettings.searchType == 'criteria'"
         section.margin-bottom-1
           .row
             .medium-10.columns
