@@ -21,11 +21,14 @@ css:
     border-bottom: 1px solid #AAAAAA;
     border-left: 1px solid #AAAAAA;
     border-right: 1px solid #AAAAAA;
-    list-style: none !important;
     margin-top: -4px;
     padding: 0 10px;
     margin-left: -1px !important;
     margin-right: -1px !important;
+  }
+
+  .select.radius.form-select ul.dropdown-menu.dropdown-menu-form li {
+    list-style: none !important;
   }
 
   .select.radius.form-select input:checked + span:before {
@@ -132,7 +135,9 @@ css:
   }
 
   @media print {
-    
+    .provider-covid-banner {
+      padding-left: 200px !important;
+    }
   }
 
 javascript:
