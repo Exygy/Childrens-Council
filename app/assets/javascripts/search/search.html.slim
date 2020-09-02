@@ -110,8 +110,12 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
         section.margin-bottom-1
           .row
             .medium-10.columns
-              h4 Business or Provider Name
-              input type="text" placeholder="Enter an owner's name or a school name." ng-model="filters.name"
+              h4 Enter a business name or an owner's name.
+              input type="text" name="provider_name" placeholder="Enter an owner's name or a school name." ng-model="filters.name" ng-required="true"
+
+              small.error ng-show="searchForm.provider_name.$dirty && searchForm.provider_name.$invalid"
+                span.fa.fa-exclamation-circle
+                | A business or provider name is required.
 
       .search-type-tab-content.active style="padding-top:0.5rem;"
         section.margin-bottom-1
@@ -125,12 +129,12 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
 
               small.error ng-show="searchForm.care_reason.$dirty && (parent.care_reasons.length < 1 || parent.care_reasons[0] == '')"
                 span.fa.fa-exclamation-circle
-                | Selecting a care reason is required
+                | Selecting a care reason is required.
 
         section.margin-bottom-1
           small.error ng-show="searchForm.agree.$dirty && searchForm.agree.$invalid"
             span.fa.fa-exclamation-circle
-            | You must agree to the terms of service to continue
+            | You must agree to the terms of service to continue.
 
           div
             input#agree name="agree" type="checkbox" ng-model="parent.agree" ng-true-value="true" ng-false-value="false" required=""
