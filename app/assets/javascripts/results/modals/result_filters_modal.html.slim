@@ -1,3 +1,20 @@
+css:
+  input[type="submit"].round.blue-filter-search-button,
+  .round.blue-filter-search-button {
+    background-color: #FFFFFF;
+    border: 2px solid #2794b3;    
+    color: #2794b3;
+    font-family: "BentonSans Bold";
+  }
+
+  input[type="submit"].round.blue-filter-search-button.inverted,
+  .round.blue-filter-search-button.inverted {
+    background-color: #2794b3;
+    border: 2px solid #2794b3;    
+    color: #FFFFFF;
+  }
+
+
 .ccr-scope.filters-modal
   .row
     .columns.medium-12
@@ -6,6 +23,6 @@
       span ng-controller="SearchController"
         span ng-include="'search/filters/extra_filters.html'"
 
-        input.round.button.text-uppercase.margin-right-2.filter-search-button type="submit" value="Search" ng-click="postSearch()"
-        a ng-click="cancel()" Cancel
+        input.round.button.text-uppercase.margin-right-2.blue-filter-search-button.inverted style="width: 200px;" type="submit" value="Apply Filters" ng-click="postSearch()"
+        a.round.button.text-uppercase.margin-right-2.blue-filter-search-button style="width: 200px;" ng-click="cancel()" Close
       a.close-reveal-modal ng-click="cancel()" ×
