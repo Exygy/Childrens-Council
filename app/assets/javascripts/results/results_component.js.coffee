@@ -156,13 +156,20 @@ ResultsController = (
 
 
 
-  validateForm = () ->
+  switchFormState = (pristine) ->
     for field_name, field_obj of $scope.searchForm
-      $scope.searchForm[field_name].$setDirty() if field_name[0] != '$'
+      if field_name[0] != '$'
+        if pristine
+          $scope.searchForm[field_name].$setPristine() 
+        else
+          $scope.searchForm[field_name].$setDirty() 
+      
+      
 
   $scope.submitSearch = ->
-    validateForm()
+    switchFormState()
     if $scope.searchForm.$valid
+      switchFormState(true)
       SearchService.postSearch()
     return
 
