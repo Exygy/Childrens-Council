@@ -115,7 +115,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
                   | {{day | abbreviateDay}}
               div.clearfix.schedule_day_clearfix ng-if="$index == 4"
 
-      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'name'}" style="padding-bottom:0;"
+      .search-type-tab-content ng-class="{active: searchSettings.searchType == 'name'}" style="padding-bottom:0;" ng-if="searchSettings.searchType == 'name'"
         section.margin-bottom-1
           .row
             .medium-10.columns
