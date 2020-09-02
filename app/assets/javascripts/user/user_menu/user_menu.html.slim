@@ -1,6 +1,6 @@
 .user_menu
-  a.user_menu-print href="javascript:window.print()"
+  a.user_menu-print style="font-family: BentonSans Bold;font-weight: bold;" href="javascript:window.print()"
     | {{$ctrl.printText || "Print"}}
-  a ui-sref="account_favorites" ng-show="$ctrl.parent" ng-class="{active: $ctrl.$location.path().match('/account')}" My Account
-  a ng-show="$ctrl.parent" ng-click="$ctrl.logout()" Log Out
-  a ng-show="!$ctrl.parent" ng-click="$ctrl.login()" Log In
+  a ui-sref="account_favorites" style="font-family: BentonSans Bold;font-weight: bold;" ng-show="$ctrl.parent" ng-class="{active: $ctrl.$location.path().match('/account')}" My Account
+  a ng-show="$ctrl.parent" style="font-family: BentonSans Bold;font-weight: bold;" ng-click="$ctrl.logout()" Log Out
+  a ng-show="!$ctrl.parent" style="font-family: BentonSans Bold;font-weight: bold;" ng-click="$ctrl.login()" Log In
