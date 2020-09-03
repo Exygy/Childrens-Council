@@ -71,7 +71,7 @@ css:
     width: 100%;
     z-index: 100;
   }
- 
+
 div style="padding-top: 20px"
   .columns.medium-2 style="width: 80px;padding-top: 5px;"
     h3 Filters
@@ -80,11 +80,11 @@ div style="padding-top: 20px"
   
   .columns.medium-2 style="width: 230px;padding-right: 0;padding-left: 15px;"
     .select.radius.filter-select
-      .multiselect-parent.btn-group.dropdown-multiselect
-        button.dropdown-toggle.btn.btn-default ng-click="showOtherScheduleOptionOptions = !showOtherScheduleOptionOptions" type="button" 
+      .multiselect-parent.btn-group.dropdown-multiselect.dropdown-toggle-other-schedule-options
+        button.dropdown-toggle.btn.btn-default ng-click="otherScheduleOptionsStatus.open = !otherScheduleOptionsStatus.open" type="button" 
           | Other Schedule Options&nbsp;
           span.caret
-        ul.dropdown-menu.dropdown-menu-form style="display: block; height: 420px; overflow: auto;" ng-if="showOtherScheduleOptionOptions"
+        ul.dropdown-menu.dropdown-menu-form style="display: block; height: 420px; overflow: auto;" ng-if="otherScheduleOptionsStatus.open"
           li
             .checkbox
               label

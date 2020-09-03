@@ -1,5 +1,5 @@
 ResultsController = (
-  $timeout, $anchorScroll, $auth, $scope,
+  $timeout, $anchorScroll, $auth, $scope, $document,
   CompareService, ResultsService, SearchService
 ) ->
   $ctrl = @
@@ -145,15 +145,25 @@ ResultsController = (
 
   $scope.preschoolProgramOptions = [{ "label": 'Preschool Program', "id": 'Preschool Program' }]
 
+  $scope.otherScheduleOptionsStatus = { open: false }
 
+  $scope.toggleShowOtherScheduleOptionOptions = () =>
+    $scope.otherScheduleOptionsStatus.open = !$scope.otherScheduleOptionsStatus.open
 
+  $document.on 'click', (e) => 
+    if $scope.otherScheduleOptionsStatus.open
+      target = e.target.parentElement
+      parentFound = false
 
+      while angular.isDefined(target) && target != null && !parentFound
+        if !!target.className.split && target.className.split(' ').indexOf('multiselect-parent') > -1 && !parentFound
+          if target.className.split(' ').indexOf('dropdown-toggle-other-schedule-options') > -1
+            parentFound = true
+        target = target.parentElement
 
-
-
-
-
-
+      if !parentFound
+        $scope.otherScheduleOptionsStatus = { open: false }
+        $scope.$apply()
 
 
   switchFormState = (pristine) ->
@@ -167,6 +177,9 @@ ResultsController = (
       
 
   $scope.submitSearch = ->
+    setTimeout () => 
+      $document.click()
+    , 10
     switchFormState()
     if $scope.refineSearchForm.$valid
       switchFormState(true)
@@ -235,7 +248,7 @@ ResultsController = (
   return $ctrl
 
 ResultsController.$inject = [
-  '$timeout', '$anchorScroll', '$auth', '$scope',
+  '$timeout', '$anchorScroll', '$auth', '$scope', '$document',
   'CompareService', 'ResultsService', 'SearchService'
 ]
 
