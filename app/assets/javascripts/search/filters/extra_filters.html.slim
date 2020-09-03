@@ -34,26 +34,23 @@ css:
     margin: 0; 
   }
 
+form name="monthlyRateForm" class="ttttt"
+  section.margin-top-2
+    h5 Average Monthly Range
+    .row
+      .columns.small-6.medium-3
+        input type="text" name="minMonthyRate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true" min="0" max="3000"
 
-section.margin-top-2
-  h5 Average Monthly Range
-  .row
-    .columns.small-6.medium-3
-      input type="text" name="monthyrate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true" min="0" max="3000"
+        small.error ng-show="minRateError"
+          span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[0])"
+          | A numerical value is required.
 
-      small.error ng-show="minRateError"
-        span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[0])"
-        | A numerical value is required.
+      .columns.small-6.medium-3 style="float:left"
+        input type="text" name="maxMonthyRate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true" min="0" max="3000"
 
-
-    .columns.small-6.medium-3 style="float:left"
-      input type="text" name="monthyrate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true" min="0" max="3000"
-
-      small.error ng-show="maxRateError"
-        span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[1])"
-        | A numerical value is required.
-
-
+        small.error ng-show="monthlyRateForm.maxMonthyRate.$dirty && maxRateError"
+          span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[1])"
+          | A numerical value is required.
 
 section.margin-top-2
   h5 Financial Assistance  
@@ -182,7 +179,8 @@ section.margin-top-2
 
   br
   a ng-click="showMoreOtherScheduleOptions = !showMoreOtherScheduleOptions" 
-    | See More Options
+    span ng-if="!showMoreOtherScheduleOptions" See More Options
+    span ng-if="showMoreOtherScheduleOptions" See Less Options
     i class="fa" ng-class="{ 'fa-chevron-down': !showMoreOtherScheduleOptions, 'fa-chevron-up': showMoreOtherScheduleOptions }" aria-hidden="true" style="margin-left:4px;"
 
 
@@ -240,7 +238,8 @@ section.margin-top-2
 
   br
   a ng-click="showMoreCareApproach = !showMoreCareApproach" 
-    | See More Options
+    span ng-if="!showMoreCareApproach" See More Options
+    span ng-if="showMoreCareApproach" See Less Options
     i class="fa" ng-class="{ 'fa-chevron-down': !showMoreCareApproach, 'fa-chevron-up': showMoreCareApproach }" aria-hidden="true" style="margin-left:4px;"
 
 
@@ -256,7 +255,8 @@ section.margin-top-2
             | {{ languageProgram }}
   br
   a ng-click="showMoreLanguageProgram = !showMoreLanguageProgram" 
-    | See More Options
+    span ng-if="!showMoreLanguageProgram" See More Options
+    span ng-if="showMoreLanguageProgram" See Less Options
     i class="fa" ng-class="{ 'fa-chevron-down': !showMoreLanguageProgram, 'fa-chevron-up': showMoreLanguageProgram }" aria-hidden="true" style="margin-left:4px;"
 
 section.margin-top-2
