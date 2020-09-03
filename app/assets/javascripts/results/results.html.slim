@@ -18,6 +18,8 @@ css:
     text-overflow: ellipsis;
   }
 
+  
+
   .select.radius.form-select ul.dropdown-menu.dropdown-menu-form {
     background-color: #F7F6F3;
     border-bottom-left-radius: 3px;
@@ -33,6 +35,10 @@ css:
 
   .select.radius.form-select ul.dropdown-menu.dropdown-menu-form li {
     list-style: none !important;
+  }
+
+  ul.dropdown-menu.dropdown-menu-form li a.option {
+    display: block;
   }
 
   .select.radius.form-select input:checked + span:before {
@@ -357,13 +363,6 @@ javascript:
           .show-for-medium-up ng-include="'results/templates/results_criteria_filter_bar.html'" ng-if="$ctrl.isCriteriaSearch()"
           .show-for-medium-up ng-if="!$ctrl.isCriteriaSearch()"
             results-name-filter-bar providers="$ctrl.data.providers" filters="$ctrl.filters" post-search="$ctrl.postSearch()"
-
-
-
-
-
-
-
 
 
     .row.results-container#results-map-scroll-container

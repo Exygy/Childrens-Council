@@ -56,7 +56,7 @@ ResultsController = (
     translations:
       buttonDefaultText: 'Default'
 
-  defaultDropdown.settings.scrollableHeight = '310px'
+  defaultDropdown.settings.scrollableHeight = '280px'
   defaultDropdown.translations.buttonDefaultText = 'Financial Assistance'
   $scope.financialAssistanceDropdown = angular.copy(defaultDropdown)
 
