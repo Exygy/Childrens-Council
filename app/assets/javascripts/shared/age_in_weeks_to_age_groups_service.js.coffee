@@ -1,25 +1,20 @@
 AgeInYearToAgeGroupsService = ->
   $service = @
 
-  $service.convert = (year) ->
+  $service.convert = (weeks) ->
     age_groups = []
-    # 0 yrs to 1 yr 11 mos
-    if year == 'less_than_1_year_old'
+    if weeks == '26'
       age_groups.push 'INFANT_1'
-    # 18 to 36 Months
-    if year == '1_year_old'
+    if weeks == '52'
       age_groups.push 'TODDLER_1'
-    # 2 yrs to 5 yrs 11 mos
-    if year == '2_year_old'
+    if weeks == '106'
       age_groups.push 'PRESCHOOL_1'
-    if year == '3_year_old'
+    if weeks == '160'
       age_groups.push 'PRESCHOOL_1'
-    if year == '4_year_old'
+    if weeks == '209'
       age_groups.push 'PRESCHOOL_1'
-    # 5 yrs and up
-    if year == '5_year_old_or_holder'
+    if weeks == '260'
       age_groups.push 'SCHOOL_1'
-    # "SCHOOL_2" represents all ages
     age_groups.push 'SCHOOL_2'
 
     return age_groups

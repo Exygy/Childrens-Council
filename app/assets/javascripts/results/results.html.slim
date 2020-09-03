@@ -223,16 +223,16 @@ javascript:
           .row.refine-search.refine-search-large
             .columns.small-2.medium-2
               h5 Child's Age
-              select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+              select.radius.form-select id="child-age-in-years" name="child_age_in_weeks" ng-model="$ctrl.parentFilter.children[0].ageWeeks" ng-required="true"
                 option [value="" disabled] Select age
-                option value="less_than_1_year_old" Less than 1 year old
-                option value="1_year_old" 1 year old
-                option value="2_year_old" 2 years old 
-                option value="3_year_old" 3 years old 
-                option value="4_year_old" 4 years old
-                option value="5_year_old_or_holder" 5 years or older
+                option value="26" Less than 1 year old
+                option value="52" 1 year old
+                option value="106" 2 years old 
+                option value="160" 3 years old 
+                option value="209" 4 years old
+                option value="260" 5 years or older
 
-              small.error ng-show="refineSearchForm.child_age_in_years.$dirty && (refineSearchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+              small.error ng-show="refineSearchForm.child_age_in_weeks.$dirty && (refineSearchForm.child_age_in_weeks.$invalid || parent.children[0].ageWeeks == '')"
                 span.fa.fa-exclamation-circle
                 | Child's age is required.
                 
@@ -302,16 +302,16 @@ javascript:
       .row.refine-search.refine-search-small style="margin-top:20px"
         .columns.small-6.medium-2
           h5 Child's Age
-          select.radius.form-select id="child-age-in-years" name="child_age_in_years" ng-model="$ctrl.parentFilter.children[0].ageyear" ng-required="true"
+          select.radius.form-select id="child-age-in-years" name="child_age_in_weeks" ng-model="$ctrl.parentFilter.children[0].ageWeeks" ng-required="true"
             option [value="" disabled] Select Age
-            option value="less_than_1_year_old" Less than 1 year old
-            option value="1_year_old" 1 year old
-            option value="2_year_old" 2 years old 
-            option value="3_year_old" 3 years old 
-            option value="4_year_old" 4 years old
-            option value="5_year_old_or_holder" 5 years or older
+            option value="26" Less than 1 year old
+            option value="52" 1 year old
+            option value="106" 2 years old 
+            option value="160" 3 years old 
+            option value="209" 4 years old
+            option value="260" 5 years or older
 
-          small.error ng-show="refineSearchForm.child_age_in_years.$dirty && (refineSearchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+          small.error ng-show="refineSearchForm.child_age_in_weeks.$dirty && (refineSearchForm.child_age_in_weeks.$invalid || parent.children[0].ageWeeks == '')"
             span.fa.fa-exclamation-circle
             | Child's Age is required
 

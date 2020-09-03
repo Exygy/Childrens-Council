@@ -101,7 +101,6 @@ SearchService = (
     if params.agesServiced
       year = params.agesServiced
       params.ageGroups = AgeInYearToAgeGroupsService.convert(year)
-      delete params.agesServiced
 
   $service.setMonthlyRate = (params) ->
     if params.monthlyRate
@@ -146,7 +145,7 @@ SearchService = (
       delete searchParams.name
 
       # those params should be children specific when the feature is built
-      searchParams.agesServiced = $service.parent.children[0].ageyear
+      searchParams.agesServiced = parseInt($service.parent.children[0].ageWeeks)
       searchParams.yearlySchedule = $service.parent.children[0].yearlySchedule
       searchParams.weeklySchedule = $service.parent.children[0].weeklySchedule.map((day) -> day.toUpperCase())
 
