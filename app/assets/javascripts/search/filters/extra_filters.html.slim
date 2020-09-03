@@ -28,13 +28,32 @@ css:
     font-size: 13px;
   }
 
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+
+
 section.margin-top-2
   h5 Average Monthly Range
   .row
     .columns.small-6.medium-3
-      input type="text" name="monthyrate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true"
+      input type="text" name="monthyrate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true" min="0" max="3000"
+
+      small.error ng-show="minRateError"
+        span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[0])"
+        | A numerical value is required.
+
+
     .columns.small-6.medium-3 style="float:left"
-      input type="text" name="monthyrate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true"
+      input type="text" name="monthyrate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true" min="0" max="3000"
+
+      small.error ng-show="maxRateError"
+        span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[1])"
+        | A numerical value is required.
+
+
 
 section.margin-top-2
   h5 Financial Assistance  

@@ -183,7 +183,7 @@ javascript:
 
 #ccr-scope
   div
-    form [name="searchForm" ng-submit="submitSearch()" novalidate id="searchForm"]
+    form [name="refineSearchForm" ng-submit="submitSearch()" novalidate id="refineSearchForm"]
       rheader#search-results-wrapper.page-header
         header.infinite-background.page-header.padding-top-1#sticky-mobile-header
           .row
@@ -230,7 +230,7 @@ javascript:
                 option value="4_year_old" 4 years old
                 option value="5_year_old_or_holder" 5 years or older
 
-              small.error ng-show="searchForm.child_age_in_years.$dirty && (searchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+              small.error ng-show="refineSearchForm.child_age_in_years.$dirty && (refineSearchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
                 span.fa.fa-exclamation-circle
                 | Child's age is required.
                 
@@ -246,7 +246,7 @@ javascript:
               div ng-if="$ctrl.settings.locationType == 'zips'"
                 input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter ZIP Code"
 
-                small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
+                small.error ng-show="refineSearchForm.zipcode.$dirty && (refineSearchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
                   span.fa.fa-exclamation-circle
                   | Enter a 5 digit ZIP Code or search by a different location type.
 
@@ -254,14 +254,14 @@ javascript:
                 select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods" ng-required="true"
                   option [value="" disabled] Select neighborhood
 
-                small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
+                small.error ng-show="refineSearchForm.neighborhood.$dirty && (refineSearchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
                   span.fa.fa-exclamation-circle
                   | Select a neighborhood or search by a different location type.
 
               div ng-if="$ctrl.settings.locationType == 'addresses'"
                 input.radius type="text" placeholder="Enter address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
 
-                small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
+                small.error ng-show="refineSearchForm.address.$dirty && refineSearchForm.address.$invalid"
                   span.fa.fa-exclamation-circle
                   | Enter an address or search by a different location type.
 
@@ -309,7 +309,7 @@ javascript:
             option value="4_year_old" 4 years old
             option value="5_year_old_or_holder" 5 years or older
 
-          small.error ng-show="searchForm.child_age_in_years.$dirty && (searchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
+          small.error ng-show="refineSearchForm.child_age_in_years.$dirty && (refineSearchForm.child_age_in_years.$invalid || parent.children[0].ageyear == '')"
             span.fa.fa-exclamation-circle
             | Child's Age is required
 
@@ -330,7 +330,7 @@ javascript:
           div ng-if="$ctrl.settings.locationType == 'zips'"
             input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
 
-            small.error ng-show="searchForm.zipcode.$dirty && (searchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
+            small.error ng-show="refineSearchForm.zipcode.$dirty && (refineSearchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
               span.fa.fa-exclamation-circle
               | Enter a 5 digit ZIP Code or search by a different location type.
 
@@ -338,14 +338,14 @@ javascript:
             select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
               option value="" Select Neighborhood
 
-            small.error ng-show="searchForm.neighborhood.$dirty && (searchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
+            small.error ng-show="refineSearchForm.neighborhood.$dirty && (refineSearchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
               span.fa.fa-exclamation-circle
               | Select a neighborhood or search by a different location type.
 
           div ng-if="$ctrl.settings.locationType == 'addresses'"
             input.radius type="text" placeholder="Enter Address" name="address-0" ng-model="$ctrl.filters.addresses[0]"
 
-            small.error ng-show="searchForm.address.$dirty && searchForm.address.$invalid"
+            small.error ng-show="refineSearchForm.address.$dirty && refineSearchForm.address.$invalid"
               span.fa.fa-exclamation-circle
               | Enter an address or search by a different location type.
 
