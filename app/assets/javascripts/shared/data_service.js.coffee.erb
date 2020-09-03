@@ -47,6 +47,9 @@ DataService = ($rootScope, $window) ->
     yearlySchedules: [{label: 'Full Year', value: 'FULL_YEAR'}, {label: 'School Year Only', value: 'SCHOOL_YEAR'}, {label: 'Summer Only', value: 'SUMMER_ONLY'}]
     zips: <%= api_service.filter_data('zip_codes') %>
 
+
+  console.log($service.providerData)
+
   $service.filters =
     addresses: ['']
     agesServiced: null
