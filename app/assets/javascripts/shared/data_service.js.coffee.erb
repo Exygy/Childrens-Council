@@ -89,7 +89,7 @@ DataService = ($rootScope, $window) ->
   $service.covid19ProvidersOnly = if $window.hasOwnProperty("covid19OpenedProvidersOnly") then $window.covid19OpenedProvidersOnly else true
 
   $service.searchSettings = {
-    locationType: 'addresses'
+    locationType: 'zips'
     searchType: 'criteria'
   }
 
