@@ -12,8 +12,8 @@ ResultsController = (
     if !target.hasClass('dropdown-menu-form')
       return
 
-    if target.closest('.select').hasClass('filter-select') && !target.closest('.select').hasClass('filter-select-has-apply-btn')
-      target.closest('.select').addClass('filter-select-has-apply-btn')
+    if target.closest('.select').hasClass('filter-select') && !target.closest('.dropdown-menu').hasClass('filter-select-has-apply-btn')
+      target.closest('.dropdown-menu').addClass('filter-select-has-apply-btn')
       target.append('<li style="text-align:center;margin-top:15px;"><input type="submit" style="border-radius: 26px;text-shadow: none;border: 2px solid #2794B3;background-color: #FFFFFF;height: 32px;padding: 0.625rem;color: #2794B3;font-family: BentonSans Bold;font-size: 12px;line-height: 12px;text-transform: uppercase;" value="Apply"/></li>')
 
   $scope.weekDaysDropdownSettings =
