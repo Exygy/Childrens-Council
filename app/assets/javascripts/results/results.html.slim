@@ -345,7 +345,7 @@ javascript:
               | Select a neighborhood or search by a different location type.
 
           div ng-if="$ctrl.settings.locationType == 'addresses'"
-            input.radius type="text" placeholder="Enter Address" name="address-0" ng-model="$ctrl.filters.addresses[0]"
+            input.radius type="text" placeholder="Enter Address" name="address" ng-model="$ctrl.filters.addresses[0]"
 
             small.error ng-show="refineSearchForm.address.$dirty && refineSearchForm.address.$invalid"
               span.fa.fa-exclamation-circle

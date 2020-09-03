@@ -100,7 +100,6 @@ ResultsController = (
   updateFormState = (pristine) ->
     for field_name, field_obj of $scope.refineSearchForm
       if field_name[0] != '$'
-        console.log(field_name)
         if pristine
           $scope.refineSearchForm[field_name].$setPristine() 
         else
