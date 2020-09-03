@@ -27,6 +27,7 @@ ResultFiltersModalController = ($scope, $modalInstance, $anchorScroll, ResultsSe
 
 
   $scope.postSearch = ->
+    console.log(angular.element($('form.ttttt')[0]).controller().constructor.name)
     console.log('$scope.postSearch -- 3')
 
     if validateRate()
