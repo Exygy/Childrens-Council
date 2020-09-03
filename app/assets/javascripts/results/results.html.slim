@@ -9,7 +9,7 @@ css:
     border: 1px solid #AAAAAA;
     background-color: #F7F6F3;
     height: 52px;
-    padding: 0.625rem;
+    padding: 0 1.25rem 0 0.625rem;
     color: #333333;
     font-family: "Benton Sans";
     font-size: 16px;
@@ -17,8 +17,6 @@ css:
     line-height: 16px;
     text-overflow: ellipsis;
   }
-
-  
 
   .select.radius.form-select ul.dropdown-menu.dropdown-menu-form {
     background-color: #F7F6F3;
@@ -263,7 +261,7 @@ javascript:
                   | Select a neighborhood or search by a different location type.
 
               div ng-if="$ctrl.settings.locationType == 'addresses'"
-                input.radius type="text" placeholder="Enter address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true"
+                input.radius type="text" id="address" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true" placeholder="Enter address"
 
                 small.error ng-show="refineSearchForm.address.$dirty && refineSearchForm.address.$invalid"
                   span.fa.fa-exclamation-circle
