@@ -7,7 +7,33 @@ ResultFiltersModalController = ($scope, $modalInstance, $anchorScroll, ResultsSe
       # modal has been dismissed
       resetFilters()
 
+  validateRate = () ->
+    $scope.minRateError = false
+    $scope.maxRateError = false
+
+    $scope.monthlyRateForm.minMonthyRate.$setDirty()
+    $scope.monthlyRateForm.maxMonthyRate.$setDirty()
+
+    console.log('validateRate')
+    console.log(ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) )
+    console.log(ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) )
+
+    if ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) 
+      $scope.minRateError = true
+    if ResultsService.filters.monthlyRate[1] && isNaN(ResultsService.filters.monthlyRate[1])
+      $scope.maxRateError = true
+
+    return $scope.minRateError || $scope.maxRateError
+
+
   $scope.postSearch = ->
+    console.log('$scope.postSearch -- 3')
+
+    if validateRate()
+      console.log('scroll to rate')
+      return
+
+
     # If the user has entered location information, clear the searching
     # by map area setting
     ResultsService.filters.settings = {} unless ResultsService.filters.settings
