@@ -34,23 +34,29 @@ css:
     margin: 0; 
   }
 
-form name="monthlyRateForm" class="ttttt"
-  section.margin-top-2
-    h5 Average Monthly Range
-    .row
-      .columns.small-6.medium-3
-        input type="text" name="minMonthyRate" ng-model="filters.monthlyRate[0]" placeholder="Minimum" required="true" min="0" max="3000"
 
-        small.error ng-show="minRateError"
-          span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[0])"
-          | A numerical value is required.
+section.margin-top-2#average-monthly-rate
+  h5 Average Monthly Range
+  .row
+    .columns.small-6.medium-3
+      input type="text" ng-model="filters.monthlyRate[0]" placeholder="Minimum" ng-change="validateRate()"
 
-      .columns.small-6.medium-3 style="float:left"
-        input type="text" name="maxMonthyRate" ng-model="filters.monthlyRate[1]" placeholder="Maximum" required="true" min="0" max="3000"
+      small.error ng-if="minRateError"
+        span.fa.fa-exclamation-circle
+        | A numerical value is required.
 
-        small.error ng-show="monthlyRateForm.maxMonthyRate.$dirty && maxRateError"
-          span.fa.fa-exclamation-circle ng-if="isNaN(filters.monthlyRate[1])"
-          | A numerical value is required.
+    .columns.small-6.medium-3 style="float:left"
+      input type="text" ng-model="filters.monthlyRate[1]" placeholder="Maximum" ng-change="validateRate()"
+
+      small.error ng-if="maxRateError"
+        span.fa.fa-exclamation-circle
+        | A numerical value is required.
+
+  .row ng-if="minHigherThanMaxRateError"
+    .columns.small-12.medium-12
+      small.error
+        span.fa.fa-exclamation-circle
+        | The maximum value must be higher than the minimum value.
 
 section.margin-top-2
   h5 Financial Assistance  

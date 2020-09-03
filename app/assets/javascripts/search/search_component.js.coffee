@@ -25,16 +25,12 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
       neighborhoods:
         active: $scope.searchSettings.locationType == 'neighborhoods'
 
-
-
   # format option data form multiselect dropdowns
   $scope.formattedShiftFeatures = SearchService.filterData.shiftFeatures.map (shiftFeature) -> 
     return { id: shiftFeature.name }
 
   $scope.formattedFinancialAssistance = SearchService.filterData.financialAssistance.map (financialAssistance) -> 
     return { id: financialAssistance.value }
-
-
 
   $scope.vacancyTypeAdapter = ->
     previous_vacancy_type = angular.copy $scope.filters.vacancyType

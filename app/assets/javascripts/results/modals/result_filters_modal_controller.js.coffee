@@ -7,33 +7,34 @@ ResultFiltersModalController = ($scope, $modalInstance, $anchorScroll, ResultsSe
       # modal has been dismissed
       resetFilters()
 
-  validateRate = () ->
+  $scope.validateRate = (isValidating) ->
     $scope.minRateError = false
     $scope.maxRateError = false
+    $scope.minHigherThanMaxRateError = false
 
-    $scope.monthlyRateForm.minMonthyRate.$setDirty()
-    $scope.monthlyRateForm.maxMonthyRate.$setDirty()
-
-    console.log('validateRate')
-    console.log(ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) )
-    console.log(ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) )
+    if !$scope.formSubmitted
+      return true
 
     if ResultsService.filters.monthlyRate[0] && isNaN(ResultsService.filters.monthlyRate[0]) 
       $scope.minRateError = true
     if ResultsService.filters.monthlyRate[1] && isNaN(ResultsService.filters.monthlyRate[1])
       $scope.maxRateError = true
 
-    return $scope.minRateError || $scope.maxRateError
+    if $scope.minRateError || $scope.maxRateError
+      return false
 
+    if parseFloat(ResultsService.filters.monthlyRate[0]) > parseFloat(ResultsService.filters.monthlyRate[1])
+      $scope.minHigherThanMaxRateError = true
+      return false  
+
+    return true
 
   $scope.postSearch = ->
-    console.log(angular.element($('form.ttttt')[0]).controller().constructor.name)
-    console.log('$scope.postSearch -- 3')
+    $scope.formSubmitted = true
 
-    if validateRate()
-      console.log('scroll to rate')
+    if !$scope.validateRate()
+      $anchorScroll('average-monthly-rate')
       return
-
 
     # If the user has entered location information, clear the searching
     # by map area setting
