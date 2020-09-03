@@ -23,10 +23,14 @@ ResultFiltersModalController = ($scope, $modalInstance, $anchorScroll, ResultsSe
     if $scope.minRateError || $scope.maxRateError
       return false
 
+    if (!ResultsService.filters.monthlyRate[0] && ResultsService.filters.monthlyRate[1]) || (ResultsService.filters.monthlyRate[0] && !ResultsService.filters.monthlyRate[1])
+      $scope.minHigherThanMaxRateError = true
+      return false
+
     if parseFloat(ResultsService.filters.monthlyRate[0]) > parseFloat(ResultsService.filters.monthlyRate[1])
       $scope.minHigherThanMaxRateError = true
-      return false  
-
+      return false
+      
     return true
 
   $scope.postSearch = ->
