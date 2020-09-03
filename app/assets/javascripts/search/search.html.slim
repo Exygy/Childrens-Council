@@ -120,7 +120,7 @@ ng-include ng-if="covid19ProvidersOnly" src="'search/templates/covid_banner.html
           .row
             .medium-10.columns
               h4 Enter a business name or an owner's name.
-              input type="text" name="provider_name" placeholder="Enter an owner's name or a school name." ng-model="filters.name" ng-required="true"
+              input type="text" name="provider_name" placeholder="Enter a business name or an owner's name." ng-model="filters.name" ng-required="true"
 
               small.error ng-show="searchForm.provider_name.$dirty && searchForm.provider_name.$invalid"
                 span.fa.fa-exclamation-circle
