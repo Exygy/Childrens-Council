@@ -71,11 +71,9 @@ ResultsController = (
   $scope.otherScheduleOptionOptions = SearchService.filterData.shiftFeatures.map (shift) ->
     return { "label": shift.name, "id": shift.name }
 
-
   defaultDropdown.settings.scrollableHeight = '130px'
   defaultDropdown.translations.buttonDefaultText = 'Preschool Programs'
   $scope.preschoolProgramDropdown = angular.copy(defaultDropdown)
-
 
   $scope.preschoolProgramOptions = [{ "label": 'Preschool Program', "id": 'Preschool Program' }]
 
@@ -99,9 +97,10 @@ ResultsController = (
         $scope.otherScheduleOptionsStatus = { open: false }
         $scope.$apply()
 
-  switchFormState = (pristine) ->
+  updateFormState = (pristine) ->
     for field_name, field_obj of $scope.refineSearchForm
       if field_name[0] != '$'
+        console.log(field_name)
         if pristine
           $scope.refineSearchForm[field_name].$setPristine() 
         else
@@ -111,9 +110,9 @@ ResultsController = (
     setTimeout () => 
       $document.click()
     , 10
-    switchFormState()
+    updateFormState()
     if $scope.refineSearchForm.$valid
-      switchFormState(true)
+      updateFormState(true)
       SearchService.postSearch()
     return
 
