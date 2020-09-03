@@ -7,51 +7,14 @@ ResultsController = (
   $scope.covid19ProvidersOnly = ResultsService.covid19ProvidersOnly
   $scope.filterData = SearchService.filterData
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   $(document).on 'DOMNodeInserted', (e) ->
     target = $(e.target)
     if !target.hasClass('dropdown-menu-form')
       return
 
-    if target.closest('.select').hasClass('filter-select')
+    if target.closest('.select').hasClass('filter-select') && !target.closest('.select').hasClass('filter-select-has-apply-btn')
+      target.closest('.select').addClass('filter-select-has-apply-btn')
       target.append('<li style="text-align:center;margin-top:15px;"><input type="submit" style="border-radius: 26px;text-shadow: none;border: 2px solid #2794B3;background-color: #FFFFFF;height: 32px;padding: 0.625rem;color: #2794B3;font-family: BentonSans Bold;font-size: 12px;line-height: 12px;text-transform: uppercase;" value="Apply"/></li>')
-
-
-
-
-
-
 
   $scope.weekDaysDropdownSettings =
     showCheckAll: false
@@ -73,9 +36,6 @@ ResultsController = (
       $('.week-days .btn.btn-default.dropdown-toggle').html(button)
     , 100
 
-
-      
-
   $scope.weekDaysDropDownCallback =
     onInitDone: weekDaysDropdownOnChangeCallback,
     onSelectionChanged: weekDaysDropdownOnChangeCallback
@@ -85,30 +45,6 @@ ResultsController = (
 
   $scope.weekDays = SearchService.filterData.days.map (day) ->
     return { "label": day, "id": day }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   defaultDropdown = 
     settings:
@@ -120,8 +56,6 @@ ResultsController = (
     translations:
       buttonDefaultText: 'Default'
 
-
-    
   defaultDropdown.settings.scrollableHeight = '310px'
   defaultDropdown.translations.buttonDefaultText = 'Financial Assistance'
   $scope.financialAssistanceDropdown = angular.copy(defaultDropdown)
@@ -165,7 +99,6 @@ ResultsController = (
         $scope.otherScheduleOptionsStatus = { open: false }
         $scope.$apply()
 
-
   switchFormState = (pristine) ->
     for field_name, field_obj of $scope.refineSearchForm
       if field_name[0] != '$'
@@ -173,8 +106,6 @@ ResultsController = (
           $scope.refineSearchForm[field_name].$setPristine() 
         else
           $scope.refineSearchForm[field_name].$setDirty() 
-      
-      
 
   $scope.submitSearch = ->
     setTimeout () => 
@@ -185,37 +116,6 @@ ResultsController = (
       switchFormState(true)
       SearchService.postSearch()
     return
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   $ctrl.$onInit = ->
     $ctrl.parent = $auth.currentUser()
