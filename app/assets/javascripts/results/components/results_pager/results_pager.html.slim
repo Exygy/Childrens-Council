@@ -1,4 +1,15 @@
-div style="position:absolute;height:calc(100% + 16px);width:100%;background-color:#FFFFFF;z-index:1000;opacity:0.6;top:-16px;left:0px;" ng-if="$ctrl.disabled"  
+css:
+  #pagination-overlay {
+    top: -16px;
+  }
+
+  @media only screen and (max-width: 40em) {
+    #pagination-overlay {
+      top:0;
+    }
+  }
+
+#pagination-overlay style="position:absolute;height:calc(100% + 16px);width:100%;background-color:#FFFFFF;z-index:1000;opacity:0.6;left:0px;" ng-if="$ctrl.disabled"  
 
 
 ul.pager.radius
