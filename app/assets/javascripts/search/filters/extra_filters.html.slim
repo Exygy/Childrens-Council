@@ -68,13 +68,22 @@ section.margin-top-2
     a.small href="http://www.childrenscouncil.org/families/help-paying-for-child-care/" target="_blank"
       | Check if you qualify
   .row
-    .columns.medium-6 style="float:left" ng-repeat="type in formattedFinancialAssistance track by $index"
-      .checkbox
-        label for="financial-assistance-{{$index}}"
-          input.checkboxInput type="checkbox" id="financial-assistance-{{$index}}" name="financial-assistance" data-checklist-value="type" data-checklist-model="filters.financialAssistance"
-          span.icon
-          .label
-            | {{ type.id }}
+    .columns ng-repeat="type in formattedFinancialAssistance track by $index"
+      .medium-12
+        .checkbox
+          label for="financial-assistance-{{$index}}"
+            input.checkboxInput type="checkbox" id="financial-assistance-{{$index}}" name="financial-assistance" data-checklist-value="type" data-checklist-model="filters.financialAssistance"
+            span.icon
+            .label
+              | {{ type.id }}
+              div.header-info style="margin-left: 10px;float: right;margin-top:7px;"
+                a.small ng-click="learnMore = !learnMore"
+                  span ng-if="!learnMore" Learn More
+                  span ng-if="learnMore" Hide Details
+                
+        p.smaller.checkbox-text.c-base style="padding-left: 25px;" ng-if="learnMore && financialAssistanceFor(type.id).description" ng-bind-html="financialAssistanceFor(type.id).description"
+        p.smaller.checkbox-text.c-base style="padding-left: 25px;" ng-bind-html="link" ng-repeat="link in financialAssistanceFor(type.id).links" ng-if="learnMore && financialAssistanceFor(type.id).links"
+
 
 section.margin-top-2
   h5 Immediate Openings
@@ -238,7 +247,6 @@ section.margin-top-2
             div.header-info style="top:-3px"
               a.small href="https://www.childrenscouncil.org/wp-content/uploads/2014/04/Cooperative-Child-Care-WEB.pdf" target="_blank"
                 | More Information about Parent Co-Op
-
 
   .row
     .columns

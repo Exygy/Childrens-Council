@@ -29,7 +29,15 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
   $scope.formattedShiftFeatures = SearchService.filterData.shiftFeatures.map (shiftFeature) -> 
     return { id: shiftFeature.name }
 
+  $scope.financialAssistanceFor = (financialAssistance) ->
+    value = null
+    SearchService.filterData.financialAssistance.forEach (assistance) -> 
+      if assistance.value == financialAssistance
+        value = assistance
+    return value
+
   $scope.formattedFinancialAssistance = SearchService.filterData.financialAssistance.map (financialAssistance) -> 
+    console.log(financialAssistance)
     return { id: financialAssistance.value }
 
   $scope.vacancyTypeAdapter = ->
