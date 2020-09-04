@@ -322,7 +322,7 @@ javascript:
       .row.refine-search.refine-search-small
         .columns.small-6.medium-2
           h5 Location Type
-          select.radius.form-select id="location-type" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
+          select.radius.form-select id="location-type-mobile" name="location_type" ng-change="setLocationType()" ng-required="true" ng-model="$ctrl.settings.locationType"
             option value="zips" By ZIP Code
             option value="neighborhoods" By neighborhood
             option value="addresses" Closest to an address
@@ -330,14 +330,14 @@ javascript:
         .columns.small-6.medium-2
           div style="height:23px;width:100%;"
           div ng-if="$ctrl.settings.locationType == 'zips'"
-            input.radius type="text" id="zipcode" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
+            input.radius type="text" id="zipcode-mobile" name="zipcode" ng-model="$ctrl.filters.zips[0]" ng-required="true" placeholder="Enter Zip Code"
 
             small.error ng-show="refineSearchForm.zipcode.$dirty && (refineSearchForm.zipcode.$invalid || $ctrl.filters.zips[0].length != 5 || isNaN($ctrl.filters.zips[0]))"
               span.fa.fa-exclamation-circle
               | Enter a 5 digit ZIP Code or search by a different location type.
 
           div ng-if="$ctrl.settings.locationType == 'neighborhoods'"
-            select.radius.form-select id="neighborhood" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
+            select.radius.form-select id="neighborhood-mobile" name="neighborhood" ng-model="$ctrl.filters.neighborhoods[0]" ng-options="neighborhood for neighborhood in filterData.neighborhoods"
               option value="" Select Neighborhood
 
             small.error ng-show="refineSearchForm.neighborhood.$dirty && (refineSearchForm.neighborhood.$invalid || $ctrl.filters.neighborhoods[0] == '')"
@@ -345,7 +345,7 @@ javascript:
               | Select a neighborhood or search by a different location type.
 
           div ng-if="$ctrl.settings.locationType == 'addresses'"
-            input.radius type="text" placeholder="Enter Address" name="address" ng-model="$ctrl.filters.addresses[0]"
+            input.radius type="text" id="address-mobile" name="address" ng-model="$ctrl.filters.addresses[0]" ng-required="true" placeholder="Enter address"
 
             small.error ng-show="refineSearchForm.address.$dirty && refineSearchForm.address.$invalid"
               span.fa.fa-exclamation-circle
