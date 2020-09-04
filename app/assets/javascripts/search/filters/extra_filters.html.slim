@@ -101,7 +101,7 @@ section.margin-top-2
 section.margin-top-2
   h5 Child Care Program Type
   div.header-info
-    a.small href="https://www.childrenscouncil.org/childcarephilosophies/" target="_blank"
+    a.small href="https://www.childrenscouncil.org/families/understanding-child-care/types-of-child-care/" target="_blank"
       | What are the differences?
   .row
     .columns.medium-6 style="float:left" ng-repeat="type in filterData.typesOfCare track by $index"
@@ -245,6 +245,9 @@ section.margin-top-2
 
 section.margin-top-2
   h5 Teaching Philosophy
+  div.header-info
+    a.small href="https://www.childrenscouncil.org/childcarephilosophies/" target="_blank"
+      | What are the differences?
   .row
     .columns.medium-6 style="float:left" ng-repeat="careApproach in (filterData.careApproaches | orderBy) track by $index" ng-show="$index < 4 || ($index >= 4 && showMoreCareApproach)"
       .checkbox
