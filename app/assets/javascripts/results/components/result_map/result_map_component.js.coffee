@@ -1,12 +1,13 @@
-ResultMapController = ($scope, ResultsService) ->
+ResultMapController = ($scope, ResultsService, EmailCollectorService) ->
   $ctrl = @
 
   $scope.filters = ResultsService.filters
+  $scope.emailCollectoreStatus = EmailCollectorService.status
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
 
-ResultMapController.$inject = ['$scope', 'ResultsService']
+ResultMapController.$inject = ['$scope', 'ResultsService', 'EmailCollectorService']
 
 angular
   .module('CCR')
