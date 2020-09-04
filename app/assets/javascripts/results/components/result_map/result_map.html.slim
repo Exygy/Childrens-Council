@@ -13,7 +13,7 @@ div
 
     div providers="$ctrl.data.providers"
       div.margin-bottom-2 ng-if="$ctrl.data.providers.length"
-        provider-map providers="$ctrl.data.providers | limitTo: (emailCollectoreStatus.shouldPromptEmailCta ? 5 : 15)" filters="filters" info-window="true" show-search-on-drag="$ctrl.showSearchOnDrag" map-id="'map-provider-results'"
+        provider-map providers="$ctrl.data.providers | limitTo: limitPinsOnMap" filters="filters" info-window="true" show-search-on-drag="$ctrl.showSearchOnDrag" map-id="'map-provider-results'"
 
         results-pager class="show-for-small" current-page="$ctrl.data.currentPage" is-first-page="$ctrl.data.isFirstPage" is-last-page="$ctrl.data.isLastPage" page-size="$ctrl.data.pageSize" ng-if="$ctrl.data.providers.length"
 
