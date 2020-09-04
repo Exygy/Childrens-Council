@@ -154,7 +154,7 @@ SearchService = (
       $service.setSearchLocation(searchParams)
       $service.setPrograms(searchParams)
       $service.setEnvironments(searchParams)
-      $service.setAgeGroup(searchParams)
+      # $service.setAgeGroup(searchParams)
       $service.setAcceptsChildren(searchParams)
       $service.setMonthlyRate(searchParams)
       $service.setVacancies(searchParams)
