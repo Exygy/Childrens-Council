@@ -6,7 +6,7 @@ FilterProvidersBasedOnEmailCollectorStatus = ->
     console.log(applyFilter)
     
     if applyFilter
-        return providers.slice(0, 5)
+        return providers #.slice(0, 5)
     else
         return providers
 
