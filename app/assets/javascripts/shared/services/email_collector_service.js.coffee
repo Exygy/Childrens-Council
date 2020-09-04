@@ -15,24 +15,20 @@ EmailCollectorService = ($auth, $window) ->
             , 1000
 
         if $auth.currentUser()
-            $service.status.shouldPromptEmailCta = false
-            $service.status.limit = 15
+            $service.status = { shouldPromptEmailCta: false, limit: 15 } 
             return 
     
         email = $window.localStorage.getItem emailKey 
         if email == null
-            $service.status.shouldPromptEmailCta = true
-            $service.status.limit = 5
+            $service.status = { shouldPromptEmailCta: true, limit: 5 }
         else
-            $service.status.shouldPromptEmailCta = false
-            $service.status.limit = 15
+            $service.status.shouldPromptEmailCta = { shouldPromptEmailCta: false, limit: 15 }
 
     $service.storeEmail = (email) ->
         if !email
             return    
         $window.localStorage.setItem emailKey, email
-        $service.status.shouldPromptEmailCta = false
-        $service.status.limit = 15
+        $service.status.shouldPromptEmailCta = { shouldPromptEmailCta: false, limit: 15 }
 
     $service
 
