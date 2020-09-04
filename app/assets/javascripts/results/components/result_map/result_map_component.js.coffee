@@ -2,7 +2,7 @@ ResultMapController = ($scope, ResultsService, EmailCollectorService) ->
   $ctrl = @
 
   $scope.filters = ResultsService.filters
-  $scope.limitPinsOnMap = EmailCollectorService.status.shouldPromptEmailCta ? 5 : 15
+  $scope.numberOfPinsOnMap = EmailCollectorService.status.shouldPromptEmailCta ? 5 : 15
 
   $scope.$on 'search-service:updated', (event, service) ->
     $scope.filters = service.filters
