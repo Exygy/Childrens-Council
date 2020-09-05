@@ -37,7 +37,6 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
     return value
 
   $scope.formattedFinancialAssistance = SearchService.filterData.financialAssistance.map (financialAssistance) -> 
-    console.log(financialAssistance)
     return { id: financialAssistance.value }
 
   $scope.vacancyTypeAdapter = ->
