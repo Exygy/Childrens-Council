@@ -1,5 +1,7 @@
-ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchService, $element, $compile) ->
+ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchService, EmailCollectorService, $element, $compile) ->
   $ctrl = @
+
+  $scope.emailCollectorStatus = EmailCollectorService.status
 
   $ctrl.$onInit = ->
     setMap($ctrl.providers)
@@ -76,7 +78,7 @@ ProviderMapController = ($timeout, $scope, NgMap, ProviderMapService, SearchServ
 
   return $ctrl
 
-ProviderMapController.$inject = ['$timeout', '$scope', 'NgMap', 'ProviderMapService', 'SearchService', '$element', '$compile']
+ProviderMapController.$inject = ['$timeout', '$scope', 'NgMap', 'ProviderMapService', 'SearchService', 'EmailCollectorService', '$element', '$compile']
 
 angular
   .module('CCR')

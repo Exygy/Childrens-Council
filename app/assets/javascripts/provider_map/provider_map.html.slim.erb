@@ -1,6 +1,6 @@
 div ng-if="$ctrl.providers.length"
   map center="37.7833,-122.4167" max-zoom="17" min-zoom="6" zoom-control="true" zoom-control-options="{position:'TOP_LEFT'}" zoom="10" zoom-to-include-markers="true" disable-default-u-i="true" id="{{$ctrl.mapId}}"
-    marker ng-repeat="provider in $ctrl.providers track by $index" on-click="$ctrl.openInfoWindow(provider, map)" on-mouseover="$ctrl.handleMarkerMouseover(provider, map)" on-mouseout="$ctrl.handleMarkerMouseleave(provider, map)" id="custom-marker-{{provider.providerId}}" position="{{provider.position}}" icon="{{provider.icon}}" optimized="false" events="{{provider.events}}"
+    marker ng-repeat="provider in $ctrl.providers | limitTo: emailCollectorStatus.limit track by $index" on-click="$ctrl.openInfoWindow(provider, map)" on-mouseover="$ctrl.handleMarkerMouseover(provider, map)" on-mouseout="$ctrl.handleMarkerMouseleave(provider, map)" id="custom-marker-{{provider.providerId}}" position="{{provider.position}}" icon="{{provider.icon}}" optimized="false" events="{{provider.events}}"
     marker id="custom-marker-address-a" position="{{$ctrl.getLocationACoords()}}" icon="'<%= image_path "location-a.svg" %>'" optimized="false" ng-if="$ctrl.searchingBtwnTwoPoints() && $ctrl.searchingWithAddresses()"
     marker id="custom-marker-address-b" position="{{$ctrl.getLocationBCoords()}}" icon="'<%= image_path "location-b.svg" %>'" optimized="false" ng-if="$ctrl.searchingBtwnTwoPoints() && $ctrl.searchingWithAddresses()"
 
