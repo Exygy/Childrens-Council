@@ -1,11 +1,11 @@
 div.ccr-scope.register
   form [name="loginForm" ng-submit="login(parent)" novalidate]
     .row
-      .small-6.large-centered.columns.margin-top-1
+      .large-centered.columns.margin-top-1
         h2.text-center Log In
         p.text-center Log in to use your previous search criteria, save favorites, and compare options side-by-side.
     .row
-      .small-4.large-centered.columns.margin-top-1
+      .large-centered.columns.margin-top-1
         small.error ng-show="errors"
           ul
             li ng-repeat="error in errors"
@@ -21,7 +21,7 @@ div.ccr-scope.register
             input.radius type="password" name="password" required="" ng-model="parent.password"
           a ng-click="openForgotPassword()" Forgot password?
     .row
-      .small-6.large-centered.columns
+      .large-centered.columns
         p.text-center.margin-top-1
           input.large.round.button.text-uppercase ng-disabled="loginForm.$invalid" type="submit" value="Continue"
         p.text-center.margin-1
