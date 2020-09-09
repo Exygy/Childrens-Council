@@ -38,7 +38,7 @@ h2.text-capitalize.margin-bottom-1 data-magellan-destination="general-informatio
     span.fa.fa-envelope.info-icon
     .margin-left-2
       h4.label-gray.lighter Email
-      a href="mailto:{{ $ctrl.provider.email }}" {{ $ctrl.provider.email }}
+      a.provider-email-link href="mailto:{{ $ctrl.provider.email }}" {{ $ctrl.provider.email }}
 
 .row.provider-info-grid-row ng-if="$ctrl.provider.website || $ctrl.provider.generalInfo.socialMediaUrl"
   .columns.medium-6 ng-if="$ctrl.provider.website"
