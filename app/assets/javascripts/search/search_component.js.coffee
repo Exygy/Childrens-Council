@@ -1,4 +1,4 @@
-SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
+SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout, amplitudejs) ->
   $ctrl = @
   $scope.covid19ProvidersOnly = SearchService.covid19ProvidersOnly
   $scope.filterData = SearchService.filterData
@@ -24,6 +24,8 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
         active: $scope.searchSettings.locationType == 'zips'
       neighborhoods:
         active: $scope.searchSettings.locationType == 'neighborhoods'
+
+  amplitudejs.logEvent('Page1')
 
   # format option data form multiselect dropdowns
   $scope.formattedShiftFeatures = SearchService.filterData.shiftFeatures.map (shiftFeature) -> 
@@ -117,7 +119,7 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout) ->
 
   return $ctrl
 
-SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal', '$auth', '$timeout']
+SearchController.$inject = ['$scope', '$state', 'SearchService', '$modal', '$auth', '$timeout', 'amplitudejsService']
 
 angular.module('CCR').controller('SearchController', SearchController)
 
