@@ -80,10 +80,12 @@ SearchController = ($scope, $state, SearchService, $modal, $auth, $timeout, $loc
     for field_name, field_obj of $scope.searchForm
       $scope.searchForm[field_name].$setDirty() if field_name[0] != '$'
 
+  $scope.amplitudeTrackSearchButtonClick = ->
+    amplitudejs.logEvent('SEARCH')
+
   $scope.submitSearch = ->
     validateForm()
     if $scope.searchForm.$valid
-      amplitudejs.logEvent('SEARCH')
       $("html, body").animate({ scrollTop: 0 }, 800)
       $scope.loading = true
       $scope.filters.settings = {} unless $scope.filters.settings
