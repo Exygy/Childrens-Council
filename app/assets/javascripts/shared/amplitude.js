@@ -72,7 +72,8 @@ var AngularAmplitudejs;
             this.init(this.apikey);
             var i = this.queue.length;
             while (i--) {
-                this.$window['amplitude'].logEvent(this.queue.splice(i, 1)[0]);
+                var params = this.queue.splice(i, 1)[0];
+                this.$window['amplitude'].logEvent(params[0], params[1]);
             }
             if (this.userid) {
                 this.setUserId(this.userid);
@@ -90,7 +91,7 @@ var AngularAmplitudejs;
             }
             else {
                 console.warn('[Amplitude Directive] Amplitude not yet available ... adding event to queue.');
-                this.queue.push(event, params);
+                this.queue.push([event, params]);
             }
         };
         AmplitudejsService.prototype.setUserId = function (userid) {
