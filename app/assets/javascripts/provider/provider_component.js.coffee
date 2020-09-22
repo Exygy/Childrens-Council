@@ -1,4 +1,4 @@
-ProviderController = ($scope, ProviderService, ResultsService, SearchService) ->
+ProviderController = ($scope, ProviderService, ResultsService, SearchService, $location, amplitudejs) ->
   $ctrl = @
 
   $ctrl.hasSearchResult = ResultsService.searchResultsData && ResultsService.searchResultsData.providers.length > 0
@@ -8,13 +8,19 @@ ProviderController = ($scope, ProviderService, ResultsService, SearchService) ->
       $scope.providerIsOpenDuringCovd19 = filterProviders.length > 0
       $scope.provider = provider
 
+      amplitudejs.logEvent('PAGE_VIEW', { 
+        pathname: $location.path()
+      })
+
   return $ctrl
 
 ProviderController.$inject = [
   '$scope',
   'ProviderService',
   'ResultsService',
-  'SearchService'
+  'SearchService', 
+  '$location', 
+  'amplitudejs'
 ]
 
 angular

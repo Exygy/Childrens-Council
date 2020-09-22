@@ -1,6 +1,6 @@
 ResultsController = (
   $timeout, $anchorScroll, $auth, $scope, $document,
-  CompareService, ResultsService, SearchService
+  CompareService, ResultsService, SearchService, $location, amplitudejs
 ) ->
   $ctrl = @
 
@@ -126,6 +126,10 @@ ResultsController = (
     $ctrl.showMap = false
     SearchService.postSearch() if !$ctrl.data && $ctrl.parent
 
+    amplitudejs.logEvent('PAGE_VIEW', { 
+      pathname: $location.path()
+    })
+
   $ctrl.postSearch = () ->
     SearchService.postSearch()
     $anchorScroll('search-results-wrapper')
@@ -148,7 +152,7 @@ ResultsController = (
 
 ResultsController.$inject = [
   '$timeout', '$anchorScroll', '$auth', '$scope', '$document',
-  'CompareService', 'ResultsService', 'SearchService'
+  'CompareService', 'ResultsService', 'SearchService', '$location', 'amplitudejs'
 ]
 
 angular
