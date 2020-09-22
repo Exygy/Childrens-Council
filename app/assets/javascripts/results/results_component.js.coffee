@@ -1,6 +1,14 @@
 ResultsController = (
-  $timeout, $anchorScroll, $auth, $scope, $document,
-  CompareService, ResultsService, SearchService, $location, amplitudejs
+  $timeout, 
+  $anchorScroll, 
+  $auth, 
+  $scope, 
+  $document,
+  CompareService, 
+  ResultsService, 
+  SearchService, 
+  $location, 
+  amplitudejs
 ) ->
   $ctrl = @
 
@@ -151,8 +159,16 @@ ResultsController = (
   return $ctrl
 
 ResultsController.$inject = [
-  '$timeout', '$anchorScroll', '$auth', '$scope', '$document',
-  'CompareService', 'ResultsService', 'SearchService', '$location', 'amplitudejs'
+  '$timeout', 
+  '$anchorScroll', 
+  '$auth', 
+  '$scope', 
+  '$document',
+  'CompareService', 
+  'ResultsService', 
+  'SearchService', 
+  '$location', 
+  'amplitudejsService'
 ]
 
 angular

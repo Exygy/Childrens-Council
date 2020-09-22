@@ -20,7 +20,7 @@ ProviderController.$inject = [
   'ResultsService',
   'SearchService', 
   '$location', 
-  'amplitudejs'
+  'amplitudejsService'
 ]
 
 angular
