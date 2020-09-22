@@ -79,18 +79,18 @@ var AngularAmplitudejs;
             }
             console.log('[Amplitude Directive] Processed queued events.');
         };
-        AmplitudejsService.prototype.logEvent = function (event) {
+        AmplitudejsService.prototype.logEvent = function (event, params) {
             console.log('[Amplitude Directive] logevent ' + event);
             if (this.$window['amplitude']) {
                 // Second safeguard, check if we have a queue of events.
                 if (this.queue.length > 0) {
                     this.processQueue();
                 }
-                this.$window['amplitude'].logEvent(event);
+                this.$window['amplitude'].logEvent(event, params);
             }
             else {
                 console.warn('[Amplitude Directive] Amplitude not yet available ... adding event to queue.');
-                this.queue.push(event);
+                this.queue.push(event, params);
             }
         };
         AmplitudejsService.prototype.setUserId = function (userid) {
